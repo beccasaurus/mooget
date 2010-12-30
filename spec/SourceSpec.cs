@@ -10,11 +10,11 @@ namespace MooGet.Specs {
 	public class SourceSpec : MooGetSpec {
 
 		// see ./spec/content/example-feed.xml to see the feed that these specs use
-		static Source              source   = new Source(PathToContent("example-feed.xml"));
-		static List<SourcePackage> packages = source.Packages;
+		static Source source = new Source(PathToContent("example-feed.xml"));
 
 		[Test]
 		public void can_get_all_packages_from_a_source() {
+			var packages = source.AllPackages;
 			Assert.That( packages.Count, Is.EqualTo(151));
 
 			Assert.That( packages[0].Id,          Is.EqualTo("Adam.JSGenerator"));
@@ -26,31 +26,40 @@ namespace MooGet.Specs {
 			Assert.That( packages[150].Description, Is.EqualTo("A DSL to help on XML authoring, with this library you can create xml content with few lines of code, there's no need to use System.Xml classes, the XMLBuilder hides all complexity behind xml generation."));
 		}
 
+		[Test]
+		public void can_get_just_the_latest_versions_of_packages_from_a_source() {
+			var packages = source.Packages; // or LatestPackages
+			Assert.That( packages.Count, Is.EqualTo(140));
+
+			// TODO need to check that the versions are actually the LATEST and not, say ... the oldest?
+		}
+
 		[Test][Ignore]
-		public void can_see_all_versions_that_a_source_package_has_available() {}
+		public void can_get_all_of_the_versions_available_for_a_particular_package() {
+		}
 
 		[Test]
 		public void can_search_for_package_by_title() {
 			var packages = source.SearchByTitle("ninject");
-			Assert.That( packages.Count, Is.EqualTo(5) );
+			Assert.That( packages.Count, Is.EqualTo(4) );
 			Assert.That( packages.Select(p => p.Title).ToArray(), 
-					     Is.EqualTo(new string[] { "MvcTurbine.Ninject", "Ninject", "Ninject", "Ninject.MVC3", "SNAP.Ninject" }));
+					     Is.EqualTo(new string[] { "MvcTurbine.Ninject", "Ninject", "Ninject.MVC3", "SNAP.Ninject" }));
 		}
 
 		[Test]
 		public void can_search_for_package_by_description() {
 			var packages = source.SearchByDescription("dependency injection");
-			Assert.That( packages.Count, Is.EqualTo(6) );
+			Assert.That( packages.Count, Is.EqualTo(5) );
 			Assert.That( packages.Select(p => p.Title).ToArray(), 
-					     Is.EqualTo(new string[] { "LightCore", "LightCore.WebIntegration", "Ninject", "Ninject", "structuremap", "Unity" }));
+					     Is.EqualTo(new string[] { "LightCore", "LightCore.WebIntegration", "Ninject", "structuremap", "Unity" }));
 		}
 
 		[Test]
 		public void can_search_for_package_by_title_or_description() {
 			var packages = source.SearchByTitleOrDescription("xml");
-			Assert.That( packages.Count, Is.EqualTo(7) );
+			Assert.That( packages.Count, Is.EqualTo(6) );
 			Assert.That( packages.Select(p => p.Title).ToArray(),
-					     Is.EqualTo(new string[] { "AntiXSS", "Artem.XmlProviders", "chargify", "FluentNHibernate", "FluentNHibernate", "protobuf-net", "xmlbuilder" }));
+					     Is.EqualTo(new string[] { "AntiXSS", "Artem.XmlProviders", "chargify", "FluentNHibernate", "protobuf-net", "xmlbuilder" }));
 
 		}
 	}

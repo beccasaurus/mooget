@@ -18,5 +18,16 @@ namespace MooGet {
 		public string Title { get; set; }
 
 		public string Description { get; set; }
+
+		public PackageVersion Version { get; set; }
+
+		public string VersionString {
+			get { return Version.ToString(); }
+			set { Version = new PackageVersion(value); }
+		}
+
+		public override string ToString() {
+			return string.Format("{0} ({1})", Id, Version);
+		}
 	}
 }

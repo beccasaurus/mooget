@@ -19,6 +19,14 @@ namespace MooGet {
 		}
 
 		public List<SourcePackage> Packages {
+			get { return LatestPackages; }
+		}
+
+		public List<SourcePackage> LatestPackages {
+			get { return RemoveAllVersionsButLatest(AllPackages); }
+		}
+
+		public List<SourcePackage> AllPackages {
 			get { return Source.GetPackagesFromPath(Path).OrderBy(p => p.Title).ToList(); }
 		}
 
@@ -72,10 +80,28 @@ namespace MooGet {
 
 		static SourcePackage PackageFromFeedEntry(XmlElement entry) {
 			return new SourcePackage {
-				Id          = entry.GetElementsByTagName("pkg:packageId")[0].InnerText,
-				Title       = entry.GetElementsByTagName("title")[0].InnerText,
-				Description = entry.GetElementsByTagName("content")[0].InnerText
+				Id            = entry.GetElementsByTagName("pkg:packageId")[0].InnerText,
+				Title         = entry.GetElementsByTagName("title")[0].InnerText,
+				Description   = entry.GetElementsByTagName("content")[0].InnerText,
+				VersionString = entry.GetElementsByTagName("pkg:version")[0].InnerText  // TODO fix this ... dependencies can have versions too ...
 			};
+		}
+
+		static List<SourcePackage> RemoveAllVersionsButLatest(List<SourcePackage> packages) {
+			var latestPackages  = new List<SourcePackage>();
+			var highestVersions = new Dictionary<string, PackageVersion>(); // packageId: highest version
+
+			// grab the highest version of each package
+			foreach (var package in packages)
+				if (! highestVersions.ContainsKey(package.Id) || highestVersions[package.Id] < package.Version)
+					highestVersions[package.Id] = package.Version;
+
+			// now that we have the highest version for each package, put just those packages into our new list
+			foreach (var package in packages)
+				if (highestVersions[package.Id] == package.Version)
+					latestPackages.Add(package);
+
+			return latestPackages;
 		}
 		#endregion
 	}
