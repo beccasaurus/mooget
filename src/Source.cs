@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Xml;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace MooGet {
@@ -18,7 +19,22 @@ namespace MooGet {
 		}
 
 		public List<SourcePackage> Packages {
-			get { return Source.GetPackagesFromPath(Path); }
+			get { return Source.GetPackagesFromPath(Path).OrderBy(p => p.Title).ToList(); }
+		}
+
+		public List<SourcePackage> SearchByTitle(string query) {
+			query = query.ToLower();
+			return Packages.Where(p => p.Title.ToLower().Contains(query)).ToList();
+		}
+
+		public List<SourcePackage> SearchByDescription(string query) {
+			query = query.ToLower();
+			return Packages.Where(p => p.Description.ToLower().Contains(query)).ToList();
+		}
+
+		public List<SourcePackage> SearchByTitleOrDescription(string query) {
+			query = query.ToLower();
+			return Packages.Where(p => p.Title.ToLower().Contains(query) || p.Description.ToLower().Contains(query)).ToList();
 		}
 
 		#region Private
@@ -47,6 +63,7 @@ namespace MooGet {
 			return doc;
 		}
 
+		// If we use a normal XmlResolver, it will explode if it parses something that it thinks might be a URI but the URI is invalid
 		class NonStupidXmlResolver : XmlResolver {
 			public override Uri ResolveUri (Uri baseUri, string relativeUri){ return baseUri; }
 			public override object GetEntity (Uri absoluteUri, string role, Type type){ return null; }
@@ -55,7 +72,9 @@ namespace MooGet {
 
 		static SourcePackage PackageFromFeedEntry(XmlElement entry) {
 			return new SourcePackage {
-				Name = entry.GetElementsByTagName("title")[0].InnerText
+				Id          = entry.GetElementsByTagName("pkg:packageId")[0].InnerText,
+				Title       = entry.GetElementsByTagName("title")[0].InnerText,
+				Description = entry.GetElementsByTagName("content")[0].InnerText
 			};
 		}
 		#endregion

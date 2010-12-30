@@ -4,3 +4,4 @@ obj
 bin
 Debug
 Release
+TestResult.xml

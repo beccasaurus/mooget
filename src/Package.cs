@@ -12,6 +12,11 @@ namespace MooGet {
 	/// packages have, regardless of whether or not you've installed them yet.
 	/// </remarks>
 	public abstract class Package {
-		public string Name { get; set; }
+
+		public string Id { get; set; }
+
+		public string Title { get; set; }
+
+		public string Description { get; set; }
 	}
 }
