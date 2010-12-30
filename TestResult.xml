@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="/home/remi/projects/mooget/bin/Debug/MooGet.Specs.dll" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2010-12-15" time="22:28:58">
+<test-results name="/home/remi/projects/mooget/bin/Debug/MooGet.Specs.dll" total="4" errors="0" failures="0" not-run="1" inconclusive="0" ignored="1" skipped="0" invalid="0" date="2010-12-29" time="21:50:10">
   <environment nunit-version="2.5.8.10295" clr-version="2.0.50727.1433" os-version="Unix 2.6.35.23" platform="Unix" cwd="/home/remi/projects/mooget" machine-name="ninamori" user="remi" user-domain="ninamori" />
   <culture-info current-culture="en-US" current-uiculture="en-US" />
-  <test-suite type="Assembly" name="/home/remi/projects/mooget/bin/Debug/MooGet.Specs.dll" executed="True" result="Success" success="True" time="0.075" asserts="0">
+  <test-suite type="Assembly" name="/home/remi/projects/mooget/bin/Debug/MooGet.Specs.dll" executed="True" result="Success" success="True" time="0.112" asserts="0">
     <results>
-      <test-suite type="Namespace" name="MooGet" executed="True" result="Success" success="True" time="0.054" asserts="0">
+      <test-suite type="Namespace" name="MooGet" executed="True" result="Success" success="True" time="0.093" asserts="0">
         <results>
-          <test-suite type="Namespace" name="Specs" executed="True" result="Success" success="True" time="0.054" asserts="0">
+          <test-suite type="Namespace" name="Specs" executed="True" result="Success" success="True" time="0.093" asserts="0">
             <results>
-              <test-suite type="TestFixture" name="Parsing_packages_from_feed" executed="True" result="Success" success="True" time="0.053" asserts="0">
+              <test-suite type="Namespace" name="Commands" executed="True" result="Inconclusive" success="False" time="0.016" asserts="0">
                 <results>
-                  <test-case name="MooGet.Specs.Parsing_packages_from_feed.Can_get_packages_from_a_feed_string" executed="True" result="Success" success="True" time="0.044" asserts="3" />
+                  <test-suite type="TestFixture" name="SearchSpec" executed="True" result="Inconclusive" success="False" time="0.003" asserts="0" />
+                  <test-suite type="TestFixture" name="SearchSpec+API" executed="True" result="Inconclusive" success="False" time="0.001" asserts="0">
+                    <results>
+                      <test-case name="MooGet.Specs.Commands.SearchSpec+API.can_search_a_source_for_all_packages" executed="False" result="Ignored">
+                        <reason>
+                          <message><![CDATA[]]></message>
+                        </reason>
+                      </test-case>
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="SearchSpec+Integration" executed="True" result="Inconclusive" success="False" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+              <test-suite type="TestFixture" name="SourceSpec" executed="True" result="Success" success="True" time="0.075" asserts="0">
+                <results>
+                  <test-case name="MooGet.Specs.SourceSpec.can_get_all_packages_from_a_source" executed="True" result="Success" success="True" time="0.010" asserts="3" />
+                  <test-case name="MooGet.Specs.SourceSpec.can_search_for_package_by_description" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="MooGet.Specs.SourceSpec.can_search_for_package_by_name" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="MooGet.Specs.SourceSpec.can_search_for_package_by_name_or_description" executed="True" result="Success" success="True" time="0.000" asserts="0" />
                 </results>
               </test-suite>
             </results>
