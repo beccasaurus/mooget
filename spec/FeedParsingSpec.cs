@@ -6,25 +6,25 @@ using MooGet;
 namespace MooGet.Specs {
 
 	[TestFixture]
-	public class Parsing_packages_from_feed : MooGetSpec {
+	public class Parsing_feed_of_packages : MooGetSpec {
 
-		public static List<Package> Packages = Package.ParseFeed(ReadContent("example-feed.xml"));
+		public static List<Feed.Entry> Entries = new Feed("example-feed.xml").Entries;
 
 		[Test]
 		public void Can_get_packages_from_a_feed_string() {
-			Assert.That(Packages.Count,     Is.EqualTo(151));
-			Assert.That(Packages[0].Name,   Is.EqualTo("Adam.JSGenerator"));
-			Assert.That(Packages[150].Name, Is.EqualTo("xmlbuilder"));
+			Assert.That( Entries.Count,         Is.EqualTo(151));
+			Assert.That( Entries.First().Title, Is.EqualTo("Adam.JSGenerator"));
+			Assert.That( Entries.Last().Title,  Is.EqualTo("xmlbuilder"));
 		}
 
 		[TestFixture]
-		public class Correctly_parses_all_package_metadata : Parsing_packages_from_feed {
+		public class Correctly_parses_all_package_metadata : Parsing_feed_of_packages {
 
 			[Test]
 			public void Example_1() {
-				var package = Packages[0];
-				Assert.That( package.Name, Is.EqualTo("Adam.JSGenerator") );
-				Assert.That( package.Publis, Is.EqualTo("Adam.JSGenerator") ); /// ... feed has lots of meta stuff we want ...
+				var entry = Entries.First();
+				Assert.That( package.Name,      Is.EqualTo("Adam.JSGenerator"));
+				Assert.That( package.Published, Is.EqualTo(DateTime.Parse("2010-10-25T22:55:16Z")));
 			}
 		}
 	}
