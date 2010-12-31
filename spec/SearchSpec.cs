@@ -2,10 +2,10 @@ using System;
 using MooGet;
 using NUnit.Framework;
 
-namespace MooGet.Specs.Commands {
+namespace MooGet.Specs {
 
 	[TestFixture]
-	public class SearchSpec {
+	public class SearchSpec : MooGetSpec {
 
 		[TestFixture]
 		public class API {
