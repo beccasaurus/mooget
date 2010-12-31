@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="NUnit.Should">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\NUnit.Should.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />

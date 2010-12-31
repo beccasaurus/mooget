@@ -15,15 +15,17 @@ namespace MooGet.Specs {
 		[Test]
 		public void can_get_all_packages_from_a_source() {
 			var packages = source.AllPackages;
-			Assert.That( packages.Count, Is.EqualTo(151));
+			packages.Count.ShouldEqual(151);
 
-			Assert.That( packages[0].Id,          Is.EqualTo("Adam.JSGenerator"));
-			Assert.That( packages[0].Title,       Is.EqualTo("Adam.JSGenerator"));
-			Assert.That( packages[0].Description, Is.EqualTo("Adam.JSGenerator helps producing snippets of JavaScript code from managed code."));
+			// check out properties on the first package ...
+			packages.First().Id.ShouldEqual("Adam.JSGenerator");
+			packages.First().Title.ShouldEqual("Adam.JSGenerator");
+			packages.First().Description.ShouldEqual("Adam.JSGenerator helps producing snippets of JavaScript code from managed code.");
 
-			Assert.That( packages[150].Id,          Is.EqualTo("xmlbuilder"));
-			Assert.That( packages[150].Title,       Is.EqualTo("xmlbuilder"));
-			Assert.That( packages[150].Description, Is.EqualTo("A DSL to help on XML authoring, with this library you can create xml content with few lines of code, there's no need to use System.Xml classes, the XMLBuilder hides all complexity behind xml generation."));
+			// check out properties on the last package ...
+			packages.Last().Id.ShouldEqual("xmlbuilder");
+			packages.Last().Title.ShouldEqual("xmlbuilder");
+			packages.Last().Description.ShouldEqual("A DSL to help on XML authoring, with this library you can create xml content with few lines of code, there's no need to use System.Xml classes, the XMLBuilder hides all complexity behind xml generation.");
 		}
 
 		[Test]
