@@ -8,7 +8,7 @@ namespace MooGet.Specs {
 	public class SearchSpec : MooGetSpec {
 
 		[TestFixture]
-		public class API {
+		public class API : MooGetSpec {
 			
 			[Test][Ignore]
 			public void can_search_a_source_for_all_packages() {
@@ -16,7 +16,7 @@ namespace MooGet.Specs {
 		}
 
 		[TestFixture]
-		public class Integration {
+		public class Integration : MooGetSpec {
 
 		}
 	}

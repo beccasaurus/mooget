@@ -35,6 +35,10 @@ namespace MooGet.Specs {
 			Directory.CreateDirectory(MooGetSpec.PathToTemp("working"));
 		}
 
+		public string moo(string arguments, params object[] formatting) {
+			return moo(string.Format(arguments, formatting));
+		}
+
 		// runs the moo command from ./spec/tmp/working with the home directory faked as ./spec/tmp/home
 		public string moo(string arguments) {
             var process = new System.Diagnostics.Process();

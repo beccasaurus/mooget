@@ -14,6 +14,9 @@ namespace MooGet {
 					case "config":
 						PrintConfig();
 						break;
+					case "unpack":
+						Moo.Unpack(args[1]);
+						break;
 					default:
 						Console.WriteLine("Unknown command: {0}", args[0]);
 						break;
