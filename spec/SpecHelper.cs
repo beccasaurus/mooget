@@ -24,6 +24,10 @@ namespace MooGet.Specs {
 	/// <summary>Base class for MooGet specs.  Provides helper methods.</summary>
 	public class MooGetSpec {
 
+		public static string ToJSON(object o) {
+			return new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(o);
+		}
+
 		public static void ClearTempDirectory() {
 			if (Directory.Exists(MooGetSpec.TempDirectory))
 				Directory.Delete(MooGetSpec.TempDirectory, true);

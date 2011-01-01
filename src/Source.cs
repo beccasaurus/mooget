@@ -30,6 +30,11 @@ namespace MooGet {
 			get { return Source.GetPackagesFromPath(Path).OrderBy(p => p.Title).ToList(); }
 		}
 
+		public SourcePackage Get(string id) {
+			id = id.ToLower();
+			return LatestPackages.FirstOrDefault(p => p.Id.ToLower() == id);
+		}
+
 		public List<SourcePackage> SearchByTitle(string query) {
 			query = query.ToLower();
 			return Packages.Where(p => p.Title.ToLower().Contains(query)).ToList();
@@ -79,12 +84,84 @@ namespace MooGet {
 		}
 
 		static SourcePackage PackageFromFeedEntry(XmlElement entry) {
-			return new SourcePackage {
-				Id            = entry.GetElementsByTagName("pkg:packageId")[0].InnerText,
-				Title         = entry.GetElementsByTagName("title")[0].InnerText,
-				Description   = entry.GetElementsByTagName("content")[0].InnerText,
-				VersionString = entry.GetElementsByTagName("pkg:version")[0].InnerText  // TODO fix this ... dependencies can have versions too ...
-			};
+			var package = new SourcePackage();
+			
+			foreach (XmlNode node in entry.ChildNodes) {
+				switch (node.Name) {
+					
+					// we don't use these elements at the moment, so we ignore them
+					case "id":
+					case "published":
+					case "updated":
+						break;
+
+					case "pkg:packageId": package.Id            = node.InnerText; break;
+					case "pkg:version":   package.VersionString = node.InnerText; break;
+					case "pkg:language":  package.Language      = node.InnerText; break;
+					case "title":         package.Title         = node.InnerText; break;
+					case "content":       package.Description   = node.InnerText; break;
+					case "author":        package.Authors.Add(node.InnerText);    break;
+
+					case "category":
+						var term = node.Attributes["term"].Value;
+						if (! package.Tags.Contains(term))
+							package.Tags.Add(term);
+						break;
+
+					case "pkg:requireLicenseAcceptance":
+						package.RequireLicenseAcceptance = bool.Parse(node.InnerText); break;
+
+					case "pkg:keywords":
+						// if there is 1 <string>, split it on spaces 
+						// else if there are many, each element is a tag
+						var tagNodes = node.ChildNodes;
+						if (tagNodes.Count == 1) {
+							foreach (var tag in tagNodes[0].InnerText.Split(' '))
+								if (! package.Tags.Contains(tag.Trim()))
+									package.Tags.Add(tag.Trim());
+						} else {
+							foreach (XmlNode tagString in tagNodes)
+								if (! package.Tags.Contains(tagString.InnerText.Trim()))
+									package.Tags.Add(tagString.InnerText.Trim());
+						}
+						break;
+
+					case "link":
+						switch (node.Attributes["rel"].Value) {
+							case "enclosure":
+								package.DownloadUrl = node.Attributes["href"].Value; break;
+							case "license":
+								package.LicenseUrl = node.Attributes["href"].Value; break;
+							default:
+								Console.WriteLine("Unsupported <link> rel: {0}", node.Attributes["rel"].Value); break;
+						}
+						break;
+
+					case "pkg:dependencies":
+						foreach (XmlNode dependencyNode in node.ChildNodes) {
+							var dependency = new PackageDependency();
+							foreach (XmlNode depNode in dependencyNode.ChildNodes) {
+								switch (depNode.Name) {
+									case "pkg:id":         dependency.Id               = depNode.InnerText; break;
+									case "pkg:version":    dependency.VersionString    = depNode.InnerText; break;
+									case "pkg:minVersion": dependency.MinVersionString = depNode.InnerText; break;
+									case "pkg:maxVersion": dependency.MaxVersionString = depNode.InnerText; break;
+									default:
+										Console.WriteLine("Unknown dependency node: {0}", depNode.Name);
+										break;
+								}
+							}
+							package.Dependencies.Add(dependency);
+						}
+						break;
+
+					default:
+						Console.WriteLine("Unsupported <entry> element: {0} \"{1}\"", node.Name, node.InnerText);
+						break;
+				}
+			}
+
+			return package;
 		}
 
 		static List<SourcePackage> RemoveAllVersionsButLatest(List<SourcePackage> packages) {
