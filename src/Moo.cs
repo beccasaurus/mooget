@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Collections.Generic;
 
 namespace MooGet {
@@ -8,12 +9,21 @@ namespace MooGet {
 	/// <summary>Represents the primary API for most MooGet actions</summary>
 	public partial class Moo {
 
+		public static string OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";
+
+		public static string UserAgent { get { return Moo.Version; } }
+
+		public static string Version { get { return "Moo " + Assembly.GetExecutingAssembly().GetName().Version.ToString(); } }
+
 		/// <summary>Entry method</summary>
 		public static void Main(string[] args) {
 			if (args.Length == 0)
 				args = new string[] { "help" };
 
-			FindAndRunCommand(args);
+			if (args[0] == "-v" || args[0] == "--version")
+				Console.WriteLine(Moo.Version);
+			else
+				FindAndRunCommand(args);
 		}
 
 		public static List<Command> Commands = Command.GetCommands();

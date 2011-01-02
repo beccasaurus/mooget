@@ -17,6 +17,12 @@ namespace MooGet {
 			return content;
 		}
 
+		public static string ReadUrl(string url) {
+			var client = new WebClient();
+			client.Headers.Add("user-agent", Moo.UserAgent);
+			return client.DownloadString(url);
+		}
+
 		public static bool IsWindows {
 			get { return Environment.OSVersion.Platform.ToString().Contains("Win"); }
 		}

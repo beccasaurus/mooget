@@ -55,7 +55,7 @@ namespace MooGet {
 			if (File.Exists(path))
 				return GetPackagesFromXml(MooGet.Util.ReadFile(path));
 			else
-				throw new NotImplementedException("Haven't implemented getting packages from anything but a local file yet");
+				return GetPackagesFromXml(MooGet.Util.ReadUrl(path));
 		}
 
 		static List<SourcePackage> GetPackagesFromXml(string xml) {

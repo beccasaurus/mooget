@@ -3,6 +3,9 @@
 
 using System;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+using MooGet.Options;
 
 namespace MooGet {
 	public partial class Moo {
@@ -50,6 +53,30 @@ namespace MooGet {
 		[Command("Moo.")]
 		public static void CowCommand(string[] args) {
 			Cow.Say(string.Join(" ", args));
+		}
+
+		[Command("Search remote source for packages")]
+		public static void Search(string[] args) {
+			var packages = new List<SourcePackage>(); // TODO rename to RemotePackage ...
+			var sources  = new List<string>();
+			var opts     = new OptionSet() {
+				{ "s|source=",  v => { if (v != null) sources.Add(v); }}
+			};
+			var extra = opts.Parse(args);
+			var query = extra[0];
+
+			if (sources.Count == 0)
+				sources.Add(Moo.OfficialNugetFeed); // should get user's saved sources ...
+
+			foreach (var source in sources) {
+				packages.AddRange(new Source(source).SearchByTitle(query));
+
+			if (packages.Count == 0)
+				Console.WriteLine("No packages matched: {0}", query);
+			else
+				foreach (var package in packages.OrderBy(p => p.Id))
+					Console.WriteLine("{0} ({1})", package.Id, package.Version);
+			}
 		}
 
 		// helper methods for getting spaces ... useful for commands ...
