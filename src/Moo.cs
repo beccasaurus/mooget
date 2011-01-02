@@ -29,21 +29,6 @@ namespace MooGet {
 				Console.WriteLine("Command not found: {0}\n\nCommands: {1}", commandName, string.Join("\n", Commands.Select(c => c.Name).ToArray()));
 		}
 			
-/*
-	case "gui-test":
-		System.Windows.Forms.MessageBox.Show("moo");
-		break;
-	case "embedded-stuff":
-		foreach (string name in System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames()) {
-			Console.WriteLine(name);
-			string text = "";
-			using (var reader = new System.IO.StreamReader(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(name)))
-				text = reader.ReadToEnd();
-			Console.WriteLine(text);
-		}
-}
-*/
-
 		public static LocalPackage Unpack(string nupkg) {
 			return Unpack(nupkg, Directory.GetCurrentDirectory());
 		}
@@ -94,6 +79,23 @@ namespace MooGet {
 			throw new NotImplementedException("not implemented yet");
 		}
 
+		// TODO need to clean up the different types of packages ... InstalledPackage : LocalPackage would probably be useful tho
+		public static List<LocalPackage> Packages {
+			get {
+				var packages = new List<LocalPackage>();
+
+				if (! MooDirExists)
+					return packages;
+
+				foreach (var nuspecPath in Directory.GetFiles(Moo.SpecDir)) {
+					var package  = new LocalPackage(nuspecPath);
+					package.Path = Path.Combine(Moo.PackageDir, package.IdAndVersion);
+					packages.Add(package);
+				}
+				return packages;
+			}
+		}
+
 		/// <summary>"Installs" MooGet to Moo.Dir (~/.moo or specified via --moo-dir or in a .moorc file)</summary>
 		public static void InitializeMooDir() {
 			Directory.CreateDirectory(Moo.PackageDir);
@@ -101,6 +103,10 @@ namespace MooGet {
 			Directory.CreateDirectory(Moo.CacheDir);
 			Directory.CreateDirectory(Moo.DocumentationDir);
 			Directory.CreateDirectory(Moo.SpecDir);
+		}
+
+		public static bool MooDirExists {
+			get { return Directory.Exists(Moo.Dir); }
 		}
 
 		public static string _dir = Path.Combine(Util.HomeDirectory, ".moo");
@@ -115,3 +121,21 @@ namespace MooGet {
 		public static string SpecDir          { get { return Path.Combine(Moo.Dir, "specifications"); } }
 	}
 }
+
+/*
+ NOTES
+
+	case "gui-test":
+		System.Windows.Forms.MessageBox.Show("moo");
+		break;
+	case "embedded-stuff":
+		foreach (string name in System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames()) {
+			Console.WriteLine(name);
+			string text = "";
+			using (var reader = new System.IO.StreamReader(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(name)))
+				text = reader.ReadToEnd();
+			Console.WriteLine(text);
+		}
+}
+*/
+

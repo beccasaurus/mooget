@@ -2,6 +2,7 @@
 // files but, for now, we put all commands in here ...
 
 using System;
+using System.IO;
 
 namespace MooGet {
 	public partial class Moo {
@@ -27,6 +28,23 @@ namespace MooGet {
 			Console.WriteLine("MOO commands:\n");
 			foreach (var command in Commands)
 				Console.WriteLine("    {0}{1}{2}", command.Name, Spaces(command.Name, 20), command.Description);
+		}
+
+		[Command("Displays list of installed packages")]
+		public static void List(string[] args) {
+			var packages = Packages;
+			if (packages.Count == 0)
+				Console.WriteLine("No installed packages");
+			else {
+				Console.WriteLine("Listing installed packages:");
+				foreach (var package in packages)
+					Console.WriteLine("{0} ({1})", package.Id, package.Version); // TODO list all installed versions
+			}
+		}
+
+		[Command("Install a package into the local repository")]
+		public static void Install(string[] args) {
+			Install(args[0]);
 		}
 
 		[Command("Moo.")]

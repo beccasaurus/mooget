@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using MooGet;
 using NUnit.Framework;
 
@@ -13,6 +14,8 @@ namespace MooGet.Specs {
 			
 			[Test]
 			public void can_install_a_nupkg() {
+				Moo.Packages.Should(Be.Empty);
+
 				Directory.Exists(PathToTempHome(".moo")).ShouldBeFalse();
 
 				Moo.Install(PathToContent("packages", "MarkdownSharp.1.13.0.0.nupkg"));
@@ -38,6 +41,9 @@ namespace MooGet.Specs {
 				File.Exists(PathToTempHome(".moo", "packages", "MarkdownSharp-1.13.0.0", "[Content_Types].xml")).ShouldBeFalse();
 				Directory.Exists(PathToTempHome(".moo", "packages", "MarkdownSharp-1.13.0.0", "_rels")).ShouldBeFalse();
 				Directory.Exists(PathToTempHome(".moo", "packages", "MarkdownSharp-1.13.0.0", "package")).ShouldBeFalse();
+
+				Moo.Packages.Count.ShouldEqual(1);
+				Moo.Packages.First().Id.ShouldEqual("MarkdownSharp");
 			}
 
 			[Test][Ignore]
@@ -47,13 +53,13 @@ namespace MooGet.Specs {
 		[TestFixture]
 		public class Integration : MooGetSpec {
 
-			[Test][Ignore]
+			[Test]
 			public void can_install_a_nupkg() {
-				//Directory.Exists(PathToTemp("working", "MarkdownSharp.1.13.0.0")).ShouldBeFalse();
+				moo("list").ShouldNotContain("MarkdownSharp");
 
-				//moo("unpack {0}", PathToContent("packages", "MarkdownSharp.1.13.0.0.nupkg")).ShouldEqual("Unpacked MarkdownSharp.1.13.0.0");
+				moo("install {0}", PathToContent("packages", "MarkdownSharp.1.13.0.0.nupkg"));
 
-				//Directory.Exists(PathToTemp("working", "MarkdownSharp.1.13.0.0")).ShouldBeTrue();
+				moo("list").ShouldContain("MarkdownSharp");
 			}
 		}
 	}
