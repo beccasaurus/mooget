@@ -8,7 +8,8 @@ namespace MooGet {
 
 		[Command("Provide help on the 'moo' command")]
 		public static void Help(string[] args) {
-			Console.WriteLine("moo");
+			Cow.Say("NuGet + Super Cow Powers = MooGet");
+			Console.WriteLine("\nRun moo help for help documentation");
 		}
 
 		[Command("Print configuration information")]
@@ -26,6 +27,11 @@ namespace MooGet {
 			Console.WriteLine("MOO commands:\n");
 			foreach (var command in Commands)
 				Console.WriteLine("    {0}{1}{2}", command.Name, Spaces(command.Name, 20), command.Description);
+		}
+
+		[Command("Moo.")]
+		public static void CowCommand(string[] args) {
+			Cow.Say(string.Join(" ", args));
 		}
 
 		// helper methods for getting spaces ... useful for commands ...
