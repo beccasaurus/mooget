@@ -86,7 +86,12 @@ namespace MooGet {
 		}
 
 		public static void InstallFromSource(string name) {
-			throw new NotImplementedException("not implemented yet");
+			var package = new Source(Moo.OfficialNugetFeed).Get(name); // TODO should use configured user sources
+			if (package == null) {
+				Console.WriteLine("Package not found: {0}", name);
+			} else {
+				package.Install();
+			}
 		}
 
 		// TODO need to clean up the different types of packages ... InstalledPackage : LocalPackage would probably be useful tho

@@ -17,10 +17,20 @@ namespace MooGet {
 			return content;
 		}
 
+		public static WebClient WebClientWithUserAgent {
+			get {
+				var client = new WebClient();
+				client.Headers.Add("user-agent", Moo.UserAgent);
+				return client;
+			}
+		}
+
 		public static string ReadUrl(string url) {
-			var client = new WebClient();
-			client.Headers.Add("user-agent", Moo.UserAgent);
-			return client.DownloadString(url);
+			return WebClientWithUserAgent.DownloadString(url);
+		}
+
+		public static void DownloadFile(string url, string path) {
+			WebClientWithUserAgent.DownloadFile(url, path);	
 		}
 
 		public static bool IsWindows {
