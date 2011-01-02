@@ -40,6 +40,8 @@ namespace MooGet {
 
 		public List<PackageDependency> Dependencies { get { return _dependencies; } }
 
+		public string IdAndVersion { get { return string.Format("{0}-{1}", Id, Version); } }
+
 		public string VersionString {
 			get {
 				if (Version == null) return null;
@@ -58,25 +60,30 @@ namespace MooGet {
 
 		public static Package FromSpec(string pathToNuspec) {
 			var package = new Package();
-			var doc     = Util.GetXmlDocumentForFile(pathToNuspec);
+			package.LoadSpec(pathToNuspec);
+			return package;
+		}
+
+		public void LoadSpec(string pathToNuspec) {
+			var doc = Util.GetXmlDocumentForFile(pathToNuspec);
 			foreach (XmlNode metadata in doc.GetElementsByTagName("metadata")[0]) {
 				var text = metadata.InnerText.Trim();
 				switch (metadata.Name.ToLower()) {
-					case "id":          package.Id            = text; break;
-					case "version":     package.VersionString = text; break;
-					case "description": package.Description   = text; break;
-					case "language":    package.Language      = text; break;
-					case "licenseurl":  package.LicenseUrl    = text; break;
+					case "id":          Id            = text; break;
+					case "version":     VersionString = text; break;
+					case "description": Description   = text; break;
+					case "language":    Language      = text; break;
+					case "licenseurl":  LicenseUrl    = text; break;
 
-					case "created":  package.Created  = DateTime.Parse(text); break;
-					case "modified": package.Modified = DateTime.Parse(text); break;
+					case "created":  Created  = DateTime.Parse(text); break;
+					case "modified": Modified = DateTime.Parse(text); break;
 
 					case "requirelicenseacceptance":
-						package.RequireLicenseAcceptance = bool.Parse(text); break;
+						RequireLicenseAcceptance = bool.Parse(text); break;
 
 					case "authors":
 						foreach (XmlNode authorNode in metadata.ChildNodes)
-							package.Authors.Add(authorNode.InnerText);
+							Authors.Add(authorNode.InnerText);
 						break;
 
 					default:
@@ -97,9 +104,8 @@ namespace MooGet {
 							break;
 					}
 				}
-				package.Dependencies.Add(dependency);
+				Dependencies.Add(dependency);
 			}
-			return package;
 		}
 	}
 }

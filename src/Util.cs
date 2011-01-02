@@ -38,12 +38,19 @@ namespace MooGet {
 			}
 		}
 
+		// unzips a .zip file ... it knows it's dealing with nuget packages because we ignore certain files
 		public static void Unzip(string zipFile, string directoryToUnzipInto) {
 			Directory.CreateDirectory(directoryToUnzipInto);
 			using (var zip = System.IO.Packaging.Package.Open(zipFile, FileMode.Open, FileAccess.Read)) {
 				foreach (var part in zip.GetParts()) {
+					var path = part.Uri.OriginalString.Substring(1);
+
+					// skip these stupid files
+					if (path == "[Content_Types].xml" || path == "_rels/.rels" || path.EndsWith(".psmdcp"))
+						continue;
+
 					using (var reader = new StreamReader(part.GetStream(FileMode.Open, FileAccess.Read))) {
-						var filepath = Path.Combine(directoryToUnzipInto, part.Uri.OriginalString.Substring(1));
+						var filepath = Path.Combine(directoryToUnzipInto, path);
 						Directory.CreateDirectory(Path.GetDirectoryName(filepath));
 						using (var writer = new FileStream(filepath, FileMode.Create, FileAccess.Write)) {
 							var buffer = System.Text.Encoding.UTF8.GetBytes(reader.ReadToEnd());
@@ -51,6 +58,12 @@ namespace MooGet {
 						}
 					}
 				}
+			}
+		}
+
+		public static string TempDir {
+			get {
+				return Environment.GetEnvironmentVariable("TMP") ?? Path.GetTempPath();
 			}
 		}
 

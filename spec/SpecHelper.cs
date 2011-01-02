@@ -10,19 +10,25 @@ namespace MooGet.Specs {
 	public class MooSpecsSetup {
 
 		[SetUp]
-		public void RunBeforeAllSpecs() {
-			MooGetSpec.ClearTempDirectory();
-			MooGetSpec.SetupTempDirectory();
+		public void BeforeAll() {
+			Environment.SetEnvironmentVariable("HOME", MooGetSpec.PathToTemp("home")); // fake 'home' directory
+			Environment.SetEnvironmentVariable("TMP",  MooGetSpec.PathToTemp("tmp"));  // fake 'tmp' directory
+			MooGetSpec.ResetTempDirectory();
 		}
 
 		[TearDown]
-		public void RunAfterAllSpecs() {
+		public void AfterAll() {
 			MooGetSpec.ClearTempDirectory();
 		}
 	}
 
 	/// <summary>Base class for MooGet specs.  Provides helper methods.</summary>
 	public class MooGetSpec {
+
+		[SetUp]
+		public void BeforeEach() {
+			ResetTempDirectory();
+		}
 
 		public static string ToJSON(object o) {
 			return new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(o);
@@ -37,6 +43,12 @@ namespace MooGet.Specs {
 			Directory.CreateDirectory(MooGetSpec.TempDirectory);
 			Directory.CreateDirectory(MooGetSpec.PathToTemp("home"));
 			Directory.CreateDirectory(MooGetSpec.PathToTemp("working"));
+			Directory.CreateDirectory(MooGetSpec.PathToTemp("tmp"));
+		}
+
+		public static void ResetTempDirectory() {
+			ClearTempDirectory();
+			SetupTempDirectory();
 		}
 
 		public string moo(string arguments, params object[] formatting) {
@@ -54,6 +66,7 @@ namespace MooGet.Specs {
             process.StartInfo.CreateNoWindow               = true;
             process.StartInfo.WorkingDirectory             = PathToTemp("working");
 			process.StartInfo.EnvironmentVariables["HOME"] = PathToTemp("home"); // fake the home directory
+			process.StartInfo.EnvironmentVariables["TMP"]  = PathToTemp("tmp");  // fake the tmp directory
             process.Start();
             string stdout = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
@@ -101,6 +114,10 @@ namespace MooGet.Specs {
 
 		public static string PathToTemp(params string[] parts) {
 			return FullCombinedPath(TempDirectory, parts);
+		}
+
+		public static string PathToTempHome(params string[] parts) {
+			return FullCombinedPath(Path.Combine(TempDirectory, "home"), parts);
 		}
 
 		public static string ReadTemp(string filename) {
