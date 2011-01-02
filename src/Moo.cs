@@ -1,10 +1,48 @@
 using System;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace MooGet {
 
 	/// <summary>Represents the primary API for most MooGet actions</summary>
-	public class Moo {
+	public partial class Moo {
+
+		/// <summary>Entry method</summary>
+		public static void Main(string[] args) {
+			if (args.Length == 0)
+				args = new string[] { "help" };
+
+			FindAndRunCommand(args);
+		}
+
+		public static List<Command> Commands = Command.GetCommands();
+
+		public static void FindAndRunCommand(string[] args) {
+			var arguments   = new List<string>(args);
+			var commandName = arguments.First(); arguments.RemoveAt(0);
+			var command     = Commands.FirstOrDefault(c => c.Name == commandName);
+
+			if (command != null)
+				command.Run(arguments.ToArray());
+			else
+				Console.WriteLine("Command not found: {0}\n\nCommands: {1}", commandName, string.Join("\n", Commands.Select(c => c.Name).ToArray()));
+		}
+			
+/*
+	case "gui-test":
+		System.Windows.Forms.MessageBox.Show("moo");
+		break;
+	case "embedded-stuff":
+		foreach (string name in System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames()) {
+			Console.WriteLine(name);
+			string text = "";
+			using (var reader = new System.IO.StreamReader(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(name)))
+				text = reader.ReadToEnd();
+			Console.WriteLine(text);
+		}
+}
+*/
 
 		public static LocalPackage Unpack(string nupkg) {
 			return Unpack(nupkg, Directory.GetCurrentDirectory());

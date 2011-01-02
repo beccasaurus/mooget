@@ -1,8 +1,9 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using MooGet;
-using NUnit.Framework;
 using MooGet.Options;
+using NUnit.Framework;
 
 namespace MooGet.Specs {
 
@@ -29,7 +30,7 @@ namespace MooGet.Specs {
 			}
 
 			[Test]
-			public void some_shit_works() {
+			public void option_parsing_works() {
 				SomeCommand defaults = new SomeCommand();
 				defaults.DOption.ShouldBeFalse();
 				defaults.Source.Should(Be.Null);
@@ -41,31 +42,39 @@ namespace MooGet.Specs {
 				cmd.Source.ShouldEqual("http://this.that");
 				cmd.Query.ShouldEqual("foo");
 			}
-			
-			[Test][Ignore]
-			public void can_be_run() {
+
+			// moo foo -x hi there ...
+			[Command(Description = "I am a description")]
+			public static string FooCommand(string[] args) {
+				return "you called foo with: " + string.Join(" ", args);
 			}
 			
-			[Test][Ignore]
-			public void can_take_an_argument() {
-			}
-			
-			[Test][Ignore]
-			public void can_take_arguments() {
-			}
-			
-			[Test][Ignore]
-			public void can_parse_options_without_values() {
-			}
-			
-			[Test][Ignore]
-			public void can_parse_options_with_values() {
+			[Test]
+			public void can_be_a_method() {
+				var commands = Command.GetCommands(Assembly.GetExecutingAssembly());
+				commands.Count.ShouldEqual(1);
+
+				var command = commands.First(c => c.Name == "foo");
+				command.Name.ShouldEqual("foo");
+				command.Description.ShouldEqual("I am a description");
+				command.Run(new string[] { "hi", "there" }).ShouldEqual("you called foo with: hi there");
 			}
 		}
 
 		[TestFixture]
 		public class Integration : MooGetSpec {
 
+			[Test]
+			public void moo_commands() {
+				var output = moo("commands");
+				output.ShouldContain("commands");
+				output.ShouldContain("help");
+				output.ShouldContain("Provide help on the 'moo' command");
+			}
+
+			[Test][Ignore]
+			public void commands_may_be_abbreviated() {
+			}
 		}
 	}
 }
