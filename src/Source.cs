@@ -60,7 +60,7 @@ namespace MooGet {
 
 		static List<SourcePackage> GetPackagesFromXml(string xml) {
 			var packages = new List<SourcePackage>();
-			var doc      = GetXmlDocumentForString(xml);
+			var doc      = Util.GetXmlDocumentForString(xml);
 
 			foreach (XmlElement entry in doc.GetElementsByTagName("entry"))
 				packages.Add(PackageFromFeedEntry(entry));
@@ -68,26 +68,11 @@ namespace MooGet {
 			return packages;
 		}
 
-		static XmlDocument GetXmlDocumentForString(string xml) {
-			var doc            = new XmlDocument();
-			var reader         = new XmlTextReader(new StringReader(xml));
-			reader.XmlResolver = new NonStupidXmlResolver();
-			doc.Load(reader);
-			return doc;
-		}
-
-		// If we use a normal XmlResolver, it will explode if it parses something that it thinks might be a URI but the URI is invalid
-		class NonStupidXmlResolver : XmlResolver {
-			public override Uri ResolveUri (Uri baseUri, string relativeUri){ return baseUri; }
-			public override object GetEntity (Uri absoluteUri, string role, Type type){ return null; }
-			public override ICredentials Credentials { set {} }
-		}
-
 		static SourcePackage PackageFromFeedEntry(XmlElement entry) {
 			var package = new SourcePackage();
 			
 			foreach (XmlNode node in entry.ChildNodes) {
-				switch (node.Name) {
+				switch (node.Name.ToLower()) {
 					
 					// we don't use these elements at the moment, so we ignore them
 					case "id":
@@ -95,7 +80,7 @@ namespace MooGet {
 					case "updated":
 						break;
 
-					case "pkg:packageId": package.Id            = node.InnerText; break;
+					case "pkg:packageid": package.Id            = node.InnerText; break;
 					case "pkg:version":   package.VersionString = node.InnerText; break;
 					case "pkg:language":  package.Language      = node.InnerText; break;
 					case "title":         package.Title         = node.InnerText; break;
@@ -108,7 +93,7 @@ namespace MooGet {
 							package.Tags.Add(term);
 						break;
 
-					case "pkg:requireLicenseAcceptance":
+					case "pkg:requirelicenseacceptance":
 						package.RequireLicenseAcceptance = bool.Parse(node.InnerText); break;
 
 					case "pkg:keywords":

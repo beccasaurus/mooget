@@ -8,11 +8,17 @@ namespace MooGet {
 		public PackageVersion MaxVersion { get; set; }
 
 		public string MinVersionString {
-			get { return MinVersion.ToString(); }
+			get {
+				if (MinVersion == null) return null;
+				return MinVersion.ToString();
+			}
 			set { MinVersion = new PackageVersion(value); }
 		}
 		public string MaxVersionString {
-			get { return MaxVersion.ToString(); }
+			get {
+				if (MaxVersion == null) return null;
+				return MaxVersion.ToString();
+			}
 			set { MaxVersion = new PackageVersion(value); }
 		}
 	}

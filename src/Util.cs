@@ -1,5 +1,9 @@
 using System;
 using System.IO;
+using System.Net;
+using System.Xml;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace MooGet {
 
@@ -48,6 +52,25 @@ namespace MooGet {
 					}
 				}
 			}
+		}
+
+		public static XmlDocument GetXmlDocumentForFile(string filename) {
+			return GetXmlDocumentForString(ReadFile(filename));
+		}
+
+		public static XmlDocument GetXmlDocumentForString(string xml) {
+			var doc            = new XmlDocument();
+			var reader         = new XmlTextReader(new StringReader(xml));
+			reader.XmlResolver = new NonStupidXmlResolver();
+			doc.Load(reader);
+			return doc;
+		}
+
+		// If we use a normal XmlResolver, it will explode if it parses something that it thinks might be a URI but the URI is invalid
+		class NonStupidXmlResolver : XmlResolver {
+			public override Uri ResolveUri (Uri baseUri, string relativeUri){ return baseUri; }
+			public override object GetEntity (Uri absoluteUri, string role, Type type){ return null; }
+			public override ICredentials Credentials { set {} }
 		}
 	}
 }
