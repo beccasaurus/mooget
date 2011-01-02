@@ -17,8 +17,11 @@ namespace MooGet {
 
 		/// <summary>Entry method</summary>
 		public static void Main(string[] args) {
-			if (args.Length == 0)
-				args = new string[] { "help" };
+			if (args.Length == 0) {
+				Cow.Say("NuGet + Super Cow Powers = MooGet");
+				Console.WriteLine("\nRun moo help for help documentation");
+				return;
+			}
 
 			if (args[0] == "-v" || args[0] == "--version")
 				Console.WriteLine(Moo.Version);
@@ -62,6 +65,14 @@ namespace MooGet {
 			return package;
 		}
 
+		public static void Uninstall(string name) {
+			var package = GetPackage(name);
+			if (package == null)
+				Console.WriteLine("Package not found: {0}", package);
+			else
+				package.Uninstall();
+		}
+
 		public static void Install(string package) {
 			if (File.Exists(package))
 				InstallFromNupkg(package);
@@ -92,6 +103,10 @@ namespace MooGet {
 			} else {
 				package.Install();
 			}
+		}
+
+		public static LocalPackage GetPackage(string name) {
+			return Packages.FirstOrDefault(p => p.Id == name);
 		}
 
 		// TODO need to clean up the different types of packages ... InstalledPackage : LocalPackage would probably be useful tho

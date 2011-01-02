@@ -12,13 +12,12 @@ namespace MooGet {
 
 		[Command("Provide help on the 'moo' command")]
 		public static void Help(string[] args) {
-			Cow.Say("NuGet + Super Cow Powers = MooGet");
-			Console.WriteLine("\nRun moo help for help documentation");
+			ListCommands(args); // TODO add help
 		}
 
 		[Command("Print configuration information")]
 		public static void Config(string[] args) {
-			Console.WriteLine("mooDir: {0}", Util.HomeDirectory);
+			Console.WriteLine("mooDir: {0}", Moo.Dir);
 		}
 
 		[Command("Unpack a package into the current directory")]
@@ -77,6 +76,16 @@ namespace MooGet {
 				foreach (var package in packages.OrderBy(p => p.Id))
 					Console.WriteLine("{0} ({1})", package.Id, package.Version);
 			}
+		}
+
+		[Command("Removes a package from the local repository")]
+		public static void Uninstall(string[] args) {
+			Uninstall(args[0]);
+		}
+
+		[Command("Alias for uninstall")]
+		public static void Remove(string[] args) {
+			Uninstall(args);
 		}
 
 		// helper methods for getting spaces ... useful for commands ...

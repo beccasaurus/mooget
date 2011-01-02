@@ -22,5 +22,11 @@ namespace MooGet {
 			Directory.Move(Path, newPath);
 			Path = newPath;
 		}
+
+		public void Uninstall() {
+			File.Delete(System.IO.Path.Combine(Moo.SpecDir, IdAndVersion + ".nuspec"));
+			Directory.Delete(Path, true);
+			Console.WriteLine("Uninstalled {0}", IdAndVersion);
+		}
 	}
 }

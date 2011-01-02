@@ -48,6 +48,20 @@ namespace MooGet.Specs {
 
 			[Test][Ignore]
 			public void InstallsDependencies() {}
+
+			[Test]
+			public void can_uninstall() {
+				Moo.Install(PathToContent("packages", "MarkdownSharp.1.13.0.0.nupkg"));
+				File.Exists(PathToTempHome(".moo", "cache", "MarkdownSharp-1.13.0.0.nupkg")).ShouldBeTrue();
+				File.Exists(PathToTempHome(".moo", "specifications", "MarkdownSharp-1.13.0.0.nuspec")).ShouldBeTrue();
+				Directory.Exists(PathToTempHome(".moo", "packages", "MarkdownSharp-1.13.0.0")).ShouldBeTrue();
+
+				Moo.Uninstall("MarkdownSharp");
+
+				File.Exists(PathToTempHome(".moo", "cache", "MarkdownSharp-1.13.0.0.nupkg")).ShouldBeTrue(); // we keep the cached nupkg
+				File.Exists(PathToTempHome(".moo", "specifications", "MarkdownSharp-1.13.0.0.nuspec")).ShouldBeFalse();
+				Directory.Exists(PathToTempHome(".moo", "packages", "MarkdownSharp-1.13.0.0")).ShouldBeFalse();
+			}
 		}
 
 		[TestFixture]
@@ -60,6 +74,16 @@ namespace MooGet.Specs {
 				moo("install {0}", PathToContent("packages", "MarkdownSharp.1.13.0.0.nupkg"));
 
 				moo("list").ShouldContain("MarkdownSharp");
+			}
+
+			[Test]
+			public void can_uninstall_a_nupkg() {
+				moo("install {0}", PathToContent("packages", "MarkdownSharp.1.13.0.0.nupkg"));
+				moo("list").ShouldContain("MarkdownSharp");
+
+				moo("uninstall MarkdownSharp");
+
+				moo("list").ShouldNotContain("MarkdownSharp");
 			}
 		}
 	}
