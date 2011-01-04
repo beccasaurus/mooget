@@ -8,7 +8,59 @@ namespace MooGet.Specs {
 	public class SearchSpec : MooGetSpec {
 
 		[TestFixture]
-		public class Integration : MooGetSpec {
+		public class API : SearchSpec {
+
+			[Test][Ignore]
+			public void can_search_for_packages_with_an_exact_id() {
+			}
+
+			[Test][Ignore]
+			public void can_search_for_packages_with_a_matching_id() {
+			}
+
+			[Test][Ignore]
+			public void can_search_for_packages_with_an_exact_title() {
+			}
+
+			[Test][Ignore]
+			public void can_search_for_packages_with_a_matching_title() {
+			}
+
+			[Test][Ignore]
+			public void can_search_for_packages_with_a_matching_description() {
+			}
+
+			[Test][Ignore]
+			public void can_search_for_packages_that_have_a_certain_tag() {
+			}
+
+			[Test][Ignore]
+			public void can_search_for_packages_that_have_a_certain_one_of_a_list_of_tags() {
+			}
+
+			[Test][Ignore]
+			public void can_search_for_packages_with_a_matching_license_url() {
+			}
+
+			[Test][Ignore]
+			public void can_search_for_packages_with_an_exact_language() {
+			}
+
+			[Test][Ignore]
+			public void can_search_for_packages_with_an_exact_id_and_version() {
+			}
+
+			[Test][Ignore]
+			public void can_search_for_packages_with_an_exact_id_and_a_minumum_version() {
+			}
+
+			[Test][Ignore]
+			public void can_search_for_packages_with_an_exact_id_and_a_maximum_version() {
+			}
+		}
+
+		[TestFixture]
+		public class Integration : SearchSpec {
 
 			[Test]
 			public void can_search_a_source() {
