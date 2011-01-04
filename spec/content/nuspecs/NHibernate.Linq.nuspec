@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>NHibernate.Linq</id>
+    <version>1.0</version>
+    <description>NHibernate Linq support is based on the existing, proven in production, Linq provider in NHibernate Contrib. The plans to overhaul that and merge that into NHibernate’s proper for the next release are still active, but the project team feels most strongly that production quality Linq support is something that we ought to provide for our users now.</description>
+    <authors>
+      <author>Ayende</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:38.1356+00:00</created>
+    <modified>2010-10-25T22:55:38.1366+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="NHibernate.Core" minversion="2.0" />
+  </dependencies>
+</package>

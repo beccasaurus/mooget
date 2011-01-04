@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>tarantino-db-deployer</id>
+    <version>1.0.146.0</version>
+    <description>This is a database migration framework for sql server.</description>
+    <authors>
+      <author>Headspring</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:47.821+00:00</created>
+    <modified>2010-10-25T22:55:47.821+00:00</modified>
+  </metadata>
+</package>

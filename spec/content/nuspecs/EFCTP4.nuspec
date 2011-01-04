@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>EFCTP4</id>
+    <version>1.0</version>
+    <description>This CTP is a an early preview of the Code First Programming Model and Productivity Improvements for Entity Framework 4 (included in .NET Framework 4).</description>
+    <authors>
+      <author>Microsoft</author>
+    </authors>
+    <licenseUrl>http://download.microsoft.com/download/C/E/D/CED46619-571C-4B74-A2E4-8467A9F78843/License.rtf</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:23.1288+00:00</created>
+    <modified>2010-10-25T22:55:23.1298+00:00</modified>
+  </metadata>
+</package>

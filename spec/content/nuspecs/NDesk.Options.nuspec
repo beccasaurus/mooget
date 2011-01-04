@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>NDesk.Options</id>
+    <version>0.2.1</version>
+    <description>NDesk.Options is a callback-based program option parser for C#. </description>
+    <authors>
+      <author>NDesk</author>
+    </authors>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:36.3136+00:00</created>
+    <modified>2010-10-25T22:55:36.3146+00:00</modified>
+  </metadata>
+</package>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>AntiXSS</id>
+    <version>4.0.1</version>
+    <description>AntiXSS is an encoding library which uses a safe list approach to encoding. It provides Html, XML, Url, Form, LDAP, CSS, JScript and VBScript encoding methods to allow 
+you to avoid Cross Site Scripting attacks. This library is part of the Microsoft SDL tools.</description>
+    <authors>
+      <author>Microsoft</author>
+    </authors>
+    <licenseUrl>http://wpl.codeplex.com/license</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:17.2972+00:00</created>
+    <modified>2010-10-25T22:55:17.2982+00:00</modified>
+  </metadata>
+</package>

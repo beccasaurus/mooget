@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>SpecFlow</id>
+    <version>1.4.0</version>
+    <description>SpecFlow aims at bridging the communication gap between domain experts and developers by binding business readable behavior specifications to the underlying implementation. Our mission is to provide a pragmatic and frictionless approach to Acceptance Test Driven Development and Behavior Driven Development for .NET projects today.</description>
+    <authors>
+      <author>Gáspár Nagy</author>
+      <author>Attila Sztupák</author>
+      <author>Christoph Seufert</author>
+      <author>Christian Hassa</author>
+      <author>Jonas Bandi</author>
+    </authors>
+    <licenseUrl>http://specflow.org/about/license.aspx</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:44.6914+00:00</created>
+    <modified>2010-10-25T22:55:44.6924+00:00</modified>
+  </metadata>
+</package>

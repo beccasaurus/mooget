@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>WCFExtensions</id>
+    <version>1.0.0</version>
+    <description>Collection of WCF extensions. The current version provides a compression channel.</description>
+    <authors>
+      <author>Morten Abrahamsen</author>
+      <author>Magnus A.</author>
+      <author>Simon Cropp</author>
+    </authors>
+    <licenseUrl>http://wcfextensions.codeplex.com/license</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:48.898+00:00</created>
+    <modified>2010-10-25T22:55:48.899+00:00</modified>
+  </metadata>
+</package>

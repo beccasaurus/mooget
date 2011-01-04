@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>WebFormsMVP.Contrib.Autofac</id>
+    <version>0.9.7.2</version>
+    <description>An Autofac-based Presenter Factory which allows custm IoC with WebForms MVP.</description>
+    <authors>
+      <author>Aaron Powell</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:49.354+00:00</created>
+    <modified>2010-10-25T22:55:49.355+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="Autofac" version="2.2.4.900" />
+    <dependency id="Autofac.Web" version="2.2.4.900" />
+    <dependency id="WebFormsMVP" version="0.9.7.2" />
+  </dependencies>
+</package>

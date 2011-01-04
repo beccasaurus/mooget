@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Lokad.Shared</id>
+    <version>1.5.181.0</version>
+    <description>Lokad.Shared.dll is a single lightweight .NET library that includes: Exception Handling Action Policy Block, Validation and Business Rules Application Block, Miscellaneous helper classes and methods: * Tuples, * Enforce code contracts, * Fast reflection methods, * Interfaces for abstracting away common cross-cutting concerns, * a lot more</description>
+    <authors>
+      <author>Rinat Abdullin</author>
+    </authors>
+    <licenseUrl>http://www.opensource.org/licenses/bsd-license.php</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:33.3534+00:00</created>
+    <modified>2010-10-25T22:55:33.3534+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="Autofac" version="2.2.4.900" />
+    <dependency id="log4net" version="1.2.10" />
+    <dependency id="Mono.Cecil" version="0.9.4.0" />
+  </dependencies>
+</package>

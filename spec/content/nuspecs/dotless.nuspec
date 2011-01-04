@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>dotless</id>
+    <version>1.1.0</version>
+    <description>This is a project to port the hugely useful Less libary to the .NET world. It give variables, nested rules and operators to CSS.</description>
+    <authors>
+      <author>Daniel Hoelbling</author>
+    </authors>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:22.6238+00:00</created>
+    <modified>2010-10-25T22:55:22.6248+00:00</modified>
+  </metadata>
+</package>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>ESRI.SilverlightWpf.Core</id>
+    <version>2.0.0.314</version>
+    <description>ArcGIS API core library for Microsoft Silverlight/WPF API. Contains map, ArcGIS Service layer, feature layer, graphics, geometry, and symbol components. Also contains common workflow tasks that support query, find, identify, editing, geospatial and geoprocessing operations.</description>
+    <authors>
+      <author>ESRI</author>
+    </authors>
+    <licenseUrl>http://resources.arcgis.com/node/agreement/1226</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:24.2068+00:00</created>
+    <modified>2010-10-25T22:55:24.2068+00:00</modified>
+  </metadata>
+</package>

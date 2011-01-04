@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Agatha-rrsl</id>
+    <version>1.2.0</version>
+    <description>Request/Response Service Layer for .NET</description>
+    <authors>
+      <author>David Bryon</author>
+    </authors>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:17.1182+00:00</created>
+    <modified>2010-10-25T22:55:17.1192+00:00</modified>
+  </metadata>
+</package>

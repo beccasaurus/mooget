@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Mono.Cecil</id>
+    <version>0.9.4.0</version>
+    <description>Cecil is a library written by Jb Evain to generate and inspect programs and libraries in the ECMA CIL format. It has full support for generics, and support some debugging symbol format. In simple English, with Cecil, you can load existing managed assemblies, browse all the contained types, modify them on the fly and save back to the disk the modified assembly.</description>
+    <authors>
+      <author>Jb Evain</author>
+    </authors>
+    <licenseUrl>http://opensource.org/licenses/mit-license.php</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:34.529+00:00</created>
+    <modified>2010-10-25T22:55:34.53+00:00</modified>
+  </metadata>
+</package>

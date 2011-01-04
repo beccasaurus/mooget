@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>log4net</id>
+    <version>1.2.10</version>
+    <description>log4net is a tool to help the programmer output log statements to a variety of output targets. log4net is a port of the excellent log4j framework to the .NET runtime</description>
+    <authors>
+      <author>Apache</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:32.9464+00:00</created>
+    <modified>2010-10-25T22:55:32.9474+00:00</modified>
+  </metadata>
+</package>

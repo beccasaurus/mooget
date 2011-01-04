@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>nvalid</id>
+    <version>0.2.1.0</version>
+    <description>Fluent validation library for .Net. With nValid, you can cleanly define validation rules for any .Net type, and validate instances with a single line of code.</description>
+    <authors>
+      <author>David Thibault</author>
+    </authors>
+    <language>en-CA</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:39.9672+00:00</created>
+    <modified>2010-10-25T22:55:39.9672+00:00</modified>
+  </metadata>
+</package>

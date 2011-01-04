@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>IronPython</id>
+    <version>2.6.1</version>
+    <description>IronPython is an open-source implementation of the Python programming language which is tightly integrated with the .NET Framework. IronPython can use the .NET Framework and Python libraries, and other .NET languages can use Python code just as easily.</description>
+    <authors>
+      <author>Microsoft</author>
+    </authors>
+    <licenseUrl>http://ironpython.codeplex.com/license</licenseUrl>
+    <language>en-US</language>
+    <keywords>python DLR iron dynamic language</keywords>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:30.9482+00:00</created>
+    <modified>2010-10-25T22:55:30.9492+00:00</modified>
+  </metadata>
+</package>

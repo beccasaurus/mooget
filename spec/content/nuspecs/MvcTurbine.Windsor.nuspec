@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>MvcTurbine.Windsor</id>
+    <version>2.1</version>
+    <description>Castle.Windsor support for MVC turbine.</description>
+    <authors>
+      <author>Javier Lozano</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:35.6946+00:00</created>
+    <modified>2010-10-25T22:55:35.6956+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="Castle.Windsor" version="2.1.1" />
+  </dependencies>
+</package>

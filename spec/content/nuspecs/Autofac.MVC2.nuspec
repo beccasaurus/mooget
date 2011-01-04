@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Autofac.MVC2</id>
+    <version>2.2.4.900</version>
+    <description>Provides an IControllerFactory implementation for System.Web.Mvc</description>
+    <authors>
+      <author>Nicholas Blumhardt</author>
+    </authors>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:18.1724+00:00</created>
+    <modified>2010-10-25T22:55:18.1734+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="Autofac" version="2.2.4.900" />
+  </dependencies>
+</package>

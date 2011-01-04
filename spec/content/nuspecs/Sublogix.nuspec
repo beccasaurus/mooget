@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Sublogix</id>
+    <version>1.0.0.1</version>
+    <description>Sublogix is a simple repository for SalesLogix from Customer FX, providing an entity model and repository for any version of SalesLogix. Great for use in .NET Extensions in the LAN client, SalesLogix integration projects, and stand-alone or addon applications for SalesLogix. Entity model T4 templates also included to generate entity model for your custom SalesLogix data. Documentation and details at http://sublogix.customerfx.com</description>
+    <authors>
+      <author>Ryan Farley</author>
+      <author>Customer FX Corporation</author>
+    </authors>
+    <licenseUrl>http://customerfx.com/content/SublogixLicense.aspx</licenseUrl>
+    <language>en-US</language>
+    <keywords>SalesLogix</keywords>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:47.099+00:00</created>
+    <modified>2010-10-25T22:55:47.1+00:00</modified>
+  </metadata>
+</package>

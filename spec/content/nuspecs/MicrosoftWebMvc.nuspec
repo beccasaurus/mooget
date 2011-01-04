@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>MicrosoftWebMvc</id>
+    <version>2.0</version>
+    <description>This contains prototypes of features that the MVC feature team is considering for future versions of ASP.NET MVC.</description>
+    <authors>
+      <author>Microsoft</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:34.215+00:00</created>
+    <modified>2010-10-25T22:55:34.216+00:00</modified>
+  </metadata>
+</package>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>SQLCE</id>
+    <version>4.0.8402.1</version>
+    <description>SQL Server Compact. An embedded SQL database.</description>
+    <authors>
+      <author>Microsoft</author>
+    </authors>
+    <licenseUrl>http://173.203.67.148/licenses/SQLCE/EULA_ENU.rtf</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:45.932+00:00</created>
+    <modified>2010-10-25T22:55:45.933+00:00</modified>
+  </metadata>
+</package>

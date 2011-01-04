@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>FluentMigrator</id>
+    <version>0.9.0.0</version>
+    <description>Fluent Migrations framework for .net</description>
+    <authors>
+      <author>Shawn Chambers</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:28.641+00:00</created>
+    <modified>2010-10-25T22:55:28.642+00:00</modified>
+  </metadata>
+</package>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>MvcContrib.WatiN</id>
+    <version>2.0.96.0</version>
+    <description>MvcContrib was designed to add functionality and ease-of-use to Microsoft's ASP.NET MVC Framework, MVC Contrib is useful for developers looking to develop and test UI elements on top of the ASP.NET MVC framework.
+		The TestHelpers.WatiN library includes a series of helpers to streamline the use of WatiN for browser-based testing.</description>
+    <authors>
+      <author>Codeplex Foundation</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:34.8946+00:00</created>
+    <modified>2010-10-25T22:55:34.8946+00:00</modified>
+  </metadata>
+</package>

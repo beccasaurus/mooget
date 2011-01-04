@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>MvvmLight</id>
+    <version>3.0.0.29166</version>
+    <description>The MVVM Light Toolkit is a set of components helping people to get started in the Model - View - ViewModel pattern in Silverlight and WPF. It is a light and pragmatic framework that contains only the essential components needed.</description>
+    <authors>
+      <author>Laurent Bugnion</author>
+    </authors>
+    <licenseUrl>http://mvvmlight.codeplex.com/license</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:30.0182+00:00</created>
+    <modified>2010-10-25T22:55:30.0192+00:00</modified>
+  </metadata>
+</package>

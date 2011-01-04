@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>nvents</id>
+    <version>0.1</version>
+    <description>nvents is an open source library for strongly typed publishing/subscribing of events over the network.</description>
+    <authors>
+      <author>Anders Wåglund</author>
+    </authors>
+    <licenseUrl>http://creativecommons.org/licenses/MIT/</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:40.3012+00:00</created>
+    <modified>2010-10-25T22:55:40.3022+00:00</modified>
+  </metadata>
+</package>

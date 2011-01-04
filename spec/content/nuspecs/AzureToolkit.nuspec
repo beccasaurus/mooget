@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>AzureToolkit</id>
+    <version>2.0.1</version>
+    <description>This toolkit was built by Thuzi in collaboration with Microsoft to give the community a good starter kit for developing on Windows Azure.</description>
+    <authors>
+      <author>Jim Zimmerman</author>
+      <author>Scott Densmore</author>
+      <author>Tom Basnett</author>
+      <author>Nathan Totten</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:18.8154+00:00</created>
+    <modified>2010-10-25T22:55:18.8154+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="Newtonsoft.Json" version="3.5.8" />
+  </dependencies>
+</package>

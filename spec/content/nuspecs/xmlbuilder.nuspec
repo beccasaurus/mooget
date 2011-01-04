@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>xmlbuilder</id>
+    <version>1.0.1</version>
+    <description>A DSL to help on XML authoring, with this library you can create xml content with few lines of code, there's no need to use System.Xml classes, the XMLBuilder hides all complexity behind xml generation.</description>
+    <authors>
+      <author>Rogerio Araujo</author>
+    </authors>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:49.8576+00:00</created>
+    <modified>2010-10-25T22:55:49.8586+00:00</modified>
+  </metadata>
+</package>

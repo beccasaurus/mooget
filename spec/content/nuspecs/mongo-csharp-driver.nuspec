@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>mongo-csharp-driver</id>
+    <version>2.1.0.76</version>
+    <description>C# driver for MongoDB ny 10gen inc.</description>
+    <authors>
+      <author>10gen Inc</author>
+    </authors>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:34.368+00:00</created>
+    <modified>2010-10-25T22:55:34.368+00:00</modified>
+  </metadata>
+</package>

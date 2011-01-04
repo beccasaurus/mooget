@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>tarantino-batchjobs</id>
+    <version>1.0.146.0</version>
+    <description>This is a batch process runner.</description>
+    <authors>
+      <author>Headspring</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:47.672+00:00</created>
+    <modified>2010-10-25T22:55:47.673+00:00</modified>
+  </metadata>
+</package>

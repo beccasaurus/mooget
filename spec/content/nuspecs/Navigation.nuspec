@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Navigation</id>
+    <version>1.0</version>
+    <description>Navigation for ASP.NET Web Forms manages movement and data passing between aspx Pages in a unit testable manner. There is no Client-side logic, so it works in all browsers, and no Server-side cache, so it works with the browser back button</description>
+    <authors>
+      <author>Graham Mendick</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:35.9936+00:00</created>
+    <modified>2010-10-25T22:55:35.9946+00:00</modified>
+  </metadata>
+</package>

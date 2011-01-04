@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>MvcPortableArea</id>
+    <version>1.0</version>
+    <description>Portable Areas add instant functionality to your MVC Application.</description>
+    <authors>
+      <author>Codeplex Foundation</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:41.4652+00:00</created>
+    <modified>2010-10-25T22:55:41.4662+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="MvcContrib" minversion="2.0.95" />
+  </dependencies>
+</package>

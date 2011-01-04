@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Unity</id>
+    <version>2.0</version>
+    <description>The Unity Application Block (Unity) is a lightweight extensible dependency injection container with support for constructor, property, and method call injection. Unity addresses the issues faced by developers engaged in component-based software engineering. Modern business applications consist of custom business objects and components that perform specific or generic tasks within the application, in addition to components that individually address cross cutting concerns such as logging, authentication, authorization, caching, and exception handling. </description>
+    <authors>
+      <author>Microsoft</author>
+    </authors>
+    <licenseUrl>http://www.opensource.org/licenses/ms-pl.html</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:48.462+00:00</created>
+    <modified>2010-10-25T22:55:48.462+00:00</modified>
+  </metadata>
+</package>

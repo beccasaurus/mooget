@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>FacebookWebMvc</id>
+    <version>4.0.2</version>
+    <description>The Facebook C# SDK MVC component.</description>
+    <authors>
+      <author>Nathan Totten</author>
+      <author>Jim Zimmerman</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:26.0094+00:00</created>
+    <modified>2010-10-25T22:55:26.0104+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="Facebook" version="4.0.2" />
+    <dependency id="FacebookWeb" version="4.0.2" />
+  </dependencies>
+</package>

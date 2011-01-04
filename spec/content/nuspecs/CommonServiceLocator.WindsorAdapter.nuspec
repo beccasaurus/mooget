@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>CommonServiceLocator.WindsorAdapter</id>
+    <version>1.0</version>
+    <description>An adapter to implement CommonServiceLocator on top of Castle Windsor</description>
+    <authors>
+      <author>Oren Eini</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:22.0288+00:00</created>
+    <modified>2010-10-25T22:55:22.0288+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="Castle.Windsor" version="2.5.1" />
+    <dependency id="CommonServiceLocator" version="1.0" />
+  </dependencies>
+</package>

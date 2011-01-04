@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>knockoutjs</id>
+    <version>1.1.0</version>
+    <description>Knockout simplifies dynamic web UIs by applying the MVVM pattern. Use declarative bindings and templating, and have Knockout automatically update the right parts of your UI each time the model data changes.</description>
+    <authors>
+      <author>Steven Sanderson</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:32.4714+00:00</created>
+    <modified>2010-10-25T22:55:32.4724+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="jQuery" minversion="1.4.1" />
+  </dependencies>
+</package>

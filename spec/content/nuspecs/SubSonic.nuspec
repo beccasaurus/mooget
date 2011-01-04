@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>SubSonic</id>
+    <version>3.0.0.4</version>
+    <description>SubSonic is A Super High-fidelity Batman Utility Belt that works up your Data Access (using Linq in 3.0), throws in some much-needed utility functions, and generally speeds along your dev cycle.</description>
+    <authors>
+      <author>Rob Conery</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:47.31+00:00</created>
+    <modified>2010-10-25T22:55:47.311+00:00</modified>
+  </metadata>
+</package>

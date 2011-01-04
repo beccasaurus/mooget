@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>TelerikMvcExtensions</id>
+    <version>2010.2.930</version>
+    <description>Teleik Extensions for ASP.NET MVC is a set of UI components for ASP.NET MVC</description>
+    <authors>
+      <author>Telerik</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:47.979+00:00</created>
+    <modified>2010-10-25T22:55:47.98+00:00</modified>
+  </metadata>
+</package>

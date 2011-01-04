@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>SNAP.CastleWindsor</id>
+    <version>1.0</version>
+    <description>
+      Castle Windsor provider for SNAP. SNAP makes AOP easy by integrating with your favorite IoC container.  SNAP does not modify compiled code (unlike PostSharp) .
+      It uses your IoC container to create runtime-callable wrappers to intercept your method calls.  Source code for SNAP is hosted at http://github.com/Acoustic/Snap
+    </description>
+    <authors>
+      <author>Tyler Brinks</author>
+    </authors>
+    <language>en-US</language>
+    <keywords>SNAP,  Simple Aspects,  AOP,  Aspect Oriented Programming,  Castle</keywords>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:43.1098+00:00</created>
+    <modified>2010-10-25T22:55:43.1108+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="SNAP" version="1.0" />
+    <dependency id="Castle.Windsor" version="2.1.1" />
+  </dependencies>
+</package>

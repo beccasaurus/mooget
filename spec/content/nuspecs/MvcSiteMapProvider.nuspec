@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>MvcSiteMapProvider</id>
+    <version>2.1.0</version>
+    <description>MvcSiteMapProvider is a SiteMapProvider implementation for the ASP.NET MVC framework. The project is hosted on http://mvcsitemap.codeplex.com.</description>
+    <authors>
+      <author>Maarten Balliauw</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:35.4016+00:00</created>
+    <modified>2010-10-25T22:55:35.4016+00:00</modified>
+  </metadata>
+</package>

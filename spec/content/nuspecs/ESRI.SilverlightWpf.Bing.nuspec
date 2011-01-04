@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>ESRI.SilverlightWpf.Bing</id>
+    <version>2.0.0.314</version>
+    <description>ArcGIS Bing support for the Microsoft Silverlight/WPF API. Adds support for using Bing layers and services.</description>
+    <authors>
+      <author>ESRI</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:24.0208+00:00</created>
+    <modified>2010-10-25T22:55:24.0218+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="ESRI.SilverlightWpf.Core" version="2.0.0.314" />
+  </dependencies>
+</package>

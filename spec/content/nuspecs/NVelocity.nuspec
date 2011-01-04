@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>NVelocity</id>
+    <version>1.0.3</version>
+    <description>NVelocity is a port of the excellent Apache Jakarta Velocity project. It is a very simple, easy to learn and extensible template engine. </description>
+    <authors>
+      <author>Castle Project Contributors</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:40.1132+00:00</created>
+    <modified>2010-10-25T22:55:40.1142+00:00</modified>
+  </metadata>
+</package>

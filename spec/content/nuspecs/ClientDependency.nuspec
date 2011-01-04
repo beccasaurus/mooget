@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>ClientDependency</id>
+    <version>1.2</version>
+    <description>ClientDependency is a framework for simplifying colaborative development of ASP.NET components, allowing components to state what CSS and JavaScript files they require, and ensuring that each file only is only added once to the response. ClientDependency also handles combination, minification and compression of CSS and JavaScript.</description>
+    <authors>
+      <author>Shannon Deminick</author>
+      <author>Aaron Powell</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:21.5596+00:00</created>
+    <modified>2010-10-25T22:55:21.5606+00:00</modified>
+  </metadata>
+</package>

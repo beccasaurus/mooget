@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Ninject.MVC3</id>
+    <version>0.3</version>
+    <description>An MVC3 IDependencyResolver wrapper for Ninject.</description>
+    <authors>
+      <author>Microsoft</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:38.3056+00:00</created>
+    <modified>2010-10-25T22:55:38.3066+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="Ninject" version="2.1.0.76" />
+    <dependency id="WebActivator" version="1.0.0.0" />
+  </dependencies>
+</package>

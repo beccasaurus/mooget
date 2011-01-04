@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>common.eventing</id>
+    <version>1.0.0</version>
+    <description>A very simple, no-frills API for publishing and subscribing to events.</description>
+    <authors>
+      <author>John Ruiz</author>
+    </authors>
+    <licenseUrl>http://eventing.codeplex.com/license</licenseUrl>
+    <language>en-US</language>
+    <keywords>pub,  sub,  event,  broker</keywords>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:21.8788+00:00</created>
+    <modified>2010-10-25T22:55:21.8798+00:00</modified>
+  </metadata>
+</package>

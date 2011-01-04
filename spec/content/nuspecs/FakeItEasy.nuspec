@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>FakeItEasy</id>
+    <version>1.0.0.5</version>
+    <description>The FakeItEasy mocking framework.</description>
+    <authors>
+      <author>Patrik Hägne</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:27.917+00:00</created>
+    <modified>2010-10-25T22:55:27.917+00:00</modified>
+  </metadata>
+</package>

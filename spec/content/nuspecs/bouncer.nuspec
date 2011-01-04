@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>bouncer</id>
+    <version>2010.1007</version>
+    <description>Bouncer (http://bouncer.codeplex.com) is a library to validate input parameter of methods in a configurable and declarative way that can replace the use of guard classes. The idea is to declare a "context" at the method or class level and declare rules for business entities at the type/property level.</description>
+    <authors>
+      <author>Sven Erik Matzen (http://svenerikmatzen.info)</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:18.9694+00:00</created>
+    <modified>2010-10-25T22:55:18.9704+00:00</modified>
+  </metadata>
+</package>

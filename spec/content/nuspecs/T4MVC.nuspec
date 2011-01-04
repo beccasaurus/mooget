@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>T4MVC</id>
+    <version>2.6.30</version>
+    <description>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</description>
+    <authors>
+      <author>David Ebbo</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:47.519+00:00</created>
+    <modified>2010-10-25T22:55:47.52+00:00</modified>
+  </metadata>
+</package>

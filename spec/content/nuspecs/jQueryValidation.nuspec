@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>jQueryValidation</id>
+    <version>1.6</version>
+    <description>Validate forms like you've never been validating before!</description>
+    <authors>
+      <author>Jörn Zaefferer</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:31.9774+00:00</created>
+    <modified>2010-10-25T22:55:31.9784+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="jQuery" version="1.4.1" />
+  </dependencies>
+</package>

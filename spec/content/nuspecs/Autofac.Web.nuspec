@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Autofac.Web</id>
+    <version>2.2.4.900</version>
+    <description>An ASP.NET WebForms integration module for Autofac</description>
+    <authors>
+      <author>Nicholas Blumhardt</author>
+    </authors>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:18.3234+00:00</created>
+    <modified>2010-10-25T22:55:18.3234+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="Autofac" version="2.2.4.900" />
+  </dependencies>
+</package>

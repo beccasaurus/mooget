@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>DiffPlex</id>
+    <version>1.1.0</version>
+    <description>DiffPlex is a diffing library that allows you to programatically create text diffs. DiffPlex is a fast and tested library which is used by CodePlex to provide its source code diffing functionality.</description>
+    <authors>
+      <author>Matthew Manela</author>
+    </authors>
+    <licenseUrl>http://diffplex.codeplex.com/license</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:22.3198+00:00</created>
+    <modified>2010-10-25T22:55:22.3208+00:00</modified>
+  </metadata>
+</package>

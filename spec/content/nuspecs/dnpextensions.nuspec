@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>dnpextensions</id>
+    <version>2010.12.0.0</version>
+    <description>The .NET Extensions project is a growing library of C# und VB.NET extension methods. The project is part of a monthly column published by Patrick A. Lorenz (www.pgk.de) in the German print magazine "dotnetpro" (www.dotnetpro.de). You can expect monthly updates.</description>
+    <authors>
+      <author>Patrick A. Lorenz</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:22.4768+00:00</created>
+    <modified>2010-10-25T22:55:22.4768+00:00</modified>
+  </metadata>
+</package>

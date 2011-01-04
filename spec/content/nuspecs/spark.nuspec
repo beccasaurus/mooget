@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>spark</id>
+    <version>1.1</version>
+    <description>Spark View Engine Core.</description>
+    <authors>
+      <author>Louis DeJardin</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:44.5304+00:00</created>
+    <modified>2010-10-25T22:55:44.5314+00:00</modified>
+  </metadata>
+</package>

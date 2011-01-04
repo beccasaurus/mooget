@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Iesi.Collections</id>
+    <version>1.0.1</version>
+    <description>The IESI Collections fills a gap in the Sytems Collection by providing a set collection. This collection comes in handy when an array or list are insufficient either because you need to add and remove elements often (tedious in an array) and duplicates are undesirable.</description>
+    <authors>
+      <author>Jason Smith</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:30.7932+00:00</created>
+    <modified>2010-10-25T22:55:30.7942+00:00</modified>
+  </metadata>
+</package>

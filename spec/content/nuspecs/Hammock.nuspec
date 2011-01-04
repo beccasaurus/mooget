@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Hammock</id>
+    <version>1.0.4</version>
+    <description>Hammock: REST, easy. Built on a solid and extensible foundation and featuring caching, asynchronous operation, mocking, retry, timeout, and rate limiting support, Hammock is the most complete RESTful communication library for .NET. We hope you'll find it useful for quickly consuming REST services in your applications, or building your own full-featured API client libraries for others to make the best of your service in .NET.</description>
+    <authors>
+      <author>Daniel Crenna</author>
+      <author>Jason Diller</author>
+    </authors>
+    <licenseUrl>http://hammock.codeplex.com/license</licenseUrl>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:30.5232+00:00</created>
+    <modified>2010-10-25T22:55:30.5242+00:00</modified>
+  </metadata>
+</package>

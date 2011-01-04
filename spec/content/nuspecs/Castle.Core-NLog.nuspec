@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Castle.Core-NLog</id>
+    <version>2.5.1</version>
+    <description>NLog integration with Castle.Core</description>
+    <authors>
+      <author>Jonathon Rossi &amp; Krzysztof Kozmic</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:19.4426+00:00</created>
+    <modified>2010-10-25T22:55:19.4436+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="Castle.Core" version="2.5.1" />
+    <dependency id="NLog" version="1.0.0.505" />
+  </dependencies>
+</package>

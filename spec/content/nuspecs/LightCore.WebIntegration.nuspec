@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>LightCore.WebIntegration</id>
+    <version>1.4.1</version>
+    <description>LightCore is a lightweight dependency injection container which can be used as a service locator, too. Despite its simplicity and its lightness there are lots of features to explore. This package integrates implementations to use in ASP.NET WebForms and ASP.NET MVC</description>
+    <authors>
+      <author>Peter Bucher</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:32.6254+00:00</created>
+    <modified>2010-10-25T22:55:32.6264+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="LightCore" version="1.4.1" />
+  </dependencies>
+</package>
