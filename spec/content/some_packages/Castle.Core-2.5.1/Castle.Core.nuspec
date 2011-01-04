@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Castle.Core</id>
+    <version>2.5.1</version>
+    <description>Core of the Castle project</description>
+    <authors>
+      <author>Jonathon Rossi &amp; Krzysztof Kozmic</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:19.8976+00:00</created>
+    <modified>2010-10-25T22:55:19.8986+00:00</modified>
+  </metadata>
+</package>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>RhinoMocks</id>
+    <version>3.6</version>
+    <description>A dynamic mock object framework for the .Net platform. It's purpose is to ease testing by allowing the developer to create mock implementations of custom objects and verify the interactions using unit testing.</description>
+    <authors>
+      <author>Ayende @ Rahien</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:42.1842+00:00</created>
+    <modified>2010-10-25T22:55:42.1842+00:00</modified>
+  </metadata>
+</package>

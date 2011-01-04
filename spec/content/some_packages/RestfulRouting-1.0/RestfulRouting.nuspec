@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>RestfulRouting</id>
+    <version>1.0</version>
+    <description>RestfulRouting is a routing library for ASP.NET MVC based on the Rails 3 routing DSL.</description>
+    <authors>
+      <author>Steve Hodgkiss</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:42.0282+00:00</created>
+    <modified>2010-10-25T22:55:42.0282+00:00</modified>
+  </metadata>
+  <dependencies>
+    <dependency id="WebActivator" version="1.0.0.0" />
+  </dependencies>
+</package>

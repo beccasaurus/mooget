@@ -29,5 +29,13 @@ namespace MooGet.Specs {
 		[Test][Ignore]
 		public void can_search_packages() {
 		}
+
+		[Test][Ignore]
+		public void can_get_all_versions_of_the_packages_returned() {
+		}
+
+		[Test][Ignore]
+		public void can_get_only_the_latest_versions_of_the_packages_returned() {
+		}
 	}
 }
