@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace MooGet {
@@ -63,6 +64,14 @@ namespace MooGet {
 
 		public override string ToString() {
 			return _version;
+		}
+
+		public static PackageVersion HighestVersion(params string[] versions) {
+			return HighestVersion(versions.Select(str => new PackageVersion(str)).ToArray());
+		}
+
+		public static PackageVersion HighestVersion(params PackageVersion[] versions) {
+			return new List<PackageVersion>(versions).Max();
 		}
 	}
 }

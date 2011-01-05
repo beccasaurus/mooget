@@ -35,8 +35,10 @@ namespace MooGet.Specs {
 			(new PackageVersion("2.0.10")  < new PackageVersion("2.0.9"  )).ShouldBeFalse();
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void can_get_the_highest_version_number_given_a_list_of_version_numbers() {
+			PackageVersion.HighestVersion("0.1.0", "1.0.1.0", "0.9", "0.9.9.9.9").ToString().ShouldEqual("1.0.1.0");
+			PackageVersion.HighestVersion("4.10", "1.0", "4.1.34", "3.99.999").ToString().ShouldEqual("4.10");
 		}
 	}
 }
