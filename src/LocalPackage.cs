@@ -28,5 +28,9 @@ namespace MooGet {
 			Directory.Delete(Path, true);
 			Console.WriteLine("Uninstalled {0}", IdAndVersion);
 		}
+
+		public static List<LocalPackage> FromDirectory(string directory) {
+
+		}
 	}
 }
