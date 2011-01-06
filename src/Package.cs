@@ -8,8 +8,8 @@ namespace MooGet {
 	/// <remarks>
 	/// A MooGet.Package will typically be:
 	///
-	///  1. SourcePackage: has package information from a given Source.
-	///  2. InstalledPackage: has information about a package actually installed on the local file system.
+	///  1. RemotePackage: has package information from a given Source.
+	///  2. LocalPackage (or InstalledPackage ?): has information about a package actually installed on the local file system.
 	///
 	/// Package defines certain properties / functionality that 
 	/// packages have, regardless of whether or not you've installed them yet.
@@ -34,11 +34,20 @@ namespace MooGet {
 
 		public bool RequireLicenseAcceptance { get; set; }
 
-		public List<string> Authors { get { return _authors; } }
+		public List<string> Authors {
+			get { return _authors;  }
+			set { _authors = value; }
+		}
 
-		public List<string> Tags { get { return _tags; } }
+		public List<string> Tags {
+			get { return _tags;  }
+			set { _tags = value; }
+		}
 
-		public List<PackageDependency> Dependencies { get { return _dependencies; } }
+		public List<PackageDependency> Dependencies {
+			get { return _dependencies;  }
+			set { _dependencies = value; }
+		}
 
 		public string IdAndVersion { get { return string.Format("{0}-{1}", Id, Version); } }
 

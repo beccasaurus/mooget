@@ -56,7 +56,7 @@ namespace MooGet {
 
 		[Command("Search remote source for packages")]
 		public static void Search(string[] args) {
-			var packages = new List<SourcePackage>(); // TODO rename to RemotePackage ...
+			var packages = new List<RemotePackage>(); // TODO rename to RemotePackage ...
 			var sources  = new List<string>();
 			var opts     = new OptionSet() {
 				{ "s|source=",  v => { if (v != null) sources.Add(v); }}

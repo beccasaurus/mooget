@@ -18,140 +18,17 @@ namespace MooGet {
 			Path = path;
 		}
 
-		public List<SourcePackage> Packages {
+		public List<RemotePackage> Packages {
 			get { return LatestPackages; }
 		}
 
-		public List<SourcePackage> LatestPackages {
+		public List<RemotePackage> LatestPackages {
 			get { return RemoveAllVersionsButLatest(AllPackages); }
 		}
 
-		public List<SourcePackage> AllPackages {
-			get { return Source.GetPackagesFromPath(Path).OrderBy(p => p.Title).ToList(); }
-		}
-
-		public SourcePackage Get(string id) {
-			id = id.ToLower();
-			return LatestPackages.FirstOrDefault(p => p.Id.ToLower() == id);
-		}
-
-		public List<SourcePackage> SearchByTitle(string query) {
-			query = query.ToLower();
-			return Packages.Where(p => p.Title.ToLower().Contains(query)).ToList();
-		}
-
-		public List<SourcePackage> SearchByDescription(string query) {
-			query = query.ToLower();
-			return Packages.Where(p => p.Description.ToLower().Contains(query)).ToList();
-		}
-
-		public List<SourcePackage> SearchByTitleOrDescription(string query) {
-			query = query.ToLower();
-			return Packages.Where(p => p.Title.ToLower().Contains(query) || p.Description.ToLower().Contains(query)).ToList();
-		}
-
-		#region Private
-		static List<SourcePackage> GetPackagesFromPath(string path) {
-			if (File.Exists(path))
-				return GetPackagesFromXml(MooGet.Util.ReadFile(path));
-			else
-				return GetPackagesFromXml(MooGet.Util.ReadUrl(path));
-		}
-
-		static List<SourcePackage> GetPackagesFromXml(string xml) {
-			var packages = new List<SourcePackage>();
-			var doc      = Util.GetXmlDocumentForString(xml);
-
-			foreach (XmlElement entry in doc.GetElementsByTagName("entry"))
-				packages.Add(PackageFromFeedEntry(entry));
-
-			return packages;
-		}
-
-		static SourcePackage PackageFromFeedEntry(XmlElement entry) {
-			var package = new SourcePackage();
-			
-			foreach (XmlNode node in entry.ChildNodes) {
-				switch (node.Name.ToLower()) {
-					
-					// we don't use these elements at the moment, so we ignore them
-					case "id":
-					case "published":
-					case "updated":
-						break;
-
-					case "pkg:packageid": package.Id            = node.InnerText; break;
-					case "pkg:version":   package.VersionString = node.InnerText; break;
-					case "pkg:language":  package.Language      = node.InnerText; break;
-					case "title":         package.Title         = node.InnerText; break;
-					case "content":       package.Description   = node.InnerText; break;
-					case "author":        package.Authors.Add(node.InnerText);    break;
-
-					case "category":
-						var term = node.Attributes["term"].Value;
-						if (! package.Tags.Contains(term))
-							package.Tags.Add(term);
-						break;
-
-					case "pkg:requirelicenseacceptance":
-						package.RequireLicenseAcceptance = bool.Parse(node.InnerText); break;
-
-					case "pkg:keywords":
-						// if there is 1 <string>, split it on spaces 
-						// else if there are many, each element is a tag
-						var tagNodes = node.ChildNodes;
-						if (tagNodes.Count == 1) {
-							foreach (var tag in tagNodes[0].InnerText.Split(' '))
-								if (! package.Tags.Contains(tag.Trim()))
-									package.Tags.Add(tag.Trim());
-						} else {
-							foreach (XmlNode tagString in tagNodes)
-								if (! package.Tags.Contains(tagString.InnerText.Trim()))
-									package.Tags.Add(tagString.InnerText.Trim());
-						}
-						break;
-
-					case "link":
-						switch (node.Attributes["rel"].Value) {
-							case "enclosure":
-								package.DownloadUrl = node.Attributes["href"].Value; break;
-							case "license":
-								package.LicenseUrl = node.Attributes["href"].Value; break;
-							default:
-								Console.WriteLine("Unsupported <link> rel: {0}", node.Attributes["rel"].Value); break;
-						}
-						break;
-
-					case "pkg:dependencies":
-						foreach (XmlNode dependencyNode in node.ChildNodes) {
-							var dependency = new PackageDependency();
-							foreach (XmlNode depNode in dependencyNode.ChildNodes) {
-								switch (depNode.Name) {
-									case "pkg:id":         dependency.Id               = depNode.InnerText; break;
-									case "pkg:version":    dependency.VersionString    = depNode.InnerText; break;
-									case "pkg:minVersion": dependency.MinVersionString = depNode.InnerText; break;
-									case "pkg:maxVersion": dependency.MaxVersionString = depNode.InnerText; break;
-									default:
-										Console.WriteLine("Unknown dependency node: {0}", depNode.Name);
-										break;
-								}
-							}
-							package.Dependencies.Add(dependency);
-						}
-						break;
-
-					default:
-						Console.WriteLine("Unsupported <entry> element: {0} \"{1}\"", node.Name, node.InnerText);
-						break;
-				}
-			}
-
-			return package;
-		}
-
 		// TODO deprecated ... see how LocalPackage does this.  we're going to implement something similar in RemotePackage.  A Source doesn't need to have this implementation ...
-		static List<SourcePackage> RemoveAllVersionsButLatest(List<SourcePackage> packages) {
-			var latestPackages  = new List<SourcePackage>();
+		static List<RemotePackage> RemoveAllVersionsButLatest(List<RemotePackage> packages) {
+			var latestPackages  = new List<RemotePackage>();
 			var highestVersions = new Dictionary<string, PackageVersion>(); // packageId: highest version
 
 			// grab the highest version of each package
@@ -166,6 +43,36 @@ namespace MooGet {
 
 			return latestPackages;
 		}
-		#endregion
+
+		public List<RemotePackage> AllPackages {
+			get { return Source.GetPackagesFromPath(Path).OrderBy(p => p.Title).ToList(); }
+		}
+
+		public RemotePackage Get(string id) {
+			id = id.ToLower();
+			return LatestPackages.FirstOrDefault(p => p.Id.ToLower() == id);
+		}
+
+		public List<RemotePackage> SearchByTitle(string query) {
+			query = query.ToLower();
+			return Packages.Where(p => p.Title.ToLower().Contains(query)).ToList();
+		}
+
+		public List<RemotePackage> SearchByDescription(string query) {
+			query = query.ToLower();
+			return Packages.Where(p => p.Description.ToLower().Contains(query)).ToList();
+		}
+
+		public List<RemotePackage> SearchByTitleOrDescription(string query) {
+			query = query.ToLower();
+			return Packages.Where(p => p.Title.ToLower().Contains(query) || p.Description.ToLower().Contains(query)).ToList();
+		}
+
+		static List<RemotePackage> GetPackagesFromPath(string path) {
+			if (File.Exists(path))
+				return Feed.ParseFeed(MooGet.Util.ReadFile(path));
+			else
+				return Feed.ParseFeed(MooGet.Util.ReadUrl(path));
+		}
 	}
 }

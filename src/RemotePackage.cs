@@ -5,7 +5,7 @@ using System.Net;
 namespace MooGet {
 
 	/// <summary>Represents a Package available from a Source.  May or may not be installed locally.</summary>
-	public class SourcePackage : Package {
+	public class RemotePackage : Package {
 
 		public string DownloadUrl { get; set; }
 
