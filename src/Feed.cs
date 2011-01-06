@@ -103,6 +103,33 @@ namespace MooGet {
 				doc.WriteTo(writer);
 			}
 
+			//// TESTING
+			XmlWriterSettings wSettings = new XmlWriterSettings();
+			wSettings.Indent = true;
+			MemoryStream ms = new MemoryStream();
+			XmlWriter xw = XmlWriter.Create(ms, wSettings);// Write Declaration
+			xw.WriteStartDocument();
+				// Write the root node
+				xw.WriteStartElement("Library");
+					xw.WriteStartElement("Book");
+						xw.WriteStartAttribute("MyPrefix:BookType");
+						xw.WriteString("Hardback");
+						xw.WriteEndAttribute();
+							xw.WriteStartElement("pkg:Title");
+							xw.WriteString("Door Number Three");
+							xw.WriteEndElement();
+							xw.WriteStartElement("Author");
+							xw.WriteString("O'Leary, Patrick");
+							xw.WriteEndElement();
+					xw.WriteEndElement();
+				xw.WriteEndElement();
+			xw.WriteEndDocument();
+			xw.Flush();
+			Byte[] buffer = new Byte[ms.Length];
+			buffer = ms.ToArray();
+			string xmlOutput = System.Text.Encoding.UTF8.GetString(buffer);
+			Console.WriteLine(xmlOutput);
+
 			Console.WriteLine("Generated Feed\n{0}", xml.ToString());
 			return xml.ToString();
 		}
