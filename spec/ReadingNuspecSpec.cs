@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using MooGet;
 using NUnit.Framework;
 
@@ -44,6 +45,7 @@ namespace MooGet.Specs {
 			package.Dependencies.First().VersionString.ShouldEqual("2.1.2.4000");
 			package.Dependencies.First().MinVersionString.Should(Be.Null);
 			package.Dependencies.First().MaxVersionString.Should(Be.Null);
+			package.Tags.Should(Be.Empty);
 		}
 
 		[Test][Ignore]
@@ -51,6 +53,30 @@ namespace MooGet.Specs {
 
 		[Test][Ignore]
 		public void MarkdownSharp_example() {}
+
+		[Test]
+		public void can_read_tags() {
+			var package = Package.FromSpec(PathToContent("my_nuspecs", "HasTags.nuspec"));
+
+			package.Id.ShouldEqual("i-have-tags");
+			package.VersionString.ShouldEqual("1.0.2.5");
+			package.Description.ShouldEqual("I have tags!");
+			package.Authors.Count.ShouldEqual(1);
+			package.Authors.First().ShouldEqual("remi");
+			package.Tags.Count.ShouldEqual(4);
+			new List<string> { "foo", "bar", "Hello", "World" }.ForEach(tag => package.Tags.ShouldContain(tag));
+
+			// example with commas, incase people comma delimit ...
+			package = Package.FromSpec(PathToContent("my_nuspecs", "HasTagsWithCommas.nuspec"));
+
+			package.Id.ShouldEqual("i-have-tags");
+			package.VersionString.ShouldEqual("1.0.2.5");
+			package.Description.ShouldEqual("I have tags with Commas!");
+			package.Authors.Count.ShouldEqual(1);
+			package.Authors.First().ShouldEqual("remi");
+			package.Tags.Count.ShouldEqual(5);
+			new List<string> { "foo", "bar", "Hello", "World", "With COMMAS" }.ForEach(tag => package.Tags.ShouldContain(tag));
+		}
 
 		// TODO find or make examples with:
 		// summary

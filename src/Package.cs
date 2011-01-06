@@ -86,6 +86,12 @@ namespace MooGet {
 							Authors.Add(authorNode.InnerText);
 						break;
 
+					case "tags":
+						char separator = metadata.InnerText.Contains(",") ? ',' : ' ';
+						foreach (var tag in metadata.InnerText.Trim().Split(separator))
+							Tags.Add(tag.Trim());
+						break;
+
 					default:
 						Console.WriteLine("Unknown <metadata> element: {0}", metadata.Name);
 						break;

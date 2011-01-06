@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>i-have-tags</id>
+    <version>1.0.2.5</version>
+    <description>I have tags with Commas!</description>
+    <authors>
+      <author>remi</author>
+    </authors>
+    <tags>foo,bar, Hello, World, With COMMAS  </tags>
+  </metadata>
+</package>

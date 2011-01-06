@@ -74,8 +74,24 @@ namespace MooGet {
 
 		/// <summary>Get all of the LocalPackage unpacked in the given directory (does not search subdirectories)</summary>
 		public static List<LocalPackage> FromDirectory(string directory) {
-			// TODO test it directory doesn't exist
+			return AllFromDirectory(directory);
+		}
 
+		public static List<LocalPackage> FromDirectories(params string[] directories) {
+			return AllFromDirectories(directories);
+		}
+
+		public static List<LocalPackage> LatestFromDirectory(string directory) {
+			return LatestFromDirectories(directory);
+		}
+
+		public static List<LocalPackage> LatestFromDirectories(params string[] directories) {
+			var all = AllFromDirectories(directories);
+			return all.Where(pkg => pkg.Version == HighestVersionAvailableOf(pkg.Id, all)).ToList();
+		}
+
+		public static List<LocalPackage> AllFromDirectory(string directory) {
+			// TODO test it directory doesn't exist
 			var packages = new List<LocalPackage>();
 			foreach (var dirname in Directory.GetDirectories(directory)) {
 				var nuspecs = Directory.GetFiles(dirname, "*.nuspec");
@@ -85,11 +101,19 @@ namespace MooGet {
 			return packages;
 		}
 
-		public static List<LocalPackage> FromDirectories(params string[] directories) {
+		public static List<LocalPackage> AllFromDirectories(params string[] directories) {
 			var packages = new List<LocalPackage>();
 			foreach (var dir in directories)
 				packages.AddRange(FromDirectory(dir));
 			return packages;
+		}
+
+		public static List<PackageVersion> VersionsAvailableOf(string packageId, List<LocalPackage> packages) {
+			return packages.Where(pkg => pkg.Id == packageId).Select(pkg => pkg.Version).ToList();
+		}
+
+		public static PackageVersion HighestVersionAvailableOf(string packageId, List<LocalPackage> packages) {
+			return PackageVersion.HighestVersion(VersionsAvailableOf(packageId, packages).ToArray());
 		}
 	}
 }

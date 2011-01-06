@@ -9,12 +9,16 @@ namespace MooGet.Specs {
 	[TestFixture]
 	public class RemotePackageSpec : MooGetSpec {
 
+		// to make these tests easier to write, we should be able to generate a feed, given abunchof packages
+
 		[Test][Ignore]
 		public void can_get_all_remote_packages_from_a_source() {
+			//var packages = RemotePackage.FromSource(new Source("..."));
 		}
 
 		[Test][Ignore]
 		public void can_get_all_remote_packages_from_a_list_of_sources() {
+			//var packages = RemotePackage.FromSource(new Source("..."), new Source("..."));
 		}
 
 		[Test][Ignore]

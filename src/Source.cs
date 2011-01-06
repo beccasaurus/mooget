@@ -149,6 +149,7 @@ namespace MooGet {
 			return package;
 		}
 
+		// TODO deprecated ... see how LocalPackage does this.  we're going to implement something similar in RemotePackage.  A Source doesn't need to have this implementation ...
 		static List<SourcePackage> RemoveAllVersionsButLatest(List<SourcePackage> packages) {
 			var latestPackages  = new List<SourcePackage>();
 			var highestVersions = new Dictionary<string, PackageVersion>(); // packageId: highest version

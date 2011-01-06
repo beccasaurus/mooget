@@ -75,6 +75,7 @@ namespace MooGet.Specs {
 
 		[Test][Ignore]
 		public void by_default_all_packages_come_from_Moo_Dir() {
+			// TODO test VersionsAvailableOf and HighestVersionAvailableOf methods to make sure they use Moo.Dir too ...
 		}
 
 		// for more Search-related specs, see SearchSpec
@@ -82,12 +83,30 @@ namespace MooGet.Specs {
 		public void can_search_packages() {
 		}
 
-		[Test][Ignore]
-		public void can_get_all_versions_of_the_packages_returned() {
+		[Test]
+		public void can_get_the_version_numbers_available_for_a_particular_package_id() {
+			LocalPackage.VersionsAvailableOf("AntiXSS",     packages).Select(version => version.ToString()).ShouldEqual(new string[] { "4.0.1" });
+			LocalPackage.VersionsAvailableOf("Ninject",     packages).Select(version => version.ToString()).ShouldEqual(new string[] { "2.0.1.0", "2.1.0.76" });
+			LocalPackage.VersionsAvailableOf("Castle.Core", packages).Select(version => version.ToString()).ShouldEqual(new string[] { "1.1.0", "1.2.0", "2.5.1" });
 		}
 
-		[Test][Ignore]
+		[Test]
+		public void can_get_the_highest_version_number_available_for_a_particular_package_id() {
+			LocalPackage.HighestVersionAvailableOf("AntiXSS",     packages).ToString().ShouldEqual("4.0.1");
+			LocalPackage.HighestVersionAvailableOf("Ninject",     packages).ToString().ShouldEqual("2.1.0.76");
+			LocalPackage.HighestVersionAvailableOf("Castle.Core", packages).ToString().ShouldEqual("2.5.1");
+		}
+
+		[Test]
+		public void can_get_all_versions_of_the_packages_returned() {
+			LocalPackage.AllFromDirectory(PathToContent("unpacked_packages")).Count.ShouldEqual(8);
+			LocalPackage.AllFromDirectories(PathToContent("unpacked_packages"), PathToContent("packages")).Count.ShouldEqual(12);
+		}
+
+		[Test]
 		public void can_get_only_the_latest_versions_of_the_packages_returned() {
+			LocalPackage.LatestFromDirectory(PathToContent("unpacked_packages")).Count.ShouldEqual(5);
+			LocalPackage.LatestFromDirectories(PathToContent("unpacked_packages"), PathToContent("packages")).Count.ShouldEqual(8);
 		}
 	}
 }
