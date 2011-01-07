@@ -35,6 +35,7 @@ namespace MooGet.Specs {
 				Tags          = new List<string> { "Foo", "Bar" }
 			}};
 			var feedXml       = Feed.GenerateFeed(packages);
+			Console.WriteLine(feedXml);
 			var packagesInXml = Feed.ParseFeed(feedXml); // <--- should this take the XML or a path to a Feed.  path seems more obvious
 
 			packagesInXml.Count.ShouldEqual(1);

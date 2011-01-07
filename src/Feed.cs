@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Linq;
+using System.Reflection;
 using System.Collections.Generic;
 
 namespace MooGet {
@@ -19,8 +20,94 @@ namespace MooGet {
 			return packages;
 		}
 
+		// TODO move this out into its own file ...
+		public class EasyXmlWriter {
+			public MemoryStream Stream { get; set; }
+			public XmlWriter    Writer { get; set; }
+
+			public EasyXmlWriter() {
+				Stream = new MemoryStream();
+				Writer = XmlWriter.Create(Stream, new XmlWriterSettings { Indent = true });
+				Writer.WriteStartDocument();
+			}
+
+			public EasyXmlWriter WriteElement(string name) {
+				return WriteElement(name, null, null);
+			}
+			public EasyXmlWriter WriteElement(string name, string innerText) {
+				return WriteElement(name, innerText, null);
+			}
+			public EasyXmlWriter WriteElement(string name, object attributes) {
+				return WriteElement(name, null, attributes);
+			}
+			public EasyXmlWriter WriteElement(string name, string innerText, object attributes) {
+				StartElement(name, innerText, attributes);
+				EndElement();
+				return this;
+			}
+
+			public EasyXmlWriter StartElement(string name) {
+				return StartElement(name, null, null);
+			}
+			public EasyXmlWriter StartElement(string name, string innerText) {
+				return StartElement(name, innerText, null);
+			}
+			public EasyXmlWriter StartElement(string name, object attributes) {
+				return StartElement(name, null, attributes);
+			}
+			public EasyXmlWriter StartElement(string name, string innerText, object attributes) {
+				var attrs = ObjectToAttributes(attributes);
+
+				if (attrs != null && attrs.ContainsKey("xmlns"))
+					Writer.WriteStartElement(name, attrs["xmlns"]);
+				else
+					Writer.WriteStartElement(name);
+
+				if (attrs != null) {
+					foreach (var attr in attrs) {
+						Writer.WriteStartAttribute(attr.Key.Replace("_", ":")); // foo_bar becomes foo:bar
+						Writer.WriteString(attr.Value);
+						Writer.WriteEndAttribute();
+					}
+				}
+
+				if (innerText != null)
+					Writer.WriteString(innerText);
+
+				return this;
+			}
+
+			public EasyXmlWriter EndElement() {
+				Writer.WriteEndElement();
+				return this;
+			}
+
+			string _xml;
+			public string ToString() {
+				if (_xml == null) {
+					Writer.WriteEndDocument();
+					Writer.Flush();
+					var buffer = Stream.ToArray();
+					_xml = System.Text.Encoding.UTF8.GetString(buffer).Trim();
+				}
+				return _xml;
+			}
+
+			static IDictionary<string, string> ObjectToAttributes(object anonymousType) {
+				if (anonymousType == null)
+					return null;
+
+				var attr = BindingFlags.Public | BindingFlags.Instance;
+				var dict = new Dictionary<string, string>();
+				foreach (var property in anonymousType.GetType().GetProperties(attr))
+					if (property.CanRead)
+						dict.Add(property.Name, property.GetValue(anonymousType, null).ToString());
+				return dict;
+			} 
+		}
+
 		public static string GenerateFeed(List<Package> packages) {
-			var doc = new XmlDocument();
+			var xml = new EasyXmlWriter();
 
 			// TODO make it so you can specify these Atom feed metadata values
 			var atomId          = "urn:uuid:" + Guid.NewGuid().ToString();
@@ -30,107 +117,38 @@ namespace MooGet {
 			var atomAuthorEmail = "moo.cow@mooget.net";
 			var atomUpdatedAt   = DateTime.Now; // this should be calculated somehow ...
 
-			// <?xml version="1.0" encoding="utf-8"?>
-			doc.AppendChild(doc.CreateXmlDeclaration("1.0", "utf-8", null));
-
 			// Atom <feed>
-			var feed = doc.CreateElement("feed");
-			feed.SetAttribute("xml:lang",  "en-us");
-			feed.SetAttribute("xmlns",     "http://www.w3.org/2005/Atom");
-			feed.SetAttribute("xmlns:pkg", "http://schemas.microsoft.com/packaging/2010/07/");
+			xml.StartElement("feed", new { xml_lang = "en-us", xmlns = "http://www.w3.org/2005/Atom", xmlns_pkg = "http://schemas.microsoft.com/packaging/2010/07/" }).
+				WriteElement("id",       atomId).
+				WriteElement("title",    atomTitle).
+				WriteElement("subtitle", atomSubtitle).
+				WriteElement("updated",  DateTime.Now.ToString("s") + "Z").
+				StartElement("author").
+					WriteElement("name",  atomAuthorName).
+					WriteElement("email", atomAuthorEmail).
+				EndElement();
 
-			// <feed> metadata ... id, title, subtitle, links, id, updated, author ...
-			var id = doc.CreateElement("id");
-			id.InnerText = atomId;
-			feed.AppendChild(id);
+				foreach (var package in packages) {
+					xml.StartElement("entry").
+						WriteElement("pkg:packageId", package.Id).
+						WriteElement("pkg:version",   package.VersionString).
+						WriteElement("title",         (package.Title == null) ? package.Id : package.Title).
+						WriteElement("content",       package.Description);
 
-			var title = doc.CreateElement("title");
-			title.InnerText = atomTitle;
-			feed.AppendChild(title);
+						// <pkg:keywords xmlns:i="http://www.w3.org/2001/XMLSchema-instance"><string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">SNAP
+						if (package.Tags.Count > 0) {
+							xml.StartElement("pkg:keywords", new { xmlns_i = "http://www.w3.org/2001/XMLSchema-instance" });
+							foreach (var tag in package.Tags) {
+								xml.WriteElement("string", tag, new { xmlns = "http://schemas.microsoft.com/2003/10/Serialization/Arrays" });
+							}
+							xml.EndElement();
+						}
 
-			var subtitle = doc.CreateElement("subtitle");
-			subtitle.InnerText = atomSubtitle;
-			feed.AppendChild(subtitle);
+					xml.EndElement(); // </entry>
+				}
 
-			var updated = doc.CreateElement("updated");
-			updated.InnerText = DateTime.Now.ToString("s") + "Z";
-			feed.AppendChild(updated);
+			xml.EndElement(); // </feed>
 
-			var author = doc.CreateElement("author");
-				var authorName = doc.CreateElement("name");
-				authorName.InnerText = atomAuthorName;
-				author.AppendChild(authorName);
-
-				var authorEmail = doc.CreateElement("email");
-				authorEmail.InnerText = atomAuthorEmail;
-				author.AppendChild(authorEmail);
-			feed.AppendChild(author);
-
-			// Add <entry> elements ...
-			foreach (var package in packages) {
-				var entry = doc.CreateElement("entry");
-
-				// TODO ONCE GREEN, refactor each of these down to 1 line
-
-				var packageId = doc.CreateElement("pkg", "packageId", null);
-				packageId.Prefix = "PREFIX";
-				packageId.InnerText = package.Id;
-				entry.AppendChild(packageId);
-
-				var packageVersion = doc.CreateElement("pkg", "version", null);
-				packageVersion.InnerText = package.VersionString;
-				entry.AppendChild(packageVersion);
-
-				var packageTitle = doc.CreateElement("title");
-				packageTitle.InnerText = (package.Title == null) ? package.Id : package.Title;
-				entry.AppendChild(packageTitle);
-
-				var packageDescription = doc.CreateElement("foo:content");
-				packageDescription.InnerText = "djsklfjdsjkfsdl " + package.Description;
-				entry.AppendChild(packageDescription);
-
-				feed.AppendChild(entry);
-			}
-
-			doc.AppendChild(feed);
-
-			// or doc.OuterXml (not indented)
-			var xml = new StringWriter();
-
-			using (var writer = new XmlTextWriter(xml)) {
-				writer.Formatting = Formatting.Indented;
-				writer.Namespaces = false;
-				doc.WriteTo(writer);
-			}
-
-			//// TESTING
-			XmlWriterSettings wSettings = new XmlWriterSettings();
-			wSettings.Indent = true;
-			MemoryStream ms = new MemoryStream();
-			XmlWriter xw = XmlWriter.Create(ms, wSettings);// Write Declaration
-			xw.WriteStartDocument();
-				// Write the root node
-				xw.WriteStartElement("Library");
-					xw.WriteStartElement("Book");
-						xw.WriteStartAttribute("MyPrefix:BookType");
-						xw.WriteString("Hardback");
-						xw.WriteEndAttribute();
-							xw.WriteStartElement("pkg:Title");
-							xw.WriteString("Door Number Three");
-							xw.WriteEndElement();
-							xw.WriteStartElement("Author");
-							xw.WriteString("O'Leary, Patrick");
-							xw.WriteEndElement();
-					xw.WriteEndElement();
-				xw.WriteEndElement();
-			xw.WriteEndDocument();
-			xw.Flush();
-			Byte[] buffer = new Byte[ms.Length];
-			buffer = ms.ToArray();
-			string xmlOutput = System.Text.Encoding.UTF8.GetString(buffer);
-			Console.WriteLine(xmlOutput);
-
-			Console.WriteLine("Generated Feed\n{0}", xml.ToString());
 			return xml.ToString();
 		}
 
