@@ -104,46 +104,6 @@ namespace MooGet.Specs {
 			}
 
 			[Test][Ignore]
-			public void tags_generate_in_feed_properly() {
-			}
-
-			[Test][Ignore]
-			public void dependencies_generate_in_feed_properly() {
-			}
-
-			[Test][Ignore]
-			public void authors_generate_in_feed_properly() {
-			}
-
-			[Test][Ignore]
-			public void owners_generate_in_feed_properly() {
-			}
-
-			[Test][Ignore]
-			public void language_is_included_in_feed() {
-				var feedXml = Feed.GenerateFeed(new List<Package> { Package.FromSpec(PathToContent("my_nuspecs", "CrazyLibrary.nuspec")) });
-				var package = Feed.ParseFeed(feedXml).First();
-
-				// package.Id.Should ...
-			}
-
-			[Test][Ignore]
-			public void licenseUrl_is_included_in_feed() {
-			}
-
-			[Test][Ignore]
-			public void iconUrl_is_included_in_feed() {
-			}
-
-			[Test][Ignore]
-			public void projectUrl_is_included_in_feed() {
-			}
-
-			[Test][Ignore]
-			public void requireLicenseAcceptance_is_included_in_feed() {
-			}
-
-			[Test][Ignore]
 			public void can_take_a_list_of_packages_and_generate_xml_for_a_feed() {
 			}
 
@@ -160,6 +120,78 @@ namespace MooGet.Specs {
 			}
 
 			// TODO make sure to test all of the possible Atom feed fields ... version, license url, download url, etc ...
+
+			[TestFixture]
+			public class CrazyLibraryExamples {
+
+				static string feedXml = Feed.GenerateFeed(new List<Package> { Package.FromSpec(PathToContent("my_nuspecs", "CrazyLibrary.nuspec")) });
+				static RemotePackage package = Feed.ParseFeed(feedXml).First();
+
+				[Test]
+				public void language_is_included_in_feed() {
+					package.Language.ShouldEqual("nl-BE");
+				}
+
+				[Test]
+				public void licenseUrl_is_included_in_feed() {
+					package.LicenseUrl.ShouldEqual("http://www.apache.org/licenses/LICENSE-2.0");
+				}
+
+				[Test]
+				public void projectUrl_is_included_in_feed() {
+					package.ProjectUrl.ShouldEqual("https://github.com/foo/bar");
+				}
+
+				[Test]
+				public void iconUrl_is_included_in_feed() {
+					package.IconUrl.ShouldEqual("http://images.com/someplace/icons/mara.png");
+				}
+
+				[Test]
+				public void downloadUrl_is_included_in_feed() {
+					package.DownloadUrl.ShouldEqual("http://mooget.net/packages/download?p=CrazyLibrary-0.3.6.nupkg");
+				}
+
+				[Test]
+				public void requireLicenseAcceptance_is_included_in_feed() {
+					package.RequireLicenseAcceptance.ShouldBeTrue();
+				}
+
+				[Test]
+				public void tags_generate_in_feed_properly() {
+					package.Tags.Count.ShouldEqual(6);
+					package.Tags.ShouldContain("My");
+					package.Tags.ShouldContain("totally");
+					package.Tags.ShouldContain("awesome");
+					package.Tags.ShouldContain("space");
+					package.Tags.ShouldContain("delimited");
+					package.Tags.ShouldContain("tags");
+				}
+
+				[Test]
+				public void dependencies_generate_in_feed_properly() {
+					package.Dependencies.Count.ShouldEqual(2);
+					package.Dependencies.First(d => d.Id == "Ninject").VersionString.ShouldEqual("2.1.0.76");
+					package.Dependencies.First(d => d.Id == "WebActivator").VersionString.Should(Be.Null);
+					package.Dependencies.First(d => d.Id == "WebActivator").MinVersionString.ShouldEqual("1.0.0.0");
+					package.Dependencies.First(d => d.Id == "WebActivator").MaxVersionString.ShouldEqual("1.1");
+				}
+
+				[Test]
+				public void authors_generate_in_feed_properly() {
+					package.Authors.Count.ShouldEqual(3);
+					package.Authors.ShouldContain("First Guy");
+					package.Authors.ShouldContain("Second Guy");
+					package.Authors.ShouldContain("Third");
+				}
+
+				[Test]
+				public void owners_generate_in_feed_properly() {
+					package.Owners.Count.ShouldEqual(2);
+					package.Owners.ShouldContain("Joe <foo@bar.com>");
+					package.Owners.ShouldContain("Sally");
+				}
+			}
 		}
 	}
 }

@@ -35,6 +35,11 @@ namespace MooGet {
 			return string.Format("tag:{0},{1}:{2}.nupkg", domain, package.Modified.ToString("yyyy-MM-dd"), package.IdAndVersion);
 		}
 
+		// TODO this is just a placeholder ... we'll need to implement a real, practical way to include download urls in the feed
+		public static string DownloadUrlForPackage(Package package) {
+			return string.Format("http://{0}/packages/download?p={1}.nupkg", Domain, package.IdAndVersion);
+		}
+
 		public static string GenerateFeed(List<Package> packages) {
 			var xml = new XmlBuilder();
 
@@ -65,15 +70,35 @@ namespace MooGet {
 					xml.StartElement("entry").
 						WriteElement("id",            IdForPackage(package)).
 						WriteElement("title",         (package.Title == null) ? package.Id : package.Title).
-						WriteElement("updated",       Format(package.Modified)).
-						WriteElement("published",     Format(package.Created)).
+						WriteElement("content",       package.Description);
+
+						if (package.Modified != DateTime.MinValue)
+							xml.WriteElement("updated", Format(package.Modified));
+						if (package.Created != DateTime.MinValue)
+							xml.WriteElement("published", Format(package.Created));
+						if (package.LicenseUrl != null)
+							xml.WriteElement("link", new { rel = "license",   href = package.LicenseUrl });
+						if (package.ProjectUrl != null)
+							xml.WriteElement("link", new { rel = "project",   href = package.ProjectUrl });
+						if (package.IconUrl != null)
+							xml.WriteElement("link", new { rel = "icon",      href = package.IconUrl    });
+
+						xml.WriteElement("link", new { rel = "enclosure", href = DownloadUrlForPackage(package) }).
 						WriteElement("pkg:packageId", package.Id).
 						WriteElement("pkg:version",   package.VersionString).
-						WriteElement("content",       package.Description);
+						WriteElement("pkg:requireLicenseAcceptance", package.RequireLicenseAcceptance.ToString());
+
+						if (package.Language != null)
+							xml.WriteElement("pkg:language",  package.Language);
 
 						foreach (var author in package.Authors)
 							xml.StartElement("author").
 								WriteElement("name", author).
+							EndElement();
+
+						foreach (var owner in package.Owners)
+							xml.StartElement("owner").
+								WriteElement("name", owner).
 							EndElement();
 
 						if (package.Tags.Any()) {
@@ -91,9 +116,9 @@ namespace MooGet {
 									xml.WriteElement("pkg:id", dependency.Id);
 									if (dependency.Version != null)
 										xml.WriteElement("pkg:version", dependency.VersionString);
-									else if (dependency.MinVersion != null)
+									if (dependency.MinVersion != null)
 										xml.WriteElement("pkg:minVersion", dependency.MinVersionString);
-									else if (dependency.MaxVersion != null)
+									if (dependency.MaxVersion != null)
 										xml.WriteElement("pkg:maxVersion", dependency.MaxVersionString);
 								xml.EndElement();
 							}
@@ -122,6 +147,7 @@ namespace MooGet {
 					case "title":         package.Title         = node.InnerText; break;
 					case "content":       package.Description   = node.InnerText; break;
 					case "author":        package.Authors.Add(node.InnerText);    break;
+					case "owner":         package.Owners.Add(node.InnerText);     break;
 
 					case "published":     package.Created  = DateTime.Parse(node.InnerText); break;
 					case "updated":       package.Modified = DateTime.Parse(node.InnerText); break;
@@ -156,6 +182,10 @@ namespace MooGet {
 								package.DownloadUrl = node.Attributes["href"].Value; break;
 							case "license":
 								package.LicenseUrl = node.Attributes["href"].Value; break;
+							case "project":
+								package.ProjectUrl = node.Attributes["href"].Value; break;
+							case "icon":
+								package.IconUrl    = node.Attributes["href"].Value; break;
 							default:
 								Console.WriteLine("Unsupported <link> rel: {0}", node.Attributes["rel"].Value); break;
 						}
@@ -165,11 +195,11 @@ namespace MooGet {
 						foreach (XmlNode dependencyNode in node.ChildNodes) {
 							var dependency = new PackageDependency();
 							foreach (XmlNode depNode in dependencyNode.ChildNodes) {
-								switch (depNode.Name) {
+								switch (depNode.Name.ToLower()) {
 									case "pkg:id":         dependency.Id               = depNode.InnerText; break;
 									case "pkg:version":    dependency.VersionString    = depNode.InnerText; break;
-									case "pkg:minVersion": dependency.MinVersionString = depNode.InnerText; break;
-									case "pkg:maxVersion": dependency.MaxVersionString = depNode.InnerText; break;
+									case "pkg:minversion": dependency.MinVersionString = depNode.InnerText; break;
+									case "pkg:maxversion": dependency.MaxVersionString = depNode.InnerText; break;
 									default:
 										Console.WriteLine("Unknown dependency node: {0}", depNode.Name);
 										break;

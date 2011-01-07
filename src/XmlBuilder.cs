@@ -86,8 +86,10 @@ namespace MooGet {
 			var attr = BindingFlags.Public | BindingFlags.Instance;
 			var dict = new Dictionary<string, string>();
 			foreach (var property in anonymousType.GetType().GetProperties(attr))
-				if (property.CanRead)
-					dict.Add(property.Name, property.GetValue(anonymousType, null).ToString());
+				if (property.CanRead) {
+					var value = property.GetValue(anonymousType, null);
+					dict.Add(property.Name, value == null ? null : value.ToString());
+				}
 			return dict;
 		} 
 	}
