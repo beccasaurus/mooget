@@ -40,12 +40,26 @@ namespace MooGet.Specs {
 			ninject.GetFiles("tools").Length.ShouldEqual(0);
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void can_get_all_exe_tools() {
+			var package = LocalPackage.FromDirectory(PathToContent("packages")).First(pkg => pkg.Id == "NUnit");
+			package.ToolsDirectory.ShouldEqual(Path.Combine(package.Path, "Tools"));
+			package.Tools.Length.ShouldEqual(9);
+
+			var exeNames = package.Tools.Select(path => Path.GetFileName(path));
+			foreach (var exe in new string[] { "nunit-agent-x86.exe", "nunit-agent.exe", "nunit-console-x86.exe", "nunit-console.exe", "nunit-x86.exe", "nunit.exe", "pnunit-agent.exe", "pnunit-launcher.exe", "runFile.exe" })
+				exeNames.ShouldContain(exe);
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void can_get_all_dll_libraries() {
+			packages.First(p => p.Id == "RhinoMocks").Libraries.Length.ShouldEqual(1);
+			packages.First(p => p.Id == "RhinoMocks").Libraries.First().EndsWith("Rhino.Mocks.dll").ShouldBeTrue();
+
+			var dlls = packages.First(p => p.Id == "AntiXSS").Libraries.Select(path => Path.GetFileName(path)).ToArray();
+			dlls.Length.ShouldEqual(2);
+			dlls.ShouldContain("AntiXSSLibrary.dll");
+			dlls.ShouldContain("HtmlSanitizationLibrary.dll");
 		}
 
 		[Test][Ignore]

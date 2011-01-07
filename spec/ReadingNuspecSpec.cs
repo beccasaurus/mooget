@@ -48,12 +48,6 @@ namespace MooGet.Specs {
 			package.Tags.Should(Be.Empty);
 		}
 
-		[Test][Ignore]
-		public void Ninject_example() {}
-
-		[Test][Ignore]
-		public void MarkdownSharp_example() {}
-
 		[Test]
 		public void CrazyLibrary_example() {
 			var package = Package.FromSpec(PathToContent("my_nuspecs", "CrazyLibrary.nuspec"));

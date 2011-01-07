@@ -34,9 +34,9 @@ namespace MooGet {
 			Console.WriteLine("Uninstalled {0}", IdAndVersion);
 		}
 
-		public string LibDirectory     { get { return System.IO.Path.Combine(Path, "lib");     } }
-		public string ToolsDirectory   { get { return System.IO.Path.Combine(Path, "tools");   } }
-		public string ContentDirectory { get { return System.IO.Path.Combine(Path, "content"); } }
+		public string LibDirectory     { get { return RelativeDirectory("lib");     } }
+		public string ToolsDirectory   { get { return RelativeDirectory("tools");   } }
+		public string ContentDirectory { get { return RelativeDirectory("content"); } }
 
 		/// <summary>Returns all of the .dll files found in this package's LibDirectory</summary>
 		public string[] Libraries {
@@ -70,6 +70,12 @@ namespace MooGet {
 				return Directory.GetFiles(dir, pattern, SearchOption.AllDirectories);
 			else
 				return new string[] {};
+		}
+
+		/// <summary>Returns the full path to the given directory (case insensitive) relative to the Path</summary>
+		public string RelativeDirectory(string name) {
+			name = name.ToLower();
+			return Directory.GetDirectories(Path).Where(dir => System.IO.Path.GetFileName(dir).ToLower() == name).FirstOrDefault();
 		}
 
 		/// <summary>Get all of the LocalPackage unpacked in the given directory (does not search subdirectories)</summary>
