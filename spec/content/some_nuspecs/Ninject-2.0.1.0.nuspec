@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Ninject</id>
+    <version>2.0.1.0</version>
+    <description>Stop writing monolithic applications that make you feel like you have to move mountains to make the simplest of changes. Ninject helps you use the technique of dependency injection to break your applications into loosely-coupled, highly-cohesive components, and then glue them back together in a flexible manner.</description>
+    <authors>
+      <author>Nate Kohari</author>
+      <author>Ian Davis</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:38.4642+00:00</created>
+    <modified>2010-10-25T22:55:38.4642+00:00</modified>
+  </metadata>
+</package>
