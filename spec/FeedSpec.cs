@@ -36,8 +36,13 @@ namespace MooGet.Specs {
 			public void the_feed_should_have_an_Atom_tag_id() {
 			}
 
-			[Test][Ignore]
+			[Test]
 			public void each_entry_has_a_unique_Atom_tag_id_that_is_always_the_same() {
+				var package = Package.FromSpec(PathToContent("some_nuspecs", "Ninject-2.0.1.0.nuspec"));
+				Feed.IdForPackage(package, "foo.com").ShouldEqual("tag:foo.com,2010-10-25:Ninject-2.0.1.0.nupkg");
+
+				package = Package.FromSpec(PathToContent("my_nuspecs", "HasTags.nuspec"));
+				Feed.IdForPackage(package, "bar.org").ShouldEqual("tag:bar.org,2011-01-06:i-have-tags-1.0.2.5.nupkg");
 			}
 
 			[Test]
@@ -108,6 +113,34 @@ namespace MooGet.Specs {
 
 			[Test][Ignore]
 			public void authors_generate_in_feed_properly() {
+			}
+
+			[Test][Ignore]
+			public void owners_generate_in_feed_properly() {
+			}
+
+			[Test][Ignore]
+			public void language_is_included_in_feed() {
+				var feedXml = Feed.GenerateFeed(new List<Package> { Package.FromSpec(PathToContent("my_nuspecs", "CrazyLibrary.nuspec")) });
+				var package = Feed.ParseFeed(feedXml).First();
+
+				// package.Id.Should ...
+			}
+
+			[Test][Ignore]
+			public void licenseUrl_is_included_in_feed() {
+			}
+
+			[Test][Ignore]
+			public void iconUrl_is_included_in_feed() {
+			}
+
+			[Test][Ignore]
+			public void projectUrl_is_included_in_feed() {
+			}
+
+			[Test][Ignore]
+			public void requireLicenseAcceptance_is_included_in_feed() {
 			}
 
 			[Test][Ignore]

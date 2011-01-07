@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>CrazyLibrary</id>
+    <title>Crazy Library</title>
+    <version>0.3.6</version>
+    <description>A crazy library</description>
+    <authors>First Guy, Second Guy , Third  </authors>
+    <owners>Joe &lt;foo@bar.com&gt; , Sally</owners>
+    <tags>My totally awesome space delimited tags</tags>
+    <language>nl-BE</language>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:38.3056+00:00</created>
+    <modified>2010-10-25T22:55:38.3066+00:00</modified>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/foo/bar</projectUrl>
+    <iconUrl>http://images.com/someplace/icons/mara.png</iconUrl>
+  </metadata>
+  <dependencies>
+    <dependency id="Ninject" version="2.1.0.76" />
+    <dependency id="WebActivator" minversion="1.0.0.0" maxVersion="1.1" />
+  </dependencies>
+</package>

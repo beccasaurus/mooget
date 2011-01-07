@@ -55,6 +55,48 @@ namespace MooGet.Specs {
 		public void MarkdownSharp_example() {}
 
 		[Test]
+		public void CrazyLibrary_example() {
+			var package = Package.FromSpec(PathToContent("my_nuspecs", "CrazyLibrary.nuspec"));
+
+			package.Id.ShouldEqual("CrazyLibrary");
+			package.Title.ShouldEqual("Crazy Library");
+			package.VersionString.ShouldEqual("0.3.6");
+			package.Description.ShouldEqual("A crazy library");
+			package.Language.ShouldEqual("nl-BE");
+			package.Created.ShouldEqual(DateTime.Parse("2010-10-25T22:55:38.3056+00:00"));
+			package.Modified.ShouldEqual(DateTime.Parse("2010-10-25T22:55:38.3066+00:00"));
+
+			package.LicenseUrl.ShouldEqual("http://www.apache.org/licenses/LICENSE-2.0");
+			package.ProjectUrl.ShouldEqual("https://github.com/foo/bar");
+			package.IconUrl.ShouldEqual("http://images.com/someplace/icons/mara.png");
+
+			package.RequireLicenseAcceptance.ShouldBeTrue();
+
+			package.Authors.Count.ShouldEqual(3);
+			package.Authors.ShouldContain("First Guy");
+			package.Authors.ShouldContain("Second Guy");
+			package.Authors.ShouldContain("Third");
+
+			package.Owners.Count.ShouldEqual(2);
+			package.Owners.ShouldContain("Joe <foo@bar.com>");
+			package.Owners.ShouldContain("Sally");
+
+			package.Tags.Count.ShouldEqual(6);
+			package.Tags.ShouldContain("My");
+			package.Tags.ShouldContain("totally");
+			package.Tags.ShouldContain("awesome");
+			package.Tags.ShouldContain("space");
+			package.Tags.ShouldContain("delimited");
+			package.Tags.ShouldContain("tags");
+
+			package.Dependencies.Count.ShouldEqual(2);
+			package.Dependencies.First(d => d.Id == "Ninject").VersionString.ShouldEqual("2.1.0.76");
+			package.Dependencies.First(d => d.Id == "WebActivator").VersionString.Should(Be.Null);
+			package.Dependencies.First(d => d.Id == "WebActivator").MinVersionString.ShouldEqual("1.0.0.0");
+			package.Dependencies.First(d => d.Id == "WebActivator").MaxVersionString.ShouldEqual("1.1");
+		}
+
+		[Test]
 		public void can_read_tags() {
 			var package = Package.FromSpec(PathToContent("my_nuspecs", "HasTags.nuspec"));
 

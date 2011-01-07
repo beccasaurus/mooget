@@ -1,5 +1,6 @@
 using System;
 using System.Xml;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace MooGet {
@@ -17,26 +18,30 @@ namespace MooGet {
 	public class Package {
 
 		List<string>            _authors      = new List<string>();
+		List<string>            _owners       = new List<string>();
 		List<string>            _tags         = new List<string>();
 		List<PackageDependency> _dependencies = new List<PackageDependency>();
 
-		public string Id { get; set; }
-
-		public string Title { get; set; }
-
-		public string Description { get; set; }
-
-		public string Language { get; set; }
-
-		public string LicenseUrl { get; set; }
-
-		public PackageVersion Version { get; set; }
-
+		public string Id                     { get; set; }
+		public string Title                  { get; set; }
+		public string Description            { get; set; }
+		public string Language               { get; set; }
+		public string LicenseUrl             { get; set; }
+		public string ProjectUrl             { get; set; }
+		public string IconUrl                { get; set; }
+		public DateTime Created              { get; set; }
+		public DateTime Modified             { get; set; }
+		public PackageVersion Version        { get; set; }
 		public bool RequireLicenseAcceptance { get; set; }
 
 		public List<string> Authors {
 			get { return _authors;  }
 			set { _authors = value; }
+		}
+
+		public List<string> Owners {
+			get { return _owners;  }
+			set { _owners = value; }
 		}
 
 		public List<string> Tags {
@@ -59,10 +64,6 @@ namespace MooGet {
 			set { Version = new PackageVersion(value); }
 		}
 
-		public DateTime Created { get; set; }
-
-		public DateTime Modified { get; set; }
-
 		public override string ToString() {
 			return string.Format("{0} ({1})", Id, Version);
 		}
@@ -80,9 +81,12 @@ namespace MooGet {
 				switch (metadata.Name.ToLower()) {
 					case "id":          Id            = text; break;
 					case "version":     VersionString = text; break;
+					case "title":       Title         = text; break;
 					case "description": Description   = text; break;
 					case "language":    Language      = text; break;
 					case "licenseurl":  LicenseUrl    = text; break;
+					case "projecturl":  ProjectUrl    = text; break;
+					case "iconurl":     IconUrl       = text; break;
 
 					case "created":  Created  = DateTime.Parse(text); break;
 					case "modified": Modified = DateTime.Parse(text); break;
@@ -91,8 +95,21 @@ namespace MooGet {
 						RequireLicenseAcceptance = bool.Parse(text); break;
 
 					case "authors":
-						foreach (XmlNode authorNode in metadata.ChildNodes)
-							Authors.Add(authorNode.InnerText);
+						if (text.Contains(","))
+							foreach (var author in text.Split(','))
+								Authors.Add(author.Trim());
+						else
+							foreach (XmlNode authorNode in metadata.ChildNodes)
+								Authors.Add(authorNode.InnerText);
+						break;
+
+					case "owners":
+						if (text.Contains(","))
+							foreach (var owner in text.Split(','))
+								Owners.Add(owner.Trim());
+						else
+							foreach (XmlNode ownerNode in metadata.ChildNodes)
+								Owners.Add(ownerNode.InnerText);
 						break;
 
 					case "tags":

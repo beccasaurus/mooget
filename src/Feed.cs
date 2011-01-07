@@ -9,6 +9,8 @@ namespace MooGet {
 
 	public class Feed {
 
+		public static string Domain = "mooget.net"; // default domain for use in generating parts of the Atom feed
+
 		public static List<RemotePackage> ParseFeed(string feedSourceXml) {
 			var packages = new List<RemotePackage>();
 			var doc      = Util.GetXmlDocumentForString(feedSourceXml);
@@ -21,14 +23,23 @@ namespace MooGet {
 
 		// Format date for Atom feed ... not sure if this is right or not.  It doesn't end in 'Z' as expected ...
 		public static string Format(DateTime date) {
-			return date.ToString("s");
+			// return date.ToString("s");
+			return XmlConvert.ToString(date, XmlDateTimeSerializationMode.Local);
+		}
+
+		public static string IdForPackage(Package package) {
+			return IdForPackage(package, Feed.Domain);
+		}
+
+		public static string IdForPackage(Package package, string domain) {
+			return string.Format("tag:{0},{1}:{2}.nupkg", domain, package.Modified.ToString("yyyy-MM-dd"), package.IdAndVersion);
 		}
 
 		public static string GenerateFeed(List<Package> packages) {
 			var xml = new XmlBuilder();
 
 			// TODO make it so you can specify these Atom feed metadata values
-			var atomId          = "urn:uuid:" + Guid.NewGuid().ToString(); // TODO change this to use tag:
+			var atomId          = string.Format("tag:{0},{1}:/", Domain, "2010-12-15"); // date MooGet was created
 			var atomTitle       = "Generated MooGet Feed";
 			var atomSubtitle    = "Enjoy!";
 			var atomAuthorName  = "Moo Cow";
@@ -52,7 +63,7 @@ namespace MooGet {
 				// <entry> elements for each package
 				foreach (var package in packages) {
 					xml.StartElement("entry").
-						// TODO add ID (use tag:)
+						WriteElement("id",            IdForPackage(package)).
 						WriteElement("title",         (package.Title == null) ? package.Id : package.Title).
 						WriteElement("updated",       Format(package.Modified)).
 						WriteElement("published",     Format(package.Created)).
