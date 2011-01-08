@@ -1,0 +1,19 @@
+forAll 1.0.2.5
+
+src, spec
+	JustForSrcAndSpec1
+	JustForSrcAndSpec_2
+
+src
+	Just.Source
+
+some
+global
+
+spec
+	Just-Spec
+
+web/here/Web.csproj
+	Just.Web
+more
+global
