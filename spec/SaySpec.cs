@@ -9,10 +9,6 @@ namespace MooGet.Specs {
 
 		[TestFixture]
 		public class Integration : MooGetSpec {
-			
-			[Test][Ignore]
-			public void can_print_a_cow() {
-			}
 
 			[Test]
 			public void can_moo_1_line_of_text() {

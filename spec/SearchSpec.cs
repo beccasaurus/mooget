@@ -7,6 +7,7 @@ namespace MooGet.Specs {
 	[TestFixture]
 	public class SearchSpec : MooGetSpec {
 
+		/*
 		[TestFixture]
 		public class API : SearchSpec {
 
@@ -58,6 +59,7 @@ namespace MooGet.Specs {
 			public void can_search_for_packages_with_an_exact_id_and_a_maximum_version() {
 			}
 		}
+		*/
 
 		[TestFixture]
 		public class Integration : SearchSpec {

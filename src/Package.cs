@@ -68,6 +68,36 @@ namespace MooGet {
 			return string.Format("{0} ({1})", Id, Version);
 		}
 
+		public List<RemotePackage> FindDependencies(params List<RemotePackage>[] packages) {
+			return Package.FindDependencies(this, packages);
+		}
+
+		public static List<RemotePackage> FindDependencies(Package package, params List<RemotePackage>[] listsOfPackages) {
+			var found = new List<RemotePackage>();
+			Console.WriteLine("FindDependencies for {0}", package);
+
+			foreach (var dependency in package.Dependencies) {
+				Console.WriteLine("Looking for dependencies for {0}", dependency.Id);
+				RemotePackage dependencyPackage = null;
+				foreach (var packages in listsOfPackages) {
+					// ignore versions until we add specs for that
+					var match = packages.Where(pkg => pkg.Id == dependency.Id).OrderBy(pkg => pkg.Version).FirstOrDefault();
+					Console.WriteLine("match: {0}", match);
+					if (dependencyPackage == null || dependencyPackage.Version < match.Version)
+						dependencyPackage = match;
+				}
+				if (dependencyPackage != null) {
+					found.Add(dependencyPackage);
+					if (dependencyPackage.Dependencies.Any())
+						found.AddRange(dependencyPackage.FindDependencies(listsOfPackages));
+				}
+				else
+					Console.WriteLine("Count not find dependency: {0}", dependency.Id);
+			}
+
+			return found.Distinct().ToList();
+		}
+
 		public static Package FromSpec(string pathToNuspec) {
 			var package = new Package();
 			package.LoadSpec(pathToNuspec);

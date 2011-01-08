@@ -65,11 +65,15 @@ namespace MooGet {
 
 		/// <summary>Returns all of the files found in the given subdirectory of this package that match a particular pattern, eg. "*.dll"</summary>
 		public string[] GetFiles(string relativeDirectory, string pattern) {
+			var empty = new string[] {};
+			if (relativeDirectory == null)
+				return empty;
+
 			var dir = System.IO.Path.Combine(Path, relativeDirectory);
 			if (Directory.Exists(dir))
 				return Directory.GetFiles(dir, pattern, SearchOption.AllDirectories);
 			else
-				return new string[] {};
+				return empty;
 		}
 
 		/// <summary>Returns the full path to the given directory (case insensitive) relative to the Path</summary>
