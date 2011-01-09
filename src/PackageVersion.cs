@@ -30,10 +30,18 @@ namespace MooGet {
 		public static bool operator >= (PackageVersion a, PackageVersion b) { return (a == b || a > b);     }
 
 		public static bool operator == (PackageVersion a, PackageVersion b) {
-			if ((object)b == null)
-				return (object)a == null;
+			if ((object) b == null)
+				return ((object) a == null);
 			else
-				return a.CompareTo(b) == 0;
+				return a.Equals(b);
+		}
+
+		public override bool Equals(object o) {
+			if (o == null) return false;
+
+			if (this.GetType() != o.GetType()) return false;
+
+			return this.CompareTo((PackageVersion)o) == 0;
 		}
 
 		public string[] Parts { get { return ToString().Split('.'); } }

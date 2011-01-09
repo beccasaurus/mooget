@@ -68,6 +68,22 @@ namespace MooGet {
 			return string.Format("{0} ({1})", Id, Version);
 		}
 
+		public List<PackageDependency> FindPackageDependencies(params List<RemotePackage>[] packages) {
+			return Package.FindPackageDependencies(this, packages);
+		}
+
+		public static List<PackageDependency> FindPackageDependencies(Package package, params List<RemotePackage>[] listsOfPackages) {
+			return FindPackageDependencies(new Package[]{ package }, listsOfPackages);
+		}
+
+		/// <summary>
+		/// Returns all of the PackageDependency dependencies that these packages require, given these RemotePackages (from sources)
+		/// </summary>
+		public static List<PackageDependency> FindPackageDependencies(Package[] packages, params List<RemotePackage>[] listsOfPackages) {
+			throw new NotImplementedException("Not implemented yet");
+			// TODO this needs to create a dependency tree and figure out the best dependencies?
+		}
+
 		public List<RemotePackage> FindDependencies(params List<RemotePackage>[] packages) {
 			return Package.FindDependencies(this, packages);
 		}
@@ -76,11 +92,15 @@ namespace MooGet {
 			return FindDependencies(new Package[]{ package }, listsOfPackages);
 		}
 
+		/// <summary>
+		/// Returns all of the RemotePackage that can be installed to satisfy dependencies for these packages, given these RemotePackages (from sources)
+		/// </summary>
 		public static List<RemotePackage> FindDependencies(Package[] packages, params List<RemotePackage>[] listsOfPackages) {
 			var found      = new List<RemotePackage>();
 			var packageIds = packages.Select(p => p.Id);
 			Console.WriteLine("FindDependencies for {0}", string.Join(", ", new List<Package>(packages).Select(p => p.ToString()).ToArray()));
 
+			// TODO this should be pulled out into its own method that JUST returns a list of PackageDependency for us to find
 			// get ALL of the dependencies for these packages, grouped by package Id
 			// eg. { "log4net" => ["log4net > 2.0", "log4net < 2.5"] }
 			var allDependencies = new Dictionary<string, List<PackageDependency>>();
@@ -125,8 +145,10 @@ namespace MooGet {
 
 			Console.WriteLine("\tAlmost ready to return ... we found: {0}", string.Join(", ", found.Select(p => p.ToString()).ToArray()));
 
+			// TODO instead of just doing a Distinct(), we need to actually inspect the dependencies ...
+
 			// do not include any of the packages that were passed in as dependencies
-			return found.Where(pkg => ! packageIds.Contains(pkg.Id)).ToList();
+			return found.Where(pkg => ! packageIds.Contains(pkg.Id)).Distinct().ToList();
 		}
 
 		public static Package FromSpec(string pathToNuspec) {

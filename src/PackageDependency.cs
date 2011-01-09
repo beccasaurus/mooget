@@ -71,15 +71,21 @@ namespace MooGet {
 			).Trim();
 		}
 
-		public static bool operator == (PackageDependency a, PackageDependency b) { return a.Equals(b); }
 		public static bool operator != (PackageDependency a, PackageDependency b) { return ! (a == b);  }
 
-		public override bool Equals(object obj) {
-			if (obj == null) return false;
+		public static bool operator == (PackageDependency a, PackageDependency b) {
+			if ((object) b == null)
+				return ((object) a == null);
+			else
+				return a.Equals(b);
+		}
 
-			if (this.GetType() != obj.GetType()) return false;
+		public override bool Equals(object o) {
+			if (o == null) return false;
 
-			return this.ToString() == ((PackageDependency) obj).ToString();
+			if (this.GetType() != o.GetType()) return false;
+
+			return this.ToString() == ((PackageDependency) o).ToString();
 		}
 
 		/// <summary>Version string can be a specific version (eg. 1.0) or a matcher (eg. &gt;= 1.0)</summary>

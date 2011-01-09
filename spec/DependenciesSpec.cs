@@ -51,6 +51,18 @@ namespace MooGet.Specs {
 			found.First().IdAndVersion.ShouldEqual("log4net-1.2.10");
 		}
 
+		[Test][Ignore]
+		public void can_return_all_PackageDependency_for_a_package_with_1_dependency_with_subdependencies_that_have_subdependencies() {
+			var castleCore   = morePackages.First(pkg => pkg.IdAndVersion == "NHibernate.Core-2.1.2.4000");
+			var dependencies = castleCore.FindPackageDependencies(morePackages);
+
+			dependencies.Count.ShouldEqual(12345); // ?? need to implement this later ... ?
+		}
+
+		[Test][Ignore]
+		public void can_get_all_PackageDependency_for_a_list_of_packages_that_each_have_lots_of_subdependencies() {
+		}
+
 		[Test]
 		public void can_return_dependencies_for_a_package_with_1_dependency_with_subdependencies_that_have_subdependencies() {
 			var castleCore = morePackages.First(pkg => pkg.IdAndVersion == "NHibernate.Core-2.1.2.4000");
