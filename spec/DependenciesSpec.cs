@@ -45,10 +45,10 @@ namespace MooGet.Specs {
 
 			// this package's defined dependencies
 			castleCore.Dependencies.Count.ShouldEqual(4);
-			castleCore.Dependencies.Select(d => d.IdAndVersion).ShouldContain("log4net-1.2.10");
-			castleCore.Dependencies.Select(d => d.IdAndVersion).ShouldContain("Iesi.Collections-1.0.1");
-			castleCore.Dependencies.Select(d => d.IdAndVersion).ShouldContain("Antlr-3.1.1");
-			castleCore.Dependencies.Select(d => d.IdAndVersion).ShouldContain("Castle.DynamicProxy-2.1.0");
+			castleCore.Dependencies.Select(d => d.ToString()).ShouldContain("log4net = 1.2.10");
+			castleCore.Dependencies.Select(d => d.ToString()).ShouldContain("Iesi.Collections = 1.0.1");
+			castleCore.Dependencies.Select(d => d.ToString()).ShouldContain("Antlr = 3.1.1");
+			castleCore.Dependencies.Select(d => d.ToString()).ShouldContain("Castle.DynamicProxy = 2.1.0");
 
 			// all dependencies for this package (requires access to other packages to figure this out)
 			var found = castleCore.FindDependencies(morePackages);
@@ -60,6 +60,9 @@ namespace MooGet.Specs {
 			found.Select(p => p.IdAndVersion).ShouldContain("Castle.Core-1.1.0");
 		}
 
+		[Test][Ignore]
+		public void can_return_ALL_possible_packages_that_could_be_used_to_resolve_dependencies() {
+		}
 
 		[Test][Ignore]
 		public void an_exception_with_information_about_ALL_dependent_packages_that_could_not_be_found() {

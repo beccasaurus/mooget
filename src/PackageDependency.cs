@@ -10,6 +10,7 @@ namespace MooGet {
 	/// <summary>Represents a Package Id and Version(s) that a Package depends on</summary>
 	public class PackageDependency {
 
+		string _rawVersionString;
 		List<VersionAndOperator> _versions = new List<VersionAndOperator>();
 
 		public List<VersionAndOperator> Versions {
@@ -37,18 +38,13 @@ namespace MooGet {
 			return true;
 		}
 
+		/// <summary>String representation of this PackageDependency showing the PackageId and all Versions</summary>
 		public override string ToString() {
 			return string.Format("{0} {1}",
 					PackageId,
 					string.Join(" ", Versions.Select(v => v.ToString()).ToArray())
 			).Trim();
 		}
-
-		/*
-		 *  EVERYTHING BELOW HERE IS OBSOLETE OR NEEDS TO ME MOVES ABOVE ... TODO remove everything blow, when we're done refactoring
-		 */
-
-		string _rawVersionString;
 
 		/// <summary>Version string can be a specific version (eg. 1.0) or a matcher (eg. &gt;= 1.0)</summary>
 		/// <remarks>
@@ -64,14 +60,6 @@ namespace MooGet {
 			}
 		}
 
-		// TODO should not be used ... OBSOLETE ...
-		public string IdAndVersion {
-			get { return string.Format("{0}-{1}", Id, Version); }
-		}
-
-		// TODO haven't decided if i want to keep Version, MinVersion, etc as helper methods ...
-		//      I think i will but they NEED to be spec'd
-
 		/// <summary>Represents an *exact* version for this dependency, eg. 1.0</summary>
 		public PackageVersion Version {
 			get {
@@ -82,7 +70,13 @@ namespace MooGet {
 		}
 
 		/// <summary>Represents an *exact* minumum version for this dependency, eg. 1.0</summary>
-		public PackageVersion MinVersion { get; set; }
+		public PackageVersion MinVersion {
+			get {
+				var versionOperator = Versions.FirstOrDefault(v => v.Operator == Operators.GreaterThanOrEqualTo);
+				return (versionOperator == null) ? null : versionOperator.Version;
+			}
+			set { AddVersion(">=", value.ToString()); }
+		}
 
 		/// <summary>Represents an *exact* "sorta" minumum version for this dependency, eg. 1.0</summary>
 		/// <remarks>
@@ -95,10 +89,22 @@ namespace MooGet {
 		/// of this package greater than or equal to 1.1.0 BUT less than 1.2.  It will not install the next 
 		/// "minor" version of this package, but will allow for the installation of additional builds/revisions.
 		/// </remarks>
-		public PackageVersion SortaMinVersion { get; set; }
+		public PackageVersion SortaMinVersion {
+			get {
+				var versionOperator = Versions.FirstOrDefault(v => v.Operator == Operators.SortaGreaterThan);
+				return (versionOperator == null) ? null : versionOperator.Version;
+			}
+			set { AddVersion("~>", value.ToString()); }
+		}
 
 		/// <summary>Represents an *exact* maximum version for this dependency, eg. 1.0</summary>
-		public PackageVersion MaxVersion { get; set; }
+		public PackageVersion MaxVersion {
+			get {
+				var versionOperator = Versions.FirstOrDefault(v => v.Operator == Operators.LessThanOrEqualTo);
+				return (versionOperator == null) ? null : versionOperator.Version;
+			}
+			set { AddVersion("<=", value.ToString()); }
+		}
 
 		/// <summary>Get or set string representing the *exact* MinVersion, eg. 1.0</summary>
 		public string MinVersionString {

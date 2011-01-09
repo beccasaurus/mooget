@@ -186,5 +186,57 @@ namespace MooGet.Specs {
 				Dep("> 1.0   < 2.0").Matches("2.0.0.0").ShouldBeFalse();
 			}
 		}
+
+		[TestFixture]
+		public class helper_methods_for_setting_versions {
+
+			[Test]
+			public void Version_sets_exact_version() {
+				var dependency = new PackageDependency { VersionString = "1.2.1" };
+
+				dependency.VersionString.ShouldEqual("1.2.1");
+				dependency.Version.ToString().ShouldEqual("1.2.1");
+
+				dependency.Versions.Count.ShouldEqual(1);
+				dependency.Versions[0].Version.ToString().ShouldEqual("1.2.1");
+				dependency.Versions[0].Operator.ShouldEqual(PackageDependency.Operators.EqualTo);
+			}
+
+			[Test]
+			public void MinVersion_sets_greater_than_or_equal_to() {
+				var dependency = new PackageDependency { MinVersionString = "1.2.1" };
+
+				dependency.MinVersionString.ShouldEqual("1.2.1");
+				dependency.MinVersion.ToString().ShouldEqual("1.2.1");
+
+				dependency.Versions.Count.ShouldEqual(1);
+				dependency.Versions[0].Version.ToString().ShouldEqual("1.2.1");
+				dependency.Versions[0].Operator.ShouldEqual(PackageDependency.Operators.GreaterThanOrEqualTo);
+			}
+
+			[Test]
+			public void MaxVersion_sets_less_than_or_equal_to() {
+				var dependency = new PackageDependency { MaxVersionString = "1.2.1" };
+
+				dependency.MaxVersionString.ShouldEqual("1.2.1");
+				dependency.MaxVersion.ToString().ShouldEqual("1.2.1");
+
+				dependency.Versions.Count.ShouldEqual(1);
+				dependency.Versions[0].Version.ToString().ShouldEqual("1.2.1");
+				dependency.Versions[0].Operator.ShouldEqual(PackageDependency.Operators.LessThanOrEqualTo);
+			}
+
+			[Test]
+			public void SortaMinVersion_sets_sorta_greater_than() {
+				var dependency = new PackageDependency { SortaMinVersionString = "1.2.1" };
+
+				dependency.SortaMinVersionString.ShouldEqual("1.2.1");
+				dependency.SortaMinVersion.ToString().ShouldEqual("1.2.1");
+
+				dependency.Versions.Count.ShouldEqual(1);
+				dependency.Versions[0].Version.ToString().ShouldEqual("1.2.1");
+				dependency.Versions[0].Operator.ShouldEqual(PackageDependency.Operators.SortaGreaterThan);
+			}
+		}
 	}
 }
