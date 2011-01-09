@@ -77,12 +77,14 @@ namespace MooGet {
 			Console.WriteLine("FindDependencies for {0}", package);
 
 			foreach (var dependency in package.Dependencies) {
-				Console.WriteLine("Looking for dependencies for {0}", dependency.Id);
+				Console.WriteLine("Looking for dependency: {0}", dependency);
 				RemotePackage dependencyPackage = null;
 				foreach (var packages in listsOfPackages) {
-					// ignore versions until we add specs for that
-					var match = packages.Where(pkg => pkg.Id == dependency.Id).OrderBy(pkg => pkg.Version).FirstOrDefault();
+					var match = packages.Where(pkg => pkg.Id == dependency.Id && dependency.Matches(pkg.Version)).
+						OrderBy(pkg => pkg.Version).Reverse().FirstOrDefault();
+
 					Console.WriteLine("match: {0}", match);
+
 					if (dependencyPackage == null || dependencyPackage.Version < match.Version)
 						dependencyPackage = match;
 				}
