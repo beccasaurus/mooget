@@ -96,8 +96,15 @@ namespace MooGet {
 		}
 
 		public static List<LocalPackage> LatestFromDirectories(params string[] directories) {
-			var all = AllFromDirectories(directories);
-			return all.Where(pkg => pkg.Version == HighestVersionAvailableOf(pkg.Id, all)).ToList();
+			var all    = AllFromDirectories(directories);
+			var latest = new List<LocalPackage>();
+			
+			foreach (var package in all)
+				if (package.Version == HighestVersionAvailableOf(package.Id, all))
+					if (! latest.Any(pkg => pkg.IdAndVersion == package.IdAndVersion))
+						latest.Add(package);
+
+			return latest;
 		}
 
 		public static List<LocalPackage> AllFromDirectory(string directory) {

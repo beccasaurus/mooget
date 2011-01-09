@@ -1,2 +1,4 @@
 #! /bin/bash
-rm -rfv bin && xbuild && ./tools/nunit-color-console.exe -labels $@ ./bin/Debug/MooGet.Specs.dll
+rm -rfv bin 
+find . -iname 'obj' -type d -exec rm -r {} \;
+xbuild && ./tools/nunit-color-console.exe -labels $@ ./bin/Debug/MooGet.Specs.dll

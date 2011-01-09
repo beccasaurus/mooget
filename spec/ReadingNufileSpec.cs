@@ -62,7 +62,6 @@ namespace MooGet.Specs {
 		[Test]
 		public void example_4() {
 			var nufile = new Nufile(PathToContent("nufile_examples", "Nufile4"));
-			Console.WriteLine(ToJSON(nufile));
 
 			nufile.GlobalDependencies.Count.ShouldEqual(2);
 			nufile.GlobalDependencies.Select(d => d.Text).ShouldContain("this");
