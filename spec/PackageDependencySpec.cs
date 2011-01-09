@@ -15,6 +15,31 @@ namespace MooGet.Specs {
 			return new PackageDependency { VersionString = versionString };
 		}
 
+		[Test]
+		public void constructor_parses_package_name_and_versions() {
+			new PackageDependency("MyPackage"            ).ToString().ShouldEqual("MyPackage");
+			new PackageDependency("MyPackage = 1.0"      ).ToString().ShouldEqual("MyPackage = 1.0");
+			new PackageDependency("MyPackage >1.0 <2.0"  ).ToString().ShouldEqual("MyPackage > 1.0 < 2.0");
+			new PackageDependency("MyPackage > 1.0 < 2.0").ToString().ShouldEqual("MyPackage > 1.0 < 2.0");
+			new PackageDependency("MyPackage 1.0"        ).ToString().ShouldEqual("MyPackage = 1.0");
+		}
+
+		[Test]
+		public void can_compare_2_PackageDependency() {
+			new PackageDependency("MyPackage 1.0" ).ShouldNotEqual(new PackageDependency("MyPackage 1.1"));
+			new PackageDependency("MyPackage 1.0" ).ShouldEqual(   new PackageDependency("MyPackage 1.0"));
+			new PackageDependency("MyPackage 1.0" ).ShouldEqual(   new PackageDependency("MyPackage = 1.0"));
+			new PackageDependency("MyPackage 1.0" ).ShouldNotEqual(new PackageDependency("MyPackage > 1.0"));
+			new PackageDependency("MyPackage >1.0").ShouldEqual(   new PackageDependency("MyPackage > 1.0"));
+
+			// same should all be true with the == operator
+			(new PackageDependency("MyPackage 1.0" ) == new PackageDependency("MyPackage 1.1")).ShouldBeFalse();
+			(new PackageDependency("MyPackage 1.0" ) == new PackageDependency("MyPackage 1.0")).ShouldBeTrue();
+			(new PackageDependency("MyPackage 1.0" ) == new PackageDependency("MyPackage = 1.0")).ShouldBeTrue();
+			(new PackageDependency("MyPackage 1.0" ) == new PackageDependency("MyPackage > 1.0")).ShouldBeFalse();
+			(new PackageDependency("MyPackage >1.0") == new PackageDependency("MyPackage > 1.0")).ShouldBeTrue();
+		}
+
 		[TestFixture]
 		public class parsing : PackageDependencySpec {
 
@@ -184,6 +209,19 @@ namespace MooGet.Specs {
 				Dep("> 1.0   < 2.0").Matches("1.9").ShouldBeTrue();
 				Dep("> 1.0   < 2.0").Matches("2.0").ShouldBeFalse();
 				Dep("> 1.0   < 2.0").Matches("2.0.0.0").ShouldBeFalse();
+			}
+
+			[Test]
+			public void matching_against_multiple_dependencies() {
+				PackageDependency.MatchesAll("1.5.0", Dep(">= 1.5")).ShouldBeTrue();
+				PackageDependency.MatchesAll("1.5.0", Dep(">= 1.6")).ShouldBeFalse();
+				PackageDependency.MatchesAll("1.5.0", Dep(">= 1.5"), Dep("< 2.0")).ShouldBeTrue();
+				PackageDependency.MatchesAll("1.5.0", Dep(">= 1.4"), Dep("< 1.5")).ShouldBeFalse();
+				PackageDependency.MatchesAll("1.5.0", Dep(">= 1.4"), Dep("= 1.5")).ShouldBeFalse();
+				PackageDependency.MatchesAll("1.5.0", Dep(">= 1.4"), Dep("= 1.5.0")).ShouldBeTrue();
+				PackageDependency.MatchesAll("1.5.0", Dep(">= 1.4"), Dep("< 1.6"), Dep("~> 1.5")).ShouldBeTrue();
+				PackageDependency.MatchesAll("1.5.0", Dep(">= 1.4"), Dep("< 1.7"), Dep("~> 1.5")).ShouldBeTrue();
+				PackageDependency.MatchesAll("1.6.0", Dep(">= 1.4"), Dep("< 1.7"), Dep("~> 1.5")).ShouldBeFalse();
 			}
 		}
 

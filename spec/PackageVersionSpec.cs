@@ -20,6 +20,13 @@ namespace MooGet.Specs {
 				(new PackageVersion("1.0")     == new PackageVersion("1.0.0"  )).ShouldBeFalse();
 				(new PackageVersion("1.0.1")   == new PackageVersion("1.1.0"  )).ShouldBeFalse();
 				(new PackageVersion("1.1.0")   == new PackageVersion("1.1"    )).ShouldBeFalse();
+
+				// make sure .Equals() returns the same results
+				new PackageVersion("1.0.0.0").ShouldEqual(   new PackageVersion("1.0.0.0"));
+				new PackageVersion("1.1"    ).ShouldEqual(   new PackageVersion("1.1"    ));
+				new PackageVersion("1.0"    ).ShouldNotEqual(new PackageVersion("1.0.0"  ));
+				new PackageVersion("1.0.1"  ).ShouldNotEqual(new PackageVersion("1.1.0"  ));
+				new PackageVersion("1.1.0"  ).ShouldNotEqual(new PackageVersion("1.1"    ));
 			}
 
 			[Test]

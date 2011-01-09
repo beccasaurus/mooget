@@ -73,31 +73,60 @@ namespace MooGet {
 		}
 
 		public static List<RemotePackage> FindDependencies(Package package, params List<RemotePackage>[] listsOfPackages) {
-			var found = new List<RemotePackage>();
-			Console.WriteLine("FindDependencies for {0}", package);
+			return FindDependencies(new Package[]{ package }, listsOfPackages);
+		}
 
-			foreach (var dependency in package.Dependencies) {
-				Console.WriteLine("Looking for dependency: {0}", dependency);
-				RemotePackage dependencyPackage = null;
-				foreach (var packages in listsOfPackages) {
-					var match = packages.Where(pkg => pkg.Id == dependency.Id && dependency.Matches(pkg.Version)).
-						OrderBy(pkg => pkg.Version).Reverse().FirstOrDefault();
+		public static List<RemotePackage> FindDependencies(Package[] packages, params List<RemotePackage>[] listsOfPackages) {
+			var found      = new List<RemotePackage>();
+			var packageIds = packages.Select(p => p.Id);
+			Console.WriteLine("FindDependencies for {0}", string.Join(", ", new List<Package>(packages).Select(p => p.ToString()).ToArray()));
 
-					Console.WriteLine("match: {0}", match);
-
-					if (dependencyPackage == null || dependencyPackage.Version < match.Version)
-						dependencyPackage = match;
+			// get ALL of the dependencies for these packages, grouped by package Id
+			// eg. { "log4net" => ["log4net > 2.0", "log4net < 2.5"] }
+			var allDependencies = new Dictionary<string, List<PackageDependency>>();
+			foreach (var package in packages) {
+				foreach (var packageDependency in package.Dependencies) {
+					if (packageIds.Contains(packageDependency.PackageId)) continue;
+					if (! allDependencies.ContainsKey(packageDependency.PackageId)) 
+						allDependencies[packageDependency.PackageId] = new List<PackageDependency>();
+					if (! allDependencies[packageDependency.PackageId].Contains(packageDependency))
+						allDependencies[packageDependency.PackageId].Add(packageDependency);
 				}
+			}
+
+			// TODO we need to find the dependencies for all dependencies!  traverse!
+
+			foreach (var packageDependency in allDependencies) {
+				var dependencyId = packageDependency.Key;
+				var dependencies = packageDependency.Value.ToArray();
+				Console.WriteLine("\tLooking for dependency: {0}", string.Join(", ", dependencies.Select(d => d.ToString()).ToArray()));
+
+				// go through all sources and get the *latest* version of this dependency (that matches)
+				RemotePackage dependencyPackage = null;
+				foreach (var sourcePackages in listsOfPackages) {
+					var match = sourcePackages.Where(pkg => pkg.Id == dependencyId && PackageDependency.MatchesAll(pkg.Version, dependencies)).OrderBy(pkg => pkg.Version).Reverse().FirstOrDefault();
+
+					Console.WriteLine("\t\tmatch: {0}", match);
+
+					if (match != null)
+						if (dependencyPackage == null || dependencyPackage.Version < match.Version)
+							dependencyPackage = match;
+				}
+
+				Console.WriteLine("\tDone looking through sources for {0}, found package: {1}", dependencyId, dependencyPackage);
 				if (dependencyPackage != null) {
 					found.Add(dependencyPackage);
 					if (dependencyPackage.Dependencies.Any())
-						found.AddRange(dependencyPackage.FindDependencies(listsOfPackages));
+						found.AddRange(dependencyPackage.FindDependencies(listsOfPackages)); // <--- recurse!
 				}
 				else
-					Console.WriteLine("Count not find dependency: {0}", dependency.Id);
+					Console.WriteLine("Count not find dependency: {0}", dependencyId);
 			}
 
-			return found.Distinct().ToList();
+			Console.WriteLine("\tAlmost ready to return ... we found: {0}", string.Join(", ", found.Select(p => p.ToString()).ToArray()));
+
+			// do not include any of the packages that were passed in as dependencies
+			return found.Where(pkg => ! packageIds.Contains(pkg.Id)).ToList();
 		}
 
 		public static Package FromSpec(string pathToNuspec) {

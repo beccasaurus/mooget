@@ -5,13 +5,27 @@ using System.Text.RegularExpressions;
 
 namespace MooGet {
 
-	// TODO add support for non-inclusive Min and Max versions, eg. > 1.0 and/or < 2.1
-	
 	/// <summary>Represents a Package Id and Version(s) that a Package depends on</summary>
 	public class PackageDependency {
 
 		string _rawVersionString;
 		List<VersionAndOperator> _versions = new List<VersionAndOperator>();
+
+		public PackageDependency() {}
+		public PackageDependency(string nameAndVersions) {
+			var parts = new List<string>(nameAndVersions.Split(' '));
+
+			if (parts.Count > 0) {
+				PackageId = parts.First().Trim();
+				parts.RemoveAt(0);
+			}
+
+			if (parts.Count > 0)
+				if (parts.Count == 1 && ! Regex.IsMatch(parts.First(), "[=><~]"))
+					VersionString = "=" + parts.First();
+				else
+					VersionString = string.Join(" ", parts.ToArray());
+		}
 
 		public List<VersionAndOperator> Versions {
 			get { return _versions;  }
@@ -38,12 +52,34 @@ namespace MooGet {
 			return true;
 		}
 
+		public static bool MatchesAll(string version, params PackageDependency[] dependencies) {
+			return MatchesAll(new PackageVersion(version), dependencies);
+		}
+
+		public static bool MatchesAll(PackageVersion version, params PackageDependency[] dependencies) {
+			foreach (var dependency in dependencies)
+				if (! dependency.Matches(version))
+					return false;
+			return true;
+		}
+
 		/// <summary>String representation of this PackageDependency showing the PackageId and all Versions</summary>
 		public override string ToString() {
 			return string.Format("{0} {1}",
 					PackageId,
 					string.Join(" ", Versions.Select(v => v.ToString()).ToArray())
 			).Trim();
+		}
+
+		public static bool operator == (PackageDependency a, PackageDependency b) { return a.Equals(b); }
+		public static bool operator != (PackageDependency a, PackageDependency b) { return ! (a == b);  }
+
+		public override bool Equals(object obj) {
+			if (obj == null) return false;
+
+			if (this.GetType() != obj.GetType()) return false;
+
+			return this.ToString() == ((PackageDependency) obj).ToString();
 		}
 
 		/// <summary>Version string can be a specific version (eg. 1.0) or a matcher (eg. &gt;= 1.0)</summary>
