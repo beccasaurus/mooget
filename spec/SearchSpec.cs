@@ -73,6 +73,11 @@ namespace MooGet.Specs {
 				result.ShouldNotContain("NUnit");
 			}
 
+			[Test]
+			public void shows_all_available_versions() {
+				var result = moo("search castle --source {0}", PathToContent("example-feed.xml"));
+				result.ShouldContain("Castle.Core (2.5.1, 1.2.0, 1.1.0)");
+			}
 		}
 	}
 }

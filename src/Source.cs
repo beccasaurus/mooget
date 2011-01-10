@@ -46,7 +46,7 @@ namespace MooGet {
 
 		public List<RemotePackage> SearchByTitle(string query) {
 			query = query.ToLower();
-			return Packages.Where(p => p.Title.ToLower().Contains(query)).ToList();
+			return AllPackages.Where(p => p.Title.ToLower().Contains(query)).ToList();
 		}
 
 		public List<RemotePackage> SearchByDescription(string query) {

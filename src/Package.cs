@@ -68,6 +68,23 @@ namespace MooGet {
 			return string.Format("{0} ({1})", Id, Version);
 		}
 
+		public virtual string DetailString {
+			get {
+				var details = string.Format(@"
+Id: {0}
+Version: {1}
+Description: {2}
+Authors: {3}
+Dependencies: {4}
+", 
+					Id, Version, Description, 
+					string.Join(", ", Authors.ToArray()),
+					string.Join(", ", Dependencies.Select(d => d.ToString()).ToArray())
+				);
+				return details.Trim();
+			}
+		}
+
 		public List<PackageDependency> FindPackageDependencies(params List<RemotePackage>[] packages) {
 			return Package.FindPackageDependencies(this, packages);
 		}
@@ -152,7 +169,7 @@ namespace MooGet {
 						found.AddRange(Package.FindDependencies(discoveredDependencies, new Package[]{ dependencyPackage }, listsOfPackages)); // <--- recurse!
 				}
 				else
-					Console.WriteLine("Count not find dependency: {0}", dependencyId);
+					Console.WriteLine("Could not find dependency: {0}", dependencyId);
 			}
 
 			// throw a MissingDependencyException if any of the discovered dependencies were not found

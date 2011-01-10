@@ -28,6 +28,30 @@ namespace MooGet {
 			Console.WriteLine("Unpacked {0}", package.IdAndVersion);
 		}
 
+		[Command("Download a .nupkg to the current directory")]
+		public static void FetchCommand(string[] args) {
+			if (args.Length > 0) {
+				var package = RemotePackage.FindLatestPackageByName(args[0]);
+				if (package == null)
+					Console.WriteLine("Package not found: {0}", args[0]);
+				else {
+					package.Fetch();
+					Console.WriteLine("Downloaded {0}", package.Nupkg);
+				}
+			}
+		}
+
+		[Command("Display package details")]
+		public static void ShowCommand(string[] args) {
+			if (args.Length > 0) {
+				var package = RemotePackage.FindLatestPackageByName(args[0]);
+				if (package == null)
+					Console.WriteLine("Package not found: {0}", args[0]);
+				else
+					Console.WriteLine(package.DetailString);
+			}
+		}
+
 		[Command("Manage the list of NuGet feeds used to search/install packages")]
 		public static void SourceCommand(string[] args) {
 			var arguments = new List<string>(args);
@@ -90,16 +114,23 @@ namespace MooGet {
 			var query = extra[0];
 
 			if (sources.Count == 0)
-				sources.Add(Moo.OfficialNugetFeed); // should get user's saved sources ...
+				sources.AddRange(Moo.Sources.Select(src => src.Path).ToList());
 
-			foreach (var source in sources) {
+			foreach (var source in sources)
 				packages.AddRange(new Source(source).SearchByTitle(query));
 
 			if (packages.Count == 0)
 				Console.WriteLine("No packages matched: {0}", query);
-			else
-				foreach (var package in packages.OrderBy(p => p.Id))
-					Console.WriteLine("{0} ({1})", package.Id, package.Version);
+			else {
+				var packageIdsAndVersions = new Dictionary<string, List<PackageVersion>>();
+				foreach (var package in packages.OrderBy(p => p.Id)) {
+					if (! packageIdsAndVersions.ContainsKey(package.Id)) packageIdsAndVersions[package.Id] = new List<PackageVersion>();
+					packageIdsAndVersions[package.Id].Add(package.Version);
+				}
+				foreach (var packageIdAndVersion in packageIdsAndVersions)
+					Console.WriteLine("{0} ({1})", 
+							packageIdAndVersion.Key, 
+							string.Join(", ", packageIdAndVersion.Value.OrderBy(version => version).Select(version => version.ToString()).Reverse().ToArray()));
 			}
 		}
 

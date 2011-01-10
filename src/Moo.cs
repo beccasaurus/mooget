@@ -98,18 +98,26 @@ namespace MooGet {
 			// copy .nuspec into ~/.moo/specifications
 			File.Copy(package.NuspecPath, Path.Combine(Moo.SpecDir, package.IdAndVersion + ".nuspec"));
 
-			Console.WriteLine("Installed {0}", package.IdAndVersion);
+			Console.WriteLine("Installed {0}", package);
 		}
 
 		public static void InstallFromSource(string name) {
-			var package = new Source(Moo.OfficialNugetFeed).Get(name); // TODO should use configured user sources
-			if (package == null) {
+			var package = RemotePackage.FindLatestPackageByName(name);
+			if (package == null)
 				Console.WriteLine("Package not found: {0}", name);
-			} else {
-				package.Install();
+			else {
+				var allToInstall = new List<RemotePackage> { package };
+				allToInstall.AddRange(package.FindDependencies());
+				foreach (var toInstall in allToInstall) {
+					if (toInstall.IsInstalled)
+						Console.WriteLine("Already installed {0}", package);
+					else
+						toInstall.Install();
+				}
 			}
 		}
 
+		// This is a crappy name ... seems to only get a Local package ... what about Remote packages?
 		public static LocalPackage GetPackage(string name) {
 			return Packages.FirstOrDefault(p => p.Id == name);
 		}
