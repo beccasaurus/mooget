@@ -38,6 +38,7 @@ namespace MooGet {
 			set { _allPackages = value; }
 		}
 
+		// TODO obsolete this!  it doesn't make any sense.  you can Get(id and version) but not just ID!  ID should return a LIST of packages!
 		public RemotePackage Get(string id) {
 			id = id.ToLower();
 			return LatestPackages.FirstOrDefault(p => p.Id.ToLower() == id);

@@ -74,6 +74,29 @@ namespace MooGet.Specs {
 			}
 
 			[Test]
+			public void dependency_versions_generate_properly() {
+				var package = new Package { Id = "Foo" };
+				package.Dependencies.Add(new PackageDependency("AnyVersion"));
+				package.Dependencies.Add(new PackageDependency("EqualTo 1.2.3"));
+				package.Dependencies.Add(new PackageDependency("GreaterThan > 1.5"));
+				package.Dependencies.Add(new PackageDependency("SortaGreater ~>5.0"));
+				package.Dependencies.Add(new PackageDependency("GreaterThanOrLess > 1.0 < 2.0.1"));
+
+				var feedXml       = Feed.GenerateFeed(new List<Package> { package });
+				Console.WriteLine(feedXml);
+				var packagesInXml = Feed.ParseFeed(feedXml);
+
+				packagesInXml.Count.ShouldEqual(1);
+				var fromFeed = packagesInXml.First();
+				fromFeed.Dependencies.Count.ShouldEqual(5);
+				fromFeed.Dependencies.Select(d => d.ToString()).ToArray().ShouldContain("AnyVersion");
+				fromFeed.Dependencies.Select(d => d.ToString()).ToArray().ShouldContain("EqualTo = 1.2.3");
+				fromFeed.Dependencies.Select(d => d.ToString()).ToArray().ShouldContain("GreaterThan > 1.5");
+				fromFeed.Dependencies.Select(d => d.ToString()).ToArray().ShouldContain("SortaGreater ~> 5.0");
+				fromFeed.Dependencies.Select(d => d.ToString()).ToArray().ShouldContain("GreaterThanOrLess > 1.0 < 2.0.1");
+			}
+
+			[Test]
 			public void can_take_2_packages_and_generate_xml_for_a_feed() {
 				var packages = new List<Package>();
 				packages.Add(Package.FromSpec(PathToContent("some_nuspecs", "Castle.Core-1.1.0.nuspec")));
@@ -172,7 +195,6 @@ namespace MooGet.Specs {
 				public void dependencies_generate_in_feed_properly() {
 					package.Dependencies.Count.ShouldEqual(2);
 					package.Dependencies.First(d => d.Id == "Ninject").VersionString.ShouldEqual("2.1.0.76");
-					package.Dependencies.First(d => d.Id == "WebActivator").VersionString.Should(Be.Null);
 					package.Dependencies.First(d => d.Id == "WebActivator").MinVersionString.ShouldEqual("1.0.0.0");
 					package.Dependencies.First(d => d.Id == "WebActivator").MaxVersionString.ShouldEqual("1.1");
 				}

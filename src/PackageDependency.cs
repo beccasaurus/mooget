@@ -5,6 +5,17 @@ using System.Text.RegularExpressions;
 
 namespace MooGet {
 
+	public class MissingDependencyException : Exception {
+		public List<PackageDependency> Dependencies { get; set; }
+
+		public MissingDependencyException(List<PackageDependency> missingDependencies)
+			: base("No packages were found that satisfy these dependencies: " + 
+					string.Join(", ", missingDependencies.Select(dep => dep.ToString()).ToArray())) {
+
+			Dependencies = new List<PackageDependency>(missingDependencies);
+		}
+	}
+
 	/// <summary>Represents a Package Id and Version(s) that a Package depends on</summary>
 	public class PackageDependency {
 
@@ -65,10 +76,11 @@ namespace MooGet {
 
 		/// <summary>String representation of this PackageDependency showing the PackageId and all Versions</summary>
 		public override string ToString() {
-			return string.Format("{0} {1}",
-					PackageId,
-					string.Join(" ", Versions.Select(v => v.ToString()).ToArray())
-			).Trim();
+			return string.Format("{0} {1}", PackageId, VersionsString).Trim();
+		}
+
+		public string VersionsString {
+			get { return string.Join(" ", Versions.Select(v => v.ToString()).ToArray()).Trim(); }
 		}
 
 		public static bool operator != (PackageDependency a, PackageDependency b) { return ! (a == b);  }

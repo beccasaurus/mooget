@@ -96,9 +96,15 @@ namespace MooGet {
 		/// Returns all of the RemotePackage that can be installed to satisfy dependencies for these packages, given these RemotePackages (from sources)
 		/// </summary>
 		public static List<RemotePackage> FindDependencies(Package[] packages, params List<RemotePackage>[] listsOfPackages) {
-			var found      = new List<RemotePackage>();
-			var packageIds = packages.Select(p => p.Id);
-			Console.WriteLine("FindDependencies for {0}", string.Join(", ", new List<Package>(packages).Select(p => p.ToString()).ToArray()));
+			return Package.FindDependencies(null, packages, listsOfPackages);
+		}
+
+		static List<RemotePackage> FindDependencies(IDictionary<string, List<PackageDependency>> discoveredDependencies, Package[] packages, params List<RemotePackage>[] listsOfPackages) {
+			var found           = new List<RemotePackage>();
+			var packageIds      = packages.Select(p => p.Id);
+			bool throwIfMissing = (discoveredDependencies == null); // if this is null, then we're not recursing
+			Console.WriteLine("\n\nFindDependencies for {0}", string.Join(", ", new List<Package>(packages).Select(p => p.ToString()).ToArray()));
+			Console.WriteLine("THROW IF MISSING? {0}", throwIfMissing);
 
 			// TODO this should be pulled out into its own method that JUST returns a list of PackageDependency for us to find
 			// get ALL of the dependencies for these packages, grouped by package Id
@@ -114,11 +120,28 @@ namespace MooGet {
 				}
 			}
 
+			// add these packages' dependencies into discoveredDependencies.
+			// we track these to know whether or not we're missing any dependencies for any of the packages found.
+			if (discoveredDependencies == null)
+				discoveredDependencies = new Dictionary<string, List<PackageDependency>>();
+			Console.WriteLine("discoveredDependencies.Count {0}", discoveredDependencies.Count);
+			foreach (var packageDependency in allDependencies) {
+				var dependencyId = packageDependency.Key;
+				var dependencies = packageDependency.Value.ToArray();
+				if (! discoveredDependencies.ContainsKey(dependencyId))
+					discoveredDependencies[dependencyId] = new List<PackageDependency>();
+				foreach (var dependency in dependencies)
+					if (! discoveredDependencies[dependencyId].Contains(dependency))
+						discoveredDependencies[dependencyId].Add(dependency);
+			}
+			Console.WriteLine("discoveredDependencies.Count (after allDep) {0}", discoveredDependencies.Count);
+
 			// TODO we need to find the dependencies for all dependencies!  traverse!
 
 			foreach (var packageDependency in allDependencies) {
 				var dependencyId = packageDependency.Key;
 				var dependencies = packageDependency.Value.ToArray();
+
 				Console.WriteLine("\tLooking for dependency: {0}", string.Join(", ", dependencies.Select(d => d.ToString()).ToArray()));
 
 				// go through all sources and get the *latest* version of this dependency (that matches)
@@ -137,13 +160,30 @@ namespace MooGet {
 				if (dependencyPackage != null) {
 					found.Add(dependencyPackage);
 					if (dependencyPackage.Dependencies.Any())
-						found.AddRange(dependencyPackage.FindDependencies(listsOfPackages)); // <--- recurse!
+						found.AddRange(Package.FindDependencies(discoveredDependencies, new Package[]{ dependencyPackage }, listsOfPackages)); // <--- recurse!
 				}
 				else
 					Console.WriteLine("Count not find dependency: {0}", dependencyId);
 			}
 
 			Console.WriteLine("\tAlmost ready to return ... we found: {0}", string.Join(", ", found.Select(p => p.ToString()).ToArray()));
+
+			// throw a MissingDependencyException if any of the discovered dependencies were not found
+			if (throwIfMissing) {
+				Console.WriteLine("Checking for missing ... all deps:");
+				foreach (var dependencyPackage in discoveredDependencies)
+					Console.WriteLine(string.Join(", ", dependencyPackage.Value.Select(dep => dep.ToString()).ToArray()));
+
+				var foundIds = found.Select(pkg => pkg.Id);
+				var missing  = new List<PackageDependency>();
+
+				foreach (var dependencyPackage in discoveredDependencies)
+					if (! foundIds.Contains(dependencyPackage.Key))
+						missing.AddRange(dependencyPackage.Value);
+
+				if (missing.Count > 0)
+					throw new MissingDependencyException(missing);
+			}
 
 			// TODO instead of just doing a Distinct(), we need to actually inspect the dependencies ...
 

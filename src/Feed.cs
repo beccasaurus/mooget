@@ -114,12 +114,24 @@ namespace MooGet {
 							foreach (var dependency in package.Dependencies) {
 								xml.StartElement("pkg:dependency");
 									xml.WriteElement("pkg:id", dependency.Id);
-									if (dependency.Version != null)
-										xml.WriteElement("pkg:version", dependency.VersionString);
-									if (dependency.MinVersion != null)
-										xml.WriteElement("pkg:minVersion", dependency.MinVersionString);
-									if (dependency.MaxVersion != null)
-										xml.WriteElement("pkg:maxVersion", dependency.MaxVersionString);
+
+									// if there is only 1 dependency version and it's an exact, min, or max version ... create the right element
+									// otherwise, just stick the version string (eg. "> 1.0 <= 2.0") into the pkg:version
+									if (dependency.Versions.Count == 1) {
+										var version = dependency.Versions[0];
+										switch (version.Operator) {
+											case PackageDependency.Operators.EqualTo:
+												xml.WriteElement("pkg:version", version.Version.ToString()); break;
+											case PackageDependency.Operators.GreaterThanOrEqualTo:
+												xml.WriteElement("pkg:minVersion", version.Version.ToString()); break;
+											case PackageDependency.Operators.LessThanOrEqualTo:
+												xml.WriteElement("pkg:maxVersion", version.Version.ToString()); break;
+											default:
+												xml.WriteElement("pkg:version", dependency.VersionsString); break;
+										}
+									} else if (dependency.VersionsString.Trim().Length > 0)
+										xml.WriteElement("pkg:version", dependency.VersionsString);
+
 								xml.EndElement();
 							}
 							xml.EndElement();
