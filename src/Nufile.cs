@@ -30,7 +30,6 @@ namespace MooGet {
 		}
 
 		void Parse() {
-			Console.WriteLine("Nufile.Parse()");
 			Groups              = new List<Group>();
 			GlobalDependencies  = new List<Dependency>();
 			var lines           = Text.Trim().Split('\n');

@@ -83,7 +83,6 @@ namespace MooGet.Specs {
 				package.Dependencies.Add(new PackageDependency("GreaterThanOrLess > 1.0 < 2.0.1"));
 
 				var feedXml       = Feed.GenerateFeed(new List<Package> { package });
-				Console.WriteLine(feedXml);
 				var packagesInXml = Feed.ParseFeed(feedXml);
 
 				packagesInXml.Count.ShouldEqual(1);

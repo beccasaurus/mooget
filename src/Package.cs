@@ -103,8 +103,6 @@ namespace MooGet {
 			var found           = new List<RemotePackage>();
 			var packageIds      = packages.Select(p => p.Id);
 			bool throwIfMissing = (discoveredDependencies == null); // if this is null, then we're not recursing
-			Console.WriteLine("\n\nFindDependencies for {0}", string.Join(", ", new List<Package>(packages).Select(p => p.ToString()).ToArray()));
-			Console.WriteLine("THROW IF MISSING? {0}", throwIfMissing);
 
 			// TODO this should be pulled out into its own method that JUST returns a list of PackageDependency for us to find
 			// get ALL of the dependencies for these packages, grouped by package Id
@@ -124,7 +122,6 @@ namespace MooGet {
 			// we track these to know whether or not we're missing any dependencies for any of the packages found.
 			if (discoveredDependencies == null)
 				discoveredDependencies = new Dictionary<string, List<PackageDependency>>();
-			Console.WriteLine("discoveredDependencies.Count {0}", discoveredDependencies.Count);
 			foreach (var packageDependency in allDependencies) {
 				var dependencyId = packageDependency.Key;
 				var dependencies = packageDependency.Value.ToArray();
@@ -134,29 +131,21 @@ namespace MooGet {
 					if (! discoveredDependencies[dependencyId].Contains(dependency))
 						discoveredDependencies[dependencyId].Add(dependency);
 			}
-			Console.WriteLine("discoveredDependencies.Count (after allDep) {0}", discoveredDependencies.Count);
-
-			// TODO we need to find the dependencies for all dependencies!  traverse!
 
 			foreach (var packageDependency in allDependencies) {
 				var dependencyId = packageDependency.Key;
 				var dependencies = packageDependency.Value.ToArray();
-
-				Console.WriteLine("\tLooking for dependency: {0}", string.Join(", ", dependencies.Select(d => d.ToString()).ToArray()));
 
 				// go through all sources and get the *latest* version of this dependency (that matches)
 				RemotePackage dependencyPackage = null;
 				foreach (var sourcePackages in listsOfPackages) {
 					var match = sourcePackages.Where(pkg => pkg.Id == dependencyId && PackageDependency.MatchesAll(pkg.Version, dependencies)).OrderBy(pkg => pkg.Version).Reverse().FirstOrDefault();
 
-					Console.WriteLine("\t\tmatch: {0}", match);
-
 					if (match != null)
 						if (dependencyPackage == null || dependencyPackage.Version < match.Version)
 							dependencyPackage = match;
 				}
 
-				Console.WriteLine("\tDone looking through sources for {0}, found package: {1}", dependencyId, dependencyPackage);
 				if (dependencyPackage != null) {
 					found.Add(dependencyPackage);
 					if (dependencyPackage.Dependencies.Any())
@@ -166,14 +155,8 @@ namespace MooGet {
 					Console.WriteLine("Count not find dependency: {0}", dependencyId);
 			}
 
-			Console.WriteLine("\tAlmost ready to return ... we found: {0}", string.Join(", ", found.Select(p => p.ToString()).ToArray()));
-
 			// throw a MissingDependencyException if any of the discovered dependencies were not found
 			if (throwIfMissing) {
-				Console.WriteLine("Checking for missing ... all deps:");
-				foreach (var dependencyPackage in discoveredDependencies)
-					Console.WriteLine(string.Join(", ", dependencyPackage.Value.Select(dep => dep.ToString()).ToArray()));
-
 				var foundIds = found.Select(pkg => pkg.Id);
 				var missing  = new List<PackageDependency>();
 
