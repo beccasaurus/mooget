@@ -66,6 +66,44 @@ namespace MooGet {
 				return Feed.ParseFeed(MooGet.Util.ReadUrl(path));
 		}
 
+		public static List<Source> GetSources() {
+			if (File.Exists(Moo.SourceFile))
+				return FromSourceFile(Moo.SourceFile);
+			else
+				return Moo.DefaultSources;
+		}
+
+		// each line in ~/.moo/sources.list has a source url
+		public static List<Source> FromSourceFile(string path) {
+			var sources = new List<Source>();
+			foreach (var line in Util.ReadFile(path).Split('\n'))
+				if (line.Trim().Length > 0)
+					sources.Add(new Source(line.Trim()));
+			return sources;
+		}
+
+		public static void AddSource(string path) {
+			Moo.InitializeMooDir();
+
+			// if the SourceFile doesn't exist yet, 
+			// write all existing sources to the file
+			if (! File.Exists(Moo.SourceFile))
+				foreach (var source in Moo.Sources)
+					Util.AppendToFile(Moo.SourceFile, source.Path + "\n");
+
+			Util.AppendToFile(Moo.SourceFile, path + "\n");
+		}
+
+		public static void RemoveSource(string path) {
+			Moo.InitializeMooDir();
+
+			var sourcePaths = GetSources().Select(source => source.Path).ToList();
+			sourcePaths.Remove(path);
+			var sourceContent = string.Join("\n", sourcePaths.ToArray()) + "\n";
+
+			Util.WriteFile(Moo.SourceFile, sourceContent);
+		}
+
 		public void LoadXml(string xml) {
 			AllPackages = Feed.ParseFeed(xml);
 		}

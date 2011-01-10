@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using MooGet;
@@ -8,6 +9,45 @@ namespace MooGet.Specs {
 
 	[TestFixture]
 	public class SourceSpec : MooGetSpec {
+
+		[TestFixture]
+		public class Integration : SourceSpec {
+
+			[Test]
+			public void can_add_a_source() {
+				moo("source").ShouldContain(Moo.OfficialNugetFeed);
+				moo("source").ShouldNotContain("http://foo.com/whatever");
+
+				moo("source add http://foo.com/whatever");
+
+				moo("source").ShouldContain(Moo.OfficialNugetFeed);
+				moo("source").ShouldContain("http://foo.com/whatever");
+			}
+
+			[Test]
+			public void can_remove_a_source() {
+				moo("source add http://foo.com/whatever");
+
+				moo("source").ShouldContain(Moo.OfficialNugetFeed);
+				moo("source").ShouldContain("http://foo.com/whatever");
+
+				moo("source rm {0}", Moo.OfficialNugetFeed);
+
+				moo("source").ShouldNotContain(Moo.OfficialNugetFeed);
+				moo("source").ShouldContain("http://foo.com/whatever");
+			}
+
+			[Test]
+			public void default_sources_include_official_NuGet_feed() {
+				// Moo.Dir should not exist because it's not "installed"
+				Directory.Exists(PathToTempHome(".moo")).ShouldBeFalse();
+
+				moo("source").ShouldContain(Moo.OfficialNugetFeed);
+
+				// Moo.Dir should still not exist because it's not "installed"
+				Directory.Exists(PathToTempHome(".moo")).ShouldBeFalse();
+			}
+		}
 
 		// see ./spec/content/example-feed.xml to see the feed that these specs use
 		static Source source = new Source(PathToContent("example-feed.xml"));

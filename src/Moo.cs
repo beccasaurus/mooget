@@ -15,6 +15,10 @@ namespace MooGet {
 
 		public static string Version { get { return "Moo " + Assembly.GetExecutingAssembly().GetName().Version.ToString(); } }
 
+		public static List<Source> DefaultSources = new List<Source> {
+			new Source(Moo.OfficialNugetFeed)
+		};
+
 		/// <summary>Entry method</summary>
 		public static void Main(string[] args) {
 			if (args.Length == 0) {
@@ -41,6 +45,8 @@ namespace MooGet {
 			else
 				Console.WriteLine("Command not found: {0}\n\nCommands: {1}", commandName, string.Join("\n", Commands.Select(c => c.Name).ToArray()));
 		}
+
+		public static List<Source> Sources { get { return Source.GetSources(); } }
 			
 		public static LocalPackage Unpack(string nupkg) {
 			return Unpack(nupkg, Directory.GetCurrentDirectory());
@@ -61,7 +67,6 @@ namespace MooGet {
 
 			// move unzipped temp dir to the directoryToUnpackInto/[package id]-[package version]
 			package.MoveInto(directoryToUnpackInto);
-			Console.WriteLine("Unpacked {0}", package.IdAndVersion);
 			return package;
 		}
 
@@ -149,6 +154,7 @@ namespace MooGet {
 		public static string CacheDir         { get { return Path.Combine(Moo.Dir, "cache");          } }
 		public static string DocumentationDir { get { return Path.Combine(Moo.Dir, "doc");            } }
 		public static string SpecDir          { get { return Path.Combine(Moo.Dir, "specifications"); } }
+		public static string SourceFile       { get { return Path.Combine(Moo.Dir, "sources.list");   } }
 	}
 }
 

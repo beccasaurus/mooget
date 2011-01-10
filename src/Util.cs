@@ -12,9 +12,19 @@ namespace MooGet {
 
 		public static string ReadFile(string filename) {
 			string content = "";
-			using (StreamReader reader = new StreamReader(filename))
+			using (var reader = new StreamReader(filename))
 				content = reader.ReadToEnd();
 			return content;
+		}
+
+		public static void WriteFile(string filename, string content) {
+			using (var writer = new StreamWriter(filename, false))
+				writer.Write(content);
+		}
+
+		public static void AppendToFile(string filename, string content) {
+			using (var writer = new StreamWriter(filename, true))
+				writer.Write(content);
 		}
 
 		public static WebClient WebClientWithUserAgent {

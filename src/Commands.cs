@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using MooGet.Options;
 
 namespace MooGet {
+
+	// TODO i don't want these methods polluting the Moo class ... move them out!  OR rename them all to end with *Command, so it's not confusing
 	public partial class Moo {
 
 		[Command("Provide help on the 'moo' command")]
@@ -22,7 +24,30 @@ namespace MooGet {
 
 		[Command("Unpack a package into the current directory")]
 		public static void Unpack(string[] args) {
-			Moo.Unpack(args[0]);
+			var package = Moo.Unpack(args[0]);
+			Console.WriteLine("Unpacked {0}", package.IdAndVersion);
+		}
+
+		[Command("Manage the list of NuGet feeds used to search/install packages")]
+		public static void SourceCommand(string[] args) {
+			var arguments = new List<string>(args);
+			if (arguments.Count == 0) {
+				Console.WriteLine("*** CURRENT SOURCES ***\n");
+				foreach (var source in Moo.Sources)
+					Console.WriteLine(source.Path);
+				return;
+			}
+
+			var command = arguments.First(); arguments.RemoveAt(0);
+			switch (command) {
+				case "add":
+					Source.AddSource(arguments.First()); break;
+				case "rm":
+				case "remove":
+					Source.RemoveSource(arguments.First()); break;
+				default:
+					Console.WriteLine("Unknown source command: {0}", command); break;
+			}
 		}
 
 		[Command(Name = "commands", Description = "Lists all available Moo commands")]
