@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.IO.Packaging;
 using System.Collections.Generic;
 using MooGet.Options;
 
@@ -26,6 +27,42 @@ namespace MooGet {
 		public static void Unpack(string[] args) {
 			var package = Moo.Unpack(args[0]);
 			Console.WriteLine("Unpacked {0}", package.IdAndVersion);
+		}
+
+		// TODO move this code out of here!
+		[Command("Generates a nupkg from a nuspec file")]
+		public static void PackCommand(string[] args) {
+			var nuspec    = args[0];
+			var package   = Package.FromSpec(nuspec);
+			var directory = Path.GetDirectoryName(nuspec);
+			var nupkg     = Path.Combine(Directory.GetCurrentDirectory(), package.IdAndVersion + ".nupkg");
+
+			// todo we'll just get tools, lib, and content!  unless otherwise specified by the nuspec.  we should use the Package class to help us get the paths to files ... LocalPackage?
+			var allFiles = Directory.GetFiles(directory, "*", SearchOption.AllDirectories);
+
+			Console.WriteLine("Packaging {0}", package);
+			using (var zip = ZipPackage.Open(nupkg, FileMode.Create)) {
+				foreach (var filePath in allFiles) {
+					var filename = Path.GetFileName(filePath);
+					var relative = filePath.Replace(directory, "").Replace("\\", "/").Replace(" ", "_");
+					var uri  = new Uri(relative, UriKind.Relative);
+
+					// We ONLY support the tools directory right now
+					var parts = relative.Split('/');
+					if (parts.Length > 2) {
+						if (parts[1].ToLower() != "tools")
+							continue;
+					}
+					
+					Console.WriteLine("\t{0}", relative);
+
+					var part = zip.CreatePart(uri, Util.MimeTypeFor(filename), CompressionOption.Maximum);
+					byte[] fileContent = File.ReadAllBytes(filePath);
+					part.GetStream().Write(fileContent, 0, fileContent.Length);
+				}
+			}
+
+			Console.WriteLine("Created {0}", Path.GetFileName(nupkg));
 		}
 
 		[Command("Download a .nupkg to the current directory")]

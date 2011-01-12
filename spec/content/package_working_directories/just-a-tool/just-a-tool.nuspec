@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>just-a-tool</id>
+    <version>1.0.0.0</version>
+    <description></description>
+    <authors>
+      <author>me</author>
+    </authors>
+    <created>2011-01-11T18:04:20.489181-07:00</created>
+    <modified>2011-01-11T18:04:20.489181-07:00</modified>
+  </metadata>
+</package>

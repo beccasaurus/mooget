@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Mime;
 using System.Xml;
 using System.Linq;
 using System.Collections.Generic;
@@ -64,6 +65,14 @@ namespace MooGet {
 			}
 		}
 
+		public static string[] PathsInZip(string zipFile) {
+			var parts = new List<string>();
+			using (var zip = System.IO.Packaging.Package.Open(zipFile, FileMode.Open, FileAccess.Read))
+				foreach (var part in zip.GetParts())
+					parts.Add(part.Uri.OriginalString.Substring(1)); // removes the beginning slash from the uri
+			return parts.ToArray();
+		}
+
 		// unzips a .zip file ... it knows it's dealing with nuget packages because we ignore certain files
 		public static void Unzip(string zipFile, string directoryToUnzipInto) {
 			Directory.CreateDirectory(directoryToUnzipInto);
@@ -110,6 +119,43 @@ namespace MooGet {
 			public override Uri ResolveUri (Uri baseUri, string relativeUri){ return baseUri; }
 			public override object GetEntity (Uri absoluteUri, string role, Type type){ return null; }
 			public override ICredentials Credentials { set {} }
+		}
+
+		public static string MimeTypeFor(string extension) {
+			extension = (extension.Contains(".")) ? Path.GetExtension(extension).Replace(".","") : extension;
+
+			switch (extension.ToLower().Trim()) {
+				case "txt":
+				case "cs":
+				case "boo":
+				case "vb":
+					return MediaTypeNames.Text.Plain;
+				
+				case "xml":
+				case "config":
+				case "nuspec":
+					return MediaTypeNames.Text.Xml;
+
+				case "htm":
+				case "html":
+					return MediaTypeNames.Text.Html;
+
+				case "rtf":
+					return MediaTypeNames.Text.RichText;
+
+				case "jpg":
+				case "jpeg":
+					return MediaTypeNames.Image.Jpeg;
+
+				case "gif":
+					return MediaTypeNames.Image.Gif;
+
+				case "png":
+					return "image/png";
+
+				default:
+					return MediaTypeNames.Application.Octet;
+			}
 		}
 	}
 }
