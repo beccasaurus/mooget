@@ -1,3 +1,15 @@
 Feed: http://go.microsoft.com/fwlink/?LinkID=199193
 
 I think the new feed is: http://feed.nuget.org/ctp2/odata/v1/Packages ... but this is unconfirmed.
+
+// THIS IS IT:
+http://packages.nuget.org/v1/FeedService.svc/Packages
+
+It gives you 100 at a time
+
+The bottom of each one that has more entries will 
+have a link rel=next
+
+Hopefully the <updated> on page 1 will actually WORK now ...
+
+JSON!  if you set Accept to application/json, you get json
