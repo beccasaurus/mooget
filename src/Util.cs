@@ -4,12 +4,25 @@ using System.Net;
 using System.Net.Mime;
 using System.Xml;
 using System.Linq;
+using System.Reflection;
 using System.Collections.Generic;
 
 namespace MooGet {
 
 	/// <summary>Back-o-utility methods for MooGet</summary>
 	public static class Util {
+
+		public static string HelpForCommand(string command) {
+			return ReadStringResource("help." + command);
+		}
+
+		public static string ReadStringResource(string resourceName) {
+			// foreach (string name in System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames()) {
+			string text = null;
+			using (var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("MooGet.resources." + resourceName)))
+				text = reader.ReadToEnd();
+			return text;
+		}
 
 		public static string ReadFile(string filename) {
 			string content = "";

@@ -1,5 +1,4 @@
-// We'll eventually want to move certain complicated commands into their own 
-// files but, for now, we put all commands in here ...
+// TODO move everything out of here!  everything is being moved into src/Commands/ under the MooGet.Commands namespace!  classes should be called FooCommand
 
 using System;
 using System.IO;
@@ -12,11 +11,6 @@ namespace MooGet {
 
 	// TODO i don't want these methods polluting the Moo class ... move them out!  OR rename them all to end with *Command, so it's not confusing
 	public partial class Moo {
-
-		[Command("Provide help on the 'moo' command")]
-		public static void Help(string[] args) {
-			ListCommands(args); // TODO add help
-		}
 
 		[Command("Print configuration information")]
 		public static void Config(string[] args) {
