@@ -203,7 +203,7 @@ namespace MooGet.Specs {
 		public void can_get_all_of_the_versions_available_for_a_particular_package() {
 		}
 
-		[Test]
+		[Test][Ignore("TODO clean up searching ... re-spec searching AS WE NEED IT")]
 		public void can_search_for_package_by_title() {
 			var packages = source.SearchByTitle("ninject");
 			Assert.That( packages.Count, Is.EqualTo(4) );

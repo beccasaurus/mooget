@@ -144,6 +144,40 @@ namespace MooGet {
 			Uninstall(args);
 		}
 
+		[Command("Generated a template")]
+		public static void GenerateCommand(string[] args) {
+			// TODO later, we'll make it so this is easy to extend.  for now, we just support generating nuspec files
+			if (args[0] != "nuspec") {
+				Console.WriteLine("Unknown template: {0}", args[0]);
+				return;
+			}
+
+			var dirname     = Path.GetFileName(Directory.GetCurrentDirectory());
+			var filename    = dirname + ".nuspec";
+			var path        = Path.Combine(Directory.GetCurrentDirectory(), filename);
+			var now         = Feed.Format(DateTime.Now);
+			var version     = "1.0.0.0";
+			var description = "";
+			var author      = "me";
+			var xml         = new XmlBuilder();
+
+			xml.StartElement("package").
+				StartElement("metadata").	
+					WriteElement("id",          dirname).
+					WriteElement("version",     version).
+					WriteElement("description", description).
+					StartElement("authors").
+						WriteElement("author", author).
+					EndElement().
+					WriteElement("created",  now).
+					WriteElement("modified", now).
+				EndElement().
+			EndElement();
+
+			Util.WriteFile(path, xml.ToString());
+			Console.WriteLine("Generated {0}", filename);
+		}
+
 		// helper methods for getting spaces ... useful for commands ...
 		static string Spaces(string str, int numSpaces) {
 			string spaces = "";

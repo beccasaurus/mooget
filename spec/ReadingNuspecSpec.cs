@@ -8,6 +8,10 @@ namespace MooGet.Specs {
 
 	[TestFixture]
 	public class ReadingNuspecSpec : MooGetSpec {
+
+		[Test][Ignore]
+		public void Can_read_Nuspec_from_a_nupkg_without_extracting_the_package() {
+		}
 	
 		[Test]
 		public void NUnit_example() {

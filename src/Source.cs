@@ -44,6 +44,7 @@ namespace MooGet {
 			return LatestPackages.FirstOrDefault(p => p.Id.ToLower() == id);
 		}
 
+		// TODO this uses AllPackages, but others don't?  omg that's icky ... clean this up!  I don't like any of these Search() methods ...
 		public List<RemotePackage> SearchByTitle(string query) {
 			query = query.ToLower();
 			return AllPackages.Where(p => p.Title.ToLower().Contains(query)).ToList();

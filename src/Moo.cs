@@ -9,16 +9,6 @@ namespace MooGet {
 	/// <summary>Represents the primary API for most MooGet actions</summary>
 	public partial class Moo {
 
-		public static string OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";
-
-		public static string UserAgent { get { return Moo.Version; } }
-
-		public static string Version { get { return "Moo " + Assembly.GetExecutingAssembly().GetName().Version.ToString(); } }
-
-		public static List<Source> DefaultSources = new List<Source> {
-			new Source(Moo.OfficialNugetFeed)
-		};
-
 		/// <summary>Entry method</summary>
 		public static void Main(string[] args) {
 			if (args.Length == 0) {
@@ -33,17 +23,29 @@ namespace MooGet {
 				FindAndRunCommand(args);
 		}
 
+		public static string OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";
+
+		public static string UserAgent { get { return Moo.Version; } }
+
+		public static string Version { get { return "Moo " + Assembly.GetExecutingAssembly().GetName().Version.ToString(); } }
+
+		public static List<Source> DefaultSources = new List<Source> {
+			new Source(Moo.OfficialNugetFeed)
+		};
+
 		public static List<Command> Commands = Command.GetCommands();
 
 		public static void FindAndRunCommand(string[] args) {
 			var arguments   = new List<string>(args);
 			var commandName = arguments.First(); arguments.RemoveAt(0);
-			var command     = Commands.FirstOrDefault(c => c.Name == commandName);
+			var commands    = Commands.Where(c => c.Name.StartsWith(commandName)).ToList();
 
-			if (command != null)
-				command.Run(arguments.ToArray());
-			else
+			if (commands.Count == 0)
 				Console.WriteLine("Command not found: {0}\n\nCommands: {1}", commandName, string.Join("\n", Commands.Select(c => c.Name).ToArray()));
+			else if (commands.Count == 1)
+				commands.First().Run(arguments.ToArray());
+			else
+				Console.WriteLine("Ambiguous command '{0}'.  Did you mean one of these?  {1}", commandName, string.Join(", ", commands.Select(c => c.Name).ToArray()));
 		}
 
 		public static List<Source> Sources { get { return Source.GetSources(); } }
