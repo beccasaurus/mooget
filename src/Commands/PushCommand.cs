@@ -34,10 +34,17 @@ namespace MooGet.Commands {
 		}
 
 		static string Push(string nupkg) {
-			System.Net.ServicePointManager.Expect100Continue = false;
-
 			// var url = "http://localhost:3000/packages?auth_token=dx1vnLEJ1d2IDCOkVKoB";
 			var url = "http://localhost:9393/";
+
+			string filePath = Path.GetFullPath(nupkg);
+			string responseText;
+			Upload.PostFile(new Uri(url), null, filePath, null, null, null, null);
+			return "hi\n";
+
+			/*
+			System.Net.ServicePointManager.Expect100Continue = false;
+
 
 			var parameters = new Dictionary<string, object>();
 			//parameters.Add("nuspec", "hello world");
@@ -51,6 +58,7 @@ namespace MooGet.Commands {
 			//var response = FormUpload.MultipartFormDataPost(url, null, null, parameters);
 			return "hi";
 			//return string.Format("Response: {0}", response.StatusCode);
+			//*/
 		}
 	}
 }
