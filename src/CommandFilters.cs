@@ -13,7 +13,7 @@ namespace MooGet {
 		[CommandFilter("Prints the Moo splash screen if no arguments passed")]
 		public static object SplashScreenFilter(string[] args, CommandFilter filter) {
 			if (args.Length == 0)
-				return Cow.SayText("NuGet + Super Cow Powers = MooGet") + "\n\nRun moo help for help documentation";
+				return Cow.SayText("NuGet + Super Cow Powers = MooGet") + "\n\nRun moo help for help documentation\n";
 			else
 				return filter.Invoke(args);
 		}
@@ -22,7 +22,7 @@ namespace MooGet {
 		public static object MooVersionFilter(string[] args, CommandFilter filter) {
 			if (args.Length == 1)
 				if (args[0] == "-v" || args[0] == "--version")
-					return Moo.Version;
+					return Moo.Version + "\n";
 			return filter.Invoke(args);
 		}
 

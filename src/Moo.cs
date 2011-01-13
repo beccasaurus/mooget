@@ -100,11 +100,11 @@ namespace MooGet {
 			var commands    = Commands.Where(c => c.Name.StartsWith(commandName)).ToList();
 
 			if (commands.Count == 0)
-				return string.Format("Command not found: {0}\n\nCommands: {1}", commandName, string.Join("\n", Commands.Select(c => c.Name).ToArray()));
+				return string.Format("Command not found: {0}\n\nCommands: {1}\n", commandName, string.Join("\n", Commands.Select(c => c.Name).ToArray()));
 			else if (commands.Count == 1)
 				return commands.First().Run(arguments.ToArray());
 			else
-				return string.Format("Ambiguous command '{0}'.  Did you mean one of these?  {1}", commandName, string.Join(", ", commands.Select(c => c.Name).ToArray()));
+				return string.Format("Ambiguous command '{0}'.  Did you mean one of these?  {1}\n", commandName, string.Join(", ", commands.Select(c => c.Name).ToArray()));
 		}
 
 		public static List<Source> Sources { get { return Source.GetSources(); } }
@@ -131,22 +131,21 @@ namespace MooGet {
 			return package;
 		}
 
-		public static void Uninstall(string name) {
+		public static Package Uninstall(string name) {
 			var package = GetPackage(name);
-			if (package == null)
-				Console.WriteLine("Package not found: {0}", package);
-			else
+			if (package != null)
 				package.Uninstall();
+			return package;
 		}
 
-		public static void Install(string package) {
+		public static Package Install(string package) {
 			if (File.Exists(package))
-				InstallFromNupkg(package);
+				return InstallFromNupkg(package);
 			else
-				InstallFromSource(package);
+				return InstallFromSource(package);
 		}
 
-		public static void InstallFromNupkg(string nupkg) {
+		public static Package InstallFromNupkg(string nupkg) {
 			// initialize ~/.moo/ directories, if not already initialized
 			Moo.InitializeMooDir();
 
@@ -159,23 +158,24 @@ namespace MooGet {
 			// copy .nuspec into ~/.moo/specifications
 			File.Copy(package.NuspecPath, Path.Combine(Moo.SpecDir, package.IdAndVersion + ".nuspec"));
 
-			Console.WriteLine("Installed {0}", package);
+			return package;
 		}
 
-		public static void InstallFromSource(string name) {
+		public static Package InstallFromSource(string name) {
 			var package = RemotePackage.FindLatestPackageByName(name);
 			if (package == null)
-				Console.WriteLine("Package not found: {0}", name);
+				return package;
 			else {
 				var allToInstall = new List<RemotePackage> { package };
 				allToInstall.AddRange(package.FindDependencies());
 				foreach (var toInstall in allToInstall) {
 					if (toInstall.IsInstalled)
-						Console.WriteLine("Already installed {0}", package);
+						Console.WriteLine("Already installed {0}", package); // TODO don't Console.Write!
 					else
 						toInstall.Install();
 				}
 			}
+			return package;
 		}
 
 		// This is a crappy name ... seems to only get a Local package ... what about Remote packages?
