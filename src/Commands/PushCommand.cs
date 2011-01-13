@@ -4,6 +4,7 @@ using System.Net;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using MooGet.Options;
 
 namespace MooGet.Commands {
@@ -12,10 +13,10 @@ namespace MooGet.Commands {
 
 		[Command(Name = "push", Description = "Push a package to source")]
 		public static object Run(string[] args) {
-			//if (args.Length == 1 && args[0].ToLower().EndsWith(".nupkg"))
-			return Push(args[0]);
-			//else
-			//	return "Usage: moo push foo.nupkg";
+			if (args.Length == 1 && args[0].ToLower().EndsWith(".nupkg"))
+				return Push(args[0]);
+			else
+				return "Usage: moo push foo.nupkg";
 		}
 
 		static byte[] GetAllBytes(string nupkg) {
@@ -34,31 +35,18 @@ namespace MooGet.Commands {
 		}
 
 		static string Push(string nupkg) {
-			// var url = "http://localhost:3000/packages?auth_token=dx1vnLEJ1d2IDCOkVKoB";
-			var url = "http://localhost:9393/";
+			string responseText = null;
+			var response = UploadNupkg(nupkg, "http://meerkat:3000/packages?auth_token=rxDoWk3RxcDTIhxW2eac", out responseText);
+			return string.Format("Upload Status {0}\n\n{1}", response.StatusCode, responseText);	
+		}
 
-			string filePath = Path.GetFullPath(nupkg);
-			string responseText;
-			Upload.PostFile(new Uri(url), null, filePath, null, null, null, null);
-			return "hi\n";
-
-			/*
-			System.Net.ServicePointManager.Expect100Continue = false;
-
-
-			var parameters = new Dictionary<string, object>();
-			//parameters.Add("nuspec", "hello world");
-			//parameters.Add("nuspec", Util.ReadNuspecInNupkg(nupkg));
-			//parameters.Add("file", new FormUpload.FileParameter(File.ReadAllBytes(nupkg), Path.GetFileName(nupkg), "application/octet-stream"));
-			//parameters.Add("file", new FormUpload.FileParameter(GetAllBytes(nupkg), Path.GetFileName(nupkg), "text/plain"));
-			parameters.Add("file", new FormUpload.FileParameter(GetAllBytes(nupkg), Path.GetFileName(nupkg), "text/plain"));
-			//parameters.Add("file", new FormUpload.FileParameter(Encoding.UTF8.GetBytes(Util.ReadFile(nupkg)), Path.GetFileName(nupkg), "plain/text"));
-			//parameters.Add("file", new FormUpload.FileParameter(GetAllBytes(nupkg), Path.GetFileName(nupkg), "plain/text"));
-			FormUpload.MultipartFormDataPost(url, null, null, parameters);
-			//var response = FormUpload.MultipartFormDataPost(url, null, null, parameters);
-			return "hi";
-			//return string.Format("Response: {0}", response.StatusCode);
-			//*/
+		static HttpWebResponse UploadNupkg(string nupkg, string url, out string responseText) {
+			NameValueCollection postData = new NameValueCollection();
+			postData.Add("nuspec", Util.ReadNuspecInNupkg(nupkg));
+			var response = Upload.PostFile(new Uri(url), postData, Path.GetFullPath(nupkg), null, null, null, null) as HttpWebResponse;
+			using (var reader = new StreamReader(response.GetResponseStream()))
+				responseText = reader.ReadToEnd();
+			return response;
 		}
 	}
 }

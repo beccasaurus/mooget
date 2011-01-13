@@ -1,5 +1,7 @@
 // Based on code found at:
 // http://skysanders.net/subtext/archive/2010/04/12/c-file-upload-with-form-fields-cookies-and-headers.aspx
+//
+// Modified to remove Windows dependenies and make Rack-compatible (it wasn't parsing per the RFC spec Rack uses)
 
 using System;
 using System.Collections.Specialized;
