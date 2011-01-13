@@ -27,6 +27,7 @@ namespace MooGet {
 			}
 		}
 
+		// TODO rename to Invoke
 		public object Run(string[] args) {
 			return Method.Invoke(null, new object[] { args });
 		}

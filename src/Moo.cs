@@ -9,8 +9,32 @@ namespace MooGet {
 	/// <summary>Represents the primary API for most MooGet actions</summary>
 	public partial class Moo {
 
-		/// <summary>Entry method</summary>
+		/// <summary>moo.exe Entry method</summary>
+		/// <remarks>
+		///	moo.exe runs by running all [CommandFilter] methods defined 
+		///	in moo.exe or in any installed packages that have libraries 
+		///	named MooGet.*.dll
+		///
+		///	The Moo.CommandRunnerFilter is meant to be the last filter that 
+		///	gets run, as it finds and runs all [Command] methods defined 
+		///	in moo.exe or in any installed packages that have libraries 
+		///	named MooGet.*.dll and runs them.
+		///
+		///	Moo.Filters returns the full List&lt;CommandFilter&gt; that moo.exe runs.
+		/// </remarks>
 		public static void Main(string[] args) {
+
+			// Get all defined filters
+			//var filters = Moo.Filters;
+
+			/*
+			 * [First]
+			 * [Second]
+			 * [CommandRunner]
+			 */
+
+			// var filters = CommandFilter.LoadAll();
+
 			if (args.Length == 0) {
 				Cow.Say("NuGet + Super Cow Powers = MooGet");
 				Console.WriteLine("\nRun moo help for help documentation");
