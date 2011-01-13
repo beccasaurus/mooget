@@ -1,0 +1,3 @@
+#! /bin/bash
+rm -rv MooGet.TestExtensions.dll
+gmcs -t:library MooGet.TestExtensions.cs -r:../../../../../bin/Debug/moo.exe

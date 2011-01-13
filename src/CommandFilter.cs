@@ -16,7 +16,11 @@ namespace MooGet {
 			Method = method;
 		}
 
-		public string Name { get { return Method.DeclaringType.FullName + "." + Method.Name; } }
+		public AssemblyName AssemblyName { get { return Method.DeclaringType.Assembly.GetName(); } }
+
+		public string Name { get { return Method.Name; } }
+
+		public string FullName { get { return Method.DeclaringType.FullName + "." + Method.Name; } }
 		
 		public string Description { get { return CommandFilterAttribute.Description; } }
 

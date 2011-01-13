@@ -17,7 +17,7 @@ namespace MooGet.Commands {
 			var filtersByAssembly = new Dictionary<AssemblyName, List<CommandFilter>>();
 
 			foreach (var filter in Moo.Filters) {
-				var assemblyName = filter.Method.DeclaringType.Assembly.GetName();
+				var assemblyName = filter.AssemblyName;
 				if (assemblyName.Name == "moo")
 					builtinFilters.Add(filter);
 				else {
@@ -34,6 +34,7 @@ namespace MooGet.Commands {
 			}
 
 			if (filtersByAssembly.Any()) {
+				response.AppendLine();
 				foreach (var item in filtersByAssembly) {
 					var name    = item.Key;
 					var filters = item.Value;

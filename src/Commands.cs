@@ -23,42 +23,6 @@ namespace MooGet {
 			Console.WriteLine("Unpacked {0}", package.IdAndVersion);
 		}
 
-		// TODO move this code out of here!
-		[Command("Generates a nupkg from a nuspec file")]
-		public static void PackCommand(string[] args) {
-			var nuspec    = args[0];
-			var package   = Package.FromSpec(nuspec);
-			var directory = Path.GetDirectoryName(nuspec);
-			var nupkg     = Path.Combine(Directory.GetCurrentDirectory(), package.IdAndVersion + ".nupkg");
-
-			// todo we'll just get tools, lib, and content!  unless otherwise specified by the nuspec.  we should use the Package class to help us get the paths to files ... LocalPackage?
-			var allFiles = Directory.GetFiles(directory, "*", SearchOption.AllDirectories);
-
-			Console.WriteLine("Packaging {0}", package);
-			using (var zip = ZipPackage.Open(nupkg, FileMode.Create)) {
-				foreach (var filePath in allFiles) {
-					var filename = Path.GetFileName(filePath);
-					var relative = filePath.Replace(directory, "").Replace("\\", "/").Replace(" ", "_");
-					var uri  = new Uri(relative, UriKind.Relative);
-
-					// We ONLY support the tools directory right now
-					var parts = relative.Split('/');
-					if (parts.Length > 2) {
-						if (parts[1].ToLower() != "tools")
-							continue;
-					}
-					
-					Console.WriteLine("\t{0}", relative);
-
-					var part = zip.CreatePart(uri, Util.MimeTypeFor(filename), CompressionOption.Maximum);
-					byte[] fileContent = File.ReadAllBytes(filePath);
-					part.GetStream().Write(fileContent, 0, fileContent.Length);
-				}
-			}
-
-			Console.WriteLine("Created {0}", Path.GetFileName(nupkg));
-		}
-
 		[Command("Download a .nupkg to the current directory")]
 		public static void FetchCommand(string[] args) {
 			if (args.Length > 0) {
@@ -103,13 +67,6 @@ namespace MooGet {
 				default:
 					Console.WriteLine("Unknown source command: {0}", command); break;
 			}
-		}
-
-		[Command(Name = "commands", Description = "Lists all available Moo commands")]
-		public static void ListCommands(string[] args) {
-			Console.WriteLine("MOO commands:\n");
-			foreach (var command in Commands)
-				Console.WriteLine("    {0}{1}{2}", command.Name, Spaces(command.Name, 20), command.Description);
 		}
 
 		[Command("Displays list of installed packages")]
@@ -207,14 +164,6 @@ namespace MooGet {
 
 			Util.WriteFile(path, xml.ToString());
 			Console.WriteLine("Generated {0}", filename);
-		}
-
-		// helper methods for getting spaces ... useful for commands ...
-		static string Spaces(string str, int numSpaces) {
-			string spaces = "";
-			for (int i = 0; i < numSpaces - str.Length; i++)
-				spaces += " ";
-			return spaces;
 		}
 	}
 }

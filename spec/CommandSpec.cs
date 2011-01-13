@@ -52,7 +52,7 @@ namespace MooGet.Specs {
 			[Test]
 			public void can_be_a_method() {
 				var commands = Command.GetCommands(Assembly.GetExecutingAssembly());
-				commands.Count.ShouldEqual(1);
+				(commands.Count > 0).ShouldBeTrue();
 
 				var command = commands.First(c => c.Name == "foo");
 				command.Name.ShouldEqual("foo");

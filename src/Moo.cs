@@ -28,7 +28,7 @@ namespace MooGet {
 				filters[i].InnerFilter = filters[i + 1];
 
 			try {
-				Console.WriteLine(filters[0].Invoke(args));
+				Console.Write(filters[0].Invoke(args));
 			} catch (Exception ex) {
 
 				// Get the first exception that's not a TargetInvocationException (which we get because we Invoke() our commands)
@@ -42,11 +42,6 @@ namespace MooGet {
 			}
 		}
 
-		// will eventually look in MooGet.*.dll assemblies for filters ...
-		public static List<CommandFilter> Filters {
-			get { return CommandFilter.GetFilters(); }
-		}
-
 		public static string OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";
 
 		public static string UserAgent { get { return Moo.Version; } }
@@ -57,7 +52,47 @@ namespace MooGet {
 			new Source(Moo.OfficialNugetFeed)
 		};
 
-		public static List<Command> Commands = Command.GetCommands();
+		static List<Assembly> _extensions;
+		public static List<Assembly> Extensions {
+			get {
+				if (_extensions == null) {
+					_extensions = new List<Assembly>();
+					foreach (var package in Moo.Packages)
+						foreach (var dll in package.GetFiles(package.LibDirectory, "MooGet.*.dll"))
+							_extensions.Add(Assembly.LoadFile(dll)); // TODO add try/catch incase the assembly doesn't load cleanly
+				}
+				return _extensions;
+			}
+			set { _extensions = value; }
+		}
+
+		static List<CommandFilter> _filters;
+		public static List<CommandFilter> Filters {
+			get {
+				if (_filters == null) {
+					_filters = new List<CommandFilter>();
+					foreach (var assembly in Extensions)
+						_filters.AddRange(CommandFilter.GetFilters(assembly));
+					_filters.AddRange(CommandFilter.GetFilters()); // currently executing assembly
+				}
+				return _filters;
+			}
+			set { _filters = value; }
+		}
+
+		static List<Command> _commands;
+		public static List<Command> Commands {
+			get {
+				if (_commands == null) {
+					_commands = new List<Command>();
+					foreach (var assembly in Extensions)
+						_commands.AddRange(Command.GetCommands(assembly));
+					_commands.AddRange(Command.GetCommands()); // currently executing assembly
+				}
+				return _commands;
+			}
+			set { _commands = value; }
+		}
 
 		public static object FindAndRunCommand(string[] args) {
 			var arguments   = new List<string>(args);

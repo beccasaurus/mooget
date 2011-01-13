@@ -12,6 +12,14 @@ namespace MooGet {
 	/// <summary>Back-o-utility methods for MooGet</summary>
 	public static class Util {
 
+		// helper methods for getting spaces ... useful for commands ...
+		public static string Spaces(string str, int numSpaces) {
+			string spaces = "";
+			for (int i = 0; i < numSpaces - str.Length; i++)
+				spaces += " ";
+			return spaces;
+		}
+
 		public static string HelpForCommand(string command) {
 			return ReadStringResource("help." + command);
 		}
@@ -97,12 +105,18 @@ namespace MooGet {
 					if (path == "[Content_Types].xml" || path == "_rels/.rels" || path.EndsWith(".psmdcp"))
 						continue;
 
-					using (var reader = new StreamReader(part.GetStream(FileMode.Open, FileAccess.Read))) {
+					using (var stream = part.GetStream(FileMode.Open, FileAccess.Read)) {
+
+						// Create a path and make sure the directory for it gets created
 						var filepath = Path.Combine(directoryToUnzipInto, path);
 						Directory.CreateDirectory(Path.GetDirectoryName(filepath));
-						using (var writer = new FileStream(filepath, FileMode.Create, FileAccess.Write)) {
-							var buffer = System.Text.Encoding.UTF8.GetBytes(reader.ReadToEnd());
-							writer.Write(buffer, 0, buffer.Length);
+
+						// Copy the part Stream into a file Stream
+						using (var file = File.OpenWrite(filepath)) {
+							var buffer = new byte[8 * 1024];
+							int len;
+							while ( (len = stream.Read(buffer, 0, buffer.Length)) > 0)
+								file.Write(buffer, 0, len);
 						}
 					}
 				}
