@@ -9,27 +9,6 @@ namespace MooGet {
 	/// <summary>Represents the primary API for most MooGet actions</summary>
 	public partial class Moo {
 
-		[CommandFilter]
-		public static object PrintMooSplashScreen(string[] args, CommandFilter filter) {
-			if (args.Length == 0)
-				return Cow.SayText("NuGet + Super Cow Powers = MooGet") + "\n\nRun moo help for help documentation";
-			else
-				return filter.Invoke(args);
-		}
-
-		[CommandFilter]
-		public static object PrintMooVersion(string[] args, CommandFilter filter) {
-			if (args.Length == 1)
-				if (args[0] == "-v" || args[0] == "--version")
-					return Moo.Version;
-			return filter.Invoke(args);
-		}
-
-		[CommandFilter("Finds and runs the appropriate [Command] passed to moo.exe")]
-		public static object CommandRunnerFilter(string[] args, CommandFilter filter) {
-			return FindAndRunCommand(args);
-		}
-
 		/// <summary>moo.exe Entry method</summary>
 		/// <remarks>
 		///	moo.exe runs by running all [CommandFilter] methods defined 
@@ -65,9 +44,7 @@ namespace MooGet {
 
 		// will eventually look in MooGet.*.dll assemblies for filters ...
 		public static List<CommandFilter> Filters {
-			get {
-				return CommandFilter.GetFilters();
-			}
+			get { return CommandFilter.GetFilters(); }
 		}
 
 		public static string OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";
