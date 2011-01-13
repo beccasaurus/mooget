@@ -7,6 +7,9 @@ namespace MooGet {
 
 	/// <summary>Represents a MooGet middleware-like filter for wrapping Commands</summary>
 	public class CommandFilter {
+
+		public CommandFilter InnerFilter { get; set; }
+
 		public MethodInfo Method { get; set; }
 
 		public CommandFilter(MethodInfo method) {
@@ -24,6 +27,14 @@ namespace MooGet {
 					_commandAttribute = Method.GetCustomAttributes(typeof(CommandFilterAttribute), true)[0] as CommandFilterAttribute;
 				return _commandAttribute;
 			}
+		}
+
+		public override string ToString() {
+			return Name;
+		}
+
+		public object Invoke(string[] args) {
+			return Method.Invoke(null, new object[] { args, InnerFilter });
 		}
 
 		public object Invoke(string[] args, CommandFilter command) {

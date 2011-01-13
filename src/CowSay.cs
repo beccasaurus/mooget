@@ -16,8 +16,8 @@ namespace MooGet {
                 ||----w |
                 ||     ||";
 
-		public static void Say(string text) {
-			Console.WriteLine(SayText(text));
+		public static void Say(string text, params object[] o) {
+			Console.WriteLine(SayText(string.Format(text, o).Replace("\n", "")));
 		}
 
 		public static string SayText(string text) {

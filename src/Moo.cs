@@ -9,6 +9,27 @@ namespace MooGet {
 	/// <summary>Represents the primary API for most MooGet actions</summary>
 	public partial class Moo {
 
+		[CommandFilter]
+		public static object PrintMooSplashScreen(string[] args, CommandFilter filter) {
+			if (args.Length == 0)
+				return Cow.SayText("NuGet + Super Cow Powers = MooGet") + "\n\nRun moo help for help documentation";
+			else
+				return filter.Invoke(args);
+		}
+
+		[CommandFilter]
+		public static object PrintMooVersion(string[] args, CommandFilter filter) {
+			if (args.Length == 1)
+				if (args[0] == "-v" || args[0] == "--version")
+					return Moo.Version;
+			return filter.Invoke(args);
+		}
+
+		[CommandFilter("Finds and runs the appropriate [Command] passed to moo.exe")]
+		public static object CommandRunnerFilter(string[] args, CommandFilter filter) {
+			return FindAndRunCommand(args);
+		}
+
 		/// <summary>moo.exe Entry method</summary>
 		/// <remarks>
 		///	moo.exe runs by running all [CommandFilter] methods defined 
@@ -23,28 +44,30 @@ namespace MooGet {
 		///	Moo.Filters returns the full List&lt;CommandFilter&gt; that moo.exe runs.
 		/// </remarks>
 		public static void Main(string[] args) {
+			var filters = new List<CommandFilter>(Moo.Filters);
+			for (var i = 0; i < filters.Count - 1; i++)
+				filters[i].InnerFilter = filters[i + 1];
 
-			// Get all defined filters
-			//var filters = Moo.Filters;
+			try {
+				Console.WriteLine(filters[0].Invoke(args));
+			} catch (Exception ex) {
 
-			/*
-			 * [First]
-			 * [Second]
-			 * [CommandRunner]
-			 */
+				// Get the first exception that's not a TargetInvocationException (which we get because we Invoke() our commands)
+				Exception inner = ex;
+				while (inner.InnerException != null && inner is TargetInvocationException)
+					inner = inner.InnerException;
 
-			// var filters = CommandFilter.LoadAll();
-
-			if (args.Length == 0) {
-				Cow.Say("NuGet + Super Cow Powers = MooGet");
-				Console.WriteLine("\nRun moo help for help documentation");
-				return;
+				// Use CowSay to display the error message
+				Cow.Columns = 80;
+				Cow.Say("Moo. There was a problem:                                                   {0}", inner);
 			}
+		}
 
-			if (args[0] == "-v" || args[0] == "--version")
-				Console.WriteLine(Moo.Version);
-			else
-				FindAndRunCommand(args);
+		// will eventually look in MooGet.*.dll assemblies for filters ...
+		public static List<CommandFilter> Filters {
+			get {
+				return CommandFilter.GetFilters();
+			}
 		}
 
 		public static string OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";
@@ -59,17 +82,17 @@ namespace MooGet {
 
 		public static List<Command> Commands = Command.GetCommands();
 
-		public static void FindAndRunCommand(string[] args) {
+		public static object FindAndRunCommand(string[] args) {
 			var arguments   = new List<string>(args);
 			var commandName = arguments.First(); arguments.RemoveAt(0);
 			var commands    = Commands.Where(c => c.Name.StartsWith(commandName)).ToList();
 
 			if (commands.Count == 0)
-				Console.WriteLine("Command not found: {0}\n\nCommands: {1}", commandName, string.Join("\n", Commands.Select(c => c.Name).ToArray()));
+				return string.Format("Command not found: {0}\n\nCommands: {1}", commandName, string.Join("\n", Commands.Select(c => c.Name).ToArray()));
 			else if (commands.Count == 1)
-				commands.First().Run(arguments.ToArray());
+				return commands.First().Run(arguments.ToArray());
 			else
-				Console.WriteLine("Ambiguous command '{0}'.  Did you mean one of these?  {1}", commandName, string.Join(", ", commands.Select(c => c.Name).ToArray()));
+				return string.Format("Ambiguous command '{0}'.  Did you mean one of these?  {1}", commandName, string.Join(", ", commands.Select(c => c.Name).ToArray()));
 		}
 
 		public static List<Source> Sources { get { return Source.GetSources(); } }
