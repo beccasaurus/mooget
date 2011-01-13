@@ -86,6 +86,20 @@ namespace MooGet {
 			}
 		}
 
+		// TODO move this into Nuspec?  This isn't very ... Util-esque
+		public static string ReadNuspecInNupkg(string pathToNupkg) {
+			// TODO handle .nuspec files in subdirectories, eg. content ... just get .nuspec in root
+			string nuspec = null;
+
+			using (var zip = System.IO.Packaging.Package.Open(pathToNupkg, FileMode.Open, FileAccess.Read))
+				foreach (var part in zip.GetParts())
+					if (part.Uri.OriginalString.EndsWith(".nuspec"))
+						using (var reader = new StreamReader(part.GetStream()))
+							nuspec = reader.ReadToEnd();
+
+			return nuspec;
+		}
+
 		public static string[] PathsInZip(string zipFile) {
 			var parts = new List<string>();
 			using (var zip = System.IO.Packaging.Package.Open(zipFile, FileMode.Open, FileAccess.Read))

@@ -9,8 +9,9 @@ namespace MooGet.Specs {
 	[TestFixture]
 	public class ReadingNuspecSpec : MooGetSpec {
 
-		[Test][Ignore]
+		[Test]
 		public void Can_read_Nuspec_from_a_nupkg_without_extracting_the_package() {
+			Util.ReadNuspecInNupkg(PathToContent("package_working_directories", "just-a-library-1.0.0.0.nupkg")).ShouldContain("<id>just-a-library</id>");
 		}
 	
 		[Test]
