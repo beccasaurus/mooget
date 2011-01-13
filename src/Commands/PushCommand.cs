@@ -12,10 +12,10 @@ namespace MooGet.Commands {
 
 		[Command(Name = "push", Description = "Push a package to source")]
 		public static object Run(string[] args) {
-			if (args.Length == 1 && args[0].ToLower().EndsWith(".nupkg"))
-				return Push(args[0]);
-			else
-				return "Usage: moo push foo.nupkg";
+			//if (args.Length == 1 && args[0].ToLower().EndsWith(".nupkg"))
+			return Push(args[0]);
+			//else
+			//	return "Usage: moo push foo.nupkg";
 		}
 
 		static byte[] GetAllBytes(string nupkg) {
@@ -36,15 +36,21 @@ namespace MooGet.Commands {
 		static string Push(string nupkg) {
 			System.Net.ServicePointManager.Expect100Continue = false;
 
+			// var url = "http://localhost:3000/packages?auth_token=dx1vnLEJ1d2IDCOkVKoB";
+			var url = "http://localhost:9393/";
+
 			var parameters = new Dictionary<string, object>();
 			//parameters.Add("nuspec", "hello world");
 			//parameters.Add("nuspec", Util.ReadNuspecInNupkg(nupkg));
 			//parameters.Add("file", new FormUpload.FileParameter(File.ReadAllBytes(nupkg), Path.GetFileName(nupkg), "application/octet-stream"));
-			//parameters.Add("file", new FormUpload.FileParameter(File.ReadAllBytes(nupkg), Path.GetFileName(nupkg), "text/plain"));
-			parameters.Add("file", new FormUpload.FileParameter(Encoding.UTF8.GetBytes(Util.ReadFile(nupkg)), Path.GetFileName(nupkg), "plain/text"));
+			//parameters.Add("file", new FormUpload.FileParameter(GetAllBytes(nupkg), Path.GetFileName(nupkg), "text/plain"));
+			parameters.Add("file", new FormUpload.FileParameter(GetAllBytes(nupkg), Path.GetFileName(nupkg), "text/plain"));
+			//parameters.Add("file", new FormUpload.FileParameter(Encoding.UTF8.GetBytes(Util.ReadFile(nupkg)), Path.GetFileName(nupkg), "plain/text"));
 			//parameters.Add("file", new FormUpload.FileParameter(GetAllBytes(nupkg), Path.GetFileName(nupkg), "plain/text"));
-			var response = FormUpload.MultipartFormDataPost("http://localhost:3000/packages?auth_token=dx1vnLEJ1d2IDCOkVKoB", "test", parameters);
-			return string.Format("Response: {0}", response.StatusCode);
+			FormUpload.MultipartFormDataPost(url, null, null, parameters);
+			//var response = FormUpload.MultipartFormDataPost(url, null, null, parameters);
+			return "hi";
+			//return string.Format("Response: {0}", response.StatusCode);
 		}
 	}
 }
