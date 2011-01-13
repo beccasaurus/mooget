@@ -1,0 +1,12 @@
+console: -out:bin/$config/tool.exe -target:exe
+lib:     -out:bin/$config/dogs.dll
+
+console, lib
+	ThisDependency
+	That Dependency
+
+console
+	NDesk.Options
+
+gui
+	System.Windows.Forms
