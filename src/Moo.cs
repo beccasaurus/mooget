@@ -162,17 +162,24 @@ namespace MooGet {
 		}
 
 		public static Package InstallFromSource(string name) {
+			return InstallFromSource(name, false);
+		}
+		public static Package InstallFromSource(string name, bool dryRun) {
 			var package = RemotePackage.FindLatestPackageByName(name);
 			if (package == null)
 				return package;
 			else {
 				var allToInstall = new List<RemotePackage> { package };
-				allToInstall.AddRange(package.FindDependencies());
+				allToInstall.AddRange(package.FindDependencies(Moo.Sources.Select(s => s.AllPackages).ToArray()));
 				foreach (var toInstall in allToInstall) {
 					if (toInstall.IsInstalled)
 						Console.WriteLine("Already installed {0}", package); // TODO don't Console.Write!
-					else
-						toInstall.Install();
+					else {
+						if (dryRun)
+							Console.WriteLine("Would install {0}", toInstall);
+						else
+							toInstall.Install();
+					}
 				}
 			}
 			return package;
