@@ -74,6 +74,7 @@ namespace MooGet {
 							foreach (var value in section.Value)
 								Configuration[key] += "\n" + value;
 						}
+						sections.Remove(section.Key);
 					} else {
 						foreach (var part in section.Key.Split(',')) {
 							var key = part.Trim();
@@ -133,10 +134,13 @@ namespace MooGet {
 					if (section.Key.Contains(":")) {
 						Configuration.Add(section.Key.Replace(":", ""), string.Join("\n", section.Value.ToArray()));
 					} else {
-						var group = new Group(section.Key);
+						var group = Groups.FirstOrDefault(g => g.Name == section.Key);
+						if (group == null) {
+							group = new Group(section.Key);
+							Groups.Add(group);
+						}
 						foreach (var dependencyText in section.Value)
 							group.Dependencies.Add(new Dependency(dependencyText));
-						Groups.Add(group);
 					}
 				}
 			}

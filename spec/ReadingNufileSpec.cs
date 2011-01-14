@@ -81,26 +81,28 @@ namespace MooGet.Specs {
 		public void example_7() {
 			var nufile = new Nufile(PathToContent("nufile_examples", "Nufile7"));
 
-			Console.WriteLine("Configuration");
-			foreach (var item in nufile.Configuration) {
-				Console.WriteLine("\t[{0}] = {1}", item.Key, string.Join("|", item.Value.Trim().Split('\n')));
-			}
+			nufile.GlobalDependencies.Count.ShouldEqual(6);
+			foreach (var globalDependency in new string[] { "forAll 1.0.2.5", "some", "global", "more", "global", "notthis" })
+				nufile.GlobalDependencies.Select(d => d.Text).ToArray().ShouldContain(globalDependency);
 
-			Console.WriteLine("GlobalDependencies:");
-			foreach (var dependency in nufile.GlobalDependencies) {
-				Console.WriteLine("\t- {0}", dependency.Text);
-			}
+			nufile.Groups.Count.ShouldEqual(3);
+			nufile.Groups.Find(g => g.Name == "src").Dependencies.Count.ShouldEqual(3);
+			nufile.Groups.Find(g => g.Name == "src").Dependencies.Select(d => d.Text).ShouldContain("JustForSrcAndSpec1");
+			nufile.Groups.Find(g => g.Name == "src").Dependencies.Select(d => d.Text).ShouldContain("JustForSrcAndSpec_2");
+			nufile.Groups.Find(g => g.Name == "src").Dependencies.Select(d => d.Text).ShouldContain("Just.Source");
+			nufile.Groups.Find(g => g.Name == "spec").Dependencies.Count.ShouldEqual(3);
+			nufile.Groups.Find(g => g.Name == "spec").Dependencies.Select(d => d.Text).ShouldContain("JustForSrcAndSpec1");
+			nufile.Groups.Find(g => g.Name == "spec").Dependencies.Select(d => d.Text).ShouldContain("JustForSrcAndSpec_2");
+			nufile.Groups.Find(g => g.Name == "spec").Dependencies.Select(d => d.Text).ShouldContain("Just-Spec");
 
-			Console.WriteLine("Groups:");
-			foreach (var group in nufile.Groups) {
-				Console.WriteLine("\t[{0}]", group.Name);
-				foreach (var dependency in group.Dependencies)
-					Console.WriteLine("\t\t- {0}", dependency.Text);
-			}
-
-			// nufile.GlobalDependencies.Count.ShouldEqual(6);
-			// foreach (var globalDependency in new string[] { "forAll 1.0.2.5", "some", "global", "more", "global", "notthis" });
-			// 	nufile.GlobalDependencies.Select(d => d.Name).ToArray().ShouldContain(globalDependency);
+			nufile.Configuration["source"].Trim().ShouldEqual("this is for 3 configuration sections\nmany lines\nof stuff\n-t:library");
+			nufile.Configuration["spec\\Web"].Trim().ShouldEqual("this is for 3 configuration sections\n /p:Configuration=Release /out:bin\\Debug\\Foo.Web.Specs.dll");
+			nufile.Configuration["another"].Trim().ShouldEqual("this is for 3 configuration sections");
+			nufile.Configuration["something-else"].Trim().ShouldEqual("many lines\nof stuff");
+			nufile.Configuration["moo-sources"].Trim().ShouldEqual("nuget, mooget");
+			nufile.Configuration["spec\\Foo"].Trim().ShouldEqual("/out:bin\\$config\\Foo.dll");
+			nufile.Configuration["has-inner"].Trim().ShouldEqual("this line\nthis line\nall these");
+			nufile.Configuration.Count.ShouldEqual(8);
 		}
 	}
 }
