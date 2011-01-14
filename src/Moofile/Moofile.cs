@@ -7,16 +7,8 @@ using System.Text.RegularExpressions;
 
 namespace MooGet {
 
-	// TODO refactor away from Nufile ...
-	public class Nufile : Moofile {
-		public Nufile() {}
-		public Nufile(string moofilePath) {
-			Text = Util.ReadFile(moofilePath);
-		}
-	}
-
-	/// <summary>Represents a Nufile file which specifies NuGet package dependencies for a project or solution</summary>
-	public class Moofile {
+	/// <summary>Represents a Moofile file which specifies NuGet package dependencies for a project or solution</summary>
+	public partial class Moofile {
 		string _text;
 
 		public Moofile() {}
@@ -58,6 +50,7 @@ namespace MooGet {
 			get { return RelativeDirectories.Select(dir => System.IO.Path.GetFileName(dir)).ToList(); }
 		}
 
+		// TODO this should be as simple as getting all Configuration where IsDirectory is true.  Refactor Configuration to Configurations ... a List<Configuration>
 		/// <summary>Returns all Configuration items that have the same name as a directory in the Moofile's directory</summary>
 		public Dictionary<string, string> DirectoryConfigurations {
 			get { return Configuration.Where(config => RelativeDirectoryNames.Contains(config.Key)).ToDictionary(x => x.Key, x => x.Value); }
@@ -163,6 +156,7 @@ namespace MooGet {
 			return response.ToString();
 		}
 
+		// TODO extract method or extract class.  this is one big procedural thing ... is there a nice way to clean this up.  let's atLEAST refactor each for loop into a method with a sole purpose
 		void Parse() {
 			Groups              = new List<Group>();
 			GlobalDependencies  = new List<Dependency>();
@@ -292,41 +286,6 @@ namespace MooGet {
 		static bool LineIndented(string line) {
 			if (line == null) return false;
 			return line.StartsWith(" ") || line.StartsWith("\t");
-		}
-
-		// TODO move this into its own file
-		/// <summary>A NuFile Dependency typically refers to a PackageDependency, but may be a dll, csproj file, etc</summary>
-		public class Dependency {
-
-			public Dependency() {}
-			public Dependency(string text) {
-				Text = text;
-			}
-
-			/// <summary>Raw text value of the dependency</summary>
-			public string Text { get; set; }
-		}
-
-		// TODO move this into its own file
-		/// <summary>A NuFile Group has a name and typically refers to a project name or directory</summary>
-		public class Group {
-			List<Dependency> _dependencies = new List<Dependency>();
-
-			public Group() {}
-			public Group(string name) {
-				Name = name;
-			}
-			public Group(string name, List<Dependency> dependencies) {
-				Name = name;
-				Dependencies = dependencies;
-			}
-
-			public string Name { get; set; }
-
-			public List<Dependency> Dependencies {
-				get { return _dependencies;  }
-				set { _dependencies = value; }
-			}
 		}
 	}
 }

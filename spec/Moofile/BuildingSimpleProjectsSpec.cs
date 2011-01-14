@@ -58,11 +58,10 @@ namespace MooGet.Specs {
 			File.Exists(exe).ShouldBeFalse();
 
 			cd(dir);
-			moo("build");
-
-			run(exe).ShouldEqual("Dog bark:\nWoof! My name is Rover");
+			Console.WriteLine(moo("build"));
 
 			File.Exists(exe).ShouldBeTrue();
+			run(exe).ShouldEqual("Dog bark:\nWoof! My name is Rover");
 		}
 
 		[Test]
