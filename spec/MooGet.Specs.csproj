@@ -45,7 +45,8 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" />
+    <Compile Include="SpecHelper.cs" />
+    <Compile Include="**\*Spec.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\MooGet.csproj">

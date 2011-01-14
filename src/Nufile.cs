@@ -68,24 +68,49 @@ namespace MooGet {
 			return System.IO.Directory.GetFiles(fullDirname, matcher, SearchOption.AllDirectories);
 		}
 
+		public List<Dependency> DependenciesFor(string key) {
+			var dependencies = new List<Dependency>();
+			GlobalDependencies.ForEach(d => dependencies.Add(d));
+			var group = Groups.FirstOrDefault(g => g.Name == key);
+			if (group != null)
+				group.Dependencies.ForEach(d => dependencies.Add(d));
+			return dependencies;
+		}
+
 		public object Build() {
 			var response = new StringBuilder();
 
 			foreach (var dirConfig in DirectoryConfigurations) {
+				var dirname     = dirConfig.Key;
 				var arguments   = dirConfig.Value.Trim().Replace("\n", " ").Trim();
-				var csharpFiles = GetFiles(dirConfig.Key, "*.cs");
+				var csharpFiles = GetFiles(dirname, "*.cs");
 				var command = string.Format("gmcs {0} {1}", arguments, string.Join(" ", csharpFiles));
 
+				string outputDir = null;
 				var output = Regex.Match(command, @"[-\/]out:([^\s]+)");
 				if (output != null) {
 					var outFile = output.Groups[1].ToString().Replace("\\", "/"); // switch the other way on Windows?
 					command     = command.Replace(output.ToString(), "/out:" + outFile);
-					var dir     = System.IO.Path.GetDirectoryName(System.IO.Path.GetFullPath(outFile));
-					System.IO.Directory.CreateDirectory(dir);
+					outputDir   = System.IO.Path.GetDirectoryName(System.IO.Path.GetFullPath(outFile));
+					System.IO.Directory.CreateDirectory(outputDir);
 				}
+
+				var dllReferences = DependenciesFor(dirConfig.Key).
+										Where(d => d.Text.ToLower().EndsWith(".dll")).
+										Select(d => System.IO.Path.GetFullPath(d.Text)).ToList();
+
+				// add -r references for dlls
+				dllReferences.ForEach(dll => command += " -r:" + dll);
 
 				response.Line(command);
 				response.Line(Util.RunCommand(command, Directory).Trim());
+
+				// Copy dlls to output directory
+				dllReferences.ForEach(dll => {
+					var copyTo = System.IO.Path.Combine(outputDir, System.IO.Path.GetFileName(dll));
+					response.Line("cp {0} {1}", dll, copyTo);
+					File.Copy(dll, copyTo);
+				});
 			}
 
 			return response;
@@ -147,7 +172,7 @@ namespace MooGet {
 			// find everything key with a comma and split it up so src, spec: foo turns into src: foo and spec: foo
 			foreach (var section in new Dictionary<string, List<string>>(sections)) {
 
-				// For sections that have commas, we split up the section name and we take all of the dependecies 
+				// For sections that have commas, we split up the section name and we take all of the dependencies 
 				// and add them to ALL of the groups specified
 				if (section.Key.Contains(",")) {
 					if (section.Key.Contains(":")) {

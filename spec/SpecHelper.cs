@@ -62,6 +62,10 @@ namespace MooGet.Specs {
 			MooWorkingDirectory = Path.GetFullPath(Path.Combine(MooWorkingDirectory, relativePath));
 		}
 
+		public string run(string commandAndArguments) {
+			return Util.RunCommand(commandAndArguments, MooWorkingDirectory);
+		}
+
 		public string moo(string arguments, params object[] formatting) {
 			return moo(string.Format(arguments, formatting));
 		}

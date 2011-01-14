@@ -1,0 +1,4 @@
+dog-cli: -out:bin/dog-cli.exe
+
+dog-cli
+	lib/dog.dll

@@ -26,9 +26,47 @@ namespace MooGet.Specs {
 			File.Exists(dll).ShouldBeFalse();
 
 			cd(dir);
-			Console.WriteLine(moo("build"));
+			moo("build");
 
 			File.Exists(dll).ShouldBeTrue();
+		}
+
+		[Test]
+		public void just_one_exe() {
+			var dir = PathToProject("just-one-exe");
+			var exe = PathToProject("just-one-exe", "bin", "my-command.exe");
+			var bin = Path.Combine(dir, "bin");
+			if (Directory.Exists(bin)) Directory.Delete(bin, true);
+
+			File.Exists(exe).ShouldBeFalse();
+
+			cd(dir);
+			moo("build");
+
+			run(exe).ShouldEqual("hi");
+
+			File.Exists(exe).ShouldBeTrue();
+		}
+
+		[Test][Ignore]
+		public void exe_with_global_reference_to_lib_dll() {
+		}
+
+		[Test]
+		public void exe_with_reference_to_lib_dll() {
+			var dir = PathToProject("exe-with-dll-reference");
+			var exe = PathToProject("exe-with-dll-reference", "bin", "dog-cli.exe");
+			var bin = Path.Combine(dir, "bin");
+			if (Directory.Exists(bin)) Directory.Delete(bin, true);
+
+			File.Exists(exe).ShouldBeFalse();
+
+			cd(dir);
+			moo("build");
+
+			run(exe).ShouldEqual("Dog bark:\nWoof! My name is Rover");
+
+			File.Exists(exe).ShouldBeTrue();
 		}
 	}
 }
