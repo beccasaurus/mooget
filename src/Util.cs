@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 namespace MooGet {
 
+	// TODO this is really finally starting to get long!  we should split this up into mutliple files using a partial class.
+	//      later, if this gets even bigger, we could separate out into different classes;
+
 	/// <summary>Back-o-utility methods for MooGet</summary>
 	public static class Util {
 
@@ -30,6 +33,28 @@ namespace MooGet {
 			using (var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream("MooGet.resources." + resourceName)))
 				text = reader.ReadToEnd();
 			return text;
+		}
+
+		public static string RunCommand(string commandAndArguments, string workingDirectory) {
+			var cmdAndArgs = new List<string>(commandAndArguments.Split(' '));
+			var command    = cmdAndArgs.First();
+			cmdAndArgs.RemoveAt(0);
+			var arguments  = string.Join(" ", cmdAndArgs.ToArray()).Trim();
+
+            var process = new System.Diagnostics.Process();
+            process.StartInfo.FileName = command;
+            if (arguments.Length > 0)
+                process.StartInfo.Arguments = arguments;
+            process.StartInfo.UseShellExecute              = false;
+            process.StartInfo.RedirectStandardOutput       = true;
+            process.StartInfo.CreateNoWindow               = true;
+            process.StartInfo.WorkingDirectory             = workingDirectory;
+			//process.StartInfo.EnvironmentVariables["HOME"] = PathToTemp("home"); // fake the home directory
+			//process.StartInfo.EnvironmentVariables["TMP"]  = PathToTemp("tmp");  // fake the tmp directory
+            process.Start();
+            string stdout = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+            return stdout.Trim();
 		}
 
 		public static string ReadFile(string filename) {

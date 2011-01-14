@@ -28,6 +28,13 @@ namespace MooGet.Specs {
 		[SetUp]
 		public void BeforeEach() {
 			ResetTempDirectory();
+			ResetMooWorkingDirectory();
+		}
+
+		public string MooWorkingDirectory;
+
+		public void ResetMooWorkingDirectory() {
+			MooWorkingDirectory = PathToTemp("working");
 		}
 
 		public static string ToJSON(object o) {
@@ -51,6 +58,10 @@ namespace MooGet.Specs {
 			SetupTempDirectory();
 		}
 
+		public void cd(string relativePath) {
+			MooWorkingDirectory = Path.GetFullPath(Path.Combine(MooWorkingDirectory, relativePath));
+		}
+
 		public string moo(string arguments, params object[] formatting) {
 			return moo(string.Format(arguments, formatting));
 		}
@@ -64,7 +75,7 @@ namespace MooGet.Specs {
             process.StartInfo.UseShellExecute              = false;
             process.StartInfo.RedirectStandardOutput       = true;
             process.StartInfo.CreateNoWindow               = true;
-            process.StartInfo.WorkingDirectory             = PathToTemp("working");
+            process.StartInfo.WorkingDirectory             = MooWorkingDirectory;
 			process.StartInfo.EnvironmentVariables["HOME"] = PathToTemp("home"); // fake the home directory
 			process.StartInfo.EnvironmentVariables["TMP"]  = PathToTemp("tmp");  // fake the tmp directory
             process.Start();

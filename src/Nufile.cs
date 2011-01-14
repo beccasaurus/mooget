@@ -1,19 +1,31 @@
 using System;
 using System.IO;
+using System.Text;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace MooGet {
 
+	// TODO refactor away from Nufile ...
+	public class Nufile : Moofile {
+		public Nufile() {}
+		public Nufile(string moofilePath) {
+			Text = Util.ReadFile(moofilePath);
+		}
+	}
+
 	/// <summary>Represents a Nufile file which specifies NuGet package dependencies for a project or solution</summary>
-	public class Nufile {
+	public class Moofile {
 		string _text;
 
-		public Nufile() {}
-		public Nufile(string nufilePath) {
-			Text = Util.ReadFile(nufilePath);
+		public Moofile() {}
+		public Moofile(string moofilePath) {
+			Path = moofilePath;
+			Text = Util.ReadFile(moofilePath);
 		}
 
+		public string                     Path               { get; set; }
 		public Dictionary<string, string> Configuration      { get; set; }
 		public List<Dependency>           GlobalDependencies { get; set; }
 		public List<Group>                Groups             { get; set; }
@@ -28,6 +40,77 @@ namespace MooGet {
 				_text = value;
 				Parse();
 			}
+		}
+
+		public string FullPath {
+			get { return System.IO.Path.GetFullPath(Path); }
+		}
+
+		public string Directory {
+			get { return System.IO.Path.GetDirectoryName(FullPath); }
+		}
+
+		public List<string> RelativeDirectories {
+			get { return new List<string>(System.IO.Directory.GetDirectories(Directory)); }
+		}
+
+		public List<string> RelativeDirectoryNames {
+			get { return RelativeDirectories.Select(dir => System.IO.Path.GetFileName(dir)).ToList(); }
+		}
+
+		/// <summary>Returns all Configuration items that have the same name as a directory in the Moofile's directory</summary>
+		public Dictionary<string, string> DirectoryConfigurations {
+			get { return Configuration.Where(config => RelativeDirectoryNames.Contains(config.Key)).ToDictionary(x => x.Key, x => x.Value); }
+		}
+
+		public string[] GetFiles(string dirname, string matcher) {
+			var fullDirname = System.IO.Path.Combine(Directory, dirname);
+			return System.IO.Directory.GetFiles(fullDirname, matcher, SearchOption.AllDirectories);
+		}
+
+		public object Build() {
+			var response = new StringBuilder();
+
+			foreach (var dirConfig in DirectoryConfigurations) {
+				var arguments   = dirConfig.Value.Trim().Replace("\n", " ").Trim();
+				var csharpFiles = GetFiles(dirConfig.Key, "*.cs");
+				var command = string.Format("gmcs {0} {1}", arguments, string.Join(" ", csharpFiles));
+
+				var output = Regex.Match(command, @"[-\/]out:([^\s]+)");
+				if (output != null) {
+					var outFile = output.Groups[1].ToString().Replace("\\", "/"); // switch the other way on Windows?
+					command     = command.Replace(output.ToString(), "/out:" + outFile);
+					var dir     = System.IO.Path.GetDirectoryName(System.IO.Path.GetFullPath(outFile));
+					System.IO.Directory.CreateDirectory(dir);
+				}
+
+				response.Line(command);
+				response.Line(Util.RunCommand(command, Directory).Trim());
+			}
+
+			return response;
+		}
+
+		public string Inspect() {
+			var response = new StringBuilder();
+
+			if (Configuration.Any())
+				response.Line("[Configuration]");
+			foreach (var config in Configuration)
+				response.Indent("{0}: {1}", config.Key, config.Value.Trim().Replace("\n", " "));
+
+			if (GlobalDependencies.Any())
+				response.Line("[Global Dependencies]");
+			foreach (var dep in GlobalDependencies)
+				response.Indent(dep.Text.Trim());
+
+			foreach (var group in Groups) {
+				response.Line("[{0}]", group.Name);
+				foreach (var dep in group.Dependencies)
+					response.Indent(dep.Text.Trim());
+			}
+
+			return response.ToString();
 		}
 
 		void Parse() {

@@ -42,6 +42,8 @@ namespace MooGet {
 			}
 		}
 
+		public static string Indentation = "\t";
+
 		public static string OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";
 
 		public static string UserAgent { get { return Moo.Version; } }
