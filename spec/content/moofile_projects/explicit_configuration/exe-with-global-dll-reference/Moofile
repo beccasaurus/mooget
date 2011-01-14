@@ -1,0 +1,3 @@
+dog-cli: -out:bin/dog-cli.exe
+
+lib/dog.dll

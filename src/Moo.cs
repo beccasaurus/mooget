@@ -140,6 +140,7 @@ namespace MooGet {
 			return package;
 		}
 
+		// TODO update to return LocalPackage type, which it does!
 		public static Package Install(string package) {
 			if (File.Exists(package))
 				return InstallFromNupkg(package);

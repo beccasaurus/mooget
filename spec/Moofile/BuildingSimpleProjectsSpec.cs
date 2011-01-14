@@ -48,8 +48,21 @@ namespace MooGet.Specs {
 			File.Exists(exe).ShouldBeTrue();
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void exe_with_global_reference_to_lib_dll() {
+			var dir = PathToProject("exe-with-global-dll-reference");
+			var exe = PathToProject("exe-with-global-dll-reference", "bin", "dog-cli.exe");
+			var bin = Path.Combine(dir, "bin");
+			if (Directory.Exists(bin)) Directory.Delete(bin, true);
+
+			File.Exists(exe).ShouldBeFalse();
+
+			cd(dir);
+			moo("build");
+
+			run(exe).ShouldEqual("Dog bark:\nWoof! My name is Rover");
+
+			File.Exists(exe).ShouldBeTrue();
 		}
 
 		[Test]
@@ -65,6 +78,23 @@ namespace MooGet.Specs {
 			moo("build");
 
 			run(exe).ShouldEqual("Dog bark:\nWoof! My name is Rover");
+
+			File.Exists(exe).ShouldBeTrue();
+		}
+
+		[Test]
+		public void exe_with_reference_to_nupkg() {
+			var dir = PathToProject("exe-with-nupkg-reference");
+			var exe = PathToProject("exe-with-nupkg-reference", "bin", "cli.exe");
+			var bin = Path.Combine(dir, "bin");
+			if (Directory.Exists(bin)) Directory.Delete(bin, true);
+
+			File.Exists(exe).ShouldBeFalse();
+
+			cd(dir);
+			moo("build");
+
+			run(exe).ShouldEqual("Calling lib:\nHello from MyLib.Foo.Bar!");
 
 			File.Exists(exe).ShouldBeTrue();
 		}

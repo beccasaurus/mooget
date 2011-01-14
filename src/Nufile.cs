@@ -99,8 +99,26 @@ namespace MooGet {
 										Where(d => d.Text.ToLower().EndsWith(".dll")).
 										Select(d => System.IO.Path.GetFullPath(d.Text)).ToList();
 
+				// NOTE ... i think you should have to run 'moo install' to support .nupkg references ...
+				var nupkgReferences = DependenciesFor(dirConfig.Key).
+										Where(d => d.Text.ToLower().EndsWith(".nupkg")).
+										Select(d => System.IO.Path.GetFullPath(d.Text)).ToList();
+
+				var localPackageReferences = new List<LocalPackage>();
+
+				foreach (var nupkg in nupkgReferences) {
+					var package = Moo.Install(nupkg) as LocalPackage;
+					response.Line("Installed {0}", package);
+					localPackageReferences.Add(package);
+				}
+
 				// add -r references for dlls
 				dllReferences.ForEach(dll => command += " -r:" + dll);
+
+				// add -r references for LocalPackage libraries
+				foreach (var package in localPackageReferences)
+					foreach (var dll in package.Libraries)
+						command += " -r:" + System.IO.Path.GetFullPath(dll);
 
 				response.Line(command);
 				response.Line(Util.RunCommand(command, Directory).Trim());
@@ -111,6 +129,13 @@ namespace MooGet {
 					response.Line("cp {0} {1}", dll, copyTo);
 					File.Copy(dll, copyTo);
 				});
+				foreach (var package in localPackageReferences)
+					foreach (var dll in package.Libraries) {
+						var dllPath = System.IO.Path.GetFullPath(dll);
+						var copyTo  = System.IO.Path.Combine(outputDir, System.IO.Path.GetFileName(dllPath));
+						response.Line("cp {0} {1}", dllPath, copyTo);
+						File.Copy(dllPath, copyTo);
+					}
 			}
 
 			return response;
