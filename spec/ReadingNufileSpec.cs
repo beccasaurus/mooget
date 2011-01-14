@@ -76,5 +76,31 @@ namespace MooGet.Specs {
 			nufile["spec"].Dependencies.First().Text.ShouldEqual("NUnit	>1.0	<=	2.5.6.7");
 			// TODO check the PackageDependency this generates ...
 		}
+
+		[Test]
+		public void example_7() {
+			var nufile = new Nufile(PathToContent("nufile_examples", "Nufile7"));
+
+			Console.WriteLine("Configuration");
+			foreach (var item in nufile.Configuration) {
+				Console.WriteLine("\t[{0}] = {1}", item.Key, string.Join("|", item.Value.Trim().Split('\n')));
+			}
+
+			Console.WriteLine("GlobalDependencies:");
+			foreach (var dependency in nufile.GlobalDependencies) {
+				Console.WriteLine("\t- {0}", dependency.Text);
+			}
+
+			Console.WriteLine("Groups:");
+			foreach (var group in nufile.Groups) {
+				Console.WriteLine("\t[{0}]", group.Name);
+				foreach (var dependency in group.Dependencies)
+					Console.WriteLine("\t\t- {0}", dependency.Text);
+			}
+
+			// nufile.GlobalDependencies.Count.ShouldEqual(6);
+			// foreach (var globalDependency in new string[] { "forAll 1.0.2.5", "some", "global", "more", "global", "notthis" });
+			// 	nufile.GlobalDependencies.Select(d => d.Name).ToArray().ShouldContain(globalDependency);
+		}
 	}
 }

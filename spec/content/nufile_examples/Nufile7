@@ -1,0 +1,44 @@
+//
+// This is a very dirty Nufile.  It's intentionally dirty.  It's for exercising our parser.
+//
+
+# a comment
+moo-sources: nuget, mooget
+
+// COMMENT!
+
+source:-t:library
+spec\Web: /p:Configuration=Release /out:bin\Debug\Foo.Web.Specs.dll
+
+source, spec\Web, another: this is for 3 configuration sections
+
+forAll 1.0.2.5
+
+src, spec
+	JustForSrcAndSpec1
+	JustForSrcAndSpec_2
+
+src
+	Just.Source
+
+some
+global
+
+spec
+	Just-Spec
+
+web/here/Web.csproj
+	Just.Web
+more
+global
+spec\Foo: /out:bin\$config\Foo.dll
+
+source, something-else:
+	many lines
+	of stuff
+
+has-inner:
+	this line
+	this line
+	all these
+notthis

@@ -1,0 +1,5 @@
+// comment is ignored
+
+# hash style comment is also ignored
+
+code: /target:library /out:bin\my-code.dll
