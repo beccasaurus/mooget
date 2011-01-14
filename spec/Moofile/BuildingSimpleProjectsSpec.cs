@@ -98,5 +98,41 @@ namespace MooGet.Specs {
 
 			File.Exists(exe).ShouldBeTrue();
 		}
+
+		// Moofile
+		//
+		// src
+		//     MyDogs from ../../Foo.nupkg
+		[Test][Ignore]
+		public void exe_with_reference_to_1_particular_assembly_inside_of_nupkg() {
+		}
+
+		// Moofile
+		//
+		// src
+		//     MyDogs.dll,MyCats,foo.exe from ../../Foo.nupkg
+		[Test][Ignore]
+		public void exe_with_reference_to_many_particular_assemblies_inside_of_nupkg() {
+		}
+
+		// For this to work, we need to implement 'moo install' for Moofile's.
+		// These should install .nupkg as well as packages by name using the 
+		// source(s) provided in the Moofile and should create a Moofile.lock 
+		// with the *exact* version numbers of all of the installed packages being used.
+		[TestFixture]
+		public class exe_with_reference_to_package_name {
+
+			[Test][Ignore]
+			public void no_sources_defined_in_Moofile() {
+			}
+
+			[Test][Ignore]
+			public void moo_install_has_not_been_run() {
+			}
+
+			[Test][Ignore]
+			public void ok() {
+			}
+		}
 	}
 }
