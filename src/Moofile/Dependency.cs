@@ -21,6 +21,12 @@ namespace MooGet {
 
 			/// <summary>Raw text value of the dependency</summary>
 			public string Text { get; set; }
+
+			/// <summary>Reference back to this Dependency's Moofile</summary>
+			public Moofile Moofile { get; set; }
+
+			/// <summary>Reference back to this Dependency's Moofile.Group</summary>
+			//public MooGet.Moofile.Group Group { get; set; }
 		}
 	}
 }
