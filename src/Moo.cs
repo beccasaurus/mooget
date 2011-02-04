@@ -50,8 +50,8 @@ namespace MooGet {
 
 		public static string Version { get { return "Moo " + Assembly.GetExecutingAssembly().GetName().Version.ToString(); } }
 
-		public static List<Source> DefaultSources = new List<Source> {
-			new Source(Moo.OfficialNugetFeed)
+		public static List<OldSource> DefaultSources = new List<OldSource> {
+			new OldSource(Moo.OfficialNugetFeed)
 		};
 
 		static List<Assembly> _extensions;
@@ -109,7 +109,7 @@ namespace MooGet {
 				return string.Format("Ambiguous command '{0}'.  Did you mean one of these?  {1}\n", commandName, string.Join(", ", commands.Select(c => c.Name).ToArray()));
 		}
 
-		public static List<Source> Sources { get { return Source.GetSources(); } }
+		public static List<OldSource> Sources { get { return OldSource.GetSources(); } }
 			
 		public static LocalPackage Unpack(string nupkg) {
 			return Unpack(nupkg, Directory.GetCurrentDirectory());

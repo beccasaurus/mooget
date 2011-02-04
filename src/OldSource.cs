@@ -7,16 +7,21 @@ using System.Collections.Generic;
 
 namespace MooGet {
 
-	/// <summary>Represents a standard XML with Package information</summary>
-	public class Source {
+	/*
+	 * OBSOLETE 
+	 *
+	 * Going to port any required code from here into the new Source ...
+	 *
+	 */
+	public class OldSource {
 
 		List<RemotePackage> _allPackages;
 
 		/// <summary>URL or local filesystem path to this source's XML feed</summary>
 		public string Path { get; set; }
 
-		public Source(){}
-		public Source(string path) {
+		public OldSource(){}
+		public OldSource(string path) {
 			Path = path;
 		}
 
@@ -31,7 +36,7 @@ namespace MooGet {
 		public List<RemotePackage> AllPackages {
 			get {
 				if (_allPackages == null)
-					return Source.GetPackagesFromPath(Path).OrderBy(p => p.Title).ToList();
+					return OldSource.GetPackagesFromPath(Path).OrderBy(p => p.Title).ToList();
 				else
 					return _allPackages;
 			}
@@ -67,7 +72,7 @@ namespace MooGet {
 				return Feed.ParseFeed(MooGet.Util.ReadUrl(path));
 		}
 
-		public static List<Source> GetSources() {
+		public static List<OldSource> GetSources() {
 			if (File.Exists(Moo.SourceFile))
 				return FromSourceFile(Moo.SourceFile);
 			else
@@ -75,11 +80,11 @@ namespace MooGet {
 		}
 
 		// each line in ~/.moo/sources.list has a source url
-		public static List<Source> FromSourceFile(string path) {
-			var sources = new List<Source>();
+		public static List<OldSource> FromSourceFile(string path) {
+			var sources = new List<OldSource>();
 			foreach (var line in Util.ReadFile(path).Split('\n'))
 				if (line.Trim().Length > 0)
-					sources.Add(new Source(line.Trim()));
+					sources.Add(new OldSource(line.Trim()));
 			return sources;
 		}
 
@@ -109,8 +114,8 @@ namespace MooGet {
 			AllPackages = Feed.ParseFeed(xml);
 		}
 
-		public static Source FromXml(string xml) {
-			var source = new Source();
+		public static OldSource FromXml(string xml) {
+			var source = new OldSource();
 			source.LoadXml(xml);
 			return source;
 		}

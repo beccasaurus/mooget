@@ -8,10 +8,10 @@ using NUnit.Framework;
 namespace MooGet.Specs {
 
 	[TestFixture]
-	public class SourceSpec : MooGetSpec {
+	public class OldSourceSpec : MooGetSpec {
 
 		[TestFixture]
-		public class Integration : SourceSpec {
+		public class Integration : OldSourceSpec {
 
 			[Test]
 			public void can_add_a_source() {
@@ -50,7 +50,7 @@ namespace MooGet.Specs {
 		}
 
 		// see ./spec/content/example-feed.xml to see the feed that these specs use
-		static Source source = new Source(PathToContent("example-feed.xml"));
+		static OldSource source = new OldSource(PathToContent("example-feed.xml"));
 
 		[Test]
 		public void can_get_all_packages_from_a_source() {

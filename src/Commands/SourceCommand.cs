@@ -21,10 +21,10 @@ namespace MooGet.Commands {
 			var command = arguments.First(); arguments.RemoveAt(0);
 			switch (command) {
 				case "add":
-					Source.AddSource(arguments.First()); break;
+					OldSource.AddSource(arguments.First()); break;
 				case "rm":
 				case "remove":
-					Source.RemoveSource(arguments.First()); break;
+					OldSource.RemoveSource(arguments.First()); break;
 				default:
 					return string.Format("Unknown source command: {0}", command); break;
 			}

@@ -23,7 +23,7 @@ namespace MooGet.Commands {
 				sources.AddRange(Moo.Sources.Select(src => src.Path).ToList());
 
 			foreach (var source in sources)
-				packages.AddRange(new Source(source).SearchByTitle(query));
+				packages.AddRange(new OldSource(source).SearchByTitle(query));
 
 			if (packages.Count == 0)
 				response.AppendFormat("No packages matched: {0}\n", query);

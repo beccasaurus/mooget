@@ -11,7 +11,7 @@ namespace MooGet.Specs {
 	public class DependenciesSpec : MooGetSpec {
 
 		static List<LocalPackage>  packages     = LocalPackage.FromDirectory(PathToContent("unpacked_packages"));
-		static List<RemotePackage> morePackages = new Source(PathToContent("example-feed.xml")).AllPackages;
+		static List<RemotePackage> morePackages = new OldSource(PathToContent("example-feed.xml")).AllPackages;
 
 		Package PackageWithDependencies(params string[] dependencyStrings) {
 			return NamedPackageWithDependencies("MyPackage", dependencyStrings);
@@ -144,7 +144,7 @@ namespace MooGet.Specs {
 			packages.Add(NamedPackageWithDependencies("P2Sub3SubSub 1.6.0"));
 			packages.Add(NamedPackageWithDependencies("P2Sub3SubSub 2.0.0"));
 			packages.Add(NamedPackageWithDependencies("P2Sub3SubSubSub"));
-			var source = Source.FromXml(Feed.GenerateFeed(packages));
+			var source = OldSource.FromXml(Feed.GenerateFeed(packages));
 
 			var package1 = packages.First(p => p.Id == "Package1");
 			var package2 = packages.First(p => p.Id == "Package2");
@@ -203,7 +203,7 @@ namespace MooGet.Specs {
 			// while we have all of this loaded up, let's test missing dependencies ...
 			// let's remove P2Sub3SubSub 1.5.* so P2Sub3SubSub ~> 1.5 fails
 			packages.Where(p => p.IdAndVersion.StartsWith("P2Sub3SubSub-1.5.")).ToList().ForEach(p => packages.Remove(p));
-			source = Source.FromXml(Feed.GenerateFeed(packages));
+			source = OldSource.FromXml(Feed.GenerateFeed(packages));
 
 			Console.WriteLine("---------------- LOOKING FOR MISSING ---------------");
 			try {
@@ -231,7 +231,7 @@ namespace MooGet.Specs {
 			}.ForEach(version => source1Packages.Add(new Package { Id = "FooBar", VersionString = version }));
 			source1Packages.Add(helloWorld);
 			Feed.Domain = "source1.com";
-			var source1 = Source.FromXml(Feed.GenerateFeed(source1Packages));
+			var source1 = OldSource.FromXml(Feed.GenerateFeed(source1Packages));
 
 			// source2 has versions 1.5.1, 1.5.2, 1.5.3, 1.6, 1.9.0, 2.0, and 2.0.1 of FooBar
 			var source2Packages = new List<Package>();
@@ -239,7 +239,7 @@ namespace MooGet.Specs {
 				"1.5.1", "1.5.2", "1.5.3", "1.6", "1.9.0", "2.0", "2.0.1"
 			}.ForEach(version => source2Packages.Add(new Package { Id = "FooBar", VersionString = version }));
 			Feed.Domain = "source2.net";
-			var source2 = Source.FromXml(Feed.GenerateFeed(source2Packages));
+			var source2 = OldSource.FromXml(Feed.GenerateFeed(source2Packages));
 
 			// By itself, HelloWorld would find the *latest* version of FooBar to use
 			var found = helloWorld.FindDependencies(source1.AllPackages, source2.AllPackages);
@@ -270,7 +270,7 @@ namespace MooGet.Specs {
 				"1.0", "1.5.0", "1.5.2", "2.0"
 			}.ForEach(version => source1Packages.Add(new Package { Id = "FooBar", VersionString = version }));
 			Feed.Domain = "source1.com";
-			var source1 = Source.FromXml(Feed.GenerateFeed(source1Packages));
+			var source1 = OldSource.FromXml(Feed.GenerateFeed(source1Packages));
 
 			// source2 has versions 1.5.1, 1.5.2, 1.5.3, 1.6, 1.9.0, 2.0, and 2.0.1 of FooBar
 			var source2Packages = new List<Package>();
@@ -278,7 +278,7 @@ namespace MooGet.Specs {
 				"1.5.1", "1.5.2", "1.5.3", "1.6", "1.9.0", "2.0", "2.0.1"
 			}.ForEach(version => source2Packages.Add(new Package { Id = "FooBar", VersionString = version }));
 			Feed.Domain = "source2.net";
-			var source2 = Source.FromXml(Feed.GenerateFeed(source2Packages));
+			var source2 = OldSource.FromXml(Feed.GenerateFeed(source2Packages));
 
 			// let's try getting FooBar = 1.6
 			var found = PackageWithDependencies("FooBar = 1.6").FindDependencies(source1.AllPackages, source2.AllPackages);
