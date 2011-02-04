@@ -1,2 +1,9 @@
 #! /bin/bash
-./rebuild && ./tools/nunit-color-console.exe -labels $@ ./bin/Debug/MooGet.Specs.dll
+
+spec_to_run=$1
+
+if [[ -n "$spec_to_run" ]]; then
+	./script/rebuild && NUNIT_CONSOLE=nunit-console4 nunit-color-console -labels -run="MooGet.Specs.$spec_to_run" ./bin/Debug/MooGet.Specs.dll
+else
+	./script/rebuild && NUNIT_CONSOLE=nunit-console4 nunit-color-console -labels ./bin/Debug/MooGet.Specs.dll
+fi
