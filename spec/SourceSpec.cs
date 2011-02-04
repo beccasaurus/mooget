@@ -7,6 +7,7 @@ using NUnit.Framework;
 
 namespace MooGet.Specs {
 
+	/*
 	public class MySource : Source, ISource {
 		public override List<Package> Packages {
 			get {
@@ -26,6 +27,7 @@ namespace MooGet.Specs {
 			}
 		}
 	}
+	*/
 
 	/*
 	 * Source is an optional base class for all MooGet.ISource.
@@ -43,7 +45,7 @@ namespace MooGet.Specs {
 		[TestFixture]
 		public class BaseImplementation {
 
-			ISource source = new MySource();
+			//ISource source = new MySource();
 
 			[Test][Ignore]
 			public void Get() {
