@@ -21,10 +21,10 @@ namespace MooGet {
 			set { Version = new PackageVersion(value); }
 		}
 
-		public virtual ISource Source { get { return null; } }
+		public virtual ISource Source { get; set; }
 
-		public virtual PackageDetails Details { get { return null; } }
+		public virtual PackageDetails Details { get; set; }
 
-		public virtual string[] Files { get { return null; } }
+		public virtual string[] Files { get; set; }
 	}
 }

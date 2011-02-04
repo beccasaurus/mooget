@@ -8,10 +8,7 @@ namespace MooGet {
 	/// <summary>Represents the details of a Package (eg. authors, description, etc)</summary>
 	public class PackageDetails {
 
-		// can these be on the same line? TODO
-		List<string> _authors;
-		List<string> _owners;
-		List<string> _tags;
+		List<string> _authors, _owners, _tags;
 		List<PackageDependency> _dependencies;
 		string _language;
 
