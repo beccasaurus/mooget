@@ -29,8 +29,8 @@ namespace MooGet {
 		public string LicenseUrl             { get; set; }
 		public string ProjectUrl             { get; set; }
 		public string IconUrl                { get; set; }
-		public DateTime Created              { get; set; }
-		public DateTime Modified             { get; set; }
+		public DateTime Created              { get; set; } // OBSOLETE (for some reason?)
+		public DateTime Modified             { get; set; } // OBSOLETE
 		public PackageVersion Version        { get; set; }
 		public bool RequireLicenseAcceptance { get; set; }
 

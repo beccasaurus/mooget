@@ -21,7 +21,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <!--
+	 We'll re-enable later, but the warnings are annoying
     <DocumentationFile>..\bin\Debug\MooGet.xml</DocumentationFile>
+    -->
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>

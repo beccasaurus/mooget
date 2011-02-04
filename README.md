@@ -30,6 +30,7 @@ Contibuting
  - `src` The MooGet source code
    - `core` T core MooGet classes
    - `cli` The code for the moo.exe command line application
+   - `ext` Extension methods
 
  - `spec` NUnit specifications (tests) for MooGet
    - `core` Specs for the code MooGet classes
