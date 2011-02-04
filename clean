@@ -1,4 +1,2 @@
 #! /bin/bash
-rm -rfv bin 
 find . -iname 'obj' -type d -exec rm -rfv {} \;
-xbuild
