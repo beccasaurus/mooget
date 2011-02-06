@@ -26,7 +26,7 @@ namespace MooGet {
 		public virtual object AuthData { get; set; }
 
 		public virtual IPackage Get(PackageDependency dependency) {
-			return null;
+			return Packages.FirstOrDefault(pkg => dependency.Matches(pkg));
 		}
 
 		public virtual List<IPackage> LatestPackages { get { return null; } }

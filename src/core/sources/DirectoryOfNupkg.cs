@@ -13,17 +13,12 @@ namespace MooGet {
 			Path = path;
 		}
 
-		List<IPackage> _packages;
-
 		/// <summary>Whether or not this directory exists</summary>
 		public virtual bool Exists { get { return Directory.Exists(Path); } }
 
 		/// <summary>Returns all of the Nupkg in this directory</summary>
 		public override List<IPackage> Packages {
-			get {
-				if (_packages == null && Exists) _packages = new List<IPackage>().AddPackages(DirectoryOfNupkg.GetNupkgsInDirectory(Path));
-				return _packages;
-			}
+			get { return new List<IPackage>().AddPackages(DirectoryOfNupkg.GetNupkgsInDirectory(Path)); }
 		}
 
 		public override Nupkg Fetch(PackageDependency dependency) {
@@ -31,9 +26,9 @@ namespace MooGet {
 		}
 		
 		public override IPackage Push(Nupkg nupkg) {
-			//if (Exists && nupkg.Exists)
-			//	nupkg.Copy(Path);
-			return null;
+			if (Exists && nupkg.Exists())
+				nupkg.Copy(Path);
+			return Get(nupkg.ToPackageDependency());
 		}
 		
 		public override bool Yank(PackageDependency dependency) {

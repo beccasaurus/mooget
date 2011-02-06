@@ -52,6 +52,13 @@ namespace MooGet {
 			set { PackageId = value; }
 		}
 
+		public bool Matches(IPackage package) {
+			if (package.Id != Id)
+				return false;
+			else
+				return Matches(package.Version);
+		}
+
 		public bool Matches(string version) {
 			return Matches(new PackageVersion(version));
 		}

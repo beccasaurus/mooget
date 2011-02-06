@@ -15,6 +15,7 @@ namespace MooGet.Specs.Core {
 
 		[SetUp]
 		public void Before() {
+			base.BeforeEach();
 			Directory.CreateDirectory(PathToTemp("nupkgs"));
 			dir = new DirectoryOfNupkg(PathToTemp("nupkgs"));
 		}
@@ -84,7 +85,10 @@ namespace MooGet.Specs.Core {
 		public void Push() {
 			dir.Packages.Should(Be.Empty);
 
-			dir.Push(new Nupkg(PathToContent("packages/MarkdownSharp.1.13.0.0.nupkg")));
+			var pkg = dir.Push(new Nupkg(PathToContent("packages/MarkdownSharp.1.13.0.0.nupkg")));
+			pkg.Should(Be.InstanceOf(typeof(Nupkg)));
+			pkg.Id.ShouldEqual("MarkdownSharp");
+			(pkg as Nupkg).Path.ShouldEqual(System.IO.Path.Combine(dir.Path, "MarkdownSharp.1.13.0.0.nupkg"));
 
 			dir.Packages.Count.ShouldEqual(1);
 			dir.Packages.First().Id.ShouldEqual("MarkdownSharp");
@@ -92,7 +96,7 @@ namespace MooGet.Specs.Core {
 			dir.Push(new Nupkg(PathToContent("package_working_directories/just-a-tool-1.0.0.0.nupkg")));
 
 			dir.Packages.Count.ShouldEqual(2);
-			dir.Packages.Ids().ShouldEqual(new List<string>{  });
+			dir.Packages.Ids().ShouldEqual(new List<string>{ "MarkdownSharp", "just-a-tool" });
 		}
 
 		[Test][Ignore]

@@ -130,6 +130,33 @@ namespace MooGet.Specs {
 		public class matching_against_package_versions : PackageDependencySpec {
 
 			[Test]
+			public void checks_package_id() {
+				var foo1 = new NewPackage { Id = "foo", VersionText = "1.2.3" } as IPackage;
+				var foo2 = new NewPackage { Id = "foo", VersionText = "2.0.8" } as IPackage;
+				var bar  = new NewPackage { Id = "bar", VersionText = "1.0"   } as IPackage;
+
+				new PackageDependency("foo").Matches(foo1).ShouldBeTrue();
+				new PackageDependency("foo").Matches(foo2).ShouldBeTrue();
+				new PackageDependency("foo").Matches(bar).ShouldBeFalse();
+
+				new PackageDependency("foo 1.2.3").Matches(foo1).ShouldBeTrue();
+				new PackageDependency("foo 1.2.3").Matches(foo2).ShouldBeFalse();
+				new PackageDependency("foo 1.2.3").Matches(bar).ShouldBeFalse();
+
+				new PackageDependency("foo >= 1.2.3").Matches(foo1).ShouldBeTrue();
+				new PackageDependency("foo >= 1.2.3").Matches(foo2).ShouldBeTrue();
+				new PackageDependency("foo >= 1.2.3").Matches(bar).ShouldBeFalse();
+
+				new PackageDependency("foo > 1.2.3").Matches(foo1).ShouldBeFalse();
+				new PackageDependency("foo > 1.2.3").Matches(foo2).ShouldBeTrue();
+				new PackageDependency("foo > 1.2.3").Matches(bar).ShouldBeFalse();
+
+				new PackageDependency("bar ~> 1.0").Matches(foo1).ShouldBeFalse();
+				new PackageDependency("bar ~> 1.0").Matches(foo2).ShouldBeFalse();
+				new PackageDependency("bar ~> 1.0").Matches(bar).ShouldBeTrue();
+			}
+
+			[Test]
 			public void specific_version() {
 				Dep("= 1.2.0").Matches("1.2.0" ).ShouldBeTrue();
 				Dep("= 1.2.0").Matches("1.2"   ).ShouldBeFalse();
