@@ -44,7 +44,9 @@ namespace MooGet {
 		}
 		
 		public override IPackage Install(PackageDependency dependency, params ISource[] sourcesForDependencies) {
-			return null;
+			var latestPackage = sourcesForDependencies.GetLatest(dependency);
+			if (latestPackage == null) throw new PackageNotFoundException(dependency);
+			throw new Exception("Found package to install: " + latestPackage.ToString());
 		}
 
 		public override bool Uninstall(PackageDependency dependency, bool uninstallDependencies) {

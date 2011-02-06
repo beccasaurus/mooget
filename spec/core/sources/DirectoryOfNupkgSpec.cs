@@ -12,12 +12,20 @@ namespace MooGet.Specs.Core {
 	public class DirectoryOfNupkgSpec : Spec {
 
 		DirectoryOfNupkg dir;
+		DirectoryOfNupkg morePackages            = new DirectoryOfNupkg(PathToContent("more_packages"));
+		DirectoryOfNupkg morePackageDependencies = new DirectoryOfNupkg(PathToContent("more_packages_dependencies"));
 
 		[SetUp]
 		public void Before() {
 			base.BeforeEach();
 			Directory.CreateDirectory(PathToTemp("nupkgs"));
 			dir = new DirectoryOfNupkg(PathToTemp("nupkgs"));
+		}
+
+		[Test]
+		public void example_directories_OK() {
+			morePackages.Packages.Ids().Join(", ").ShouldEqual("Antlr, Apache.NMS, Apache.NMS.ActiveMQ, AttributeRouting, FluentNHibernate, MarkdownSharp, NHibernate, NuGet.CommandLine, NuGet.CommandLine, NuGet.CommandLine, WebActivator, log4net");
+			morePackageDependencies.Packages.Ids().Join(", ").ShouldEqual("Castle.DynamicProxy, Iesi.Collections");
 		}
 
 		[Test]
@@ -61,8 +69,12 @@ namespace MooGet.Specs.Core {
 			dir_2.Packages.Ids().ShouldContainAll("just-a-library", "just-a-tool", "library-with-no-dependencies");
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void LatestPackages() {
+			morePackages.GetPackagesWithId("NuGet.CommandLine").Select(p => p.Version.ToString()).ToList().Join(", ").
+				ShouldEqual("1.0.11220.26, 1.1.2120.134, 1.1.2120.136");
+			morePackages.LatestPackages.Where(p => p.Id == "NuGet.CommandLine").Select(p => p.Version.ToString()).ToList().Join(", ").
+				ShouldEqual("1.1.2120.136");
 		}
 
 		/// <summary>This tests an external extension method supporting any List of Package</summary>
@@ -75,16 +87,26 @@ namespace MooGet.Specs.Core {
 		public void Packages_GroupByVersion() {
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void GetPackagesWithId() {
+			morePackages.GetPackagesWithId("NUnit").Ids().ShouldEqual(new List<string>{ });
+			morePackages.GetPackagesWithId("Antlr").Ids().ShouldEqual(new List<string>{ "Antlr" });
+			morePackages.GetPackagesWithId("NuGet.CommandLine").Ids().ShouldEqual(new List<string>{ "NuGet.CommandLine", "NuGet.CommandLine", "NuGet.CommandLine" });
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void GetPackagesWithIdStartingWith() {
+			morePackages.GetPackagesWithIdStartingWith("zzz").Ids().ShouldEqual(new List<string>{ });
+			morePackages.GetPackagesWithIdStartingWith("A").Ids().ShouldEqual(new List<string>{ "Antlr", "Apache.NMS", "Apache.NMS.ActiveMQ", "AttributeRouting" });
+			morePackages.GetPackagesWithIdStartingWith("ap").Ids().ShouldEqual(new List<string>{ "Apache.NMS", "Apache.NMS.ActiveMQ" });
 		}
 
 		[Test]
 		public void GetPackagesMatchingDependency() {
+			morePackages.GetPackagesMatchingDependency(new PackageDependency("NUnit")).Should(Be.Empty);
+			morePackages.GetPackagesMatchingDependency(new PackageDependency("Antlr")).Count.ShouldEqual(1);
+			morePackages.GetPackagesMatchingDependency(new PackageDependency("NuGet.CommandLine")).Count.ShouldEqual(3);
+			morePackages.GetPackagesMatchingDependency(new PackageDependency("NuGet.CommandLine >= 1.1")).Count.ShouldEqual(2);
 		}
 
 		[Test]
@@ -139,8 +161,27 @@ namespace MooGet.Specs.Core {
 			dir.Packages.Should(Be.Empty);
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void Install() {
+			Directory.CreateDirectory(PathToTemp("mydir"));
+			var mydir = new DirectoryOfNupkg(PathToTemp("mydir"));
+			mydir.Packages.Should(Be.Empty);
+
+			// if we don't provide any sources, it can't find the package we're talking about ...
+			Should.Throw<PackageNotFoundException>("Package not found: FluentNHibernate", () => {
+				mydir.Install(new PackageDependency("FluentNHibernate"));
+			});
+
+			// we find the package we're talking about, but we're missing one of the dependencies
+			Should.Throw<MissingDependencyException>("Package not found: Castle.DynamicProxy", () => {
+				mydir.Install(new PackageDependency("FluentNHibernate"), morePackages);
+			});
+
+			mydir.Packages.Should(Be.Empty);
+
+			mydir.Install(new PackageDependency("FluentNHibernate"), morePackages, morePackageDependencies);
+
+			mydir.Packages.Count.ShouldEqual(123);
 		}
 
 		[Test][Ignore]

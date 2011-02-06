@@ -29,18 +29,22 @@ namespace MooGet {
 			return Packages.FirstOrDefault(pkg => dependency.Matches(pkg));
 		}
 
-		public virtual List<IPackage> LatestPackages { get { return null; } }
+		public virtual List<IPackage> LatestPackages {
+			get { return Packages.Where(pkg => pkg.Version == this.HighestVersionAvailableOf(pkg.Id)).ToList(); }
+		}
 
 		public virtual List<IPackage> GetPackagesWithId(string id) {
-			return null;
+			id = id.ToLower();
+			return Packages.Where(pkg => pkg.Id.ToLower() == id).ToList();
 		}
 
 		public virtual List<IPackage> GetPackagesWithIdStartingWith(string query) {
-			return null;
+			query = query.ToLower();
+			return Packages.Where(pkg => pkg.Id.ToLower().StartsWith(query)).ToList();
 		}
 
 		public virtual List<IPackage> GetPackagesMatchingDependency(PackageDependency dependency) {
-			return null;
+			return Packages.Where(pkg => dependency.Matches(pkg)).ToList();
 		}
 	}
 }
