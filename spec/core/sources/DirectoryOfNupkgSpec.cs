@@ -83,7 +83,7 @@ namespace MooGet.Specs.Core {
 		public void GetPackagesWithIdStartingWith() {
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void GetPackagesMatchingDependency() {
 		}
 
