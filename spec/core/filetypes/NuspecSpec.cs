@@ -200,8 +200,26 @@ namespace MooGet.Specs.Core {
 			maximum.Dependencies.ToStrings().ShouldEqual(new List<string> { "Foo", "Bar = 1.0", "Neat >= 1.0 < 9.9" });
 		}
 
+		[Test]
+		public void FilesSources() {
+			minimum.FileSources.Should(Be.Empty);
+			maximum.FileSources.Count.ShouldEqual(6);
+			maximum.FileSources.ToStrings().ShouldEqual(new List<string>{
+				@"<file src='README.markdown' />",
+				@"<file src='..\LICENSE.txt' />",
+				@"<file src='tools\**\*' />",
+				@"<file src='bin\**\*.dll' target='lib' />",
+				@"<file src='../../foo.exe' target='tools' />",
+				@"<file src='mystuff/*' target='content' />"
+			});
+		}
+
 		[Test][Ignore]
-		public void Files() {
+		public void Reading_files_from_FilesSources() {
+		}
+
+		[Test][Ignore]
+		public void Can_Save_to_file__defaults_to_Path() {
 		}
 	}
 }

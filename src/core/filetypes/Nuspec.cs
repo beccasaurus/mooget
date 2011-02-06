@@ -25,10 +25,23 @@ namespace MooGet {
 		string      _path;
 		XmlDocument _doc;
 
+		/// <summary>This Nuspec's parent IPackage</summary>
+		/// <remarks>
+		/// Nuspec.Source and Nuspec.Files are delegated to this property, if present.
+		/// </remarks>
+		public virtual IPackage Package { get; set; }
+
+		/// <summary>Delegated to the Nuspec.Package.Source, if present</summary>
+		public virtual ISource Source { get { return (Package == null) ? null : Package.Source; } }
+
+		/// <summary>Delegated to the Nuspec.Package.Files, if present</summary>
+		public virtual string[] Files { get { return (Package == null) ? null : Package.Files; } }
+
+		/// <summary>Implementation of IPackage.Details.  Delegates to this Nuspec instance.</summary>
 		public virtual PackageDetails Details { get { return this; } }
 
-		public virtual ISource Source { get { return null; } }
-
+		/// <summary>File path to .nuspec file, if present on file system.</summary>
+		/// <remarks>When set, this Nuspec's XML is read from the file (if it exists).</remarks>
 		public virtual string Path {
 			get { return _path; }
 			set { _path = value; Xml = Util.ReadFile(value); }
@@ -90,9 +103,9 @@ namespace MooGet {
 				if (value == null || value.Count == 0) return;
 
 				// add new <dependencies> and new <dependency> nodes underneath it
-				var newNode = MetaData.CreateNode("dependencies");
+				var newNode = MetaData.NodeOrNew("dependencies");
 				foreach (var dependency in value) {
-					var node = newNode.ForceCreateNode("dependency");
+					var node = newNode.NewNode("dependency");
 					node.Attr("id", dependency.Id);
 					if (dependency.Versions.Count > 0)
 						node.Attr("version", dependency.VersionsString);
@@ -100,7 +113,15 @@ namespace MooGet {
 			}
 		}
 
-		public virtual string[] Files { get { return null; } }
+		/// <summary>The &lt;file&gt; elements in this Nuspec, if any.</summary>
+		public virtual List<NuspecFileSource> FileSources {
+			get {
+				var fileSources = new List<NuspecFileSource>();
+				Doc.Nodes("file").ForEach(node => fileSources.Add(node.ToFileSource()));
+				return fileSources;
+			}
+			set {}
+		}
 
 		#region Xml Stuff
 		public virtual string Xml {
@@ -114,7 +135,7 @@ namespace MooGet {
 
 		#region Private
 		string GetMeta(string tag)             { return MetaData.Node(tag).Text();     }
-		void SetMeta(string tag, string value) { MetaData.CreateNode(tag).Text(value); }
+		void SetMeta(string tag, string value) { MetaData.NodeOrNew(tag).Text(value); }
 		#endregion
 	}
 }

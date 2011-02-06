@@ -45,17 +45,12 @@ namespace MooGet {
 		}
 
 		// Will find or create the tag
-		public static XmlNode CreateNode(this XmlNode node, string tag) {
+		public static XmlNode NodeOrNew(this XmlNode node, string tag) {
 			if (node == null) return null;
-			var child = node.Node(tag);
-			if (child == null) {
-				child = node.OwnerDocument.CreateElement(tag);
-				node.AppendChild(child);
-			}
-			return child;
+			return node.Node(tag) ?? node.NewNode(tag);
 		}
 
-		public static XmlNode ForceCreateNode(this XmlNode node, string tag) {
+		public static XmlNode NewNode(this XmlNode node, string tag) {
 			if (node == null) return null;
 			var child = node.OwnerDocument.CreateElement(tag);
 			node.AppendChild(child);
@@ -91,6 +86,10 @@ namespace MooGet {
 
 		public static PackageDependency ToDependency(this XmlNode node) {
 			return new PackageDependency(string.Format("{0} {1}", node.Attr("id"), node.Attr("version")).Trim());
+		}
+
+		public static NuspecFileSource ToFileSource(this XmlNode node) {
+			return new NuspecFileSource { Source = node.Attr("src"), Target = node.Attr("target") };
 		}
 	}
 }
