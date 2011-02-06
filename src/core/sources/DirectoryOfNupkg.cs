@@ -68,7 +68,15 @@ namespace MooGet {
 		}
 
 		public override bool Uninstall(PackageDependency dependency, bool uninstallDependencies) {
-			return false;
+			var nupkg = Get(dependency) as Nupkg;
+			if (nupkg == null) return false;
+				
+			if (uninstallDependencies)
+				foreach (var dep in nupkg.Details.Dependencies)
+					Uninstall(dep, true);
+
+			nupkg.Delete();
+			return true;
 		}
 
 		public static List<Nupkg> GetNupkgsInDirectory(string directory) {

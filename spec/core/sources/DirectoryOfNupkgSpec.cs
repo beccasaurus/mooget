@@ -208,8 +208,48 @@ namespace MooGet.Specs.Core {
 			);
 		}
 
-		[Test][Ignore]
-		public void Uninstall() {
+		[Test]
+		public void Uninstall_without_dependencies() {
+			Directory.CreateDirectory(PathToTemp("mydir"));
+			var mydir = new DirectoryOfNupkg(PathToTemp("mydir"));
+
+			mydir.Install(new PackageDependency("FluentNHibernate"), morePackages, morePackageDependencies);
+			mydir.Packages.Count.ShouldEqual(7);
+			mydir.Packages.Select(pkg => pkg.IdAndVersion()).ToList().ShouldContainAll(
+				"NHibernate-2.1.2.4000", "log4net-1.2.10", "Iesi.Collections-1.0.1", "Antlr-3.1.1", 
+				"Castle.DynamicProxy-2.1.0", "Castle.Core-1.1.0", "FluentNHibernate-1.1.0.694"
+			);
+
+			mydir.Uninstall(new PackageDependency("FluentNHibernate"), false).Should(Be.True);
+
+			mydir.Packages.Count.ShouldEqual(6);
+			mydir.Packages.Select(pkg => pkg.IdAndVersion()).ToList().ShouldContainAll(
+				"NHibernate-2.1.2.4000", "log4net-1.2.10", "Iesi.Collections-1.0.1", "Antlr-3.1.1", 
+				"Castle.DynamicProxy-2.1.0", "Castle.Core-1.1.0"
+			);
+
+			mydir.Uninstall(new PackageDependency("FluentNHibernate"), false).Should(Be.False);
+			mydir.Packages.Count.ShouldEqual(6);
+		}
+
+		[Test]
+		public void Uninstall_with_dependencies() {
+			Directory.CreateDirectory(PathToTemp("mydir"));
+			var mydir = new DirectoryOfNupkg(PathToTemp("mydir"));
+
+			mydir.Install(new PackageDependency("FluentNHibernate"), morePackages, morePackageDependencies);
+			mydir.Packages.Count.ShouldEqual(7);
+			mydir.Packages.Select(pkg => pkg.IdAndVersion()).ToList().ShouldContainAll(
+				"NHibernate-2.1.2.4000", "log4net-1.2.10", "Iesi.Collections-1.0.1", "Antlr-3.1.1", 
+				"Castle.DynamicProxy-2.1.0", "Castle.Core-1.1.0", "FluentNHibernate-1.1.0.694"
+			);
+
+			mydir.Uninstall(new PackageDependency("FluentNHibernate"), true).Should(Be.True);
+
+			mydir.Packages.Count.ShouldEqual(0);
+
+			mydir.Uninstall(new PackageDependency("FluentNHibernate"), true).Should(Be.False);
+			mydir.Packages.Count.ShouldEqual(0);
 		}
 	}
 }

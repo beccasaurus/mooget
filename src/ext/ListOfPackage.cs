@@ -12,6 +12,7 @@ namespace MooGet {
 		}
 
 		public static List<IPackage> AddPackages(this List<IPackage> packages, List<Nupkg> nupkgs) {
+			if (nupkgs == null) return packages;
 			nupkgs.ForEach(pkg => packages.Add(pkg));
 			return packages;
 		}
