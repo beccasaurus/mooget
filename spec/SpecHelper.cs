@@ -35,6 +35,11 @@ namespace MooGet.Specs {
 			ResetMooWorkingDirectory();
 		}
 
+		[TearDown]
+		public void AfterEach() {
+			// ... nothing yet ...
+		}
+
 		public string MooWorkingDirectory;
 
 		public void ResetMooWorkingDirectory() {

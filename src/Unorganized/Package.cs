@@ -122,6 +122,7 @@ Dependencies: {4}
 			bool throwIfMissing = (discoveredDependencies == null); // if this is null, then we're not recursing
 
 			// TODO this should be pulled out into its own method that JUST returns a list of PackageDependency for us to find
+			//
 			// get ALL of the dependencies for these packages, grouped by package Id
 			// eg. { "log4net" => ["log4net > 2.0", "log4net < 2.5"] }
 			var allDependencies = new Dictionary<string, List<PackageDependency>>();
