@@ -21,8 +21,11 @@ namespace MooGet {
 			get { return new List<IPackage>().AddPackages(DirectoryOfNupkg.GetNupkgsInDirectory(Path)); }
 		}
 
-		public override Nupkg Fetch(PackageDependency dependency) {
-			return null;
+		public override Nupkg Fetch(PackageDependency dependency, string directory) {
+			var package = Get(dependency) as Nupkg;
+			if (package != null)
+				package.Copy(directory);
+			return package;
 		}
 		
 		public override IPackage Push(Nupkg nupkg) {
@@ -32,6 +35,11 @@ namespace MooGet {
 		}
 		
 		public override bool Yank(PackageDependency dependency) {
+			var package = Get(dependency) as Nupkg;
+			if (package != null) {
+				package.Delete();
+				return true;
+			}
 			return false;
 		}
 		

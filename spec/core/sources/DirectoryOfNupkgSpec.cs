@@ -36,8 +36,18 @@ namespace MooGet.Specs.Core {
 			new DirectoryOfNupkg { AuthData = 5 }.AuthData.ShouldEqual(5);
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void Get() {
+			dir.Get(new PackageDependency("MarkdownSharp")).Should(Be.Null);
+			dir.Get(new PackageDependency("NUnit")).Should(Be.Null);
+
+			dir.Push(new Nupkg(PathToContent("packages/NUnit.2.5.7.10213.nupkg")));
+
+			dir.Get(new PackageDependency("MarkdownSharp")).Should(Be.Null);
+			var nunit = dir.Get(new PackageDependency("NUnit"));
+			nunit.ShouldNot(Be.Null);
+			nunit.Id.ShouldEqual("NUnit");
+			nunit.Version.ToString().ShouldEqual("2.5.7.10213");
 		}
 
 		[Test]
@@ -77,8 +87,22 @@ namespace MooGet.Specs.Core {
 		public void GetPackagesMatchingDependency() {
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void Fetch() {
+			dir.Push(new Nupkg(PathToContent("package_working_directories/just-a-tool-1.0.0.0.nupkg")));
+			Directory.CreateDirectory(PathToTemp("mydir"));
+			var mydir = new DirectoryOfNupkg(PathToTemp("mydir"));
+
+			dir.Packages.Count.ShouldEqual(1);
+			mydir.Packages.Count.ShouldEqual(0);
+
+			dir.Fetch(new PackageDependency("NoExist"), mydir.Path).Should(Be.Null);
+			mydir.Packages.Count.ShouldEqual(0);
+
+			dir.Fetch(new PackageDependency("just-a-tool"), mydir.Path).Id.ShouldEqual("just-a-tool");
+			mydir.Packages.Count.ShouldEqual(1);
+			mydir.Packages.First().Id.ShouldEqual("just-a-tool");
+			(mydir.Packages.First() as Nupkg).Path.ShouldEqual(System.IO.Path.Combine(PathToTemp("mydir"), "just-a-tool-1.0.0.0.nupkg"));
 		}
 
 		[Test]
@@ -99,8 +123,20 @@ namespace MooGet.Specs.Core {
 			dir.Packages.Ids().ShouldEqual(new List<string>{ "MarkdownSharp", "just-a-tool" });
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void Yank() {
+			dir.Push(new Nupkg(PathToContent("package_working_directories/just-a-tool-1.0.0.0.nupkg")));
+			dir.Push(new Nupkg(PathToContent("packages/MarkdownSharp.1.13.0.0.nupkg")));
+			dir.Packages.Ids().ShouldEqual(new List<string>{ "MarkdownSharp", "just-a-tool" });
+
+			dir.Yank(new PackageDependency("DontExist")).ShouldBeFalse();
+			dir.Packages.Ids().ShouldEqual(new List<string>{ "MarkdownSharp", "just-a-tool" });
+
+			dir.Yank(new PackageDependency("MarkdownSharp")).ShouldBeTrue();
+			dir.Packages.Ids().ShouldEqual(new List<string>{ "just-a-tool" });
+
+			dir.Yank(new PackageDependency("just-a-tool")).ShouldBeTrue();
+			dir.Packages.Should(Be.Empty);
 		}
 
 		[Test][Ignore]

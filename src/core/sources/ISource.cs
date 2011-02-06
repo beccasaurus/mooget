@@ -56,7 +56,7 @@ namespace MooGet {
 		/// <remarks>
 		/// We specify a PackageDependency because that can be as simple as "NUnit" or it could be "NUnit = 1.0.0", etc.
 		/// </remarks>
-		Nupkg Fetch(PackageDependency dependency);
+		Nupkg Fetch(PackageDependency dependency, string directory);
 
 		/// <summary>Some sources let you push your own package to them.</summary>
 		/// <remarks>

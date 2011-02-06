@@ -13,7 +13,7 @@ namespace MooGet {
 	public abstract class Source : ISource {
 
 		#region Abstract Members
-		public abstract Nupkg          Fetch(PackageDependency dependency);
+		public abstract Nupkg          Fetch(PackageDependency dependency, string directory);
 		public abstract IPackage       Push(Nupkg nupkg);
 		public abstract bool           Yank(PackageDependency dependency);
 		public abstract IPackage       Install(PackageDependency dependency, params ISource[] sourcesForDependencies);
