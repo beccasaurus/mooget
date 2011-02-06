@@ -43,8 +43,8 @@ namespace MooGet {
 			return Packages.Where(pkg => pkg.Id.ToLower().StartsWith(query)).ToList();
 		}
 
-		public virtual List<IPackage> GetPackagesMatchingDependency(PackageDependency dependency) {
-			return Packages.Where(pkg => dependency.Matches(pkg)).ToList();
+		public virtual List<IPackage> GetPackagesMatchingDependencies(params PackageDependency[] dependencies) {
+			return Packages.Where(pkg => PackageDependency.MatchesAll(pkg, dependencies)).ToList();
 		}
 
 		public static List<IPackage> FindDependencies(IPackage package, params ISource[] sources) {
@@ -97,9 +97,6 @@ namespace MooGet {
 						discoveredDependencies[dependencyId].Add(dependency);
 			}
 
-			// TODO don't use this ... fix once we're green ...
-			var listsOfPackages = sources.Select(source => source.Packages).ToList(); // List<List<IPackage>>
-
 			// actually go and look for these dependencies
 			foreach (var packageDependency in allDependencies) {
 				var dependencyId = packageDependency.Key;
@@ -107,10 +104,9 @@ namespace MooGet {
 
 				// go through all sources and get the *latest* version of this dependency (that matches)
 				IPackage dependencyPackage = null;
-				foreach (var sourcePackages in listsOfPackages) {
-					// TODO don't use source.Packages, use built-in ISource methods to help ...
-					var match = sourcePackages.Where(pkg => pkg.Id == dependencyId && PackageDependency.MatchesAll(pkg.Version, dependencies)).OrderBy(pkg => pkg.Version).Reverse().FirstOrDefault();
-
+				foreach (var source in sources) {
+					// find highest version of package from this source that matches ALL of the dependencies that we've found for this package
+					var match = source.GetPackagesMatchingDependencies(dependencies).OrderBy(pkg => pkg.Version).Reverse().FirstOrDefault();
 					if (match != null)
 						if (dependencyPackage == null || dependencyPackage.Version < match.Version)
 							dependencyPackage = match;

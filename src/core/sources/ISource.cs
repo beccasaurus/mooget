@@ -49,8 +49,8 @@ namespace MooGet {
 		/// </remarks>
 		List<IPackage> GetPackagesWithIdStartingWith(string query);
 
-		/// <summary>This should return all packages matching a given PackageDependency, eg. NUnit >= 1.0</summary>
-		List<IPackage> GetPackagesMatchingDependency(PackageDependency dependency);
+		/// <summary>This should return all packages matching a given PackageDependency, eg. NUnit &gt;= 1.0 or NUnit &gt;= 1.0 AND NUnit &lt; 2.4</summary>
+		List<IPackage> GetPackagesMatchingDependencies(params PackageDependency[] dependencies);
 
 		/// <summary>Every source should give you a way to download one of its packages to a local Nupkg.</summary>
 		/// <remarks>

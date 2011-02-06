@@ -102,11 +102,15 @@ namespace MooGet.Specs.Core {
 		}
 
 		[Test]
-		public void GetPackagesMatchingDependency() {
-			morePackages.GetPackagesMatchingDependency(new PackageDependency("NUnit")).Should(Be.Empty);
-			morePackages.GetPackagesMatchingDependency(new PackageDependency("Antlr")).Count.ShouldEqual(1);
-			morePackages.GetPackagesMatchingDependency(new PackageDependency("NuGet.CommandLine")).Count.ShouldEqual(3);
-			morePackages.GetPackagesMatchingDependency(new PackageDependency("NuGet.CommandLine >= 1.1")).Count.ShouldEqual(2);
+		public void GetPackagesMatchingDependencies() {
+			morePackages.GetPackagesMatchingDependencies(new PackageDependency("NUnit")).Should(Be.Empty);
+			morePackages.GetPackagesMatchingDependencies(new PackageDependency("Antlr")).Count.ShouldEqual(1);
+			morePackages.GetPackagesMatchingDependencies(new PackageDependency("NuGet.CommandLine")).Count.ShouldEqual(3);
+			morePackages.GetPackagesMatchingDependencies(new PackageDependency("NuGet.CommandLine >= 1.1")).Count.ShouldEqual(2);
+
+			var matches = morePackages.GetPackagesMatchingDependencies(new PackageDependency("NuGet.CommandLine >= 1.1"), new PackageDependency("NuGet.CommandLine < 1.1.2120.135"));
+			matches.Count.ShouldEqual(1);
+			matches.First().IdAndVersion().ShouldEqual("NuGet.CommandLine-1.1.2120.134");
 		}
 
 		[Test]

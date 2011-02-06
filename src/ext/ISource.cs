@@ -14,7 +14,7 @@ namespace MooGet {
 		}
 
 		public static PackageVersion HighestVersionMatching(this ISource source, PackageDependency dependency) {
-			var packages = source.GetPackagesMatchingDependency(dependency);
+			var packages = source.GetPackagesMatchingDependencies(dependency);
 			return PackageVersion.HighestVersion(packages.Select(pkg => pkg.Version).ToArray());
 		}
 

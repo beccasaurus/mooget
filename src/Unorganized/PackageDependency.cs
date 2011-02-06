@@ -74,6 +74,13 @@ namespace MooGet {
 			return MatchesAll(new PackageVersion(version), dependencies);
 		}
 
+		public static bool MatchesAll(IPackage package, params PackageDependency[] dependencies) {
+			foreach (var dependency in dependencies)
+				if (! dependency.Matches(package))
+					return false;
+			return true;
+		}
+
 		public static bool MatchesAll(PackageVersion version, params PackageDependency[] dependencies) {
 			foreach (var dependency in dependencies)
 				if (! dependency.Matches(version))
