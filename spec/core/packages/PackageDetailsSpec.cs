@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using MooGet;
 
-namespace MooGet.Specs {
+namespace MooGet.Specs.Core {
 
 	[TestFixture]
 	public class PackageDetailsSpec {

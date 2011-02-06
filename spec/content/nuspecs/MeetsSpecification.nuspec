@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+This nuspec is valid, per the current XSD for nuspec files which can be found at:
+
+http://nuget.codeplex.com/SourceControl/changeset/view/54fb80904af6#src%2fCore%2fAuthoring%2fnuspec.xsd
+
+Note: at this time, there are NO NUGET PACKAGES (that I've seen out of dozens reviewed) with nuspec files 
+      that would be valid if validated using this XSD.
+
+-->
+<package>
+  <metadata>
+    <id>Package-Id</id>
+    <version>1.2.3.45678</version>
+    <title>Package ID</title>
+    <authors>Lander, Murdoch</authors>
+    <owners>remi, wanda</owners>
+    <licenseUrl>http://github.com/me/project/LICENSE.txt</licenseUrl>
+    <projectUrl>http://github.com/me/project</projectUrl>
+    <iconUrl>http://github.com/me/project/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Description of Package-Id</description>
+    <summary>Longer summary descripting Package-Id in detail</summary>
+    <language>en-US</language>
+    <tags>foo bar foo.bar</tags>
+    <dependencies>
+      <dependency id="NUnit" />
+      <dependency id="NHibernate.Core" version="2.1.2.4000" />
+      <dependency id="FooBar" version=">= 1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="README.markdown" />
+    <file src="..\LICENSE.txt" />
+    <file src="tools\**\*" />
+    <file src="bin\**\*.dll" target="lib" />
+    <file src="../../foo.exe" target="tools" />
+    <file src="mystuff/*" target="content" />
+  </files>
+</package>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+This is the minimum amount of data we can provide in a nuspec per the latest nuspec XSD.
+See MeetsSpecification.nuspec for more details.
+
+-->
+<package>
+  <metadata>
+    <id>Min.Id</id>
+    <version>1.2.3.45678</version>
+    <authors>remi, bob</authors>
+    <description>This is my minimum package</description>
+  </metadata>
+</package>

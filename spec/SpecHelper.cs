@@ -22,8 +22,12 @@ namespace MooGet.Specs {
 		}
 	}
 
+	// Old - alias
+	public class MooGetSpec : Spec {
+	}
+
 	/// <summary>Base class for MooGet specs.  Provides helper methods.</summary>
-	public class MooGetSpec {
+	public class Spec {
 
 		[SetUp]
 		public void BeforeEach() {

@@ -45,7 +45,8 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Old\SpecHelper.cs" />
+    <Compile Include="SpecHelper.cs" />
+    <Compile Include="support\**\*.cs" />
     <Compile Include="**\*Spec.cs" />
   </ItemGroup>
   <ItemGroup>

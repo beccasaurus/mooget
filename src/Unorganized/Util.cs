@@ -58,10 +58,9 @@ namespace MooGet {
 		}
 
 		public static string ReadFile(string filename) {
-			string content = "";
-			using (var reader = new StreamReader(filename))
-				content = reader.ReadToEnd();
-			return content;
+			if (filename == null)        return null;
+			if (! File.Exists(filename)) return null;
+			return File.ReadAllText(filename);
 		}
 
 		public static void WriteFile(string filename, string content) {
@@ -173,6 +172,7 @@ namespace MooGet {
 		}
 
 		public static XmlDocument GetXmlDocumentForString(string xml) {
+			if (xml == null) return null;
 			var doc            = new XmlDocument();
 			var reader         = new XmlTextReader(new StringReader(xml));
 			reader.XmlResolver = new NonStupidXmlResolver();
