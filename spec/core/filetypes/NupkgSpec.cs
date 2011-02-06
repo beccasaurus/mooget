@@ -30,10 +30,19 @@ namespace MooGet.Specs.Core {
 			new Nupkg("/i/dont/exist.nupkg").Exists.ShouldBeFalse();
 		}
 
-		[Test][Ignore]
-		public void Nupsec() {
-			nunit.Nuspec.Id.ShouldEqual("NUnit");
-			fluent.Nuspec.Id.ShouldEqual("FluentNHibernate");
+		[Test]
+		public void Nuspec() {
+			nunit.Nuspec.Id.ShouldHaveProperties(new {
+				Id            = "NUnit",
+				VersionString = "2.5.7.10213",
+				AuthorsText   = "Charlie Poole"
+			});
+
+			fluent.Nuspec.Id.ShouldHaveProperties(new {
+				Id            = "FluentNHibernate",
+				VersionString = "1.1.0.694",
+				AuthorsText   = "James Gregory"
+			});
 		}
 
 		[Test][Ignore]

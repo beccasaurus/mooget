@@ -110,6 +110,7 @@ namespace MooGet {
 			}
 		}
 
+		// OBSOLETE ... Use Zip class
 		// TODO move this into Nuspec?  This isn't very ... Util-esque
 		public static string ReadNuspecInNupkg(string pathToNupkg) {
 			// TODO handle .nuspec files in subdirectories, eg. content ... just get .nuspec in root
@@ -124,6 +125,7 @@ namespace MooGet {
 			return nuspec;
 		}
 
+		// OBSOLETE ... Use Zip class
 		public static string[] PathsInZip(string zipFile) {
 			var parts = new List<string>();
 			using (var zip = System.IO.Packaging.Package.Open(zipFile, FileMode.Open, FileAccess.Read))

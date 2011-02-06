@@ -21,6 +21,7 @@ namespace MooGet.Commands {
 			// todo we'll just get tools, lib, and content!  unless otherwise specified by the nuspec.  we should use the Package class to help us get the paths to files ... LocalPackage?
 			var allFiles = Directory.GetFiles(directory, "*", SearchOption.AllDirectories);
 
+			// TODO use Nupkg class!  (which should use Zip class, internally)
 			response.AppendFormat("Packaging {0}\n", package);
 			using (var zip = ZipPackage.Open(nupkg, FileMode.Create)) {
 				foreach (var filePath in allFiles) {
