@@ -58,8 +58,8 @@ namespace MooGet {
 		public override string Language      { get { return GetMeta("language");    } set { SetMeta("language",     value); } }
 
 		public override List<string> Authors {
-			get { return GetMeta("authors").ToTrimmedList(','); }
-			set { SetMeta("authors", value.Join(","));          }
+			get { return TrimmedListForNodes("author") ?? GetMeta("authors").ToTrimmedList(','); }
+			set { SetMeta("authors", value.Join(","));                                           }
 		}
 
 		public override List<string> Owners {
@@ -136,6 +136,14 @@ namespace MooGet {
 		#region Private
 		string GetMeta(string tag)             { return MetaData.Node(tag).Text();     }
 		void SetMeta(string tag, string value) { MetaData.NodeOrNew(tag).Text(value); }
+
+		List<string> TrimmedListForNodes(string tag) {
+			var nodes = Doc.Nodes(tag);
+			if (nodes == null || nodes.Count == 0)
+				return null;
+			else
+				return nodes.Select(node => node.InnerText.Trim()).ToList();
+		}
 		#endregion
 	}
 }

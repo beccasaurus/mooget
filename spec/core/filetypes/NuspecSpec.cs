@@ -221,5 +221,131 @@ namespace MooGet.Specs.Core {
 		[Test][Ignore]
 		public void Can_Save_to_file__defaults_to_Path() {
 		}
+
+/*
+<package>
+  <metadata>
+    <id>elmah</id>
+    <version>1.1</version>
+    <description>ELMAH (Error Logging Modules and Handlers) is an application-wide error logging facility that is completely pluggable. It can be dynamically added to a running ASP.NET web application, or even all ASP.NET web applications on a machine, without any need for re-compilation or re-deployment.</description>
+    <authors>
+      <author>azizatif</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:23.3728+00:00</created>
+    <modified>2010-10-25T22:55:23.3738+00:00</modified>
+  </metadata>
+</package>
+*/
+		[Test]
+		public void Example_elmah() {
+			var spec = new Nuspec(PathToContent("nuspecs/elmah.nuspec"));
+			spec.ShouldHaveProperties(new {
+				Id                             = "elmah",
+				VersionString                  = "1.1",
+				Description                    = "ELMAH (Error Logging Modules and Handlers) is an application-wide error logging facility that is completely pluggable. It can be dynamically added to a running ASP.NET web application, or even all ASP.NET web applications on a machine, without any need for re-compilation or re-deployment.",
+				AuthorsText                    = "azizatif",
+				Language                       = "en-US",
+				RequireLicenseAcceptanceString = "false"
+			});
+		}
+
+/*
+<package>
+  <metadata>
+    <id>jQuery</id>
+    <version>1.4.1</version>
+    <description>jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development</description>
+    <authors>
+      <author>John Resig</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:32.1304+00:00</created>
+    <modified>2010-10-25T22:55:32.1314+00:00</modified>
+  </metadata>
+</package>
+*/
+		[Test]
+		public void Example_jQuery() {
+			var spec = new Nuspec(PathToContent("nuspecs/jQuery.nuspec"));
+			spec.ShouldHaveProperties(new {
+				Id                             = "jQuery",
+				VersionString                  = "1.4.1",
+				Description                    = "jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development",
+				AuthorsText                    = "John Resig",
+				Language                       = "en-US",
+				RequireLicenseAcceptanceString = "false"
+			});
+		}
+
+/*
+<package>
+  <metadata>
+    <id>IronPython</id>
+    <version>2.6.1</version>
+    <description>IronPython is an open-source implementation of the Python programming language which is tightly integrated with the .NET Framework. IronPython can use the .NET Framework and Python libraries, and other .NET languages can use Python code just as easily.</description>
+    <authors>
+      <author>Microsoft</author>
+    </authors>
+    <licenseUrl>http://ironpython.codeplex.com/license</licenseUrl>
+    <language>en-US</language>
+    <keywords>python DLR iron dynamic language</keywords>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:30.9482+00:00</created>
+    <modified>2010-10-25T22:55:30.9492+00:00</modified>
+  </metadata>
+</package>
+*/
+		[Test]
+		public void Example_IronPython() {
+			var spec = new Nuspec(PathToContent("nuspecs/IronPython.nuspec"));
+			spec.ShouldHaveProperties(new {
+				Id                             = "IronPython",
+				VersionString                  = "2.6.1",
+				Description                    = "IronPython is an open-source implementation of the Python programming language which is tightly integrated with the .NET Framework. IronPython can use the .NET Framework and Python libraries, and other .NET languages can use Python code just as easily.",
+				AuthorsText                    = "Microsoft",
+				Language                       = "en-US",
+				RequireLicenseAcceptanceString = "false"
+			});
+		}
+
+/*
+<package>
+  <metadata>
+    <id>Ninject</id>
+    <version>2.0.1.0</version>
+    <description>Stop writing monolithic applications that make you feel like you have to move mountains to make the simplest of changes. Ninject helps you use the technique of dependency injection to break your applications into loosely-coupled, highly-cohesive components, and then glue them back together in a flexible manner.</description>
+    <authors>
+      <author>Nate Kohari</author>
+      <author>Ian Davis</author>
+    </authors>
+    <language>en-US</language>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <created>2010-10-25T22:55:38.4642+00:00</created>
+    <modified>2010-10-25T22:55:38.4642+00:00</modified>
+  </metadata>
+</package>
+*/
+		[Test]
+		public void Example_Ninject() {
+			var spec = new Nuspec(PathToContent("nuspecs/Ninject.nuspec"));
+			spec.ShouldHaveProperties(new {
+				Id                             = "Ninject",
+				VersionString                  = "2.0.1.0",
+				Description                    = "Stop writing monolithic applications that make you feel like you have to move mountains to make the simplest of changes. Ninject helps you use the technique of dependency injection to break your applications into loosely-coupled, highly-cohesive components, and then glue them back together in a flexible manner.",
+				AuthorsText                    = "Nate Kohari,Ian Davis",
+				Language                       = "en-US",
+				RequireLicenseAcceptanceString = "false"
+			});
+
+			// can update authors, even tho it has invalid <author> elements
+			spec.AuthorsText = "this, that";
+			spec.Authors.ShouldEqual(new List<string> { "this", "that" });
+		}
+
+		// If you can find a problem in the Nuspec parser for a particular nuspec, add an example here!
+		// The examples above are pretty arbitrary.
 	}
 }
