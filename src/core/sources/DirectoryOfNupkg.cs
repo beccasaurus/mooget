@@ -18,7 +18,11 @@ namespace MooGet {
 
 		/// <summary>Returns all of the Nupkg in this directory</summary>
 		public override List<IPackage> Packages {
-			get { return new List<IPackage>().AddPackages(DirectoryOfNupkg.GetNupkgsInDirectory(Path)); }
+			get {
+				var packages = new List<IPackage>().AddPackages(DirectoryOfNupkg.GetNupkgsInDirectory(Path));
+				packages.ForEach(p => (p as Nupkg).Source = this);
+				return packages;
+			}
 		}
 
 		public override Nupkg Fetch(PackageDependency dependency, string directory) {
@@ -44,9 +48,23 @@ namespace MooGet {
 		}
 		
 		public override IPackage Install(PackageDependency dependency, params ISource[] sourcesForDependencies) {
+			Console.WriteLine("DirectoryOfNupkg.Install({0})", dependency);
+
 			var latestPackage = sourcesForDependencies.GetLatest(dependency);
 			if (latestPackage == null) throw new PackageNotFoundException(dependency);
-			throw new Exception("Found package to install: " + latestPackage.ToString());
+
+			var allPackages = latestPackage.FindDependencies(sourcesForDependencies);
+			Console.WriteLine("Found Dependencies: {0}", allPackages.Select(pkg => pkg.IdAndVersion()).ToList().Join(", "));
+
+			allPackages.Add(latestPackage);
+
+			foreach (var package in allPackages)
+				if (Get(package.ToPackageDependency()) != null)
+					Console.WriteLine("Already installed: {0}", package.IdAndVersion());
+				else
+					Push(package as Nupkg);
+
+			return Get(latestPackage.ToPackageDependency());
 		}
 
 		public override bool Uninstall(PackageDependency dependency, bool uninstallDependencies) {

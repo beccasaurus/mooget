@@ -134,10 +134,21 @@ namespace MooGet {
 					throw new MissingDependencyException(missing);
 			}
 
-			// TODO instead of just doing a Distinct(), we need to actually inspect the dependencies ...
-
 			// do not include any of the packages that were passed in as dependencies
-			return found.Where(pkg => ! packageIds.Contains(pkg.Id)).Distinct().ToList();
+			//return found.Where(pkg => ! packageIds.Contains(pkg.Id)).Distinct().ToList();
+			var packagesToReturn = found.Where(pkg => ! packageIds.Contains(pkg.Id)).ToList();
+
+			var packageIdsWeHave   = new List<string>();
+			var duplicatesToRemove = new List<IPackage>();
+			foreach (var package in packagesToReturn) {
+				if (packageIdsWeHave.Contains(package.Id))
+					duplicatesToRemove.Add(package);
+				packageIdsWeHave.Add(package.Id);
+			}
+			foreach (var dupe in duplicatesToRemove)
+				packagesToReturn.Remove(dupe);
+
+			return packagesToReturn;
 		}
 	}
 }

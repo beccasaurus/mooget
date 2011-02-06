@@ -12,6 +12,7 @@ namespace MooGet {
 			Path = path;
 		}
 
+		ISource _source;
 		string _path;
 		Nuspec _nuspec;
 		Zip _zip;
@@ -20,6 +21,11 @@ namespace MooGet {
 		public virtual string Path {
 			get { return _path; }
 			set { _path = value; _zip = null; _nuspec = null; }
+		}
+
+		public override ISource Source {
+			get { return _source;  }
+			set { _source = value; }
 		}
 
 		/// <summary>Returns whether or not this Nupkg file exists (using the Path)</summary>

@@ -24,7 +24,7 @@ namespace MooGet.Specs.Core {
 
 		[Test]
 		public void example_directories_OK() {
-			morePackages.Packages.Ids().Join(", ").ShouldEqual("Antlr, Apache.NMS, Apache.NMS.ActiveMQ, AttributeRouting, FluentNHibernate, MarkdownSharp, NHibernate, NuGet.CommandLine, NuGet.CommandLine, NuGet.CommandLine, WebActivator, log4net");
+			morePackages.Packages.Ids().Join(", ").ShouldEqual("Antlr, Apache.NMS, Apache.NMS.ActiveMQ, AttributeRouting, Castle.Core, FluentNHibernate, MarkdownSharp, NHibernate, NuGet.CommandLine, NuGet.CommandLine, NuGet.CommandLine, WebActivator, log4net");
 			morePackageDependencies.Packages.Ids().Join(", ").ShouldEqual("Castle.DynamicProxy, Iesi.Collections");
 		}
 
@@ -177,15 +177,35 @@ namespace MooGet.Specs.Core {
 			});
 
 			// we find the package we're talking about, but we're missing one of the dependencies
-			Should.Throw<MissingDependencyException>("Package not found: Castle.DynamicProxy", () => {
+			Should.Throw<MissingDependencyException>("No packages were found that satisfy these dependencies: Iesi.Collections = 1.0.1, Castle.DynamicProxy = 2.1.0", () => {
 				mydir.Install(new PackageDependency("FluentNHibernate"), morePackages);
 			});
 
 			mydir.Packages.Should(Be.Empty);
 
+			// check the dependencies that we're going to install (assuming Install() calls FindDependencies)
+			var dependencies = Source.FindDependencies(morePackages.Get(new PackageDependency("FluentNHibernate")), morePackages, morePackageDependencies);
+			dependencies.Count.ShouldEqual(6);
+			dependencies.Select(pkg => pkg.IdAndVersion()).ToList().ShouldContainAll(
+				"NHibernate-2.1.2.4000", "log4net-1.2.10", "Iesi.Collections-1.0.1", "Antlr-3.1.1", 
+				"Castle.DynamicProxy-2.1.0", "Castle.Core-1.1.0", "log4net-1.2.10"
+			);
+
+			// Inspect their sources to see that some come from 1, some come from another
+			dependencies.First(d => d.Id == "NHibernate").Source.ShouldEqual(morePackages);
+			dependencies.First(d => d.Id == "log4net").Source.ShouldEqual(morePackages);
+			dependencies.First(d => d.Id == "Antlr").Source.ShouldEqual(morePackages);
+			dependencies.First(d => d.Id == "Castle.Core").Source.ShouldEqual(morePackages);
+			dependencies.First(d => d.Id == "Iesi.Collections").Source.ShouldEqual(morePackageDependencies);
+			dependencies.First(d => d.Id == "Castle.DynamicProxy").Source.ShouldEqual(morePackageDependencies);
+
 			mydir.Install(new PackageDependency("FluentNHibernate"), morePackages, morePackageDependencies);
 
-			mydir.Packages.Count.ShouldEqual(123);
+			mydir.Packages.Count.ShouldEqual(7);
+			mydir.Packages.Select(pkg => pkg.IdAndVersion()).ToList().ShouldContainAll(
+				"NHibernate-2.1.2.4000", "log4net-1.2.10", "Iesi.Collections-1.0.1", "Antlr-3.1.1", 
+				"Castle.DynamicProxy-2.1.0", "Castle.Core-1.1.0", "FluentNHibernate-1.1.0.694"
+			);
 		}
 
 		[Test][Ignore]
