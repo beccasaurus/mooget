@@ -55,6 +55,13 @@ namespace MooGet {
 			return child;
 		}
 
+		public static XmlNode ForceCreateNode(this XmlNode node, string tag) {
+			if (node == null) return null;
+			var child = node.OwnerDocument.CreateElement(tag);
+			node.AppendChild(child);
+			return child;
+		}
+
 		public static string Text(this XmlNode node) {
 			if (node == null) return null;
 			return node.InnerText.Trim();
@@ -63,6 +70,27 @@ namespace MooGet {
 		public static XmlNode Text(this XmlNode node, string value) {
 			if (node != null) node.InnerText = value;
 			return node;
+		}
+
+		public static string Attr(this XmlNode node, string attr) {
+			if (node == null)                       return null;
+			if (node.Attributes[attr] == null) return null;
+			return node.Attributes[attr].Value;
+		}
+
+		public static XmlNode Attr(this XmlNode node, string attr, string value) {
+			if (node == null) return null;
+			var attribute = node.Attributes[attr];
+			if (attribute == null) {
+				attribute = node.OwnerDocument.CreateAttribute(attr);
+				node.Attributes.Append(attribute);
+			}
+			attribute.Value = value;
+			return node;
+		}
+
+		public static PackageDependency ToDependency(this XmlNode node) {
+			return new PackageDependency(string.Format("{0} {1}", node.Attr("id"), node.Attr("version")).Trim());
 		}
 	}
 }

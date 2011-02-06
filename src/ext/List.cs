@@ -11,5 +11,9 @@ namespace MooGet {
 		public static string Join<T>(this List<T> self, string separator) {
 			return string.Join(separator, self.Select(item => item.ToString()).ToArray());
 		}
+
+		public static List<string> ToStrings<T>(this List<T> self) {
+			return self.Select(o => o.SafeString()).ToList();
+		}
 	}
 }
