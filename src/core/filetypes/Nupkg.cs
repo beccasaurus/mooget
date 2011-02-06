@@ -30,9 +30,19 @@ namespace MooGet {
 			}
 		}
 
+		public override string Id {
+			get { return Nuspec.Id;  }
+			set { Nuspec.Id = value; }
+		}
+
+		public override PackageVersion Version {
+			get { return Nuspec.Version;  }
+			set { Nuspec.Version = value; }
+		}
+
 		public virtual Nuspec Nuspec {
 			get {
-				if (_nuspec == null && Exists) _nuspec = new Nuspec(NuspecXml);
+				if (_nuspec == null && Exists) _nuspec = new Nuspec { Xml = NuspecXml };
 				return _nuspec;
 			}
 		}

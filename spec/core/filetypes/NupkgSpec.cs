@@ -32,25 +32,29 @@ namespace MooGet.Specs.Core {
 
 		[Test]
 		public void Nuspec() {
-			nunit.Nuspec.Id.ShouldHaveProperties(new {
+			nunit.Nuspec.ShouldHaveProperties(new {
 				Id            = "NUnit",
 				VersionString = "2.5.7.10213",
 				AuthorsText   = "Charlie Poole"
 			});
 
-			fluent.Nuspec.Id.ShouldHaveProperties(new {
+			fluent.Nuspec.ShouldHaveProperties(new {
 				Id            = "FluentNHibernate",
 				VersionString = "1.1.0.694",
 				AuthorsText   = "James Gregory"
 			});
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void Id() {
+			nunit.Id.ShouldEqual("NUnit");
+			fluent.Id.ShouldEqual("FluentNHibernate");
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void Version() {
+			nunit.Version.ToString().ShouldEqual("2.5.7.10213");
+			fluent.Version.ToString().ShouldEqual("1.1.0.694");
 		}
 
 		[Test][Ignore]
