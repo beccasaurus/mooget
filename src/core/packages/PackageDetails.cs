@@ -6,6 +6,7 @@ using System.Collections.Generic;
 namespace MooGet {
 
 	/// <summary>Represents the details of a Package (eg. authors, description, etc)</summary>
+	[Serializable]
 	public class PackageDetails {
 
 		List<string> _authors, _owners, _tags;
