@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using NUnit.Framework;
 using MooGet;
 
@@ -33,15 +34,15 @@ namespace MooGet.Specs.Core {
 		[Test]
 		public void Nuspec() {
 			nunit.Nuspec.ShouldHaveProperties(new {
-				Id            = "NUnit",
+				Id          = "NUnit",
 				VersionText = "2.5.7.10213",
-				AuthorsText   = "Charlie Poole"
+				AuthorsText = "Charlie Poole"
 			});
 
 			fluent.Nuspec.ShouldHaveProperties(new {
-				Id            = "FluentNHibernate",
+				Id          = "FluentNHibernate",
 				VersionText = "1.1.0.694",
-				AuthorsText   = "James Gregory"
+				AuthorsText = "James Gregory"
 			});
 		}
 
@@ -54,15 +55,23 @@ namespace MooGet.Specs.Core {
 		[Test]
 		public void Version() {
 			nunit.Version.ToString().ShouldEqual("2.5.7.10213");
+			nunit.VersionText.ShouldEqual("2.5.7.10213");
 			fluent.Version.ToString().ShouldEqual("1.1.0.694");
+			fluent.VersionText.ShouldEqual("1.1.0.694");
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void Details() {
+			// simple delegates to the Nuspec
+			nunit.Details.ShouldEqual(nunit.Nuspec);
+			fluent.Details.ShouldEqual(fluent.Nuspec);
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void Files() {
+			// simply delegates to Zip.Paths (as a string[])
+			nunit.Files.ShouldEqual(nunit.Zip.Paths.ToArray());
+			fluent.Files.ShouldEqual(fluent.Zip.Paths.ToArray());
 		}
 
 		[Test][Ignore]
