@@ -12,17 +12,17 @@ namespace MooGet.Specs {
 		public override List<Package> Packages {
 			get {
 				return new List<Package> {
-					new Package { Id = "NUnit",      VersionString = "1.0"     },
-					new Package { Id = "NUnit",      VersionString = "1.0.1"   },
-					new Package { Id = "NUnit",      VersionString = "2.0"     },
-					new Package { Id = "NHibernate", VersionString = "0.0.0.1" },
-					new Package { Id = "NHibernate", VersionString = "0.0.2.0" },
-					new Package { Id = "FooBar",     VersionString = "0.0.2.0" },
-					new Package { Id = "my.package", VersionString = "0.0.2.0" },
-					new Package { Id = "my.package", VersionString = "0.1.2.2" },
-					new Package { Id = "Cool-Beans", VersionString = "9"       },
-					new Package { Id = "Cool-Beans", VersionString = "1.0"     },
-					new Package { Id = "Cool-Beans", VersionString = "10.2.6"  }
+					new Package { Id = "NUnit",      VersionText = "1.0"     },
+					new Package { Id = "NUnit",      VersionText = "1.0.1"   },
+					new Package { Id = "NUnit",      VersionText = "2.0"     },
+					new Package { Id = "NHibernate", VersionText = "0.0.0.1" },
+					new Package { Id = "NHibernate", VersionText = "0.0.2.0" },
+					new Package { Id = "FooBar",     VersionText = "0.0.2.0" },
+					new Package { Id = "my.package", VersionText = "0.0.2.0" },
+					new Package { Id = "my.package", VersionText = "0.1.2.2" },
+					new Package { Id = "Cool-Beans", VersionText = "9"       },
+					new Package { Id = "Cool-Beans", VersionText = "1.0"     },
+					new Package { Id = "Cool-Beans", VersionText = "10.2.6"  }
 				};
 			}
 		}

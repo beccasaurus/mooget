@@ -28,15 +28,15 @@ namespace MooGet.Specs.Core {
 
 		[Test]
 		public void Version() {
-			minimum.VersionString.ShouldEqual("1.2.3.45678");
+			minimum.VersionText.ShouldEqual("1.2.3.45678");
 			minimum.Version.ToString().ShouldEqual("1.2.3.45678");
-			maximum.VersionString.ShouldEqual("1.2.3.45678");
+			maximum.VersionText.ShouldEqual("1.2.3.45678");
 			maximum.Version.ToString().ShouldEqual("1.2.3.45678");
 
 			minimum.Version = new PackageVersion("1.2.3");
-			minimum.VersionString.ShouldEqual("1.2.3");
+			minimum.VersionText.ShouldEqual("1.2.3");
 
-			minimum.VersionString = "4.5.6";
+			minimum.VersionText = "4.5.6";
 			minimum.Version.ToString().ShouldEqual("4.5.6");
 		}
 
@@ -243,7 +243,7 @@ namespace MooGet.Specs.Core {
 			var spec = new Nuspec(PathToContent("nuspecs/elmah.nuspec"));
 			spec.ShouldHaveProperties(new {
 				Id                             = "elmah",
-				VersionString                  = "1.1",
+				VersionText                  = "1.1",
 				Description                    = "ELMAH (Error Logging Modules and Handlers) is an application-wide error logging facility that is completely pluggable. It can be dynamically added to a running ASP.NET web application, or even all ASP.NET web applications on a machine, without any need for re-compilation or re-deployment.",
 				AuthorsText                    = "azizatif",
 				Language                       = "en-US",
@@ -272,7 +272,7 @@ namespace MooGet.Specs.Core {
 			var spec = new Nuspec(PathToContent("nuspecs/jQuery.nuspec"));
 			spec.ShouldHaveProperties(new {
 				Id                             = "jQuery",
-				VersionString                  = "1.4.1",
+				VersionText                  = "1.4.1",
 				Description                    = "jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development",
 				AuthorsText                    = "John Resig",
 				Language                       = "en-US",
@@ -303,7 +303,7 @@ namespace MooGet.Specs.Core {
 			var spec = new Nuspec(PathToContent("nuspecs/IronPython.nuspec"));
 			spec.ShouldHaveProperties(new {
 				Id                             = "IronPython",
-				VersionString                  = "2.6.1",
+				VersionText                  = "2.6.1",
 				Description                    = "IronPython is an open-source implementation of the Python programming language which is tightly integrated with the .NET Framework. IronPython can use the .NET Framework and Python libraries, and other .NET languages can use Python code just as easily.",
 				AuthorsText                    = "Microsoft",
 				Language                       = "en-US",
@@ -333,7 +333,7 @@ namespace MooGet.Specs.Core {
 			var spec = new Nuspec(PathToContent("nuspecs/Ninject.nuspec"));
 			spec.ShouldHaveProperties(new {
 				Id                             = "Ninject",
-				VersionString                  = "2.0.1.0",
+				VersionText                  = "2.0.1.0",
 				Description                    = "Stop writing monolithic applications that make you feel like you have to move mountains to make the simplest of changes. Ninject helps you use the technique of dependency injection to break your applications into loosely-coupled, highly-cohesive components, and then glue them back together in a flexible manner.",
 				AuthorsText                    = "Nate Kohari,Ian Davis",
 				Language                       = "en-US",

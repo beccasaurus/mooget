@@ -57,7 +57,7 @@ namespace MooGet.Specs {
 			public void can_take_1_package_and_generate_xml_for_a_feed() {
 				var packages      = new List<Package> { new Package {
 					Id            = "MyPackage",
-					VersionString = "1.2.3.4",
+					VersionText = "1.2.3.4",
 					Description   = "About My Package",
 					Tags          = new List<string> { "Foo", "Bar" }
 				}};
@@ -193,9 +193,9 @@ namespace MooGet.Specs {
 				[Test]
 				public void dependencies_generate_in_feed_properly() {
 					package.Dependencies.Count.ShouldEqual(2);
-					package.Dependencies.First(d => d.Id == "Ninject").VersionString.ShouldEqual("2.1.0.76");
-					package.Dependencies.First(d => d.Id == "WebActivator").MinVersionString.ShouldEqual("1.0.0.0");
-					package.Dependencies.First(d => d.Id == "WebActivator").MaxVersionString.ShouldEqual("1.1");
+					package.Dependencies.First(d => d.Id == "Ninject").VersionText.ShouldEqual("2.1.0.76");
+					package.Dependencies.First(d => d.Id == "WebActivator").MinVersionText.ShouldEqual("1.0.0.0");
+					package.Dependencies.First(d => d.Id == "WebActivator").MaxVersionText.ShouldEqual("1.1");
 				}
 
 				[Test]

@@ -21,7 +21,7 @@ namespace MooGet.Specs {
 			var package = Package.FromSpec(nuspecPath);
 			package.Id.ShouldEqual("working");
 			package.Description.ShouldEqual("");
-			package.VersionString.ShouldEqual("1.0.0.0");
+			package.VersionText.ShouldEqual("1.0.0.0");
 			package.Authors.Count.ShouldEqual(1);
 			package.Authors.First().ShouldEqual("me");
 			package.Created.ToString("d").ShouldEqual(DateTime.Now.ToString("d"));

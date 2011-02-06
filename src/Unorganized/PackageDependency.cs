@@ -19,7 +19,7 @@ namespace MooGet {
 	/// <summary>Represents a Package Id and Version(s) that a Package depends on</summary>
 	public class PackageDependency {
 
-		string _rawVersionString;
+		string _rawVersionText;
 		List<VersionAndOperator> _versions = new List<VersionAndOperator>();
 
 		public PackageDependency() {}
@@ -33,9 +33,9 @@ namespace MooGet {
 
 			if (parts.Count > 0)
 				if (parts.Count == 1 && ! Regex.IsMatch(parts.First(), "[=><~]"))
-					VersionString = "=" + parts.First();
+					VersionText = "=" + parts.First();
 				else
-					VersionString = string.Join(" ", parts.ToArray());
+					VersionText = string.Join(" ", parts.ToArray());
 		}
 
 		public List<VersionAndOperator> Versions {
@@ -102,14 +102,14 @@ namespace MooGet {
 
 		/// <summary>Version string can be a specific version (eg. 1.0) or a matcher (eg. &gt;= 1.0)</summary>
 		/// <remarks>
-		///	Setting the VersionString to something like "&gt;=1.0" will parse the string and set MinVersion.
+		///	Setting the VersionText to something like "&gt;=1.0" will parse the string and set MinVersion.
 		///
-		///	Getting the VersionString returns the raw string that was set, eg. "&gt;=1.0"
+		///	Getting the VersionText returns the raw string that was set, eg. "&gt;=1.0"
 		/// </remarks>
-		public string VersionString {
-			get { return _rawVersionString; }
+		public string VersionText {
+			get { return _rawVersionText; }
 			set {
-				_rawVersionString = value;
+				_rawVersionText = value;
 				Parse();
 			}
 		}
@@ -134,7 +134,7 @@ namespace MooGet {
 
 		/// <summary>Represents an *exact* "sorta" minumum version for this dependency, eg. 1.0</summary>
 		/// <remarks>
-		/// If you set the VersionString to "~&gt;1.1.0" or "~&gt;1.1" that sets the SortaMinVersion to 
+		/// If you set the VersionText to "~&gt;1.1.0" or "~&gt;1.1" that sets the SortaMinVersion to 
 		/// 1.1.0 or 1.1.
 		///
 		/// Wheat does that mean?
@@ -161,7 +161,7 @@ namespace MooGet {
 		}
 
 		/// <summary>Get or set string representing the *exact* MinVersion, eg. 1.0</summary>
-		public string MinVersionString {
+		public string MinVersionText {
 			get {
 				if (MinVersion == null) return null;
 				return MinVersion.ToString();
@@ -170,7 +170,7 @@ namespace MooGet {
 		}
 
 		/// <summary>Get or set string representing the *exact* SortaMinVersion, eg. 1.0</summary>
-		public string SortaMinVersionString {
+		public string SortaMinVersionText {
 			get {
 				if (SortaMinVersion == null) return null;
 				return SortaMinVersion.ToString();
@@ -179,7 +179,7 @@ namespace MooGet {
 		}
 
 		/// <summary>Get or set string representing the *exact* MaxVersion, eg. 1.0</summary>
-		public string MaxVersionString {
+		public string MaxVersionText {
 			get {
 				if (MaxVersion == null) return null;
 				return MaxVersion.ToString();
@@ -187,23 +187,23 @@ namespace MooGet {
 			set { MaxVersion = new PackageVersion(value); }
 		}
 
-		// parses the VersionString
+		// parses the VersionText
 		//
-		// NOTE do *NOT* set VersionString from this method, or you'll end up in an infinite loop!
+		// NOTE do *NOT* set VersionText from this method, or you'll end up in an infinite loop!
 		void Parse() {
-			if (VersionString == null) return;
+			if (VersionText == null) return;
 
 			// Parse all groups of (>=~<) operators followed by version numbers (1.2.3.4)
-			foreach (Match match in Regex.Matches(VersionString, @"([><=~]+)\s*([\d\.]+)"))
+			foreach (Match match in Regex.Matches(VersionText, @"([><=~]+)\s*([\d\.]+)"))
 				AddVersion(match.Groups[1].Value, match.Groups[2].Value);
 
 			// If no matchers were found, no operator was provided (eg. "1.2") so we say that we must be equal to this version
 			if (Versions.Count == 0)
-				AddVersion("=", VersionString);
+				AddVersion("=", VersionText);
 		}
 
 		void AddVersion(string operatorString, string version) {
-			Versions.Add(new VersionAndOperator { OperatorString = operatorString, VersionString = version });
+			Versions.Add(new VersionAndOperator { OperatorString = operatorString, VersionText = version });
 		}
 
 		public static Operators ParseOperator(string op) {
@@ -262,7 +262,7 @@ namespace MooGet {
 			public PackageVersion Version  { get; set; }
 			public Operators      Operator { get; set; }
 
-			public string VersionString {
+			public string VersionText {
 				get {
 					if (Version == null) return null;
 					return Version.ToString();

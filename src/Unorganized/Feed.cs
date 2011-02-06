@@ -85,7 +85,7 @@ namespace MooGet {
 
 						xml.WriteElement("link", new { rel = "enclosure", href = DownloadUrlForPackage(package) }).
 						WriteElement("pkg:packageId", package.Id).
-						WriteElement("pkg:version",   package.VersionString).
+						WriteElement("pkg:version",   package.VersionText).
 						WriteElement("pkg:requireLicenseAcceptance", package.RequireLicenseAcceptance.ToString());
 
 						if (package.Language != null)
@@ -154,7 +154,7 @@ namespace MooGet {
 					case "id": break;
 
 					case "pkg:packageid": package.Id            = node.InnerText; break;
-					case "pkg:version":   package.VersionString = node.InnerText; break;
+					case "pkg:version":   package.VersionText = node.InnerText; break;
 					case "pkg:language":  package.Language      = node.InnerText; break;
 					case "title":         package.Title         = node.InnerText; break;
 					case "content":       package.Description   = node.InnerText; break;
@@ -209,9 +209,9 @@ namespace MooGet {
 							foreach (XmlNode depNode in dependencyNode.ChildNodes) {
 								switch (depNode.Name.ToLower()) {
 									case "pkg:id":         dependency.Id               = depNode.InnerText; break;
-									case "pkg:version":    dependency.VersionString    = depNode.InnerText; break;
-									case "pkg:minversion": dependency.MinVersionString = depNode.InnerText; break;
-									case "pkg:maxversion": dependency.MaxVersionString = depNode.InnerText; break;
+									case "pkg:version":    dependency.VersionText    = depNode.InnerText; break;
+									case "pkg:minversion": dependency.MinVersionText = depNode.InnerText; break;
+									case "pkg:maxversion": dependency.MaxVersionText = depNode.InnerText; break;
 									default:
 										Console.WriteLine("Unknown dependency node: {0}", depNode.Name);
 										break;

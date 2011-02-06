@@ -24,7 +24,7 @@ namespace MooGet.Specs {
 
 			// check some generic Package properties
 			ninject.Id.ShouldEqual("Ninject");
-			ninject.VersionString.ShouldEqual("2.0.1.0");
+			ninject.VersionText.ShouldEqual("2.0.1.0");
 
 			// check LocalPackage specific properties/methods
 			ninject.Path.ShouldEqual(PathToContent("unpacked_packages", "Ninject-2.0.1.0"));

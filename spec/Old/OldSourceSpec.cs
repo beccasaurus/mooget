@@ -94,7 +94,7 @@ namespace MooGet.Specs {
 			package.Authors.Count.ShouldEqual(2);
 			package.Authors.ShouldContain("Dave Van den Eynde");
 			package.Authors.ShouldContain("Wouter Demuynck");
-			package.VersionString.ShouldEqual("1.1.0.0");
+			package.VersionText.ShouldEqual("1.1.0.0");
 			package.Language.ShouldEqual("en-US");
 			package.Tags.Count.ShouldEqual(2);
 			package.Tags.ShouldContain("JavaScript");
@@ -125,7 +125,7 @@ namespace MooGet.Specs {
 			var package = source.AllPackages.Last();
 
 			package.Id.ShouldEqual("xmlbuilder");
-			package.VersionString.ShouldEqual("1.0.1");
+			package.VersionText.ShouldEqual("1.0.1");
 			package.Title.ShouldEqual("xmlbuilder");
 			package.Description.ShouldEqual("A DSL to help on XML authoring, with this library you can create xml content with few lines of code, there's no need to use System.Xml classes, the XMLBuilder hides all complexity behind xml generation.");
 			package.Authors.Count.ShouldEqual(1);
@@ -147,7 +147,7 @@ namespace MooGet.Specs {
 				{"ESRI.SilverlightWpf.Toolkit",   "2.0.0.314"}
 			}) {
 				package.Dependencies.Select(d => d.Id).ShouldContain(dependency.Key);
-				package.Dependencies.Select(d => d.VersionString).ShouldContain(dependency.Value);
+				package.Dependencies.Select(d => d.VersionText).ShouldContain(dependency.Value);
 			}
 		}
 

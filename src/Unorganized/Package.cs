@@ -56,7 +56,7 @@ namespace MooGet {
 
 		public string IdAndVersion { get { return string.Format("{0}-{1}", Id, Version); } }
 
-		public string VersionString {
+		public string VersionText {
 			get {
 				if (Version == null) return null;
 				return Version.ToString(); 
@@ -203,7 +203,7 @@ Dependencies: {4}
 				var text = metadata.InnerText.Trim();
 				switch (metadata.Name.ToLower()) {
 					case "id":          Id            = text; break;
-					case "version":     VersionString = text; break;
+					case "version":     VersionText = text; break;
 					case "title":       Title         = text; break;
 					case "description": Description   = text; break;
 					case "language":    Language      = text; break;
@@ -251,9 +251,9 @@ Dependencies: {4}
 				foreach (XmlAttribute attr in dependencyNode.Attributes) {
 					switch (attr.Name.ToLower()) {
 						case "id":         dependency.Id               = attr.Value; break;
-						case "version":    dependency.VersionString    = attr.Value; break;
-						case "minversion": dependency.MinVersionString = attr.Value; break;
-						case "maxversion": dependency.MaxVersionString = attr.Value; break;
+						case "version":    dependency.VersionText    = attr.Value; break;
+						case "minversion": dependency.MinVersionText = attr.Value; break;
+						case "maxversion": dependency.MaxVersionText = attr.Value; break;
 						default:
 							Console.WriteLine("Unknown <dependency> attribute: {0}", attr.Name);
 							break;

@@ -10,9 +10,9 @@ namespace MooGet.Specs {
 	[TestFixture]
 	public class PackageDependencySpec : MooGetSpec {
 
-		// Helper method to get a PackageDependency using the given VersionString
+		// Helper method to get a PackageDependency using the given VersionText
 		PackageDependency Dep(string versionString) {
-			return new PackageDependency { VersionString = versionString };
+			return new PackageDependency { VersionText = versionString };
 		}
 
 		[Test]
@@ -83,7 +83,7 @@ namespace MooGet.Specs {
 				Dep("=1.2"   ).ToString().ShouldEqual("= 1.2");
 				Dep("==0.9"  ).ToString().ShouldEqual("= 0.9");
 
-				new PackageDependency { PackageId = "MyPackage", VersionString = "9.0.123" }.ToString().ShouldEqual("MyPackage = 9.0.123");
+				new PackageDependency { PackageId = "MyPackage", VersionText = "9.0.123" }.ToString().ShouldEqual("MyPackage = 9.0.123");
 
 				Dep("= 1.2.3.4").Versions[0].Version.ToString().ShouldEqual("1.2.3.4");
 				Dep("= 1.2.3.4").Versions[0].Operator.ShouldEqual(PackageDependency.Operators.EqualTo);
@@ -230,9 +230,9 @@ namespace MooGet.Specs {
 
 			[Test]
 			public void Version_sets_exact_version() {
-				var dependency = new PackageDependency { VersionString = "1.2.1" };
+				var dependency = new PackageDependency { VersionText = "1.2.1" };
 
-				dependency.VersionString.ShouldEqual("1.2.1");
+				dependency.VersionText.ShouldEqual("1.2.1");
 				dependency.Version.ToString().ShouldEqual("1.2.1");
 
 				dependency.Versions.Count.ShouldEqual(1);
@@ -242,9 +242,9 @@ namespace MooGet.Specs {
 
 			[Test]
 			public void MinVersion_sets_greater_than_or_equal_to() {
-				var dependency = new PackageDependency { MinVersionString = "1.2.1" };
+				var dependency = new PackageDependency { MinVersionText = "1.2.1" };
 
-				dependency.MinVersionString.ShouldEqual("1.2.1");
+				dependency.MinVersionText.ShouldEqual("1.2.1");
 				dependency.MinVersion.ToString().ShouldEqual("1.2.1");
 
 				dependency.Versions.Count.ShouldEqual(1);
@@ -254,9 +254,9 @@ namespace MooGet.Specs {
 
 			[Test]
 			public void MaxVersion_sets_less_than_or_equal_to() {
-				var dependency = new PackageDependency { MaxVersionString = "1.2.1" };
+				var dependency = new PackageDependency { MaxVersionText = "1.2.1" };
 
-				dependency.MaxVersionString.ShouldEqual("1.2.1");
+				dependency.MaxVersionText.ShouldEqual("1.2.1");
 				dependency.MaxVersion.ToString().ShouldEqual("1.2.1");
 
 				dependency.Versions.Count.ShouldEqual(1);
@@ -266,9 +266,9 @@ namespace MooGet.Specs {
 
 			[Test]
 			public void SortaMinVersion_sets_sorta_greater_than() {
-				var dependency = new PackageDependency { SortaMinVersionString = "1.2.1" };
+				var dependency = new PackageDependency { SortaMinVersionText = "1.2.1" };
 
-				dependency.SortaMinVersionString.ShouldEqual("1.2.1");
+				dependency.SortaMinVersionText.ShouldEqual("1.2.1");
 				dependency.SortaMinVersion.ToString().ShouldEqual("1.2.1");
 
 				dependency.Versions.Count.ShouldEqual(1);

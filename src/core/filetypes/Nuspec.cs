@@ -48,7 +48,7 @@ namespace MooGet {
 		}
 
 		public virtual  string Id            { get { return GetMeta("id");          } set { SetMeta("id",           value); } }
-		public virtual  string VersionString { get { return GetMeta("version");     } set { SetMeta("version",      value); } }
+		public virtual  string VersionText { get { return GetMeta("version");     } set { SetMeta("version",      value); } }
 		public override string Title         { get { return GetMeta("title");       } set { SetMeta("title",        value); } }
 		public override string Description   { get { return GetMeta("description"); } set { SetMeta("description",  value); } }
 		public override string Summary       { get { return GetMeta("summary");     } set { SetMeta("summary",      value); } }
@@ -83,8 +83,8 @@ namespace MooGet {
 		}
 
 		public virtual PackageVersion Version {
-			get { return new PackageVersion(VersionString); }
-			set { VersionString = (value == null) ? null : value.ToString(); }
+			get { return new PackageVersion(VersionText); }
+			set { VersionText = (value == null) ? null : value.ToString(); }
 		}
 
 		// TODO test <dependencies> under <package> instead of under <metadata>

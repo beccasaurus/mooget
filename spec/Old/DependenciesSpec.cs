@@ -20,8 +20,8 @@ namespace MooGet.Specs {
 		Package NamedPackageWithDependencies(string name, params string[] dependencyStrings) {
 			var nameParts = name.Split(' ');
 			var package = (nameParts.Length == 2) 
-				? new Package { Id = nameParts[0], VersionString = nameParts[1] } 
-				: new Package { Id = nameParts[0], VersionString = "1.0"        };
+				? new Package { Id = nameParts[0], VersionText = nameParts[1] } 
+				: new Package { Id = nameParts[0], VersionText = "1.0"        };
 			foreach (var dependencyString in dependencyStrings)
 				package.Dependencies.Add(new PackageDependency(dependencyString));
 			return package;
@@ -221,14 +221,14 @@ namespace MooGet.Specs {
 			var myPackage  = PackageWithDependencies("HelloWorld", "FooBar ~> 1.5");
 
 			// HelloWorld depends on FooBar
-			var helloWorld = new Package { Id = "HelloWorld", VersionString = "1.0" };
+			var helloWorld = new Package { Id = "HelloWorld", VersionText = "1.0" };
 			helloWorld.Dependencies.Add(new PackageDependency("FooBar"));
 
 			// source1 has versions 1.0, 1.5.0, 1.5.2, and 2.0 of FooBar and it has HelloWorld, which also depends on FooBar
 			var source1Packages = new List<Package>();
 			new List<string> {
 				"1.0", "1.5.0", "1.5.2", "2.0"
-			}.ForEach(version => source1Packages.Add(new Package { Id = "FooBar", VersionString = version }));
+			}.ForEach(version => source1Packages.Add(new Package { Id = "FooBar", VersionText = version }));
 			source1Packages.Add(helloWorld);
 			Feed.Domain = "source1.com";
 			var source1 = OldSource.FromXml(Feed.GenerateFeed(source1Packages));
@@ -237,7 +237,7 @@ namespace MooGet.Specs {
 			var source2Packages = new List<Package>();
 			new List<string> {
 				"1.5.1", "1.5.2", "1.5.3", "1.6", "1.9.0", "2.0", "2.0.1"
-			}.ForEach(version => source2Packages.Add(new Package { Id = "FooBar", VersionString = version }));
+			}.ForEach(version => source2Packages.Add(new Package { Id = "FooBar", VersionText = version }));
 			Feed.Domain = "source2.net";
 			var source2 = OldSource.FromXml(Feed.GenerateFeed(source2Packages));
 
@@ -268,7 +268,7 @@ namespace MooGet.Specs {
 			var source1Packages = new List<Package>();
 			new List<string> {
 				"1.0", "1.5.0", "1.5.2", "2.0"
-			}.ForEach(version => source1Packages.Add(new Package { Id = "FooBar", VersionString = version }));
+			}.ForEach(version => source1Packages.Add(new Package { Id = "FooBar", VersionText = version }));
 			Feed.Domain = "source1.com";
 			var source1 = OldSource.FromXml(Feed.GenerateFeed(source1Packages));
 
@@ -276,7 +276,7 @@ namespace MooGet.Specs {
 			var source2Packages = new List<Package>();
 			new List<string> {
 				"1.5.1", "1.5.2", "1.5.3", "1.6", "1.9.0", "2.0", "2.0.1"
-			}.ForEach(version => source2Packages.Add(new Package { Id = "FooBar", VersionString = version }));
+			}.ForEach(version => source2Packages.Add(new Package { Id = "FooBar", VersionText = version }));
 			Feed.Domain = "source2.net";
 			var source2 = OldSource.FromXml(Feed.GenerateFeed(source2Packages));
 

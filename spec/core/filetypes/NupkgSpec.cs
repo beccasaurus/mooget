@@ -34,13 +34,13 @@ namespace MooGet.Specs.Core {
 		public void Nuspec() {
 			nunit.Nuspec.ShouldHaveProperties(new {
 				Id            = "NUnit",
-				VersionString = "2.5.7.10213",
+				VersionText = "2.5.7.10213",
 				AuthorsText   = "Charlie Poole"
 			});
 
 			fluent.Nuspec.ShouldHaveProperties(new {
 				Id            = "FluentNHibernate",
-				VersionString = "1.1.0.694",
+				VersionText = "1.1.0.694",
 				AuthorsText   = "James Gregory"
 			});
 		}
