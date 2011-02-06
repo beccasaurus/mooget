@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 namespace MooGet {
 
 	/// <summary>Represents a single .zip file (or .nupkg file, or any valid Zip package file)</summary>
-	public class Zip {
+	public class Zip : IFile {
 
 		public Zip(){}
 		public Zip(string path) : this() {

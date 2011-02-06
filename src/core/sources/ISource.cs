@@ -25,10 +25,10 @@ namespace MooGet {
 		object AuthData { get; set; }
 
 		/// <summary>This should return a Package with matching Id and Version strings, else null.</summary>
-		Package Get(PackageDependency dependency);
+		IPackage Get(PackageDependency dependency);
 
 		/// <summary>This should return ALL of this Source's packages.</summary>
-		List<Package> Packages { get; }
+		List<IPackage> Packages { get; }
 
 		/// <summary>This should return only the latest versions of this Source's packages.</summary>
 		/// <remarks>
@@ -36,10 +36,10 @@ namespace MooGet {
 		/// however, this allows for a Source to use a native, optimized method of giving us 
 		/// just the latest packages.
 		/// </remarks>
-		List<Package> LatestPackages { get; }
+		List<IPackage> LatestPackages { get; }
 
 		/// <summary>This should return ALL packages with the given Id, eg. "NUnit".</summary>
-		List<Package> GetPackagesWithId(string id);
+		List<IPackage> GetPackagesWithId(string id);
 
 		/// <summary>This should return ALL packages with an Id that starts with the given string</summary>
 		/// <remarks>
@@ -47,10 +47,10 @@ namespace MooGet {
 		/// extract out those methods to an ISearchableSource iterface OR just specify 1 Search() 
 		/// method that takes the package properties to search and their queries.
 		/// </remarks>
-		List<Package> GetPackagesWithIdStartingWith(string query);
+		List<IPackage> GetPackagesWithIdStartingWith(string query);
 
 		/// <summary>This should return all packages matching a given PackageDependency, eg. NUnit >= 1.0</summary>
-		List<Package> GetPackagesMatchingDependency(PackageDependency dependency);
+		List<IPackage> GetPackagesMatchingDependency(PackageDependency dependency);
 
 		/// <summary>Every source should give you a way to download one of its packages to a local Nupkg.</summary>
 		/// <remarks>
@@ -62,7 +62,7 @@ namespace MooGet {
 		/// <remarks>
 		/// Returns the Source's representation of the Package if successful, else null.
 		/// </remarks>
-		Package Push(Nupkg nupkg);
+		IPackage Push(Nupkg nupkg);
 
 		/// <summary>Some sources let you delete packages from them;</summary>
 		/// <remarks>Returns true if operation was successful, else false.</remarks>
@@ -72,7 +72,7 @@ namespace MooGet {
 		/// <remarks>
 		/// Returns the Source's representation of the Package if successful, else null.
 		/// </remarks>
-		Package Install(PackageDependency dependency, params ISource[] sourcesForDependencies);
+		IPackage Install(PackageDependency dependency, params ISource[] sourcesForDependencies);
 
 		/// <summary>Some sources let you uninstall a package (and, optionally, that package's dependencies)</summary>
 		/// <remarks>Returns true if operation was successful, else false.</remarks>

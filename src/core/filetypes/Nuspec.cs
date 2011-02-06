@@ -15,7 +15,7 @@ namespace MooGet {
 	/// Inotherwords, you cannot <c>nuspec.Authors.Add("foo")</c> but you can <c>nuspec.Authors = authorsList</c>.
 	/// Authors, Owners, and Tags all have helper *Text properties that you can modify freely, however, eg. AuthorsText.
 	/// </remarks>
-	public class Nuspec : PackageDetails, IPackage {
+	public class Nuspec : PackageDetails, IPackage, IFile {
 
 		public Nuspec() {}
 		public Nuspec(string path) : this() {

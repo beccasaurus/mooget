@@ -5,7 +5,7 @@ using System.Linq;
 namespace MooGet {
 
 	/// <summary>Represents a single .nupkg file</summary>
-	public class Nupkg : NewPackage, IPackage { // TODO : Package after we refactor ...
+	public class Nupkg : NewPackage, IPackage, IFile { // TODO : Package after we refactor ...
 
 		public Nupkg() : base() {}
 		public Nupkg(string path) : this() {

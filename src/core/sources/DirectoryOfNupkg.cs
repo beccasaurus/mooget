@@ -13,16 +13,26 @@ namespace MooGet {
 			Path = path;
 		}
 
+		List<IPackage> _packages;
+
+		/// <summary>Whether or not this directory exists</summary>
+		public virtual bool Exists { get { return Directory.Exists(Path); } }
+
 		/// <summary>Returns all of the Nupkg in this directory</summary>
-		public override List<Package> Packages {
-			get { return new List<Package>(); }
+		public override List<IPackage> Packages {
+			get {
+				if (_packages == null && Exists) _packages = new List<IPackage>().AddPackages(DirectoryOfNupkg.GetNupkgsInDirectory(Path));
+				return _packages;
+			}
 		}
 
 		public override Nupkg Fetch(PackageDependency dependency) {
 			return null;
 		}
 		
-		public override Package Push(Nupkg nupkg) {
+		public override IPackage Push(Nupkg nupkg) {
+			//if (Exists && nupkg.Exists)
+			//	nupkg.Copy(Path);
 			return null;
 		}
 		
@@ -30,12 +40,20 @@ namespace MooGet {
 			return false;
 		}
 		
-		public override Package Install(PackageDependency dependency, params ISource[] sourcesForDependencies) {
+		public override IPackage Install(PackageDependency dependency, params ISource[] sourcesForDependencies) {
 			return null;
 		}
 
 		public override bool Uninstall(PackageDependency dependency, bool uninstallDependencies) {
 			return false;
+		}
+
+		public static List<Nupkg> GetNupkgsInDirectory(string directory) {
+			if (! Directory.Exists(directory)) return null;
+			var nupkgs = new List<Nupkg>();
+			foreach (var file in Directory.GetFiles(directory, "*.nupkg", SearchOption.TopDirectoryOnly))
+				nupkgs.Add(new Nupkg(file));
+			return nupkgs;
 		}
 	}
 }
