@@ -55,6 +55,20 @@ namespace MooGet.Specs.Core {
 		}
 
 		[Test]
+		public void Directories() {
+			new RealDirectory(PathToTemp("base")).Directories().ToStrings().ShouldEqual(new List<string>{
+				PathToTemp("base/dir"),
+				PathToTemp("base/other"),
+				PathToTemp("base/other/dir"),
+			});
+			new RealDirectory(PathToTemp("base")).Dirs().ToStrings().ShouldEqual(new List<string>{
+				PathToTemp("base/dir"),
+				PathToTemp("base/other"),
+				PathToTemp("base/other/dir"),
+			});
+		}
+
+		[Test]
 		public void Search() {
 			var dir = Dir1Dir("foo").Create();
 			dir.GetFile("index.html").Touch();
@@ -127,20 +141,34 @@ namespace MooGet.Specs.Core {
 			dir.Exists().Should(Be.True);
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void Copy() {
-			/*
-			var file = Dir1Dir("foo").Touch();
-			AllDirectories.ShouldEqual(new string[]{ Path.Combine(dir_1, "foo") });
+			Directory.Exists(PathToTemp("base/dir/foo")).Should(Be.False);
+			var dir = Dir1Dir("foo").Create();
+			// add subdirectory ...
+			dir.GetFile("FILE").Touch();
+			Directory.Exists(PathToTemp("base/dir/foo")).Should(Be.True);
+			File.Exists(PathToTemp("base/dir/foo/FILE")).Should(Be.True);
 
-			// copy to new name
-			file.Copy(dir_1, "bar.txt");
-			AllDirectories.ShouldEqual(new string[]{ Path.Combine(dir_1, "bar.txt"), Path.Combine(dir_1, "foo") });
+			// copy to existing directory copys it INTO directory
+			Directory.Exists(PathToTemp("base/other/dir")).Should(Be.True);
+			Directory.Exists(PathToTemp("base/other/dir/foo")).Should(Be.False);
+			File.Exists(PathToTemp("base/other/dir/foo/FILE")).Should(Be.False);
+			dir.Copy(PathToTemp("base/other/dir"));
+			Directory.Exists(PathToTemp("base/other/dir/foo")).Should(Be.True); // it copyd INTO that dir
+			File.Exists(PathToTemp("base/other/dir/foo/FILE")).Should(Be.True);
+			Directory.Exists(PathToTemp("base/dir/foo")).Should(Be.True); // the original dir STAYED
+			File.Exists(PathToTemp("base/dir/foo/FILE")).Should(Be.True); // the original file STAYED too
+			dir.Path.ShouldEqual(PathToTemp("base/other/dir/foo")); // the Path was updated
 
-			// copy to directory (no new name)
-			file.Copy(dir_2);
-			AllDirectories.ShouldEqual(new string[]{ Path.Combine(dir_1, "bar.txt"), Path.Combine(dir_1, "foo"), Path.Combine(dir_2, "foo") });
-			*/
+			// copy to new directory, copy it there
+			Directory.Exists(PathToTemp("new")).Should(Be.False);
+			dir.Copy(PathToTemp("new"));
+			Directory.Exists(PathToTemp("new")).Should(Be.True);
+			File.Exists(PathToTemp("new/FILE")).Should(Be.True);
+			Directory.Exists(PathToTemp("base/other/dir/foo")).Should(Be.True); // the last directory stayed
+			File.Exists(PathToTemp("base/dir/foo/FILE")).Should(Be.True); // the original file is still there
+			File.Exists(PathToTemp("base/other/dir/foo/FILE")).Should(Be.True); // the last directory's file is still there
 		}
 
 		[Test]
@@ -166,6 +194,7 @@ namespace MooGet.Specs.Core {
 			dir.Move(PathToTemp("new"));
 			Directory.Exists(PathToTemp("new")).Should(Be.True);
 			File.Exists(PathToTemp("new/FILE")).Should(Be.True);
+			Directory.Exists(PathToTemp("base/other/dir/foo")).Should(Be.False); // the last directory went away
 		}
 
 		[Test]

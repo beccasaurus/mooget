@@ -27,6 +27,7 @@ namespace MooGet {
 		public static string Name(this IDirectory dir)   { return Path.GetFileName(dir.Path); }
 		public static void   Delete(this IDirectory dir) { Directory.Delete(dir.Path); }
 
+		/// <summary>Creates this directory (if it doesn't exist)</summary>
 		public static IDirectory Create(this IDirectory dir) {
 			if (! dir.Exists())
 				Directory.CreateDirectory(dir.Path);
@@ -53,7 +54,27 @@ namespace MooGet {
 		public static IDirectory GetDir(this IDirectory dir, string path){ return dir.GetDirectory(path); }
 
 		public static IDirectory Copy(this IDirectory dir, params string[] destinationParts) {
-			return null;
+			var destination = destinationParts.Combine();
+			if (Directory.Exists(destination))
+				dir.CopyToExactPath(Path.Combine(destination, dir.Name()));
+			else
+				dir.CopyToExactPath(destination);
+			return dir;
+		}
+
+		public static string Relative(this IDirectory dir, string fullPath) {
+			return fullPath.Replace(dir.Path, "");
+		}
+
+		public static IDirectory CopyToExactPath(this IDirectory dir, string exactPath) {
+			Console.WriteLine("CopyToExactPath {0} --> {1}", dir.Path, exactPath);
+			// make the directories
+			//dir.Directories().ForEach(fullDir => Console.WriteLine("create: " + Path.Combine(exactPath, dir.Relative(fullDir.Path))));
+			dir.Dirs().ForEach(subdir => Console.WriteLine(subdir.Path));
+			// copy the files
+
+			dir.Path = exactPath;
+			return dir;
 		}
 
 		public static IDirectory Move(this IDirectory dir, params string[] destinationParts) {
@@ -71,9 +92,18 @@ namespace MooGet {
 			return dir;
 		}
 
+		/// <summary>Returns all of the files in this directory (as as list of IFile)</summary>
 		public static List<IFile> Files(this IDirectory dir) {
 			return Directory.GetFiles(dir.Path, "*", SearchOption.AllDirectories).Select(path => new RealFile(path) as IFile).ToList();
 		}
+
+		/// <summary>Returns all of the directories in this directory (as as list of IDirectory)</summary>
+		public static List<IDirectory> Directories(this IDirectory dir) {
+			return Directory.GetDirectories(dir.Path, "*", SearchOption.AllDirectories).Select(path => new RealDirectory(path) as IDirectory).ToList();
+		}
+
+		/// <summary>Shortcut for Directories()</summary>
+		public static List<IDirectory> Dirs(this IDirectory dir) { return dir.Directories(); }
 
 		public static List<IFile> Search(this IDirectory dir, string matcher) {
 			return dir.Search(matcher, true);
