@@ -77,6 +77,8 @@ namespace MooGet.Specs.Core {
 			// copy to directory (no new name)
 			file.Copy(dir_2);
 			AllFiles.ShouldEqual(new string[]{ Path.Combine(dir_1, "bar.txt"), Path.Combine(dir_1, "foo"), Path.Combine(dir_2, "foo") });
+
+			// TODO test overwrite (File.Copy(x, y, true))
 		}
 
 		[Test]

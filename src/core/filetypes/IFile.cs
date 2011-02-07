@@ -9,6 +9,14 @@ namespace MooGet {
 		string Path { get; set; }
 	}
 
+	/// <summary>Concrete implementation of IFile</summary>
+	public class RealFile : IFile {
+		public RealFile(){}
+		public RealFile(string path){ Path = path; }
+		public string Path { get; set; }
+		public override string ToString(){ return Path; }
+	}
+
 	/// <summary>The actual methods for an IFile</summary>
 	public static class IFileExtensions {
 
@@ -39,15 +47,18 @@ namespace MooGet {
 		public static IFile Move(this IFile file, params string[] destinationParts) {
 			var destination = destinationParts.Combine();
 			if (Directory.Exists(destination)) {
+				// move INTO the existing directory
 				var newPath = Path.Combine(destination, file.FileName());
 				File.Move(file.Path, newPath);
 				file.Path = newPath;
-				return file;
 			} else {
+				// move to the exact destination
 				File.Move(file.Path, destination);
 				file.Path = destination;
-				return file;
 			}
+			return file;
 		}
+
+		public static string ToString(this IFile file) { return file.Path; }
 	}
 }
