@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
@@ -20,7 +21,7 @@ namespace MooGet.Specs.Core {
 		}
 
 		[Test]
-		public void Path() {
+		public void has_Path() {
 			new Zip().Path.Should(Be.Null);
 			new Zip("/foo.nupkg").Path.ShouldEqual("/foo.nupkg");
 			new Zip { Path = "/foo.nupkg" }.Path.ShouldEqual("/foo.nupkg");
@@ -87,6 +88,34 @@ Tools/lib/nunit.uiexception.dll, Tools/lib/nunit.uikit.dll, Tools/lib/nunit.util
 			myzip.Paths.ShouldEqual(new List<string>{ "README", "lib/foo.txt", "this/is/a/deep/directory/foo.exe" });
 			myzip.Read("README").ShouldEqual("This is the README text!");
 			myzip.Read("lib/foo.txt").ShouldEqual("src\n\tForSource\n\nspec\n\tForSpecs1\n\tForSpecs2\n");
+		}
+
+		[Test]
+		public void Extract() {
+			// if extract to existing directory, extracts into it
+			var dir = PathToTemp("ExtractHere").AsDir().Create();
+			PathToTemp("ExtractHere"                                 ).AsDir().Exists().Should(Be.True);
+			PathToTemp("ExtractHere", "just-a-tool-1.0.0.0"          ).AsDir().Exists().Should(Be.False);
+			PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "tools" ).AsDir().Exists().Should(Be.False);
+
+			tool.Extract(dir.Path);
+
+			PathToTemp("ExtractHere"                                              ).AsDir().Exists().Should(Be.True);
+			PathToTemp("ExtractHere", "just-a-tool-1.0.0.0"                       ).AsDir().Exists().Should(Be.True);
+			PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "tools"              ).AsDir().Exists().Should(Be.True);
+			PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "just-a-tool.nuspec" ).AsFile().Exists().Should(Be.True);
+			PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "tools", "tool.exe"  ).AsFile().Exists().Should(Be.True);
+
+			// if extract to new directory, extract exactly there
+			PathToTemp("Exact_Dir"          ).AsDir().Exists().Should(Be.False);
+			PathToTemp("Exact_Dir", "tools" ).AsDir().Exists().Should(Be.False);
+
+			tool.Extract(PathToTemp("Exact_Dir"));
+
+			PathToTemp("Exact_Dir"                       ).AsDir().Exists().Should(Be.True);
+			PathToTemp("Exact_Dir", "tools"              ).AsDir().Exists().Should(Be.True);
+			PathToTemp("Exact_Dir", "just-a-tool.nuspec" ).AsFile().Exists().Should(Be.True);
+			PathToTemp("Exact_Dir", "tools", "tool.exe"  ).AsFile().Exists().Should(Be.True);
 		}
 	}
 }

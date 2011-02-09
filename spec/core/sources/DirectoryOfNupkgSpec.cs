@@ -34,7 +34,7 @@ namespace MooGet.Specs.Core {
 		}
 
 		[Test]
-		public void Path() {
+		public void can_set_Path() {
 			new DirectoryOfNupkg("/").Path.ShouldEqual("/");
 			new DirectoryOfNupkg { Path = "/" }.Path.ShouldEqual("/");
 		}

@@ -210,6 +210,7 @@ namespace MooGet {
 			}
 		}
 
+		// OBSOLETE ... use MooDir.Initialize now ... refactor!
 		/// <summary>"Installs" MooGet to Moo.Dir (~/.moo or specified via --moo-dir or in a .moorc file)</summary>
 		public static void InitializeMooDir() {
 			Directory.CreateDirectory(Moo.PackageDir);

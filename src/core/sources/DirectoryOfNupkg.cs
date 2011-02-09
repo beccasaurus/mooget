@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace MooGet {
 
 	/// <summary>An ISource representing a directory with .nupkg files in it (Nupkg packages)</summary>
-	public class DirectoryOfNupkg : Source, ISource {
+	public class DirectoryOfNupkg : Source, ISource, IDirectory {
 
 		public DirectoryOfNupkg() : base() {}
 		public DirectoryOfNupkg(string path) : this() {
@@ -14,7 +14,7 @@ namespace MooGet {
 		}
 
 		/// <summary>Whether or not this directory exists</summary>
-		public virtual bool Exists { get { return Directory.Exists(Path); } }
+		public virtual bool Exists { get { return this.Exists(); } }
 
 		/// <summary>Returns all of the Nupkg in this directory</summary>
 		public override List<IPackage> Packages {

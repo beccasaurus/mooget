@@ -98,6 +98,48 @@ namespace MooGet {
 			AddNew(path, File.ReadAllBytes(existingFilePath), mimeType);
 		}
 
+		/// <summary>Extracts this zip file to the target directory</summary>
+		public virtual void Extract(string targetDirectory) {
+			if (Directory.Exists(targetDirectory)) {
+				// make a subdirectory using this Zip file's name (without extension)
+				var dir = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileNameWithoutExtension(Path));
+				Directory.CreateDirectory(dir);
+				ExtractInto(dir);
+			} else {
+				// make the given directory and extract into it
+				Directory.CreateDirectory(targetDirectory);
+				ExtractInto(targetDirectory);
+			}
+		}
+
+		/// <summary>Extracts this Zip's files *into* the target directory, without making a new directory</summary>
+		public virtual void ExtractInto(string targetDirectory) {
+			using (var zip = System.IO.Packaging.Package.Open(Path, FileMode.Open, FileAccess.Read)) {
+				foreach (var part in zip.GetParts()) {
+					var path = part.Uri.OriginalString.Substring(1);
+
+					// skip these stupid files
+					if (path == "[Content_Types].xml" || path == "_rels/.rels" || path.EndsWith(".psmdcp"))
+						continue;
+
+					using (var stream = part.GetStream(FileMode.Open, FileAccess.Read)) {
+
+						// Create a path and make sure the directory for it gets created
+						var filepath = System.IO.Path.Combine(targetDirectory, path);
+						Directory.CreateDirectory(System.IO.Path.GetDirectoryName(filepath));
+
+						// Copy the part Stream into a file Stream
+						using (var file = File.OpenWrite(filepath)) {
+							var buffer = new byte[8 * 1024];
+							int len;
+							while ( (len = stream.Read(buffer, 0, buffer.Length)) > 0)
+								file.Write(buffer, 0, len);
+						}
+					}
+				}
+			}
+		}
+
 		public static List<string> GetPaths(Zip zip) { return GetPaths(zip, true); }
 		public static List<string> GetPaths(Zip zip, bool ignoreMetaFiles) {
 			var paths = new List<string>();

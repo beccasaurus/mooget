@@ -207,10 +207,10 @@ Foo/
 		}
 
 		[Test]
-		public void Source() {
-			fluent.Source.AsFiles().Select(f => f.Name()).ToList().Should(Be.Empty);
-			nunit.Source.AsFiles().Select(f => f.Name()).ToList().Should(Be.Empty);
-			foo.Source.AsFiles().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "hi.cs", "FooFile.cs" });
+		public void SourceFiles() {
+			fluent.SourceFiles.AsFiles().Select(f => f.Name()).ToList().Should(Be.Empty);
+			nunit.SourceFiles.AsFiles().Select(f => f.Name()).ToList().Should(Be.Empty);
+			foo.SourceFiles.AsFiles().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "hi.cs", "FooFile.cs" });
 		}
 	}
 }
