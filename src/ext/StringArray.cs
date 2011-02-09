@@ -14,5 +14,9 @@ namespace MooGet {
 				path = Path.Combine(path, part);
 			return Path.GetFullPath(path);
 		}
+
+		public static string Join(this string[] parts, string separator) {
+			return string.Join(separator, parts);
+		}
 	}
 }

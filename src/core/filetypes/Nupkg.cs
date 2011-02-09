@@ -17,6 +17,7 @@ namespace MooGet {
 		Nuspec _nuspec;
 		Zip _zip;
 
+		// TODO why do we need to reset the zip and spec when we change the path?  I set it when we SET it ...
 		/// <summary>The file system path to this .nupkg file</summary>
 		public virtual string Path {
 			get { return _path; }
@@ -29,7 +30,7 @@ namespace MooGet {
 		}
 
 		/// <summary>Returns whether or not this Nupkg file exists (using the Path)</summary>
-		public virtual bool Exists { get { return File.Exists(Path); } }
+		public virtual bool Exists { get { return this.Exists(); } }
 
 		/// <summary>This nupkg as a Zip file</summary>
 		public virtual Zip Zip {
