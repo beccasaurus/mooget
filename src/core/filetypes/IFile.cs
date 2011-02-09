@@ -38,9 +38,9 @@ namespace MooGet {
 		public static IFile Copy(this IFile file, params string[] destinationParts) {
 			var destination = destinationParts.Combine();
 			if (Directory.Exists(destination))
-				File.Copy(file.Path, Path.Combine(destination, file.FileName()));
+				File.Copy(file.Path, Path.Combine(destination, file.FileName()), true);
 			else
-				File.Copy(file.Path, destination);
+				File.Copy(file.Path, destination, true);
 			return file;
 		}
 

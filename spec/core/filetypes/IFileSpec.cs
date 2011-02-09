@@ -69,6 +69,7 @@ namespace MooGet.Specs.Core {
 		public void Copy() {
 			var file = Dir1File("foo").Touch();
 			AllFiles.ShouldEqual(new string[]{ Path.Combine(dir_1, "foo") });
+			using (var writer = new StreamWriter(file.Path)) writer.WriteLine("Foo Content");
 
 			// copy to new name
 			file.Copy(dir_1, "bar.txt");
@@ -78,7 +79,12 @@ namespace MooGet.Specs.Core {
 			file.Copy(dir_2);
 			AllFiles.ShouldEqual(new string[]{ Path.Combine(dir_1, "bar.txt"), Path.Combine(dir_1, "foo"), Path.Combine(dir_2, "foo") });
 
-			// TODO test overwrite (File.Copy(x, y, true))
+			// copy again (should overwrite)  ... test overwrite (File.Copy(x, y, true))
+			using (var writer = new StreamWriter(file.Path)) writer.WriteLine("Different");
+			File.ReadAllText(file.Path).ShouldEqual("Different\n");
+			File.ReadAllText(Path.Combine(dir_2, "foo")).ShouldEqual("Foo Content\n");
+			file.Copy(dir_2);
+			File.ReadAllText(Path.Combine(dir_2, "foo")).ShouldEqual("Different\n");
 		}
 
 		[Test]
