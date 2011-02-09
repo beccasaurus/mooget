@@ -112,7 +112,7 @@ namespace MooGet {
 			}
 		}
 
-		/// <summary>Extracts this Zip's files *into* the target directory, without making a new directory</summary>
+		/// <summary>Extracts this Zip's files *into* the target directory without making a new directory</summary>
 		public virtual void ExtractInto(string targetDirectory) {
 			using (var zip = System.IO.Packaging.Package.Open(Path, FileMode.Open, FileAccess.Read)) {
 				foreach (var part in zip.GetParts()) {

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 using NUnit.Framework;
 using MooGet;
 
@@ -73,28 +74,46 @@ namespace MooGet.Specs.Core {
 			fluent.Files.ShouldEqual(fluent.Zip.Paths);
 		}
 
-		[Test][Ignore]
-		public void Libraries() {
-		}
+		[Test]
+		public void Unpack() {
+			var tool = new Nupkg(PathToContent("package_working_directories/just-a-tool-1.0.0.0.nupkg"));
 
-		[Test][Ignore]
-		public void just_NET35_Libraries() {
-		}
+			// if extract to existing directory, extracts into it
+			var dir = PathToTemp("ExtractHere").AsDir().Create();
+			PathToTemp("ExtractHere"                                 ).AsDir().Exists().Should(Be.True);
+			PathToTemp("ExtractHere", "just-a-tool-1.0.0.0"          ).AsDir().Exists().Should(Be.False);
+			PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "tools" ).AsDir().Exists().Should(Be.False);
 
-		[Test][Ignore]
-		public void just_NET40_Libraries() {
-		}
+			var unpacked = tool.Unpack(dir.Path);
 
-		[Test][Ignore]
-		public void Tools() {
-		}
+			unpacked.Should(Be.InstanceOf(typeof(UnpackedPackage)));
+			unpacked.Path.ShouldEqual(PathToTemp("ExtractHere", "just-a-tool-1.0.0.0"));
+			unpacked.Id.ShouldEqual("just-a-tool");
+			unpacked.Nuspec.Path.ShouldEqual(PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "just-a-tool.nuspec"));
+			unpacked.Tools.ShouldEqual(new List<string>{ PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "tools", "tool.exe") });
 
-		[Test][Ignore]
-		public void Content() {
-		}
+			PathToTemp("ExtractHere"                                              ).AsDir().Exists().Should(Be.True);
+			PathToTemp("ExtractHere", "just-a-tool-1.0.0.0"                       ).AsDir().Exists().Should(Be.True);
+			PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "tools"              ).AsDir().Exists().Should(Be.True);
+			PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "just-a-tool.nuspec" ).AsFile().Exists().Should(Be.True);
+			PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "tools", "tool.exe"  ).AsFile().Exists().Should(Be.True);
 
-		[Test][Ignore]
-		public void SourceFiles() {
+			// if extract to new directory, extract exactly there
+			PathToTemp("Exact_Dir"          ).AsDir().Exists().Should(Be.False);
+			PathToTemp("Exact_Dir", "tools" ).AsDir().Exists().Should(Be.False);
+
+			unpacked = tool.Unpack(PathToTemp("Exact_Dir"));
+
+			unpacked.Should(Be.InstanceOf(typeof(UnpackedPackage)));
+			unpacked.Path.ShouldEqual(PathToTemp("Exact_Dir"));
+			unpacked.Id.ShouldEqual("just-a-tool");
+			unpacked.Nuspec.Path.ShouldEqual(PathToTemp("Exact_Dir", "just-a-tool.nuspec"));
+			unpacked.Tools.ShouldEqual(new List<string>{ PathToTemp("Exact_Dir", "tools", "tool.exe") });
+
+			PathToTemp("Exact_Dir"                       ).AsDir().Exists().Should(Be.True);
+			PathToTemp("Exact_Dir", "tools"              ).AsDir().Exists().Should(Be.True);
+			PathToTemp("Exact_Dir", "just-a-tool.nuspec" ).AsFile().Exists().Should(Be.True);
+			PathToTemp("Exact_Dir", "tools", "tool.exe"  ).AsFile().Exists().Should(Be.True);
 		}
 	}
 }

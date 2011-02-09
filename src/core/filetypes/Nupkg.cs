@@ -64,6 +64,26 @@ namespace MooGet {
 			set { Nuspec.Version = value; }
 		}
 
+		/// <summary>Extracts this .nupkg (as a Zip file) to the target directory, returning an UnpackedPackage representing this directory</summary>
+		public UnpackedPackage Unpack(string targetDirectory) {
+			if (Directory.Exists(targetDirectory)) {
+				// make a subdirectory using this Zip file's name (without extension)
+				var dir = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileNameWithoutExtension(Path));
+				Directory.CreateDirectory(dir);
+				return UnpackInto(dir);
+			} else {
+				// make the given directory and extract into it
+				Directory.CreateDirectory(targetDirectory);
+				return UnpackInto(targetDirectory);
+			}
+		}
+
+		/// <summary>Unpacks this Nupkg *into* the target directory without making a new directory</summary>
+		public UnpackedPackage UnpackInto(string targetDirectory) {
+			Zip.ExtractInto(targetDirectory);
+			return new UnpackedPackage(targetDirectory);
+		}
+
 		#region Private
 		string NuspecXml {
 			get {
