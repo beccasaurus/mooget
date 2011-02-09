@@ -163,8 +163,6 @@ namespace MooGet.Specs.Core {
 
 		[Test]
 		public void Push() {
-			Assert.Fail("Need to do Zip.ExtractTo() first");
-
 			dir.Packages.Should(Be.Empty);
 
 			var pkg = dir.Push(new Nupkg(PathToContent("packages/MarkdownSharp.1.13.0.0.nupkg")));
@@ -178,15 +176,15 @@ namespace MooGet.Specs.Core {
 
 			dir.Packages.Count.ShouldEqual(1);
 			dir.Packages.First().Id.ShouldEqual("MarkdownSharp");
+			dir.BinDirectory.AsDir().Files().Count.ShouldEqual(0);
 
-			/*
 			dir.Push(new Nupkg(PathToContent("package_working_directories/just-a-tool-1.0.0.0.nupkg")));
 
 			dir.Packages.Count.ShouldEqual(2);
 			dir.Packages.Ids().ShouldEqual(new List<string>{ "MarkdownSharp", "just-a-tool" });
 
-			TODO after installing just-a-tool, files should show up in the BinDirectory !!!!!  a .bat file and a bash script
-			*/
+			dir.BinDirectory.AsDir().Files().Count.ShouldEqual(2); // tool.exe should have a 'tool' script and a 'tool.bat' script
+			dir.BinDirectory.AsDir().Files().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "tool", "tool.bat" });
 		}
 
 		// [Test][Ignore]

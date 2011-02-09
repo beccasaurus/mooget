@@ -15,6 +15,7 @@ namespace MooGet.Specs.Core {
 	   
 		[SetUp]
 		public void Before() {
+			base.BeforeEach();
 			markdown = new Zip(PathToContent("packages/MarkdownSharp.1.13.0.0.nupkg"));
 			nunit    = new Zip(PathToContent("packages/NUnit.2.5.7.10213.nupkg"));
 			tool     = new Zip(PathToContent("package_working_directories/just-a-tool-1.0.0.0.nupkg"));

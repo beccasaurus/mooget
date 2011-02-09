@@ -34,7 +34,7 @@ namespace MooGet {
 		
 		public override IPackage Push(Nupkg nupkg) {
 			if (Exists && nupkg.Exists())
-				nupkg.Copy(Path);
+				nupkg.Copy(System.IO.Path.Combine(Path, nupkg.IdAndVersion() + ".nupkg"));
 			return Get(nupkg.ToPackageDependency());
 		}
 		

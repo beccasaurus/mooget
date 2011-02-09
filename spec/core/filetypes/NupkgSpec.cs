@@ -15,6 +15,7 @@ namespace MooGet.Specs.Core {
 
 		[SetUp]
 		public void Before() {
+			base.BeforeEach();
 			nunit  = new Nupkg(PathToContent("packages/NUnit.2.5.7.10213.nupkg"));
 			fluent = new Nupkg(PathToContent("packages/FluentNHibernate.1.1.0.694.nupkg"));
 		}
@@ -114,6 +115,11 @@ namespace MooGet.Specs.Core {
 			PathToTemp("Exact_Dir", "tools"              ).AsDir().Exists().Should(Be.True);
 			PathToTemp("Exact_Dir", "just-a-tool.nuspec" ).AsFile().Exists().Should(Be.True);
 			PathToTemp("Exact_Dir", "tools", "tool.exe"  ).AsFile().Exists().Should(Be.True);
+
+			// it should name the directory using the package id and version, not the name of the .nupkg file ...
+			PathToTemp("MarkdownSharp-1.13.0.0").AsDir().Exists().Should(Be.False);
+			new Nupkg(PathToContent("packages/unnamed.nupkg")).Unpack(PathToTemp(""));
+			PathToTemp("MarkdownSharp-1.13.0.0").AsDir().Exists().Should(Be.True);
 		}
 	}
 }

@@ -138,7 +138,7 @@ namespace MooGet.Specs.Core {
 			var pkg = dir.Push(new Nupkg(PathToContent("packages/MarkdownSharp.1.13.0.0.nupkg")));
 			pkg.Should(Be.InstanceOf(typeof(Nupkg)));
 			pkg.Id.ShouldEqual("MarkdownSharp");
-			(pkg as Nupkg).Path.ShouldEqual(System.IO.Path.Combine(dir.Path, "MarkdownSharp.1.13.0.0.nupkg"));
+			(pkg as Nupkg).Path.ShouldEqual(System.IO.Path.Combine(dir.Path, "MarkdownSharp-1.13.0.0.nupkg"));
 
 			dir.Packages.Count.ShouldEqual(1);
 			dir.Packages.First().Id.ShouldEqual("MarkdownSharp");

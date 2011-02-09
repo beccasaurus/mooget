@@ -38,14 +38,21 @@ namespace MooGet {
 		public override Nupkg Fetch(PackageDependency dependency, string directory){ return null; }
 
 		public override IPackage Push(Nupkg nupkg){
-			return null;
-
 			// Install it to our cache
 			var cached = Cache.Push(nupkg) as Nupkg;
 			
 			// Unzip to our packages
+			var unpacked = cached.Unpack(PackageDirectory);
+
+			var package = Get(unpacked.ToPackageDependency()) as MooDirPackage;
+
+			// If this package has tool and this is the highest version of this package, install its tools
+			if (unpacked.Tools.Count > 0)
+				if (this.HighestVersionAvailableOf(package.Id) == package.Version)
+					SetupBinariesFor(package);
 			
 			// Return our MooDirPackage
+			return package;
 		}
 		
 		public override bool Yank(PackageDependency dependency){ return false; }
@@ -53,5 +60,43 @@ namespace MooGet {
 		public override IPackage Install(PackageDependency dependency, params ISource[] sourcesForDependencies){ return null; }
 		
 		public override bool Uninstall(PackageDependency dependency, bool uninstallDependencies){ return false; }
+
+		public virtual void SetupBinariesFor(MooDirPackage package) {
+			foreach (var exe in package.Tools) {
+				SetupUnixShellScriptForTool(exe,    BinDirectory);
+				SetupWindowsBatchScriptForTool(exe, BinDirectory);
+			}
+		}
+
+		public virtual void SetupUnixShellScriptForTool(string exePath, string binDirectory) {
+			var name = System.IO.Path.GetFileNameWithoutExtension(exePath);
+			var path = System.IO.Path.Combine(binDirectory, name);
+
+			// #! /bin/bash
+			// "/home/user/.moo/packages/Foo-1.2-3/tools/MyTool.exe" "$@"
+			var script = string.Format("#! /bin/sh\n\"{0}\" \"$@\"", exePath.Replace(" ", "\\ "));
+
+			using (var writer = new StreamWriter(path)) writer.Write(script);
+		}
+
+		public virtual void SetupWindowsBatchScriptForTool(string exePath, string binDirectory) {
+			var name = System.IO.Path.GetFileNameWithoutExtension(exePath);
+			var path = System.IO.Path.Combine(binDirectory, name + ".bat");
+
+			// @ECHO OFF
+			// IF NOT "%~f0" == "~f0" GOTO :WinNT
+			// @"C:/Users/rtaylor/.moo/packages/Foo-1.2-3/tools/MyTool.exe" %1 %2 %3 %4 %5 %6 %7 %8 %9
+			// GOTO :EOF
+			// :WinNT
+			// @"C:/Users/rtaylor/.moo/packages/Foo-1.2-3/tools/MyTool.exe" %*
+			var script = string.Format(@"@ECHO OFF
+IF NOT ""%~f0"" == ""~f0"" GOTO :WinNT
+@""{0}"" %1 %2 %3 %4 %5 %6 %7 %8 %9
+GOTO :EOF
+:WinNT
+@""{0}"" %*", path);	
+
+			using (var writer = new StreamWriter(path)) writer.Write(script);
+		}
 	}
 }

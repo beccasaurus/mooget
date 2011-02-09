@@ -68,7 +68,7 @@ namespace MooGet {
 		public UnpackedPackage Unpack(string targetDirectory) {
 			if (Directory.Exists(targetDirectory)) {
 				// make a subdirectory using this Zip file's name (without extension)
-				var dir = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileNameWithoutExtension(Path));
+				var dir = System.IO.Path.Combine(targetDirectory, this.IdAndVersion());
 				Directory.CreateDirectory(dir);
 				return UnpackInto(dir);
 			} else {
