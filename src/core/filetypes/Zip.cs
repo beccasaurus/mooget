@@ -98,6 +98,21 @@ namespace MooGet {
 			AddNew(path, File.ReadAllBytes(existingFilePath), mimeType);
 		}
 
+		/// <summary>Adds every file in the given directory to the root of this archive</summary>
+		public virtual void AddExistingDirectory(string existingDirectory) {
+			AddExistingDirectory("", existingDirectory);
+		}
+
+		/// <summary>Adds every file in the given directory to this archive inside of the given path</summary>
+		public virtual void AddExistingDirectory(string path, string existingDirectory) {
+			foreach (var filePath in existingDirectory.AsDir().Files().Paths()) {
+				var relative = filePath.Replace(existingDirectory, "").TrimStart('/');
+				if (! IsMetaFile(relative)) {
+					AddExisting(relative, filePath);
+				}
+			}
+		}
+
 		/// <summary>Extracts this zip file to the target directory</summary>
 		public virtual void Extract(string targetDirectory) {
 			if (Directory.Exists(targetDirectory)) {
@@ -160,12 +175,25 @@ namespace MooGet {
 		public static List<string> RemoveMetaFiles(List<string> paths) {
 			var clean = new List<string>();
 			foreach (var path in paths) {
-				if (path == "_rels/.rels") continue;
-				if (path == "[Content_Types].xml") continue;
-				if (path.StartsWith("package/services/metadata/core-properties") && path.EndsWith(".psmdcp")) continue;
+				if (IsMetaFile(path)) continue;
 				clean.Add(path);
 			}
 			return clean;
+		}
+
+        /// <summary>Returns whether or not the given path is for one of the meta files that Systen.IO.Packaging Packages have</summary>
+        public static bool IsMetaFile(string path) {
+			if (path == "_rels/.rels") return true;
+			if (path == "[Content_Types].xml") return true;
+			if (path.StartsWith("package/services/metadata/core-properties") && path.EndsWith(".psmdcp")) return true;
+			return false;
+        }  
+
+		/// <summary>Zips up the given directory into a Zip file, returning the Zip instance represeting the created file.</summary>
+		public static Zip Archive(string directory, string zipFileName) {
+			var zip = new Zip(zipFileName);
+			zip.AddExistingDirectory(directory);
+			return zip;
 		}
 	}
 }

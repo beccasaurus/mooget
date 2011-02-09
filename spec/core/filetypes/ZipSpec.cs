@@ -118,5 +118,17 @@ Tools/lib/nunit.uiexception.dll, Tools/lib/nunit.uikit.dll, Tools/lib/nunit.util
 			PathToTemp("Exact_Dir", "just-a-tool.nuspec" ).AsFile().Exists().Should(Be.True);
 			PathToTemp("Exact_Dir", "tools", "tool.exe"  ).AsFile().Exists().Should(Be.True);
 		}
+
+		[Test]
+		public void Archive() {
+			PathToTemp("foo.zip").AsFile().Exists().Should(Be.False);
+
+			var zip = Zip.Archive(PathToContent("packages", "MarkdownSharp.1.13.0.0"), PathToTemp("foo.zip"));
+
+			PathToTemp("foo.zip").AsFile().Exists().Should(Be.True);
+			zip.Path.ShouldEqual(PathToTemp("foo.zip"));
+
+			zip.Paths.ShouldEqual(new List<string>{ "MarkdownSharp.nuspec", "lib/35/MarkdownSharp.dll", "lib/35/MarkdownSharp.pdb", "lib/35/MarkdownSharp.xml" });
+		}
 	}
 }

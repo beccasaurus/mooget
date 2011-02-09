@@ -38,5 +38,10 @@ namespace MooGet {
 				return _nupkg;
 			}
 		}
+
+		/// <summary>Creates a Nupkg (if it doesn't already exist) from this MooDirPackage's UnpackedPackage and saves it to the CacheDirectory</summary>
+		public virtual Nupkg CreateNupkg() {
+			return base.CreateNupkg(MooDir.CacheDirectory);
+		}
 	}
 }

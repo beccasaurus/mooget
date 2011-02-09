@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace MooGet {
 
@@ -25,6 +26,6 @@ namespace MooGet {
 
 		public virtual PackageDetails Details { get; set; }
 
-		public virtual string[] Files { get; set; }
+		public virtual List<string> Files { get; set; }
 	}
 }

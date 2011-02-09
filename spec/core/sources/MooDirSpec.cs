@@ -143,23 +143,19 @@ namespace MooGet.Specs.Core {
 		// 	matches.First().IdAndVersion().ShouldEqual("NuGet.CommandLine-1.1.2120.134");
 		// }
 
-		// [Test][Ignore]
-		// public void Fetch() {
-		// 	dir.Push(new Nupkg(PathToContent("package_working_directories/just-a-tool-1.0.0.0.nupkg")));
-		// 	Directory.CreateDirectory(PathToTemp("mydir"));
-		// 	var mydir = new MooDir(PathToTemp("mydir"));
+		[Test]
+		public void Fetch() {
+			dir.Push(new Nupkg(PathToContent("package_working_directories/just-a-tool-1.0.0.0.nupkg")));
+			dir.Packages.Count.ShouldEqual(1);
 
-		// 	dir.Packages.Count.ShouldEqual(1);
-		// 	mydir.Packages.Count.ShouldEqual(0);
+			Directory.CreateDirectory(PathToTemp("nupkgs"));
+			PathToTemp("nupkgs", "just-a-tool-1.0.0.0.nupkg").AsFile().Exists().Should(Be.False);
 
-		// 	dir.Fetch(new PackageDependency("NoExist"), mydir.Path).Should(Be.Null);
-		// 	mydir.Packages.Count.ShouldEqual(0);
+			var nupkg = dir.Fetch(new PackageDependency("just-a-tool"), PathToTemp("nupkgs"));
 
-		// 	dir.Fetch(new PackageDependency("just-a-tool"), mydir.Path).Id.ShouldEqual("just-a-tool");
-		// 	mydir.Packages.Count.ShouldEqual(1);
-		// 	mydir.Packages.First().Id.ShouldEqual("just-a-tool");
-		// 	(mydir.Packages.First() as Nupkg).Path.ShouldEqual(System.IO.Path.Combine(PathToTemp("mydir"), "just-a-tool-1.0.0.0.nupkg"));
-		// }
+			nupkg.Path.ShouldEqual(PathToTemp("nupkgs", "just-a-tool-1.0.0.0.nupkg"));
+			PathToTemp("nupkgs", "just-a-tool-1.0.0.0.nupkg").AsFile().Exists().Should(Be.True);
+		}
 
 		[Test]
 		public void Push() {

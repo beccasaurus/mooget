@@ -212,5 +212,17 @@ Foo/
 			nunit.SourceFiles.AsFiles().Select(f => f.Name()).ToList().Should(Be.Empty);
 			foo.SourceFiles.AsFiles().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "hi.cs", "FooFile.cs" });
 		}
+
+		[Test]
+		public void CreateNupkg() {
+			PathToTemp("MarkdownSharp.1.13.0.0.nupkg").AsFile().Exists().Should(Be.False);
+
+			var unpacked = new UnpackedPackage(PathToContent("packages", "MarkdownSharp.1.13.0.0"));
+			var nupkg    = unpacked.CreateNupkg(PathToTemp(""));
+
+			nupkg.Path.ShouldEqual(PathToTemp("MarkdownSharp-1.13.0.0.nupkg"));
+			PathToTemp("MarkdownSharp-1.13.0.0.nupkg").AsFile().Exists().Should(Be.True);
+			nupkg.Files.ShouldEqual(new List<string>{ "MarkdownSharp.nuspec", "lib/35/MarkdownSharp.dll", "lib/35/MarkdownSharp.pdb", "lib/35/MarkdownSharp.xml" });
+		}
 	}
 }

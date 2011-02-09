@@ -35,7 +35,7 @@ namespace MooGet {
 		public virtual ISource Source { get { return (Package == null) ? null : Package.Source; } }
 
 		/// <summary>Delegated to the Nuspec.Package.Files, if present</summary>
-		public virtual string[] Files { get { return (Package == null) ? null : Package.Files; } }
+		public virtual List<string> Files { get { return (Package == null) ? null : Package.Files; } }
 
 		/// <summary>Implementation of IPackage.Details.  Delegates to this Nuspec instance.</summary>
 		public virtual PackageDetails Details { get { return this; } }

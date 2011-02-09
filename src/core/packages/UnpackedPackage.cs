@@ -98,6 +98,20 @@ namespace MooGet {
 		/// <summary>Returns ALL source files for this package.  Everythign that's in this package's src directory (if anything).</summary>
 		public virtual List<string> SourceFiles { get { return (SourceDirectory == null) ? new List<string>() : SourceDirectory.AsDir().Files().Paths(); } }
 
+		/// <summary>Creates a .nupkg file from this UnpackedPackage directory and saves it to the given directory or filename</summary>
+		public virtual Nupkg CreateNupkg(string directoryOrFilename) {
+			if (Directory.Exists(directoryOrFilename))
+				return CreateNupkgFile(System.IO.Path.Combine(directoryOrFilename, this.IdAndVersion() + ".nupkg"));
+			else
+				return CreateNupkgFile(directoryOrFilename);
+		}
+
+		/// <summary>Creates a .nupkg file from this UnpackedPackage and saves it to the exact filename that is passed in</summary>
+		public virtual Nupkg CreateNupkgFile(string filename) {
+			var zip = Zip.Archive(Path, filename);
+			return new Nupkg(zip.Path);
+		}
+
 		#region Private
 		string RootCaseInsensitiveDir(string name) {
 			return this.SubDirs().FirstOrDefault(dir => dir.Name().ToLower() == name.ToLower()).Path();

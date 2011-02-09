@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace MooGet {
 
@@ -18,6 +19,6 @@ namespace MooGet {
 		PackageDetails Details { get; }
 
 		/// <summary>A list of all of the files contained in this package (if available).</summary>
-		string[] Files { get; }
+		List<string> Files { get; }
 	}
 }

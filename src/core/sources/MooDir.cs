@@ -35,7 +35,16 @@ namespace MooGet {
 			get { return PackageDirectory.AsDir().SubDirs().Select(dir => new MooDirPackage(dir.Path, this) as IPackage).ToList(); }
 		}
 
-		public override Nupkg Fetch(PackageDependency dependency, string directory){ return null; }
+		public override Nupkg Fetch(PackageDependency dependency, string directory){
+			var package = Get(dependency) as MooDirPackage;
+			if (package == null) throw new PackageNotFoundException(dependency);
+
+			var nupkg = package.Nupkg;
+			if (nupkg == null) nupkg = package.CreateNupkg();
+
+			var newFile = nupkg.Copy(directory);
+			return new Nupkg(newFile.Path);
+		}
 
 		public override IPackage Push(Nupkg nupkg){
 			// Install it to our cache
