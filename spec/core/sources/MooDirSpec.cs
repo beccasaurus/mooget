@@ -183,21 +183,36 @@ namespace MooGet.Specs.Core {
 			dir.BinDirectory.AsDir().Files().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "tool", "tool.bat" });
 		}
 
-		// [Test][Ignore]
-		// public void Yank() {
-		// 	dir.Push(new Nupkg(PathToContent("package_working_directories/just-a-tool-1.0.0.0.nupkg")));
-		// 	dir.Push(new Nupkg(PathToContent("packages/MarkdownSharp.1.13.0.0.nupkg")));
-		// 	dir.Packages.Ids().ShouldEqual(new List<string>{ "MarkdownSharp", "just-a-tool" });
+		[Test]
+		public void Yank() {
+			dir.Packages.Count.ShouldEqual(0);
+			dir.Cache.Packages.Count.ShouldEqual(0);
+			dir.BinDirectory.AsDir().Files().Count.ShouldEqual(0);
 
-		// 	dir.Yank(new PackageDependency("DontExist")).ShouldBeFalse();
-		// 	dir.Packages.Ids().ShouldEqual(new List<string>{ "MarkdownSharp", "just-a-tool" });
+			dir.Push(new Nupkg(PathToContent("package_working_directories/just-a-tool-1.0.0.0.nupkg")));
+			dir.Push(new Nupkg(PathToContent("packages/MarkdownSharp.1.13.0.0.nupkg")));
+			dir.Packages.Ids().ShouldEqual(new List<string>{ "MarkdownSharp", "just-a-tool" });
+			dir.Packages.Count.ShouldEqual(2);
+			dir.Cache.Packages.Count.ShouldEqual(2);
+			dir.BinDirectory.AsDir().Files().Count.ShouldEqual(2); // tool.exe should have a 'tool' script and a 'tool.bat' script
 
-		// 	dir.Yank(new PackageDependency("MarkdownSharp")).ShouldBeTrue();
-		// 	dir.Packages.Ids().ShouldEqual(new List<string>{ "just-a-tool" });
+			dir.Yank(new PackageDependency("DontExist")).ShouldBeFalse();
+			dir.Packages.Ids().ShouldEqual(new List<string>{ "MarkdownSharp", "just-a-tool" });
+			dir.Packages.Count.ShouldEqual(2);
+			dir.Cache.Packages.Count.ShouldEqual(2);
 
-		// 	dir.Yank(new PackageDependency("just-a-tool")).ShouldBeTrue();
-		// 	dir.Packages.Should(Be.Empty);
-		// }
+			dir.Yank(new PackageDependency("MarkdownSharp")).ShouldBeTrue();
+			dir.Packages.Ids().ShouldEqual(new List<string>{ "just-a-tool" });
+			dir.Packages.Count.ShouldEqual(1);
+			dir.Cache.Packages.Count.ShouldEqual(2); // we keep the cache
+			dir.BinDirectory.AsDir().Files().Count.ShouldEqual(2); // tool.exe binaries should still be there
+
+			dir.Yank(new PackageDependency("just-a-tool")).ShouldBeTrue();
+			dir.Packages.Should(Be.Empty);
+			dir.Packages.Count.ShouldEqual(0);
+			dir.Cache.Packages.Count.ShouldEqual(2); // we keep the cache
+			dir.BinDirectory.AsDir().Files().Count.ShouldEqual(0); // tool.exe binaries should have been removed when we yanked just-a-tool
+		}
 
 		// [Test][Ignore]
 		// public void Install() {

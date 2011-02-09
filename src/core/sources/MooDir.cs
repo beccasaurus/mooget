@@ -64,7 +64,21 @@ namespace MooGet {
 			return package;
 		}
 		
-		public override bool Yank(PackageDependency dependency){ return false; }
+		public override bool Yank(PackageDependency dependency){
+			var package = Get(dependency) as MooDirPackage;
+			if (package == null) return false;
+			var unpacked = package.Unpacked;
+
+			// If this has tools and was the highest version of this package, delete the tools
+			if (unpacked.Tools.Count > 0)
+				if (this.HighestVersionAvailableOf(package.Id) == package.Version)
+					DeleteBinariesFor(package);
+
+			// Delete our UnpackedPackage directory
+			unpacked.Delete();
+
+			return true;
+		}
 		
 		public override IPackage Install(PackageDependency dependency, params ISource[] sourcesForDependencies){ return null; }
 		
@@ -106,6 +120,16 @@ GOTO :EOF
 @""{0}"" %*", path);	
 
 			using (var writer = new StreamWriter(path)) writer.Write(script);
+		}
+
+		public virtual void DeleteBinariesFor(MooDirPackage package) {
+			foreach (var exe in package.Tools) {
+				var name = System.IO.Path.GetFileNameWithoutExtension(exe);
+				var unix = System.IO.Path.Combine(BinDirectory, name);
+				var bat  = System.IO.Path.Combine(BinDirectory, name + ".bat");
+				unix.AsFile().Delete();
+				bat.AsFile().Delete();
+			}
 		}
 	}
 }

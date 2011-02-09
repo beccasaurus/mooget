@@ -30,7 +30,7 @@ namespace MooGet {
 
 		public static bool   Exists(this IDirectory dir) { return Directory.Exists(dir.Path); }
 		public static string Name(this IDirectory dir)   { return System.IO.Path.GetFileName(dir.Path); }
-		public static void   Delete(this IDirectory dir) { Directory.Delete(dir.Path); }
+		public static void   Delete(this IDirectory dir) { Directory.Delete(dir.Path, true); }
 
 		/// <summary>Creates this directory (if it doesn't exist)</summary>
 		public static IDirectory Create(this IDirectory dir) {
