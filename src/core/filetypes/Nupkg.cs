@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace MooGet {
 
@@ -41,7 +42,7 @@ namespace MooGet {
 		}
 
 		/// <summary>All of the files in this nupkg file (as a Zip file)</summary>
-		public string[] Files { get { return Zip.Paths.ToArray(); } }
+		public List<string> Files { get { return Zip.Paths; } }
 
 		/// <summary>This package's Nuspec, read out of the .nupkg zip file</summary>
 		public virtual Nuspec Nuspec {

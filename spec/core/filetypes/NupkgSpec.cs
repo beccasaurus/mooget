@@ -69,9 +69,8 @@ namespace MooGet.Specs.Core {
 
 		[Test]
 		public void Files() {
-			// simply delegates to Zip.Paths (as a string[])
-			nunit.Files.ShouldEqual(nunit.Zip.Paths.ToArray());
-			fluent.Files.ShouldEqual(fluent.Zip.Paths.ToArray());
+			nunit.Files.ShouldEqual(nunit.Zip.Paths);
+			fluent.Files.ShouldEqual(fluent.Zip.Paths);
 		}
 
 		[Test][Ignore]

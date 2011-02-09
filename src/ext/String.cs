@@ -18,5 +18,15 @@ namespace MooGet {
 			if (self == null) return new List<string>();
 			return self.ToList(separator).Select(str => str.Trim()).ToList();
 		}
+
+		/// <summary>Assuming that this string represents the path to a file, returns an IFile</summary>
+		public static IFile AsFile(this string self) {
+			return new RealFile(self);
+		}
+
+		/// <summary>Assuming that this string represents the path to a directory, returns an IDirectory</summary>
+		public static IDirectory AsDir(this string self) {
+			return new RealDirectory(self);
+		}
 	}
 }

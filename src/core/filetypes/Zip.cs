@@ -38,7 +38,7 @@ namespace MooGet {
 		/// </remarks>
 		public virtual List<string> Search(string matcher, bool ignoreCase) {
 			// We have to initially substitude ** out for something besides a single * because then we replace single *'s.
-			matcher   = "^" + matcher.Replace("\\", "/").Replace("**", ".REAL_REGEX_STAR").Replace("*", @"[^\/]+").Replace("REAL_REGEX_STAR", "*") + "$";
+			matcher   = "^" + matcher.Replace("\\", "/").Replace(".", "\\.").Replace("**", ".REAL_REGEX_STAR").Replace("*", @"[^\/]+").Replace("REAL_REGEX_STAR", "*") + "$";
 			var regex = ignoreCase ? new Regex(matcher, RegexOptions.IgnoreCase) : new Regex(matcher);
 			return Search(regex);
 		}

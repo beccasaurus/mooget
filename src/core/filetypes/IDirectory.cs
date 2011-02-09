@@ -23,8 +23,13 @@ namespace MooGet {
 	/// <summary>The actual methods for an IDirectory</summary>
 	public static class IDirectoryExtensions {
 
+		/// <summary>returns the IDirectory.Path, if it exists, else null</summary>
+		public static string Path(this IDirectory dir) {
+			return (dir == null) ? null : dir.Path;
+		}
+
 		public static bool   Exists(this IDirectory dir) { return Directory.Exists(dir.Path); }
-		public static string Name(this IDirectory dir)   { return Path.GetFileName(dir.Path); }
+		public static string Name(this IDirectory dir)   { return System.IO.Path.GetFileName(dir.Path); }
 		public static void   Delete(this IDirectory dir) { Directory.Delete(dir.Path); }
 
 		/// <summary>Creates this directory (if it doesn't exist)</summary>
@@ -39,7 +44,7 @@ namespace MooGet {
 		/// It might not exist, but we don't return null!
 		/// </summary>
 		public static IFile GetFile(this IDirectory dir, string path) {
-			return new RealFile(Path.Combine(dir.Path, path));
+			return new RealFile(System.IO.Path.Combine(dir.Path, path));
 		}
 
 		/// <summary>
@@ -47,7 +52,7 @@ namespace MooGet {
 		/// It might not exist, but we don't return null!
 		/// </summary>
 		public static IDirectory GetDirectory(this IDirectory dir, string path) {
-			return new RealDirectory(Path.Combine(dir.Path, path));
+			return new RealDirectory(System.IO.Path.Combine(dir.Path, path));
 		}
 
 		/// <summary>Shortcut to GetDirectory</summary>
@@ -56,7 +61,7 @@ namespace MooGet {
 		public static IDirectory Copy(this IDirectory dir, params string[] destinationParts) {
 			var destination = destinationParts.Combine();
 			if (Directory.Exists(destination))
-				dir.CopyToExactPath(Path.Combine(destination, dir.Name()));
+				dir.CopyToExactPath(System.IO.Path.Combine(destination, dir.Name()));
 			else
 				dir.CopyToExactPath(destination);
 			return dir;
@@ -67,8 +72,8 @@ namespace MooGet {
 		}
 
 		public static IDirectory CopyToExactPath(this IDirectory dir, string exactPath) {
-			dir.Dirs().ForEach(fullDir => Directory.CreateDirectory(Path.Combine(exactPath, dir.Relative(fullDir.Path).TrimStart('/'))));
-			dir.Files().ForEach(file => file.Copy(Path.Combine(exactPath, dir.Relative(file.Path).TrimStart('/'))));
+			dir.Dirs().ForEach(fullDir => Directory.CreateDirectory(System.IO.Path.Combine(exactPath, dir.Relative(fullDir.Path).TrimStart('/'))));
+			dir.Files().ForEach(file => file.Copy(System.IO.Path.Combine(exactPath, dir.Relative(file.Path).TrimStart('/'))));
 			dir.Path = exactPath;
 			return dir;
 		}
@@ -77,7 +82,7 @@ namespace MooGet {
 			var destination = destinationParts.Combine();
 			if (Directory.Exists(destination)) {
 				// move INTO the existing directory
-				var newPath = Path.Combine(destination, dir.Name());
+				var newPath = System.IO.Path.Combine(destination, dir.Name());
 				Directory.Move(dir.Path, newPath);
 				dir.Path = newPath;
 			} else {
@@ -93,9 +98,17 @@ namespace MooGet {
 			return Directory.GetFiles(dir.Path, "*", SearchOption.AllDirectories).Select(path => new RealFile(path) as IFile).ToList();
 		}
 
+		/// <summary>Returns just the top level of subdirectories in this directory.  See Directories() to get *all* subdirectories</summary>
+		public static List<IDirectory> SubDirectories(this IDirectory dir) {
+			return Directory.GetDirectories(dir.Path).Select(path => path.AsDir()).ToList();
+		}
+
+		/// <summary>Alias for IDirectory.SubDirectories()</summary>
+		public static List<IDirectory> SubDirs(this IDirectory dir) { return dir.SubDirectories(); }
+
 		/// <summary>Returns all of the directories in this directory (as as list of IDirectory)</summary>
 		public static List<IDirectory> Directories(this IDirectory dir) {
-			return Directory.GetDirectories(dir.Path, "*", SearchOption.AllDirectories).Select(path => new RealDirectory(path) as IDirectory).ToList();
+			return Directory.GetDirectories(dir.Path, "*", SearchOption.AllDirectories).Select(path => path.AsDir()).ToList();
 		}
 
 		/// <summary>Shortcut for Directories()</summary>
@@ -107,7 +120,7 @@ namespace MooGet {
 
 		public static List<IFile> Search(this IDirectory dir, string matcher, bool ignoreCase) {
 			// We have to initially substitude ** out for something besides a single * because then we replace single *'s.
-			matcher   = "^" + matcher.Replace("\\", "/").Replace("**", ".REAL_REGEX_STAR").Replace("*", @"[^\/]+").Replace("REAL_REGEX_STAR", "*") + "$";
+			matcher   = "^" + matcher.Replace("\\", "/").Replace(".", "\\.").Replace("**", ".REAL_REGEX_STAR").Replace("*", @"[^\/]+").Replace("REAL_REGEX_STAR", "*") + "$";
 			var regex = ignoreCase ? new Regex(matcher, RegexOptions.IgnoreCase) : new Regex(matcher);
 			return dir.Search(regex);
 		}
@@ -120,5 +133,11 @@ namespace MooGet {
 		}
 
 		public static string ToString(this IDirectory dir) { return dir.Path; }
+	}
+
+	public static class ListOfIDirectoryExtensions {
+		public static List<string> Paths(this List<IDirectory> dirs) {
+			return dirs.Select(dir => dir.Path).ToList();
+		}
 	}
 }

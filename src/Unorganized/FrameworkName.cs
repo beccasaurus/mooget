@@ -52,5 +52,23 @@ namespace MooGet {
 			var match = Regex.Match(name.Replace(".", "").Replace(" ", "").ToLower(), @"^([a-z]*)([0-9]*)$");
 			return new FrameworkName(match.Groups[1].Value, match.Groups[2].Value);
 		}
+
+		public override string ToString() {
+			return FullName;
+		}
+
+		public static bool operator != (FrameworkName a, FrameworkName b) { return (a == b) == false; }
+		public static bool operator == (FrameworkName a, FrameworkName b) {
+			if ((object) b == null)
+				return ((object) a == null);
+			else
+				return a.Equals(b);
+		}
+
+        public override bool Equals(object o) {
+            if (o == null || o.GetType() != GetType()) return false;
+    
+            return (o as FrameworkName).FullName == FullName;
+        }
 	}
 }

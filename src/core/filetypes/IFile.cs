@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace MooGet {
 
@@ -20,9 +22,15 @@ namespace MooGet {
 	/// <summary>The actual methods for an IFile</summary>
 	public static class IFileExtensions {
 
+		/// <summary>returns the IFile.Path, if it exists, else null</summary>
+		public static string Path(this IFile file) {
+			return (file == null) ? null : file.Path;
+		}
+
 		public static bool   Exists(this IFile file)        { return File.Exists(file.Path); }
-		public static string FileName(this IFile file)      { return Path.GetFileName(file.Path); }
-		public static string DirectoryName(this IFile file) { return Path.GetDirectoryName(file.Path); }
+		public static string Name(this IFile file)          { return file.FileName(); }
+		public static string FileName(this IFile file)      { return System.IO.Path.GetFileName(file.Path); }
+		public static string DirectoryName(this IFile file) { return System.IO.Path.GetDirectoryName(file.Path); }
 		public static string DirName(this IFile file)       { return file.DirectoryName(); }
 		public static void   Delete(this IFile file)        { File.Delete(file.Path); }
 
@@ -38,7 +46,7 @@ namespace MooGet {
 		public static IFile Copy(this IFile file, params string[] destinationParts) {
 			var destination = destinationParts.Combine();
 			if (Directory.Exists(destination))
-				File.Copy(file.Path, Path.Combine(destination, file.FileName()), true);
+				File.Copy(file.Path, System.IO.Path.Combine(destination, file.FileName()), true);
 			else
 				File.Copy(file.Path, destination, true);
 			return file;
@@ -48,7 +56,7 @@ namespace MooGet {
 			var destination = destinationParts.Combine();
 			if (Directory.Exists(destination)) {
 				// move INTO the existing directory
-				var newPath = Path.Combine(destination, file.FileName());
+				var newPath = System.IO.Path.Combine(destination, file.FileName());
 				File.Move(file.Path, newPath);
 				file.Path = newPath;
 			} else {
@@ -60,5 +68,11 @@ namespace MooGet {
 		}
 
 		public static string ToString(this IFile file) { return file.Path; }
+	}
+
+	public static class ListOfIFileExtensions {
+		public static List<string> Paths(this List<IFile> files) {
+			return files.Select(file => file.Path).ToList();
+		}
 	}
 }
