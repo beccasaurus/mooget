@@ -16,8 +16,6 @@ namespace MooGet {
 		public abstract Nupkg          Fetch(PackageDependency dependency, string directory);
 		public abstract IPackage       Push(Nupkg nupkg);
 		public abstract bool           Yank(PackageDependency dependency);
-		public abstract IPackage       Install(PackageDependency dependency, params ISource[] sourcesForDependencies);
-		public abstract bool           Uninstall(PackageDependency dependency, bool uninstallDependencies);
 		public abstract List<IPackage> Packages { get; }
 		#endregion
 
@@ -41,6 +39,40 @@ namespace MooGet {
 		public virtual List<IPackage> GetPackagesWithIdStartingWith(string query) {
 			query = query.ToLower();
 			return Packages.Where(pkg => pkg.Id.ToLower().StartsWith(query)).ToList();
+		}
+
+		/// <summary>Thanks to Push(), it makes sense to have a base implementation of Install()</summary>
+		public virtual IPackage Install(PackageDependency dependency, params ISource[] sourcesForDependencies) {
+			Console.WriteLine("{0}.Install({1})", this, dependency);
+
+			var latestPackage = sourcesForDependencies.GetLatest(dependency);
+			if (latestPackage == null) throw new PackageNotFoundException(dependency);
+
+			var allPackages = latestPackage.FindDependencies(sourcesForDependencies);
+			Console.WriteLine("Found Dependencies: {0}", allPackages.Select(pkg => pkg.IdAndVersion()).ToList().Join(", "));
+
+			allPackages.Add(latestPackage);
+
+			foreach (var package in allPackages)
+				if (Get(package.ToPackageDependency()) != null)
+					Console.WriteLine("Already installed: {0}", package.IdAndVersion());
+				else
+					Push(package as Nupkg);
+
+			return Get(latestPackage.ToPackageDependency());
+		}
+
+		/// <summary>Thanks to Yank(), it makes sense to have a base implementation of Uninstall()</summary>
+		public virtual bool Uninstall(PackageDependency dependency, bool uninstallDependencies) {
+			var package = Get(dependency);
+			if (package == null) return false;
+				
+			if (uninstallDependencies)
+				foreach (var dep in package.Details.Dependencies)
+					Uninstall(dep, true);
+
+			Yank(package.ToPackageDependency());
+			return true;
 		}
 
 		public virtual List<IPackage> GetPackagesMatchingDependencies(params PackageDependency[] dependencies) {

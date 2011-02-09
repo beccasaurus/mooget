@@ -80,10 +80,6 @@ namespace MooGet {
 			return true;
 		}
 		
-		public override IPackage Install(PackageDependency dependency, params ISource[] sourcesForDependencies){ return null; }
-		
-		public override bool Uninstall(PackageDependency dependency, bool uninstallDependencies){ return false; }
-
 		public virtual void SetupBinariesFor(MooDirPackage package) {
 			foreach (var exe in package.Tools) {
 				SetupUnixShellScriptForTool(exe,    BinDirectory);

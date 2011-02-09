@@ -46,38 +46,6 @@ namespace MooGet {
 			}
 			return false;
 		}
-		
-		public override IPackage Install(PackageDependency dependency, params ISource[] sourcesForDependencies) {
-			Console.WriteLine("DirectoryOfNupkg.Install({0})", dependency);
-
-			var latestPackage = sourcesForDependencies.GetLatest(dependency);
-			if (latestPackage == null) throw new PackageNotFoundException(dependency);
-
-			var allPackages = latestPackage.FindDependencies(sourcesForDependencies);
-			Console.WriteLine("Found Dependencies: {0}", allPackages.Select(pkg => pkg.IdAndVersion()).ToList().Join(", "));
-
-			allPackages.Add(latestPackage);
-
-			foreach (var package in allPackages)
-				if (Get(package.ToPackageDependency()) != null)
-					Console.WriteLine("Already installed: {0}", package.IdAndVersion());
-				else
-					Push(package as Nupkg);
-
-			return Get(latestPackage.ToPackageDependency());
-		}
-
-		public override bool Uninstall(PackageDependency dependency, bool uninstallDependencies) {
-			var nupkg = Get(dependency) as Nupkg;
-			if (nupkg == null) return false;
-				
-			if (uninstallDependencies)
-				foreach (var dep in nupkg.Details.Dependencies)
-					Uninstall(dep, true);
-
-			nupkg.Delete();
-			return true;
-		}
 
 		public static List<Nupkg> GetNupkgsInDirectory(string directory) {
 			if (! Directory.Exists(directory)) return null;
