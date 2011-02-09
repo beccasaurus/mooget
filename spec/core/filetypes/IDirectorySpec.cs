@@ -143,32 +143,45 @@ namespace MooGet.Specs.Core {
 
 		[Test]
 		public void Copy() {
-			Directory.Exists(PathToTemp("base/dir/foo")).Should(Be.False);
+			// Make the directory to copy ...
 			var dir = Dir1Dir("foo").Create();
-			// add subdirectory ...
 			dir.GetFile("FILE").Touch();
-			Directory.Exists(PathToTemp("base/dir/foo")).Should(Be.True);
-			File.Exists(PathToTemp("base/dir/foo/FILE")).Should(Be.True);
+			var subdir = dir.GetDir("subdir").Create();
+			subdir.GetFile("MyFile").Touch();
+			var subsubdir = subdir.GetDir("another").Create();
+			subsubdir.GetFile("w00t").Touch();
 
-			// copy to existing directory copys it INTO directory
-			Directory.Exists(PathToTemp("base/other/dir")).Should(Be.True);
-			Directory.Exists(PathToTemp("base/other/dir/foo")).Should(Be.False);
-			File.Exists(PathToTemp("base/other/dir/foo/FILE")).Should(Be.False);
+			Directory.CreateDirectory(PathToTemp("base/other/dir/foo")); // <--- create new directory to copy into
+
+			File.Exists(PathToTemp(      "base/dir/foo/FILE"                      )).Should(Be.True);
+			File.Exists(PathToTemp(      "base/dir/foo/subdir/MyFile"             )).Should(Be.True);
+			File.Exists(PathToTemp(      "base/dir/foo/subdir/another/w00t"       )).Should(Be.True);
+			Directory.Exists(PathToTemp( "base/other/dir/foo"                     )).Should(Be.True);  // directory exists!
+			File.Exists(PathToTemp(      "base/other/dir/foo/FILE"                )).Should(Be.False); // but content doesnt yet
+			File.Exists(PathToTemp(      "base/other/dir/foo/subdir/MyFile"       )).Should(Be.False);
+			File.Exists(PathToTemp(      "base/other/dir/foo/subdir/another/w00t" )).Should(Be.False);
+
+			// Copy to an existing directory.  The directory is copied *into* the existing directory.
 			dir.Copy(PathToTemp("base/other/dir"));
-			Directory.Exists(PathToTemp("base/other/dir/foo")).Should(Be.True); // it copyd INTO that dir
-			File.Exists(PathToTemp("base/other/dir/foo/FILE")).Should(Be.True);
-			Directory.Exists(PathToTemp("base/dir/foo")).Should(Be.True); // the original dir STAYED
-			File.Exists(PathToTemp("base/dir/foo/FILE")).Should(Be.True); // the original file STAYED too
-			dir.Path.ShouldEqual(PathToTemp("base/other/dir/foo")); // the Path was updated
 
-			// copy to new directory, copy it there
-			Directory.Exists(PathToTemp("new")).Should(Be.False);
+			File.Exists(PathToTemp(      "base/dir/foo/FILE"                      )).Should(Be.True);  // old files are STILL there
+			File.Exists(PathToTemp(      "base/dir/foo/subdir/MyFile"             )).Should(Be.True);
+			File.Exists(PathToTemp(      "base/dir/foo/subdir/another/w00t"       )).Should(Be.True);
+			Directory.Exists(PathToTemp( "base/other/dir/foo"                     )).Should(Be.True);  // directory exists!
+			File.Exists(PathToTemp(      "base/other/dir/foo/FILE"                )).Should(Be.True);  // and so does content
+			File.Exists(PathToTemp(      "base/other/dir/foo/subdir/MyFile"       )).Should(Be.True);
+			File.Exists(PathToTemp(      "base/other/dir/foo/subdir/another/w00t" )).Should(Be.True);
+			Directory.Exists(PathToTemp( "new"                                    )).Should(Be.False); // new directory doesn't exist
+
+			// Copy to a new directory.  The directory is copied exactly there.
 			dir.Copy(PathToTemp("new"));
-			Directory.Exists(PathToTemp("new")).Should(Be.True);
-			File.Exists(PathToTemp("new/FILE")).Should(Be.True);
-			Directory.Exists(PathToTemp("base/other/dir/foo")).Should(Be.True); // the last directory stayed
-			File.Exists(PathToTemp("base/dir/foo/FILE")).Should(Be.True); // the original file is still there
-			File.Exists(PathToTemp("base/other/dir/foo/FILE")).Should(Be.True); // the last directory's file is still there
+
+			Directory.Exists(PathToTemp( "new"                                    )).Should(Be.True); // new directory doesn't exist
+			File.Exists(PathToTemp(      "new/FILE"                           )).Should(Be.True); // old files are STILL there
+			File.Exists(PathToTemp(      "new/subdir/MyFile"                  )).Should(Be.True);
+			File.Exists(PathToTemp(      "new/subdir/another/w00t"            )).Should(Be.True);
+			File.Exists(PathToTemp(      "base/dir/foo/subdir/another/w00t"       )).Should(Be.True); // first directory still there
+			File.Exists(PathToTemp(      "base/other/dir/foo/subdir/another/w00t" )).Should(Be.True); // second directory still there
 		}
 
 		[Test]

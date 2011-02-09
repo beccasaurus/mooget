@@ -67,12 +67,8 @@ namespace MooGet {
 		}
 
 		public static IDirectory CopyToExactPath(this IDirectory dir, string exactPath) {
-			Console.WriteLine("CopyToExactPath {0} --> {1}", dir.Path, exactPath);
-			// make the directories
-			//dir.Directories().ForEach(fullDir => Console.WriteLine("create: " + Path.Combine(exactPath, dir.Relative(fullDir.Path))));
-			dir.Dirs().ForEach(subdir => Console.WriteLine(subdir.Path));
-			// copy the files
-
+			dir.Dirs().ForEach(fullDir => Directory.CreateDirectory(Path.Combine(exactPath, dir.Relative(fullDir.Path).TrimStart('/'))));
+			dir.Files().ForEach(file => file.Copy(Path.Combine(exactPath, dir.Relative(file.Path).TrimStart('/'))));
 			dir.Path = exactPath;
 			return dir;
 		}
