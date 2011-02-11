@@ -55,5 +55,10 @@ namespace MooGet {
 				nupkgs.Add(new Nupkg(file));
 			return nupkgs;
 		}
+
+		/// <summary>Returns true if the given path looks like a valid DirectoryOfNupkg, else false</summary>
+		public static bool IsValidPath(string path) {
+			return Directory.Exists(path);
+		}
 	}
 }

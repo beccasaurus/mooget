@@ -34,6 +34,37 @@ namespace MooGet {
 		public static string DirName(this IFile file)       { return file.DirectoryName(); }
 		public static void   Delete(this IFile file)        { File.Delete(file.Path); }
 
+		public static string Read(this IFile file) {
+			return File.ReadAllText(file.Path);
+		}
+
+		public static List<string> Lines(this IFile file) {
+			return file.Read().Split('\n').ToList();
+		}
+
+		public static void Append(this IFile file, string text) {
+			using (var writer = new StreamWriter(file.Path, true)) writer.Write(text);
+		}
+
+		public static void AppendLine(this IFile file, string text) {
+			using (var writer = new StreamWriter(file.Path, true)) writer.WriteLine(text);
+		}
+
+		public static void Write(this IFile file, string text) {
+			using (var writer = new StreamWriter(file.Path)) writer.Write(text);
+		}
+
+		public static void WriteLine(this IFile file, string text) {
+			using (var writer = new StreamWriter(file.Path)) writer.WriteLine(text);
+		}
+
+		/// <summary>If the file doesn't exist, it'll initialize it with this text, else it won't do anything</summary>
+		public static IFile Initialize(this IFile file, string text) {
+			if (! file.Exists())
+				file.Write(text);
+			return file;
+		}
+
 		public static IFile Touch(this IFile file) {
 			if (file.Exists())
 				File.SetLastWriteTimeUtc(file.Path, DateTime.UtcNow);

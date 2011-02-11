@@ -13,6 +13,17 @@ namespace MooGet {
 			Path = path;
 		}
 
+		public static readonly string DefaultSourcesListText = @"
+# MooGet source list
+#
+# # example with name:
+# Name of Source	http://foobar.com
+#			
+# # example without name:
+# http://hi.there/
+#
+".TrimStart();
+
 		/// <summary>Whether or not this directory exists</summary>
 		public virtual bool Exists { get { return this.Exists(); } }
 
@@ -21,12 +32,21 @@ namespace MooGet {
 			PackageDirectory.AsDir().Create();
 			CacheDirectory.AsDir().Create();
 			BinDirectory.AsDir().Create();
+			SourcesFilePath.AsFile().Initialize(DefaultSourcesListText);
 			return this;
 		}
 
-		public string PackageDirectory { get { return System.IO.Path.Combine(Path, "packages"); } }
-		public string CacheDirectory   { get { return System.IO.Path.Combine(Path, "cache");    } }
-		public string BinDirectory     { get { return System.IO.Path.Combine(Path, "bin");      } }
+		public string PackageDirectory { get { return System.IO.Path.Combine(Path, "packages");     } }
+		public string CacheDirectory   { get { return System.IO.Path.Combine(Path, "cache");        } }
+		public string BinDirectory     { get { return System.IO.Path.Combine(Path, "bin");          } }
+		public string SourcesFilePath  { get { return System.IO.Path.Combine(Path, "sources.list"); } }
+
+		// TODO cache this
+		/// <summary>Wraps the sources.list file that we store our sources in</summary>
+		public SourceFile SourceFile { get { return new SourceFile(SourcesFilePath); } }
+
+		/// <summary>A list of this MooDir's registered sources (via SourceFile)</summary>
+		public List<ISource> Sources { get { return SourceFile.Sources; } }
 
 		// TODO cache this ... for now, we return a new one every time we call this ...
 		public DirectoryOfNupkg Cache { get { return new DirectoryOfNupkg(CacheDirectory); } }
@@ -126,6 +146,13 @@ GOTO :EOF
 				unix.AsFile().Delete();
 				bat.AsFile().Delete();
 			}
+		}
+
+		/// <summary>Returns true if the given path looks like a valid MooDir, else false</summary>
+		public static bool IsValidPath(string path) {
+			return Directory.Exists(System.IO.Path.Combine(path, "packages")) && 
+			       Directory.Exists(System.IO.Path.Combine(path, "cache"))    && 
+				   File.Exists(System.IO.Path.Combine(path, "sources.list"));
 		}
 	}
 }

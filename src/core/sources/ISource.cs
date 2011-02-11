@@ -13,10 +13,10 @@ namespace MooGet {
 	public interface ISource {
 
 		/// <summary>Name describing this source</summary>
-		string Name { get; }
+		string Name { get; set; }
 
 		/// <summary>This source's path.  Typically a file system path or remote url.</summary>
-		string Path { get; }
+		string Path { get; set; }
 
 		/// <summary>
 		/// Some sources might require authentication, for just reading or (more often) for pushing/yanking/etc.

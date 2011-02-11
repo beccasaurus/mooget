@@ -302,5 +302,62 @@ namespace MooGet.Specs.Core {
 			mydir.Uninstall(new PackageDependency("FluentNHibernate"), true).Should(Be.False);
 			mydir.Packages.Count.ShouldEqual(0);
 		}
+
+		[Test]
+		public void Can_add_sources() {
+			Directory.CreateDirectory(PathToTemp("mydir"));
+			var mydir = new MooDir(PathToTemp("mydir")).Initialize();
+			
+			// default has no sources (currently)
+			mydir.SourceFile.Exists().Should(Be.True); // there should be a template, but no sources
+			mydir.SourceFile.Read().ShouldContain("MooGet"); // should should be some text (commented out)
+			mydir.SourceFile.Sources.Count.ShouldEqual(0);
+			mydir.Sources.Count.ShouldEqual(0);
+
+			// add a source by adding to the file's text [example with name]
+			//mydir.SourceFile.AppendLine("Cool Source " + PathToContent("packages"));
+			mydir.SourceFile.Add("Cool Source", PathToContent("packages"));
+			mydir.Sources.Count.ShouldEqual(1);
+			mydir.Sources.First().Name.ShouldEqual("Cool Source");
+			mydir.Sources.First().Path.ShouldEqual(PathToContent("packages"));
+			mydir.Sources.First().Should(Be.InstanceOf(typeof(DirectoryOfNupkg)));
+
+			// add a source by adding to the file's text [example without name]
+			//mydir.SourceFile.AppendLine(PathToContent("more_packages"));
+			mydir.SourceFile.Add(PathToContent("more_packages"));
+			mydir.Sources.Count.ShouldEqual(2);
+			mydir.Sources.First().Name.ShouldEqual("Cool Source");
+			mydir.Sources.First().Path.ShouldEqual(PathToContent("packages"));
+			mydir.Sources.First().Should(Be.InstanceOf(typeof(DirectoryOfNupkg)));
+			mydir.Sources.Last().Name.Should(Be.Null);
+			mydir.Sources.Last().Path.ShouldEqual(PathToContent("more_packages"));
+			mydir.Sources.Last().Should(Be.InstanceOf(typeof(DirectoryOfNupkg)));
+
+			mydir.SourceFile.Read().ShouldContain("MooGet"); // this should still be in the file
+		}
+
+		[Test]
+		public void Can_remove_sources() {
+			Directory.CreateDirectory(PathToTemp("mydir"));
+			var mydir = new MooDir(PathToTemp("mydir")).Initialize();
+			mydir.SourceFile.Add("Cool Source", PathToContent("packages"));
+			mydir.SourceFile.Add(PathToContent("more_packages"));
+			
+			mydir.Sources.Count.ShouldEqual(2);
+
+			// remove by name
+			mydir.SourceFile.Remove("Cool Source");
+			mydir.Sources.Count.ShouldEqual(1);
+			mydir.Sources.First().Path.ShouldEqual(PathToContent("more_packages"));
+
+			// remove by path
+			mydir.SourceFile.Remove(PathToContent("more_packages"));
+			mydir.Sources.Count.ShouldEqual(0);
+		}
+
+		// Once we re-implement this source
+		[Test][Ignore]
+		public void Has_the_official_NuGet_repository_as_a_default_source() {
+		}
 	}
 }

@@ -182,5 +182,20 @@ namespace MooGet {
 
 			return packagesToReturn;
 		}
+
+		/// <summary>Given the Path of a source, this returns the appropriate ISource instance</summary>
+		/// <remarks>
+		/// This asks ISource implementations whether or not this path is for them.
+		///
+		/// Well, eventually it will.  Right now it's pretty static.
+		/// </remarks>
+		public static ISource ForPath(string path) {
+			if (MooDir.IsValidPath(path))
+				return new MooDir(path);
+			else if (DirectoryOfNupkg.IsValidPath(path))
+				return new DirectoryOfNupkg(path);
+			else
+				throw new Exception("Don't know what kind of ISource to instantiate for path: " + path);
+		}
 	}
 }
