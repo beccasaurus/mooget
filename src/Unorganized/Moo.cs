@@ -9,39 +9,6 @@ namespace MooGet {
 	/// <summary>Represents the primary API for most MooGet actions</summary>
 	public partial class Moo {
 
-		/// <summary>moo.exe Entry method</summary>
-		/// <remarks>
-		///	moo.exe runs by running all [CommandFilter] methods defined 
-		///	in moo.exe or in any installed packages that have libraries 
-		///	named MooGet.*.dll
-		///
-		///	The Moo.CommandRunnerFilter is meant to be the last filter that 
-		///	gets run, as it finds and runs all [Command] methods defined 
-		///	in moo.exe or in any installed packages that have libraries 
-		///	named MooGet.*.dll and runs them.
-		///
-		///	Moo.Filters returns the full List&lt;CommandFilter&gt; that moo.exe runs.
-		/// </remarks>
-		public static void Main(string[] args) {
-			var filters = new List<CommandFilter>(Moo.Filters);
-			for (var i = 0; i < filters.Count - 1; i++)
-				filters[i].InnerFilter = filters[i + 1];
-
-			try {
-				Console.Write(filters[0].Invoke(args));
-			} catch (Exception ex) {
-
-				// Get the first exception that's not a TargetInvocationException (which we get because we Invoke() our commands)
-				Exception inner = ex;
-				while (inner.InnerException != null && inner is TargetInvocationException)
-					inner = inner.InnerException;
-
-				// Use CowSay to display the error message
-				Cow.Columns = 80;
-				Cow.Say("Moo. There was a problem:                                                   {0}", inner);
-			}
-		}
-
 		public static string Indentation = "\t";
 
 		public static string OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";
@@ -66,20 +33,6 @@ namespace MooGet {
 				return _extensions;
 			}
 			set { _extensions = value; }
-		}
-
-		static List<CommandFilter> _filters;
-		public static List<CommandFilter> Filters {
-			get {
-				if (_filters == null) {
-					_filters = new List<CommandFilter>();
-					foreach (var assembly in Extensions)
-						_filters.AddRange(CommandFilter.GetFilters(assembly));
-					_filters.AddRange(CommandFilter.GetFilters()); // currently executing assembly
-				}
-				return _filters;
-			}
-			set { _filters = value; }
 		}
 
 		static List<Command> _commands;

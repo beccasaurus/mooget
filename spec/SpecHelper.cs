@@ -75,6 +75,10 @@ namespace MooGet.Specs {
 			return Util.RunCommand(commandAndArguments, MooWorkingDirectory);
 		}
 
+		public string moo() {
+			return moo(null);
+		}
+
 		public string moo(string arguments, params object[] formatting) {
 			return moo(string.Format(arguments, formatting));
 		}
@@ -94,7 +98,7 @@ namespace MooGet.Specs {
             process.Start();
             string stdout = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
-            return stdout.Trim();
+            return stdout.TrimEnd('\n');
 		}
 
 		#region Path Helpers

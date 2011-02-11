@@ -22,7 +22,7 @@ namespace MooGet.Specs {
                 ||----w |
                 ||     ||
 ";
-				moo("cow hello world").ShouldEqual(text.Trim());
+				moo("cow hello world").ShouldEqual(text.TrimStart('\n').TrimEnd('\n'));
 			}
 			
 			[Test]
@@ -38,7 +38,7 @@ namespace MooGet.Specs {
                 ||----w |
                 ||     ||
 ";
-				moo("cow hello world how goes it? i am long enough to have 2 lines").ShouldEqual(text.Trim());
+				moo("cow hello world how goes it? i am long enough to have 2 lines").ShouldEqual(text.TrimStart('\n').TrimEnd('\n'));
 			}
 			
 			[Test]
@@ -55,7 +55,7 @@ namespace MooGet.Specs {
                 ||----w |
                 ||     ||
 ";
-				moo("cow hello world how goes it? i was long enough to have 2 lines but now I am much longer and I should have 3 lines").ShouldEqual(text.Trim());
+				moo("cow hello world how goes it? i was long enough to have 2 lines but now I am much longer and I should have 3 lines").ShouldEqual(text.TrimStart('\n').TrimEnd('\n'));
 			}
 
 			// moo say

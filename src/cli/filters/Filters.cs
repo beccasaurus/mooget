@@ -1,5 +1,3 @@
-// Our Moo.* command filters
-
 using System;
 using System.IO;
 using System.Linq;
@@ -8,7 +6,12 @@ using System.Collections.Generic;
 
 namespace MooGet {
 
-	public partial class Moo {
+	/// <summary>A class for holding all of our common MooGet CommandFilter methods</summary>
+	/// <remarks>
+	/// Once this file gets really big, if it does, then we'll extract these methods 
+	/// out into their own classes or files to better organize them.
+	/// </remarks>
+	public static class Filters {
 
 		[CommandFilter("Prints the Moo splash screen if no arguments passed")]
 		public static object SplashScreenFilter(string[] args, CommandFilter filter) {
@@ -28,7 +31,7 @@ namespace MooGet {
 
 		[CommandFilter("Finds and runs the appropriate [Command] passed to moo.exe")]
 		public static object CommandRunnerFilter(string[] args, CommandFilter filter) {
-			return FindAndRunCommand(args);
+			return Moo.FindAndRunCommand(args);
 		}
 	}
 }

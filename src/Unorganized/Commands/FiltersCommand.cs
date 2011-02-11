@@ -16,7 +16,7 @@ namespace MooGet.Commands {
 			var builtinFilters    = new List<CommandFilter>();
 			var filtersByAssembly = new Dictionary<AssemblyName, List<CommandFilter>>();
 
-			foreach (var filter in Moo.Filters) {
+			foreach (var filter in CommandFilter.Filters) {
 				var assemblyName = filter.AssemblyName;
 				if (assemblyName.Name == "moo")
 					builtinFilters.Add(filter);
