@@ -10,6 +10,9 @@ namespace MooGet {
 	///	MooGet.Package provides:
 	///	 - a simple base class for other IPackage implementations
 	///	 - static methods for general Package management
+	///
+	///	This isn't meant to have much logic at ALL. 
+	///	It's a VERY simple IPackage implementation.
 	/// </remarks>
 	public class NewPackage : IPackage {
 

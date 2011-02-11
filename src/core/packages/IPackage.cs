@@ -19,6 +19,7 @@ namespace MooGet {
 		PackageDetails Details { get; }
 
 		/// <summary>A list of all of the files contained in this package (if available).</summary>
+		// TODO REMOVE THIS!  Move into IPackageWithFiles
 		List<string> Files { get; }
 	}
 }

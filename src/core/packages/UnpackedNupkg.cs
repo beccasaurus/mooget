@@ -5,11 +5,13 @@ using System.Collections.Generic;
 
 namespace MooGet {
 
-	/// <summary>A .nupkg that has been extracted to a directory.  This represents the directory.</summary>
-	public class UnpackedPackage: NewPackage, IPackage, IDirectory {
+	// TODO : Package instead of NewPackage when we're done refactoring
 
-		public UnpackedPackage() : base() {}
-		public UnpackedPackage(string path) : this() {
+	/// <summary>A .nupkg that has been extracted to a directory.  This represents the directory.</summary>
+	public class UnpackedNupkg : NewPackage, IUnpackedPackage, IPackage, IPackageWithFiles, IDirectory {
+
+		public UnpackedNupkg() : base() {}
+		public UnpackedNupkg(string path) : this() {
 			Path = path;
 		}
 
@@ -97,6 +99,10 @@ namespace MooGet {
 
 		/// <summary>Returns ALL source files for this package.  Everythign that's in this package's src directory (if anything).</summary>
 		public virtual List<string> SourceFiles { get { return (SourceDirectory == null) ? new List<string>() : SourceDirectory.AsDir().Files().Paths(); } }
+
+		public IPackageFile Pack(string directoryOrFilename) {
+			return CreateNupkg(directoryOrFilename);
+		}
 
 		/// <summary>Creates a .nupkg file from this UnpackedPackage directory and saves it to the given directory or filename</summary>
 		public virtual Nupkg CreateNupkg(string directoryOrFilename) {

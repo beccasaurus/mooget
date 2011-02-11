@@ -11,7 +11,7 @@ namespace MooGet {
 	///
 	///	A MooDirPackage, however, also knows about its cached Nupkg, its tools in the MooDir.BinDirectory, etc etc.
 	/// </remarks>
-	public class MooDirPackage: UnpackedPackage, IPackage, IDirectory {
+	public class MooDirPackage: UnpackedNupkg, IUnpackedPackage, IPackage, IDirectory {
 
 		public MooDirPackage() : base() {}
 		public MooDirPackage(string path) : this() {
@@ -29,7 +29,7 @@ namespace MooGet {
 		public override ISource Source { get { return MooDir; } }
 
 		/// <summary>The UnpackedPackage in the MooDir that this MooDirPackage wraps</summary>
-		public UnpackedPackage Unpacked { get { return this as UnpackedPackage; } }
+		public UnpackedNupkg Unpacked { get { return this as UnpackedNupkg; } }
 
 		/// <summary>A cached .nupkg in the MooDir's CacheDirectory.  May be null, but typically shouldn't be.</summary>
 		public Nupkg Nupkg {

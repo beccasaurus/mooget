@@ -75,7 +75,7 @@ namespace MooGet.Specs.Core {
 
 			// if we copy an UnpackedPackage into our PackageDirectory, it should show up!
 			Path.Combine(dir.PackageDirectory, "MarkdownSharp.1.13.0.0").AsDir().Exists().Should(Be.False);
-			new UnpackedPackage(PathToContent("packages/MarkdownSharp.1.13.0.0")).Copy(dir.PackageDirectory);
+			new UnpackedNupkg(PathToContent("packages/MarkdownSharp.1.13.0.0")).Copy(dir.PackageDirectory);
 			Path.Combine(dir.PackageDirectory, "MarkdownSharp.1.13.0.0").AsDir().Exists().Should(Be.True);
 
 			dir.Packages.Count.ShouldEqual(1);
@@ -83,7 +83,7 @@ namespace MooGet.Specs.Core {
 			var package = dir.Packages.First();
 			package.Id.ShouldEqual("MarkdownSharp");
 			package.Should(Be.InstanceOf(typeof(MooDirPackage)));
-			(package as MooDirPackage).Unpacked.Should(Be.InstanceOf(typeof(UnpackedPackage)));
+			(package as MooDirPackage).Unpacked.Should(Be.InstanceOf(typeof(UnpackedNupkg)));
 			(package as MooDirPackage).Unpacked.Path.ShouldEqual(Path.Combine(dir.PackageDirectory, "MarkdownSharp.1.13.0.0"));
 			(package as MooDirPackage).Nupkg.Should(Be.Null);
 
@@ -95,7 +95,7 @@ namespace MooGet.Specs.Core {
 			package = dir.Packages.First();
 			package.Id.ShouldEqual("MarkdownSharp");
 			package.Should(Be.InstanceOf(typeof(MooDirPackage)));
-			(package as MooDirPackage).Unpacked.Should(Be.InstanceOf(typeof(UnpackedPackage)));
+			(package as MooDirPackage).Unpacked.Should(Be.InstanceOf(typeof(UnpackedNupkg)));
 			(package as MooDirPackage).Unpacked.Path.ShouldEqual(Path.Combine(dir.PackageDirectory, "MarkdownSharp.1.13.0.0"));
 			(package as MooDirPackage).Nupkg.Should(Be.InstanceOf(typeof(Nupkg)));
 			(package as MooDirPackage).Nupkg.Path.ShouldEqual(Path.Combine(dir.CacheDirectory, "MarkdownSharp.1.13.0.0.nupkg"));

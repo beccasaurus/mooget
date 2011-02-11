@@ -8,15 +8,16 @@ using MooGet;
 namespace MooGet.Specs.Core {
 
 	[TestFixture]
-	public class UnpackedPackageSpec : Spec {
+	public class UnpackedNupkgSpec : Spec {
 
-		UnpackedPackage nunit, fluent, foo;
+		// UnpackedNupkg implements IUnpackedNupkg which gives it nearly all of the methods we need to satisfy this spec.
+		IUnpackedPackage nunit, fluent, foo;
 
 		[SetUp]
 		public void Before() {
-			nunit  = new UnpackedPackage(PathToContent("packages/NUnit.2.5.7.10213"));
-			fluent = new UnpackedPackage(PathToContent("packages/FluentNHibernate.1.1.0.694"));
-			foo    = new UnpackedPackage(PathToContent("more_unpacked_packages/Foo"));
+			nunit  = new UnpackedNupkg(PathToContent("packages/NUnit.2.5.7.10213"));
+			fluent = new UnpackedNupkg(PathToContent("packages/FluentNHibernate.1.1.0.694"));
+			foo    = new UnpackedNupkg(PathToContent("more_unpacked_packages/Foo"));
 		}
 
 		[Test]
@@ -27,20 +28,28 @@ namespace MooGet.Specs.Core {
 
 		[Test]
 		public void can_check_if_Exists() {
-			nunit.Exists.ShouldBeTrue();
-			fluent.Exists.ShouldBeTrue();
-			new UnpackedPackage("/i/dont/exist").Exists.ShouldBeFalse();
+			nunit.Exists().ShouldBeTrue();
+			fluent.Exists().ShouldBeTrue();
+			new UnpackedNupkg("/i/dont/exist").Exists.ShouldBeFalse();
 		}
 
 		[Test]
-		public void Nuspec() {
-			nunit.Nuspec.ShouldHaveProperties(new {
+		public void Details() {
+			nunit.Id.ShouldEqual("NUnit");
+			nunit.Version.ToString().ShouldEqual("2.5.7.10213");
+			nunit.Details.AuthorsText.ShouldEqual("Charlie Poole");
+
+			(nunit as UnpackedNupkg).Nuspec.ShouldHaveProperties(new {
 				Id          = "NUnit",
 				VersionText = "2.5.7.10213",
 				AuthorsText = "Charlie Poole"
 			});
 
-			fluent.Nuspec.ShouldHaveProperties(new {
+			fluent.Id.ShouldEqual("FluentNHibernate");
+			fluent.Version.ToString().ShouldEqual("1.1.0.694");
+			fluent.Details.AuthorsText.ShouldEqual("James Gregory");
+
+			(fluent as UnpackedNupkg).Nuspec.ShouldHaveProperties(new {
 				Id          = "FluentNHibernate",
 				VersionText = "1.1.0.694",
 				AuthorsText = "James Gregory"
@@ -56,15 +65,7 @@ namespace MooGet.Specs.Core {
 		[Test]
 		public void Version() {
 			nunit.Version.ToString().ShouldEqual("2.5.7.10213");
-			nunit.VersionText.ShouldEqual("2.5.7.10213");
 			fluent.Version.ToString().ShouldEqual("1.1.0.694");
-			fluent.VersionText.ShouldEqual("1.1.0.694");
-		}
-
-		[Test]
-		public void Details() {
-			nunit.Details.ShouldEqual(nunit.Nuspec);
-			fluent.Details.ShouldEqual(fluent.Nuspec);
 		}
 
 		[Test]
@@ -121,9 +122,9 @@ Foo/
 
 		[Test]
 		public void LibrariesDirectory() {
-			foo.LibrariesDirectory.ShouldEqual(Path.Combine(foo.Path, "LiB"));
-			nunit.LibrariesDirectory.ShouldEqual(Path.Combine(nunit.Path, "lib"));
-			fluent.LibrariesDirectory.ShouldEqual(Path.Combine(fluent.Path, "lib"));
+			(foo    as UnpackedNupkg).LibrariesDirectory.ShouldEqual(Path.Combine(foo.Path, "LiB"));
+			(nunit  as UnpackedNupkg).LibrariesDirectory.ShouldEqual(Path.Combine(nunit.Path, "lib"));
+			(fluent as UnpackedNupkg).LibrariesDirectory.ShouldEqual(Path.Combine(fluent.Path, "lib"));
 		}
 
 		[Test]
@@ -135,23 +136,23 @@ Foo/
 
 		[Test]
 		public void ToolsDirectory() {
-			foo.ToolsDirectory.ShouldEqual(Path.Combine(foo.Path, "tOolS"));
-			nunit.ToolsDirectory.ShouldEqual(Path.Combine(nunit.Path, "Tools"));
-			fluent.ToolsDirectory.Should(Be.Null);
+			(foo    as UnpackedNupkg).ToolsDirectory.ShouldEqual(Path.Combine(foo.Path, "tOolS"));
+			(nunit  as UnpackedNupkg).ToolsDirectory.ShouldEqual(Path.Combine(nunit.Path, "Tools"));
+			(fluent as UnpackedNupkg).ToolsDirectory.Should(Be.Null);
 		}
 
 		[Test]
 		public void ContentDirectory() {
-			foo.ContentDirectory.ShouldEqual(Path.Combine(foo.Path, "cOnTeNt"));
-			nunit.ContentDirectory.ShouldEqual(Path.Combine(nunit.Path, "Content"));
-			fluent.ContentDirectory.Should(Be.Null);
+			(foo    as UnpackedNupkg).ContentDirectory.ShouldEqual(Path.Combine(foo.Path, "cOnTeNt"));
+			(nunit  as UnpackedNupkg).ContentDirectory.ShouldEqual(Path.Combine(nunit.Path, "Content"));
+			(fluent as UnpackedNupkg).ContentDirectory.Should(Be.Null);
 		}
 
 		[Test]
 		public void SourceDirectory() {
-			foo.SourceDirectory.ShouldEqual(Path.Combine(foo.Path, "sRc"));
-			nunit.SourceDirectory.Should(Be.Null);
-			fluent.SourceDirectory.Should(Be.Null);
+			(foo    as UnpackedNupkg).SourceDirectory.ShouldEqual(Path.Combine(foo.Path, "sRc"));
+			(nunit  as UnpackedNupkg).SourceDirectory.Should(Be.Null);
+			(fluent as UnpackedNupkg).SourceDirectory.Should(Be.Null);
 		}
 
 		[Test]
@@ -172,19 +173,19 @@ Foo/
 
 		[Test]
 		public void just_NET20_Libraries() {
-			fluent.LibraryDirectoryFor("net20").Should(Be.Null);
-			fluent.JustLibrariesFor("net20").Should(Be.Empty);
+			(fluent as UnpackedNupkg).LibraryDirectoryFor("net20").Should(Be.Null);
+			(fluent as UnpackedNupkg).JustLibrariesFor("net20").Should(Be.Empty);
 			fluent.LibrariesFor("net20").AsFiles().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "FluentNHibernate.dll" });
 
-			foo.LibraryDirectoryFor("net20").ShouldEqual(Path.Combine(foo.Path, "LiB/nEt20"));
-			foo.JustLibrariesFor("net20").AsFiles().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "Hi.DlL", "TherE.dLl" });
+			(foo as UnpackedNupkg).LibraryDirectoryFor("net20").ShouldEqual(Path.Combine(foo.Path, "LiB/nEt20"));
+			(foo as UnpackedNupkg).JustLibrariesFor("net20").AsFiles().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "Hi.DlL", "TherE.dLl" });
 			foo.LibrariesFor("net20").AsFiles().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "Another.Global.DLL", "global_1.dll", "Hi.DlL", "TherE.dLl" });
 		}
 
 		[Test]
 		public void just_NET35_Libraries() {
-			foo.LibraryDirectoryFor("NET35").ShouldEqual(Path.Combine(foo.Path, "LiB/Net35"));
-			foo.JustLibrariesFor("NET35").AsFiles().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "fooooo.dll" });
+			(foo as UnpackedNupkg).LibraryDirectoryFor("NET35").ShouldEqual(Path.Combine(foo.Path, "LiB/Net35"));
+			(foo as UnpackedNupkg).JustLibrariesFor("NET35").AsFiles().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "fooooo.dll" });
 			foo.LibrariesFor("NET35").AsFiles().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "Another.Global.DLL", "global_1.dll", "fooooo.dll" });
 		}
 
@@ -217,7 +218,7 @@ Foo/
 		public void CreateNupkg() {
 			PathToTemp("MarkdownSharp.1.13.0.0.nupkg").AsFile().Exists().Should(Be.False);
 
-			var unpacked = new UnpackedPackage(PathToContent("packages", "MarkdownSharp.1.13.0.0"));
+			var unpacked = new UnpackedNupkg(PathToContent("packages", "MarkdownSharp.1.13.0.0"));
 			var nupkg    = unpacked.CreateNupkg(PathToTemp(""));
 
 			nupkg.Path.ShouldEqual(PathToTemp("MarkdownSharp-1.13.0.0.nupkg"));

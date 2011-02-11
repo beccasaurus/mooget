@@ -5,8 +5,10 @@ using System.Collections.Generic;
 
 namespace MooGet {
 
+	// TODO Should :Package instead of :NewPackage after we refactor ...
+	
 	/// <summary>Represents a single .nupkg file</summary>
-	public class Nupkg : NewPackage, IPackage, IFile { // TODO : Package after we refactor ...
+	public class Nupkg : NewPackage, IPackageFile, IPackage, IFile { // Eventually add IPackageWithFiles ?  ... IPackage.HasFiles() ...
 
 		public Nupkg() : base() {}
 		public Nupkg(string path) : this() {
@@ -65,7 +67,7 @@ namespace MooGet {
 		}
 
 		/// <summary>Extracts this .nupkg (as a Zip file) to the target directory, returning an UnpackedPackage representing this directory</summary>
-		public UnpackedPackage Unpack(string targetDirectory) {
+		public IUnpackedPackage Unpack(string targetDirectory) {
 			if (Directory.Exists(targetDirectory)) {
 				// make a subdirectory using this Zip file's name (without extension)
 				var dir = System.IO.Path.Combine(targetDirectory, this.IdAndVersion());
@@ -79,9 +81,9 @@ namespace MooGet {
 		}
 
 		/// <summary>Unpacks this Nupkg *into* the target directory without making a new directory</summary>
-		public UnpackedPackage UnpackInto(string targetDirectory) {
+		public IUnpackedPackage UnpackInto(string targetDirectory) {
 			Zip.ExtractInto(targetDirectory);
-			return new UnpackedPackage(targetDirectory);
+			return new UnpackedNupkg(targetDirectory);
 		}
 
 		#region Private

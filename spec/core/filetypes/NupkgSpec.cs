@@ -10,8 +10,9 @@ namespace MooGet.Specs.Core {
 	[TestFixture]
 	public class NupkgSpec : Spec {
 
-		Nupkg nunit;
-		Nupkg fluent;
+		// A Nupkg implements IPackageFile which gives it nearly all of the methods we need to satisfy this spec.
+		IPackageFile nunit;
+		IPackageFile fluent;
 
 		[SetUp]
 		public void Before() {
@@ -28,24 +29,9 @@ namespace MooGet.Specs.Core {
 
 		[Test]
 		public void can_check_if_Exists() {
-			nunit.Exists.ShouldBeTrue();
-			fluent.Exists.ShouldBeTrue();
+			nunit.Exists().ShouldBeTrue();
+			fluent.Exists().ShouldBeTrue();
 			new Nupkg("/i/dont/exist.nupkg").Exists.ShouldBeFalse();
-		}
-
-		[Test]
-		public void Nuspec() {
-			nunit.Nuspec.ShouldHaveProperties(new {
-				Id          = "NUnit",
-				VersionText = "2.5.7.10213",
-				AuthorsText = "Charlie Poole"
-			});
-
-			fluent.Nuspec.ShouldHaveProperties(new {
-				Id          = "FluentNHibernate",
-				VersionText = "1.1.0.694",
-				AuthorsText = "James Gregory"
-			});
 		}
 
 		[Test]
@@ -57,22 +43,37 @@ namespace MooGet.Specs.Core {
 		[Test]
 		public void Version() {
 			nunit.Version.ToString().ShouldEqual("2.5.7.10213");
-			nunit.VersionText.ShouldEqual("2.5.7.10213");
+			nunit.Version.ToString().ShouldEqual("2.5.7.10213");
 			fluent.Version.ToString().ShouldEqual("1.1.0.694");
-			fluent.VersionText.ShouldEqual("1.1.0.694");
 		}
 
 		[Test]
 		public void Details() {
-			// simple delegates to the Nuspec
-			nunit.Details.ShouldEqual(nunit.Nuspec);
-			fluent.Details.ShouldEqual(fluent.Nuspec);
+			nunit.Id.ShouldEqual("NUnit");
+			nunit.Version.ToString().ShouldEqual("2.5.7.10213");
+			nunit.Details.AuthorsText.ShouldEqual("Charlie Poole");
+
+			(nunit as Nupkg).Nuspec.ShouldHaveProperties(new {
+				Id          = "NUnit",
+				VersionText = "2.5.7.10213",
+				AuthorsText = "Charlie Poole"
+			});
+
+			fluent.Id.ShouldEqual("FluentNHibernate");
+			fluent.Version.ToString().ShouldEqual("1.1.0.694");
+			fluent.Details.AuthorsText.ShouldEqual("James Gregory");
+
+			(fluent as Nupkg).Nuspec.ShouldHaveProperties(new {
+				Id          = "FluentNHibernate",
+				VersionText = "1.1.0.694",
+				AuthorsText = "James Gregory"
+			});
 		}
 
 		[Test]
 		public void Files() {
-			nunit.Files.ShouldEqual(nunit.Zip.Paths);
-			fluent.Files.ShouldEqual(fluent.Zip.Paths);
+			nunit.Files.ShouldEqual((nunit as Nupkg).Zip.Paths);
+			fluent.Files.ShouldEqual((fluent as Nupkg).Zip.Paths);
 		}
 
 		[Test]
@@ -87,10 +88,10 @@ namespace MooGet.Specs.Core {
 
 			var unpacked = tool.Unpack(dir.Path);
 
-			unpacked.Should(Be.InstanceOf(typeof(UnpackedPackage)));
+			unpacked.Should(Be.InstanceOf(typeof(UnpackedNupkg)));
 			unpacked.Path.ShouldEqual(PathToTemp("ExtractHere", "just-a-tool-1.0.0.0"));
 			unpacked.Id.ShouldEqual("just-a-tool");
-			unpacked.Nuspec.Path.ShouldEqual(PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "just-a-tool.nuspec"));
+			(unpacked as UnpackedNupkg).Nuspec.Path.ShouldEqual(PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "just-a-tool.nuspec"));
 			unpacked.Tools.ShouldEqual(new List<string>{ PathToTemp("ExtractHere", "just-a-tool-1.0.0.0", "tools", "tool.exe") });
 
 			PathToTemp("ExtractHere"                                              ).AsDir().Exists().Should(Be.True);
@@ -105,10 +106,10 @@ namespace MooGet.Specs.Core {
 
 			unpacked = tool.Unpack(PathToTemp("Exact_Dir"));
 
-			unpacked.Should(Be.InstanceOf(typeof(UnpackedPackage)));
+			unpacked.Should(Be.InstanceOf(typeof(UnpackedNupkg)));
 			unpacked.Path.ShouldEqual(PathToTemp("Exact_Dir"));
 			unpacked.Id.ShouldEqual("just-a-tool");
-			unpacked.Nuspec.Path.ShouldEqual(PathToTemp("Exact_Dir", "just-a-tool.nuspec"));
+			(unpacked as UnpackedNupkg).Nuspec.Path.ShouldEqual(PathToTemp("Exact_Dir", "just-a-tool.nuspec"));
 			unpacked.Tools.ShouldEqual(new List<string>{ PathToTemp("Exact_Dir", "tools", "tool.exe") });
 
 			PathToTemp("Exact_Dir"                       ).AsDir().Exists().Should(Be.True);
