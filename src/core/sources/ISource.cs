@@ -52,17 +52,17 @@ namespace MooGet {
 		/// <summary>This should return all packages matching a given PackageDependency, eg. NUnit &gt;= 1.0 or NUnit &gt;= 1.0 AND NUnit &lt; 2.4</summary>
 		List<IPackage> GetPackagesMatchingDependencies(params PackageDependency[] dependencies);
 
-		/// <summary>Every source should give you a way to download one of its packages to a local Nupkg.</summary>
+		/// <summary>Every source should give you a way to download one of its packages to a local IPackageFile (eg. Nupkg).</summary>
 		/// <remarks>
 		/// We specify a PackageDependency because that can be as simple as "NUnit" or it could be "NUnit = 1.0.0", etc.
 		/// </remarks>
-		Nupkg Fetch(PackageDependency dependency, string directory);
+		IPackageFile Fetch(PackageDependency dependency, string directory);
 
 		/// <summary>Some sources let you push your own package to them.</summary>
 		/// <remarks>
 		/// Returns the Source's representation of the Package if successful, else null.
 		/// </remarks>
-		IPackage Push(Nupkg nupkg);
+		IPackage Push(IPackageFile file);
 
 		/// <summary>Some sources let you delete packages from them;</summary>
 		/// <remarks>Returns true if operation was successful, else false.</remarks>

@@ -25,17 +25,18 @@ namespace MooGet {
 			}
 		}
 
-		public override Nupkg Fetch(PackageDependency dependency, string directory) {
-			var package = Get(dependency) as Nupkg;
+		public override IPackageFile Fetch(PackageDependency dependency, string directory) {
+			var package = Get(dependency) as IPackageFile;
 			if (package != null)
 				package.Copy(directory);
 			return package;
 		}
 		
-		public override IPackage Push(Nupkg nupkg) {
-			if (Exists && nupkg.Exists())
-				nupkg.Copy(System.IO.Path.Combine(Path, nupkg.IdAndVersion() + ".nupkg"));
-			return Get(nupkg.ToPackageDependency());
+		public override IPackage Push(IPackageFile file) {
+			if (Exists && file.Exists())
+				file.Copy(System.IO.Path.Combine(Path, file.IdAndVersion() + ".nupkg"));
+
+			return Get(file.ToPackageDependency());
 		}
 		
 		public override bool Yank(PackageDependency dependency) {

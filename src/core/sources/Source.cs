@@ -13,8 +13,8 @@ namespace MooGet {
 	public abstract class Source : ISource {
 
 		#region Abstract Members
-		public abstract Nupkg          Fetch(PackageDependency dependency, string directory);
-		public abstract IPackage       Push(Nupkg nupkg);
+		public abstract IPackageFile   Fetch(PackageDependency dependency, string directory);
+		public abstract IPackage       Push(IPackageFile file);
 		public abstract bool           Yank(PackageDependency dependency);
 		public abstract List<IPackage> Packages { get; }
 		#endregion
@@ -57,7 +57,7 @@ namespace MooGet {
 				if (Get(package.ToPackageDependency()) != null)
 					Console.WriteLine("Already installed: {0}", package.IdAndVersion());
 				else
-					Push(package as Nupkg);
+					Push(package as IPackageFile);
 
 			return Get(latestPackage.ToPackageDependency());
 		}

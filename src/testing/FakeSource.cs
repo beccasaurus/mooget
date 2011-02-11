@@ -21,10 +21,10 @@ namespace MooGet.Test {
 		}
 
 		// not implemented (yet) below here ...
-		public override Nupkg          Fetch(PackageDependency dependency, string directory) { return null; }
-		public override IPackage       Push(Nupkg nupkg) { return null; }
-		public override bool           Yank(PackageDependency dependency) { return false; }
-		public override IPackage       Install(PackageDependency dependency, params ISource[] sourcesForDependencies) { return null; }
-		public override bool           Uninstall(PackageDependency dependency, bool uninstallDependencies) { return false; }
+		public override IPackageFile Fetch(PackageDependency dependency, string directory) { return null; }
+		public override IPackage     Push(IPackageFile file) { return null; }
+		public override bool         Yank(PackageDependency dependency) { return false; }
+		public override IPackage     Install(PackageDependency dependency, params ISource[] sourcesForDependencies) { return null; }
+		public override bool         Uninstall(PackageDependency dependency, bool uninstallDependencies) { return false; }
 	}
 }
