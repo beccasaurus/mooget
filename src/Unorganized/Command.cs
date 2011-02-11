@@ -8,6 +8,7 @@ namespace MooGet {
 	/// <summary>Represents a MooGet command.</summary>
 	/// <remarks>This is not meant to be inherited from.  To implement a command, put the [Command] attribute on a class or method.</remarks>
 	public class Command {
+		public bool       Debug  = false;
 		public string     Name   { get; set; }
 		public MethodInfo Method { get; set; }
 

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
+using MooGet.Options;
 
 namespace MooGet {
 
@@ -29,9 +30,20 @@ namespace MooGet {
 			return filter.Invoke(args);
 		}
 
+		[CommandFilter("Run moo in debug mode with -D/--debug")]
+		public static object MooDebugFilter(string[] args, CommandFilter filter) {
+			var arguments = new OptionSet() {{ "D|debug", v => Moo.Debug = true }}.Parse(args);
+			return filter.Invoke(arguments.ToArray());
+		}
+
 		[CommandFilter("Finds and runs the appropriate [Command] passed to moo.exe")]
 		public static object CommandRunnerFilter(string[] args, CommandFilter filter) {
-			return Moo.FindAndRunCommand(args);
+			// If, by the time we make it to this CommandRunnerFilter, all of the arguments 
+			// have been removed ... display the splash screen.  Else FindAndRunCommand.
+			if (args.Length == 0)
+				return SplashScreenFilter(args, null);
+			else
+				return Moo.FindAndRunCommand(args);
 		}
 	}
 }

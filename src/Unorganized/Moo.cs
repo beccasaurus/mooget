@@ -9,6 +9,8 @@ namespace MooGet {
 	/// <summary>Represents the primary API for most MooGet actions</summary>
 	public partial class Moo {
 
+		public static bool Debug = false;
+
 		public static string Indentation = "\t";
 
 		public static string OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";
@@ -44,7 +46,10 @@ namespace MooGet {
 						_commands.AddRange(Command.GetCommands(assembly));
 					_commands.AddRange(Command.GetCommands()); // currently executing assembly
 				}
-				return _commands;
+				if (Moo.Debug)
+					return _commands;
+				else
+					return _commands.Where(cmd => cmd.Debug == false).ToList(); // remove Debug only commands
 			}
 			set { _commands = value; }
 		}

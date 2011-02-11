@@ -31,5 +31,12 @@ Run moo help for help documentation".TrimStart('\n'));
 		public void moo_version() {
 			moo("--version").ShouldEqual(Moo.Version);
 		}
+
+		[Test][Description("moo --debug")]
+		public void moo_debug() {
+			moo("config"        ).ShouldContain("Debug: False");;
+			moo("-D config"     ).ShouldContain("Debug: True");;
+			moo("--debug config").ShouldContain("Debug: True");;
+		}
 	}
 }
