@@ -43,21 +43,22 @@ namespace MooGet {
 
 		/// <summary>Thanks to Push(), it makes sense to have a base implementation of Install()</summary>
 		public virtual IPackage Install(PackageDependency dependency, params ISource[] sourcesForDependencies) {
-			Console.WriteLine("{0}.Install({1})", this, dependency);
+			// Console.WriteLine("{0}.Install({1})", this, dependency);
 
 			var latestPackage = sourcesForDependencies.GetLatest(dependency);
 			if (latestPackage == null) throw new PackageNotFoundException(dependency);
 
 			var allPackages = latestPackage.FindDependencies(sourcesForDependencies);
-			Console.WriteLine("Found Dependencies: {0}", allPackages.Select(pkg => pkg.IdAndVersion()).ToList().Join(", "));
+			// Console.WriteLine("Found Dependencies: {0}", allPackages.Select(pkg => pkg.IdAndVersion()).ToList().Join(", "));
 
 			allPackages.Add(latestPackage);
 
 			foreach (var package in allPackages)
-				if (Get(package.ToPackageDependency()) != null)
-					Console.WriteLine("Already installed: {0}", package.IdAndVersion());
-				else
+				if (Get(package.ToPackageDependency()) != null) {
+					// Console.WriteLine("Already installed: {0}", package.IdAndVersion());
+				} else {
 					Push(package as IPackageFile);
+				}
 
 			return Get(latestPackage.ToPackageDependency());
 		}
@@ -94,7 +95,7 @@ namespace MooGet {
 				params ISource[] sources) {
 		
 			var disc = (discoveredDependencies == null) ? "null" : discoveredDependencies.Count.ToString();
-			Console.WriteLine("Source.FindDependencies({0}, {1}, {2})", disc, new List<IPackage>(packages).Select(p => p.IdAndVersion()).ToList().Join(", "), sources);
+			// Console.WriteLine("Source.FindDependencies({0}, {1}, {2})", disc, new List<IPackage>(packages).Select(p => p.IdAndVersion()).ToList().Join(", "), sources);
 
 			var found           = new List<IPackage>();
 			var packageIds      = packages.Select(p => p.Id);
@@ -148,9 +149,9 @@ namespace MooGet {
 					found.Add(dependencyPackage);
 					if (dependencyPackage.Details.Dependencies.Any())
 						found.AddRange(Source.FindDependencies(discoveredDependencies, new IPackage[]{ dependencyPackage }, sources)); // <--- recurse!
+				} else {
+					// Console.WriteLine("Could not find dependency: {0}", dependencyId);
 				}
-				else
-					Console.WriteLine("Could not find dependency: {0}", dependencyId);
 			}
 
 			// throw a MissingDependencyException if any of the discovered dependencies were not found
