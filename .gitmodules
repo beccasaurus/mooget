@@ -1,0 +1,6 @@
+[submodule "src/lib/ndesk-options"]
+	path = src/lib/ndesk-options
+	url = git://git.ndesk.org/pub/scm/ndesk-options
+[submodule "lib/ndesk-options"]
+	path = lib/ndesk-options
+	url = git://git.ndesk.org/pub/scm/ndesk-options

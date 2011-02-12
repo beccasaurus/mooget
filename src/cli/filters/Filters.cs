@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
-using MooGet.Options;
+using Mono.Options;
 
 namespace MooGet {
 

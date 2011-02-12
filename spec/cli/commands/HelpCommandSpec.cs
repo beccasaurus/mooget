@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using MooGet;
-using MooGet.Options;
+using Mono.Options;
 using NUnit.Framework;
 
 namespace MooGet.Specs.CLI {
