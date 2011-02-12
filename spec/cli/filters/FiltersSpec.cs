@@ -22,21 +22,24 @@ namespace MooGet.Specs.CLI {
 Run moo help for help documentation".TrimStart('\n'));
 		}
 
-		[Test][Description("moo -v")]
-		public void moo_v() {
-			moo("-v").ShouldEqual(Moo.Version);
-		}
-
-		[Test][Description("moo --version")]
+		[Test][Description("moo --version, -v")]
 		public void moo_version() {
+			moo("-v").ShouldEqual(Moo.Version);
 			moo("--version").ShouldEqual(Moo.Version);
 		}
 
-		[Test][Description("moo --debug")]
+		[Test][Description("moo --debug, moo -D")]
 		public void moo_debug() {
 			moo("config"        ).ShouldContain("Debug: False");;
 			moo("-D config"     ).ShouldContain("Debug: True");;
 			moo("--debug config").ShouldContain("Debug: True");;
+		}
+
+		[Test][Description("moo --verbose, moo -V")]
+		public void moo_verbose() {
+			moo("config"          ).ShouldContain("Verbose: False");;
+			moo("-V config"       ).ShouldContain("Verbose: True");;
+			moo("--verbose config").ShouldContain("Verbose: True");;
 		}
 	}
 }

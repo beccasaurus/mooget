@@ -36,6 +36,12 @@ namespace MooGet {
 			return filter.Invoke(arguments.ToArray());
 		}
 
+		[CommandFilter("Run moo in verbose mode with -V/--verbose")]
+		public static object MooVerboseFilter(string[] args, CommandFilter filter) {
+			var arguments = new OptionSet() {{ "V|verbose", v => Moo.Verbose = true }}.Parse(args);
+			return filter.Invoke(arguments.ToArray());
+		}
+
 		[CommandFilter("Finds and runs the appropriate [Command] passed to moo.exe")]
 		public static object CommandRunnerFilter(string[] args, CommandFilter filter) {
 			// If, by the time we make it to this CommandRunnerFilter, all of the arguments 

@@ -11,6 +11,8 @@ namespace MooGet {
 
 		public static bool Debug = false;
 
+		public static bool Verbose = false;
+
 		public static string Indentation = "\t";
 
 		public static string OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";

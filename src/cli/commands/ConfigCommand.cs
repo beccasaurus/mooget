@@ -2,7 +2,7 @@ using System;
 
 namespace MooGet.Commands {
 
-	///<summary></summary>
+	///<summary>moo config</summary>
 	public class ConfigCommand {
 
 		[Command(Name = "config", Description = "Print configuration information")]
@@ -10,8 +10,11 @@ namespace MooGet.Commands {
 			return string.Format(@"
 mooDir: {0}
 Debug: {1}
+Verbose: {2}
 ",
-Moo.Dir, Moo.Debug).TrimStart('\n');
+Moo.Dir,
+Moo.Debug,
+Moo.Verbose).TrimStart('\n');
 		}
 	}
 }
