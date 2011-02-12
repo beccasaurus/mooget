@@ -7,39 +7,46 @@ using System.Collections.Generic;
 namespace MooGet {
 
 	/// <summary>Represents the primary API for most MooGet actions</summary>
-	public partial class Moo {
+	public class Moo {
 
-		public static bool Debug = false;
-
-		public static bool Verbose = false;
-
+		public static bool   Debug = false;
+		public static bool   Verbose = false;
 		public static string Indentation = "\t";
-
 		public static string OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";
-
 		public static string UserAgent { get { return Moo.Version; } }
-
 		public static string Version { get { return "Moo " + Assembly.GetExecutingAssembly().GetName().Version.ToString(); } }
 
-		public static List<OldSource> DefaultSources = new List<OldSource> {
-			new OldSource(Moo.OfficialNugetFeed)
-		};
-
+		static MooDir _dir;
 		static List<Assembly> _extensions;
+		static List<Command> _commands;
+
+		/// <summary>Moo.Dir gets the MooDir instance where all packages are installed to</summary>
+		public static MooDir Dir {
+			get {
+				if (_dir == null) _dir = new MooDir(Path.Combine(Util.HomeDirectory, ".moo"));
+				return _dir;
+			}
+		}
+
+		/// <summary>Returns a list of loaded assemblies from any MooGet.*.dll files found in installed packages</summary>
 		public static List<Assembly> Extensions {
 			get {
 				if (_extensions == null) {
 					_extensions = new List<Assembly>();
-					foreach (var package in Moo.Packages)
-						foreach (var dll in package.GetFiles(package.LibDirectory, "MooGet.*.dll"))
-							_extensions.Add(Assembly.LoadFile(dll)); // TODO add try/catch incase the assembly doesn't load cleanly
+					foreach (MooDirPackage package in Moo.Dir.Packages)
+						foreach (var dll in package.Libraries.Where(dll => dll.StartsWith("MooGet.")))
+							try {
+								_extensions.Add(Assembly.LoadFile(dll));
+							} catch (Exception ex) {
+								Console.WriteLine("Problem loading MooGet extension {0}\n\t{1}", dll, ex);
+							}
 				}
 				return _extensions;
 			}
 			set { _extensions = value; }
 		}
 
-		static List<Command> _commands;
+		/// <summary>Returns a list of all Commands, both built-in and loaded via Extensions</summary>
 		public static List<Command> Commands {
 			get {
 				if (_commands == null) {
@@ -78,6 +85,19 @@ namespace MooGet {
 			else
 				return string.Format("Ambiguous command '{0}'.  Did you mean one of these?  {1}\n", commandName, string.Join(", ", commands.Select(c => c.Name).ToArray()));
 		}
+	}
+}
+
+/****************************************************************************/
+
+
+
+		/*
+			ARCHIVE ... code that we don't need anymore ... we'll delete it later ...
+
+		public static List<OldSource> DefaultSources = new List<OldSource> {
+			new OldSource(Moo.OfficialNugetFeed)
+		};
 
 		public static List<OldSource> Sources { get { return OldSource.GetSources(); } }
 			
@@ -179,34 +199,7 @@ namespace MooGet {
 				return packages;
 			}
 		}
-
-		// OBSOLETE ... use MooDir.Initialize now ... refactor!
-		/// <summary>"Installs" MooGet to Moo.Dir (~/.moo or specified via --moo-dir or in a .moorc file)</summary>
-		public static void InitializeMooDir() {
-			Directory.CreateDirectory(Moo.PackageDir);
-			Directory.CreateDirectory(Moo.BinDir);
-			Directory.CreateDirectory(Moo.CacheDir);
-			Directory.CreateDirectory(Moo.DocumentationDir);
-			Directory.CreateDirectory(Moo.SpecDir);
-		}
-
-		public static bool MooDirExists {
-			get { return Directory.Exists(Moo.Dir); }
-		}
-
-		public static string _dir = Path.Combine(Util.HomeDirectory, ".moo");
-		public static string Dir {
-			get { return _dir; }
-		}
-
-		public static string PackageDir       { get { return Path.Combine(Moo.Dir, "packages");       } }
-		public static string BinDir           { get { return Path.Combine(Moo.Dir, "bin");            } }
-		public static string CacheDir         { get { return Path.Combine(Moo.Dir, "cache");          } }
-		public static string DocumentationDir { get { return Path.Combine(Moo.Dir, "doc");            } }
-		public static string SpecDir          { get { return Path.Combine(Moo.Dir, "specifications"); } }
-		public static string SourceFile       { get { return Path.Combine(Moo.Dir, "sources.list");   } }
-	}
-}
+		 */
 
 /*
  NOTES

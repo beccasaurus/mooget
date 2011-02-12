@@ -51,8 +51,15 @@ namespace MooGet {
 		// TODO cache this ... for now, we return a new one every time we call this ...
 		public DirectoryOfNupkg Cache { get { return new DirectoryOfNupkg(CacheDirectory); } }
 
+		/// <summary>Returns all packages loaded from MOO_DIR/packages (where we store our unpacked, installed packages)</summary>
 		public override List<IPackage> Packages {
-			get { return PackageDirectory.AsDir().SubDirs().Select(dir => new MooDirPackage(dir.Path, this) as IPackage).ToList(); }
+			get {
+				var packageDir = PackageDirectory.AsDir();
+				if (packageDir.Exists())
+					return packageDir.SubDirs().Select(dir => new MooDirPackage(dir.Path, this) as IPackage).ToList();
+				else
+					return new List<IPackage>();
+			}
 		}
 
 		public override IPackageFile Fetch(PackageDependency dependency, string directory){

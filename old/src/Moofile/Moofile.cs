@@ -95,12 +95,12 @@ namespace MooGet {
 				// NOTE ... i think you should have to run 'moo install' to support .nupkg references ...
 				var nupkgReferences = DependenciesFor(dirConfig.Key).
 										Where(d => d.Text.ToLower().EndsWith(".nupkg")).
-										Select(d => System.IO.Path.GetFullPath(d.Text)).ToList();
+										Select(d => new Nupkg(System.IO.Path.GetFullPath(d.Text))).ToList();
 
-				var localPackageReferences = new List<LocalPackage>();
+				var localPackageReferences = new List<IPackage>();
 
 				foreach (var nupkg in nupkgReferences) {
-					var package = Moo.Install(nupkg) as LocalPackage;
+					var package = Moo.Dir.Install(nupkg) as LocalPackage;
 					response.Line("Installed {0}", package);
 					localPackageReferences.Add(package);
 				}

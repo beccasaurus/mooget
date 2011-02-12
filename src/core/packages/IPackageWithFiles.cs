@@ -9,6 +9,8 @@ namespace MooGet {
 	/// </summary>
 	public interface IPackageWithFiles : IPackage {
 
+		// TODO Add Search() for searching this package's files ...?  Altho IDirectory already provides this ...
+
 		/// <summary>All of the files in this package</summary>
 		List<string> Files { get; }
 		
