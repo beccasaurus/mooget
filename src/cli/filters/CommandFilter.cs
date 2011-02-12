@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 namespace MooGet {
 
 	/// <summary>Represents a MooGet middleware-like filter for wrapping Commands</summary>
+	/// <remarks>
+	/// This is not meant to be inherited from.  To implement a command filter, put the [CommandFilter] attribute on a method.
+	/// </remarks>
 	public class CommandFilter {
 
 		public CommandFilter(MethodInfo method) {

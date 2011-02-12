@@ -10,7 +10,7 @@ namespace MooGet.Commands {
 	///<summary></summary>
 	public class FiltersCommand {
 
-		[Command(Name = "filters", Description = "Display all of the installed command filters")]
+		[Command("filters", "Display all of the installed command filters", Debug = true)]
 		public static object Run(string[] args) {
 			var response          = new StringBuilder();
 			var builtinFilters    = new List<CommandFilter>();

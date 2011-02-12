@@ -46,10 +46,7 @@ namespace MooGet {
 						_commands.AddRange(Command.GetCommands(assembly));
 					_commands.AddRange(Command.GetCommands()); // currently executing assembly
 				}
-				if (Moo.Debug)
-					return _commands;
-				else
-					return _commands.Where(cmd => cmd.Debug == false).ToList(); // remove Debug only commands
+				return _commands;
 			}
 			set { _commands = value; }
 		}

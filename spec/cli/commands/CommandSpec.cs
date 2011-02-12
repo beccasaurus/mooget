@@ -78,8 +78,11 @@ namespace MooGet.Specs.CLI {
 			return "hello from debug only";
 		}
 
-		[Test][Ignore]
+		[Test]
 		public void commands_can_be_marked_as_Debug_only() {
+			var commands = Command.GetCommands(Assembly.GetExecutingAssembly());
+			commands.First(c => c.Name == "foo").Debug.Should(Be.False);
+			commands.First(c => c.Name == "debugonlyfoo").Debug.Should(Be.True);
 		}
 
 		// An idea ... something like method_missing for commands?
