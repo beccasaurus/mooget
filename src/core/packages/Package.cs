@@ -30,5 +30,9 @@ namespace MooGet {
 		public virtual PackageDetails Details { get; set; }
 
 		public virtual List<string> Files { get; set; }
+
+		public override string ToString() {
+			return this.IdAndVersion();
+		}
 	}
 }
