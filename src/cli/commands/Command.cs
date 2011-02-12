@@ -5,6 +5,8 @@ using System.Text.RegularExpressions;
 
 namespace MooGet {
 
+	// TODO if Description isn't provided, it should grab the Summary: from the command's help documentation ... ideally ... to keep it DRY ?
+
 	/// <summary>Represents a MooGet command.</summary>
 	/// <remarks>This is not meant to be inherited from.  To implement a command, put the [Command] attribute on a method.</remarks>
 	public class Command {

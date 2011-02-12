@@ -45,16 +45,29 @@ namespace MooGet {
 					foreach (var assembly in Extensions)
 						_commands.AddRange(Command.GetCommands(assembly));
 					_commands.AddRange(Command.GetCommands()); // currently executing assembly
+					_commands = _commands.OrderBy(cmd => cmd.Name).ToList();
 				}
 				return _commands;
 			}
 			set { _commands = value; }
 		}
 
+		public static List<Command> FindMatchingCommands(string name) {
+			return Commands.Where(cmd => cmd.Name.StartsWith(name)).ToList();
+		}
+
+		public static Command FindCommand(string name) {
+			var commands = FindMatchingCommands(name);
+			if (commands.Count == 1)
+				return commands.First();
+			else
+				return null; // 0 found or too many (ambiguous)
+		}
+
 		public static object FindAndRunCommand(string[] args) {
 			var arguments   = new List<string>(args);
 			var commandName = arguments.First(); arguments.RemoveAt(0);
-			var commands    = Commands.Where(c => c.Name.StartsWith(commandName)).ToList();
+			var commands    = FindMatchingCommands(commandName);
 
 			if (commands.Count == 0)
 				return string.Format("Command not found: {0}\n\nCommands: {1}\n", commandName, string.Join("\n", Commands.Select(c => c.Name).ToArray()));
