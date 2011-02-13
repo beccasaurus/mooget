@@ -11,7 +11,8 @@ namespace MooGet.Commands {
 		public static object Run(string[] args) { return new SourceCommand(args).Run(); }
 
 		public SourceCommand(string[] args) : base(args) {
-			PrintHelpIfNoArguments = false;
+			PrintHelpIfNoArguments    = false;
+			RunFirstArgumentAsCommand = true;
 		}
 
 		/// <summary>moo source</summary>

@@ -1,0 +1,21 @@
+Usage: moo list [STRING] [options]
+
+  Options:
+    -d, --[no-]details               Display detailed information of gem(s)
+    -l, --local                      Restrict operations to the LOCAL domain
+    -r, --remote                     Restrict operations to the REMOTE domain
+        --source NAME|URL            Use URL as the remote source for gems
+
+  Common Options:
+    -h, --help                       Get help on this command
+    -V, --verbose                    Set the verbose level of output
+
+  Arguments:
+    STRING        start of package name to look for
+
+  Summary:
+    Display packages whose name starts with STRING
+
+  Defaults:
+    --local --no-details
+
