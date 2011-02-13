@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 namespace MooGet {
@@ -33,6 +34,13 @@ namespace MooGet {
 
 		public override string ToString() {
 			return this.IdAndVersion();
+		}
+
+		public static IPackageFile FromFile(string path) {
+			if (! File.Exists(path)) return null;
+
+			// right now, we only support Nupkg files so ... just return one of those!
+			return new Nupkg(path);
 		}
 	}
 }

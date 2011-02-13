@@ -15,12 +15,6 @@ namespace MooGet.Specs.CLI {
 		DirectoryOfNupkg source1 = new DirectoryOfNupkg(PathToContent("packages")); // <--- relative
 		DirectoryOfNupkg source2 = new DirectoryOfNupkg(PathToContent("more_packages"));
 
-		[SetUp]
-		public void Before() {
-			base.BeforeEach();
-			OutputMooCommands = true;
-		}
-
 		[Test][Description("moo help list")]
 		public void help() {
 			var help = moo("help list");
@@ -62,8 +56,31 @@ namespace MooGet.Specs.CLI {
 			mooDir.Packages.Count.ShouldEqual(0);
 		}
 
-		[Test][Description("moo list nuni")][Ignore]
+		[Test][Description("moo list nuni")]
 		public void lists_all_local_gem_names_that_start_with_query() {
+			mooDir.Install(new PackageDependency("MarkdownSharp"), source1);
+			mooDir.Install(new PackageDependency("NUnit"), source1);
+			mooDir.Install(new PackageDependency("Ninject"), source1);
+			mooDir.Install(new PackageDependency("FluentNHibernate"), source1);
+			mooDir.Packages.Count.ShouldEqual(4);
+
+			var output = moo("list N");
+			output.ShouldContain("NUnit");
+			output.ShouldContain("Ninject");
+			output.ShouldNotContain("FluentNHibernate");
+			output.ShouldNotContain("MarkdownSharp");
+
+			output = moo("list nin");
+			output.ShouldContain("Ninject");
+			output.ShouldNotContain("NUnit");
+			output.ShouldNotContain("FluentNHibernate");
+			output.ShouldNotContain("MarkdownSharp");
+
+			output = moo("list m");
+			output.ShouldContain("MarkdownSharp");
+			output.ShouldNotContain("Ninject");
+			output.ShouldNotContain("NUnit");
+			output.ShouldNotContain("FluentNHibernate");
 		}
 
 		[Test][Description("moo list nuni -s Url")]
