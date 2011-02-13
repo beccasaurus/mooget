@@ -17,11 +17,11 @@ namespace MooGet.Specs.CLI {
 		[Test][Description("moo config")]
 		public void prints_out_miscellaneous_Moo_configuration_settings() {
 			var output = moo("config");
-			output.ShouldContain("MooDir: " + PathToTemp("home"));
-			output.ShouldContain("Debug: False");
-			output.ShouldContain("Verbose: False");
-			output.ShouldContain("System HOME: " + PathToTemp("home"));
-			output.ShouldContain("System TMP: " + PathToTemp("tmp"));
+			output.ShouldMatch(@"MooDir:\s+" + PathToTemp("home"));
+			output.ShouldMatch(@"Debug:\s+False");
+			output.ShouldMatch(@"Verbose:\s+False");
+			output.ShouldMatch(@"System HOME:\s+" + PathToTemp("home"));
+			output.ShouldMatch(@"System TMP:\s+" + PathToTemp("tmp"));
 		}
 	}
 }

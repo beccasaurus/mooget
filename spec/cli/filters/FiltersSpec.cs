@@ -30,16 +30,16 @@ Run moo help for help documentation".TrimStart('\n'));
 
 		[Test][Description("moo --debug, moo -D")]
 		public void moo_debug() {
-			moo("config"        ).ShouldContain("Debug: False");;
-			moo("-D config"     ).ShouldContain("Debug: True");;
-			moo("--debug config").ShouldContain("Debug: True");;
+			moo("config"        ).ShouldMatch(@"Debug:\s+False");;
+			moo("-D config"     ).ShouldMatch(@"Debug:\s+True");;
+			moo("--debug config").ShouldMatch(@"Debug:\s+True");;
 		}
 
 		[Test][Description("moo --verbose, moo -V")]
 		public void moo_verbose() {
-			moo("config"          ).ShouldContain("Verbose: False");;
-			moo("-V config"       ).ShouldContain("Verbose: True");;
-			moo("--verbose config").ShouldContain("Verbose: True");;
+			moo("config"          ).ShouldMatch(@"Verbose:\s+False");;
+			moo("-V config"       ).ShouldMatch(@"Verbose:\s+True");;
+			moo("--verbose config").ShouldMatch(@"Verbose:\s+True");;
 		}
 	}
 }
