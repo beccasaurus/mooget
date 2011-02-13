@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace MooGet.Specs.CLI {
 
 	[TestFixture]
-	public class HelpCommandSpec : MooGetSpec {
+	public class HelpCommandSpec : Spec {
 
 		[Test][Description("moo help")]
 		public void prints_out_the_main_moo_help_screen_if_called_without_argumetns() {

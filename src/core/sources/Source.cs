@@ -195,8 +195,10 @@ namespace MooGet {
 				return new MooDir(path);
 			else if (DirectoryOfNupkg.IsValidPath(path))
 				return new DirectoryOfNupkg(path);
-			else
-				throw new Exception("Don't know what kind of ISource to instantiate for path: " + path);
+			else {
+				Moo.Log.Error("Don't know what kind of ISource to instantiate for path: " + path);
+				return null;
+			}
 		}
 	}
 }

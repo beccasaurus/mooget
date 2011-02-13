@@ -40,6 +40,8 @@ namespace MooGet.Specs {
 			// ... nothing yet ...
 		}
 
+		public bool OutputMooCommands = false;
+
 		public string MooWorkingDirectory;
 
 		public void ResetMooWorkingDirectory() {
@@ -89,6 +91,10 @@ namespace MooGet.Specs {
             process.StartInfo.FileName = FullCombinedPath(SpecDirectory, "..", "bin", "Debug", "moo.exe");
             if (arguments != null)
                 process.StartInfo.Arguments = arguments;
+
+			if (OutputMooCommands)
+				Console.WriteLine("{0} {1}", process.StartInfo.FileName, process.StartInfo.Arguments);
+
             process.StartInfo.UseShellExecute              = false;
             process.StartInfo.RedirectStandardOutput       = true;
             process.StartInfo.CreateNoWindow               = true;
@@ -98,6 +104,10 @@ namespace MooGet.Specs {
             process.Start();
             string stdout = process.StandardOutput.ReadToEnd();
             process.WaitForExit();
+
+			if (OutputMooCommands)
+				Console.WriteLine("{0}\n", stdout);
+
             return stdout.TrimEnd('\n');
 		}
 

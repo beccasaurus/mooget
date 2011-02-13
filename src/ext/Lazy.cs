@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections.Generic;
 
 namespace MooGet {
@@ -20,6 +21,11 @@ namespace MooGet {
 		public static List<T> Lazy<T>(this object self, ref List<T> list) {
 			if (list == null) list = new List<T>();
 			return list;
+		}
+
+		public static StringBuilder Lazy(this object self, ref StringBuilder builder) {
+			if (builder == null) builder = new StringBuilder();
+			return builder;
 		}
 	}
 }

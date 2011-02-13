@@ -19,6 +19,7 @@ namespace MooGet {
 		public List<ISource> Sources {
 			get {
 				var sources = new List<ISource>();
+				if (! this.Exists()) return sources;
 				foreach (var line in this.Lines()) {
 					var source = LineToSource(line);
 					if (source != null)
@@ -33,6 +34,10 @@ namespace MooGet {
 		}
 
 		public ISource Add(string name, string path) {
+			// If we're referencing a system path, we need to save the FULL path in our SourceFile
+			if (Directory.Exists(path))
+				path = System.IO.Path.GetFullPath(path);
+
 			// we just do this to make sure it looks like a valid source
 			// and so we can return it, incase we want it
 			var line   = string.Format("{0} {1}", name, path).Trim();

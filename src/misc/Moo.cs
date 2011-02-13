@@ -9,12 +9,13 @@ namespace MooGet {
 	/// <summary>Represents the primary API for most MooGet actions</summary>
 	public class Moo {
 
-		public static bool   Debug = false;
-		public static bool   Verbose = false;
-		public static string Indentation = "\t";
-		public static string OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";
-		public static string UserAgent { get { return Moo.Version; } }
-		public static string Version { get { return "Moo " + Assembly.GetExecutingAssembly().GetName().Version.ToString(); } }
+		public static ILogger Log = new Logger();
+		public static bool    Debug = false;
+		public static bool    Verbose = false;
+		public static string  Indentation = "\t";
+		public static string  OfficialNugetFeed = "http://go.microsoft.com/fwlink/?LinkID=199193";
+		public static string  UserAgent { get { return Moo.Version; } }
+		public static string  Version { get { return "Moo " + Assembly.GetExecutingAssembly().GetName().Version.ToString(); } }
 
 		static MooDir _dir;
 		static List<Assembly> _extensions;

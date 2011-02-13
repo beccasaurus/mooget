@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace MooGet.Specs.CLI {
 
 	[TestFixture]
-	public class CommandsCommandSpec : MooGetSpec {
+	public class CommandsCommandSpec : Spec {
 
 		[Test][Description("moo help commands")]
 		public void help() {
