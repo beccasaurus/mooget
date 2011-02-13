@@ -48,6 +48,7 @@ namespace MooGet.Specs.CLI {
 			moo("source").ShouldContain(source1.Path);
 			moo("source").ShouldContain(source2.Path);
 			mooDir.Sources.Select(s => s.Path).ToList().ShouldEqual(new List<string>{ PathToContent("packages"), PathToContent("more_packages") });
+			mooDir.Sources.Select(s => s.GetType()).ToList().ShouldEqual(new List<Type>{ typeof(DirectoryOfNupkg), typeof(DirectoryOfNupkg) });
 			mooDir.Sources.Count.ShouldEqual(defaultSourceCount + 2);
 		}
 
@@ -60,7 +61,7 @@ namespace MooGet.Specs.CLI {
 			output.ShouldNotContain("Totally Cool");
 			mooDir.Sources.Count.ShouldEqual(defaultSourceCount);
 
-			moo("source add Awesome {0}", "../../content/packages"); // <--- add using relative path, to our working directory
+			moo("source add Awesome ../../content/packages"); // <--- add using relative path, to our working directory
 
 			output = moo("source");
 			output.ShouldContain(Path.GetFullPath(source1.Path)); // <-- the FULL path should be saved
@@ -78,11 +79,51 @@ namespace MooGet.Specs.CLI {
 			output.ShouldContain("Totally Cool");
 			mooDir.Sources.Select(s => s.Name).ToList().ShouldEqual(new List<string>{ "Awesome", "Totally Cool" });
 			mooDir.Sources.Select(s => s.Path).ToList().ShouldEqual(new List<string>{ PathToContent("packages"), PathToContent("more_packages") });
+			mooDir.Sources.Select(s => s.GetType()).ToList().ShouldEqual(new List<Type>{ typeof(DirectoryOfNupkg), typeof(DirectoryOfNupkg) });
 			mooDir.Sources.Count.ShouldEqual(defaultSourceCount + 2);
 		}
 
-		[Test][Description("moo source rm X")][Ignore]
-		public void rm() {
+		[Test][Description("moo source rm ../../content/packages")][Ignore]
+		public void rm_using_path() {
+			moo("source add Awesome ../../content/packages"); // <--- add using relative path, to our working directory
+			moo("source add \"Totally Cool\" {0}", source2.Path);
+			mooDir.Sources.Select(s => s.Name).ToList().ShouldEqual(new List<string>{ "Awesome", "Totally Cool" });
+			mooDir.Sources.Select(s => s.Path).ToList().ShouldEqual(new List<string>{ PathToContent("packages"), PathToContent("more_packages") });
+			mooDir.Sources.Count.ShouldEqual(defaultSourceCount + 2);
+
+			moo("source rm ../../content/packages"); // relative should turn into a full path, so you can remove ok ...
+
+			mooDir.Sources.Count.ShouldEqual(defaultSourceCount + 1);
+			mooDir.Sources.Select(s => s.Name).ToList().ShouldEqual(new List<string>{ "Totally Cool" });
+			mooDir.Sources.Select(s => s.Path).ToList().ShouldEqual(new List<string>{ PathToContent("more_packages") });
+
+			moo("source rm {0}", source2.Path);
+
+			mooDir.Sources.Count.ShouldEqual(defaultSourceCount);
+		}
+
+		[Test][Description("moo source rm \"My Source\"")][Ignore]
+		public void rm_using_name() {
+			moo("source add Awesome ../../content/packages"); // <--- add using relative path, to our working directory
+			moo("source add \"Totally Cool\" {0}", source2.Path);
+			mooDir.Sources.Select(s => s.Name).ToList().ShouldEqual(new List<string>{ "Awesome", "Totally Cool" });
+			mooDir.Sources.Select(s => s.Path).ToList().ShouldEqual(new List<string>{ PathToContent("packages"), PathToContent("more_packages") });
+			mooDir.Sources.Count.ShouldEqual(defaultSourceCount + 2);
+
+			moo("source rm Awesome");
+
+			mooDir.Sources.Count.ShouldEqual(defaultSourceCount + 1);
+			mooDir.Sources.Select(s => s.Name).ToList().ShouldEqual(new List<string>{ "Totally Cool" });
+			mooDir.Sources.Select(s => s.Path).ToList().ShouldEqual(new List<string>{ PathToContent("more_packages") });
+
+			moo("source rm \"Totally Cool\"", source2.Path);
+
+			mooDir.Sources.Count.ShouldEqual(defaultSourceCount);
+		}
+
+		// Once we have default sources, we need to make sure that they can be removed ...
+		[Test][Ignore]
+		public void removing_default_sources() {
 		}
 
 		// TODO sub commands for clearing or updating the cache (when we add caching)
