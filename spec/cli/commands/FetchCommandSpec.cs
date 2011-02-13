@@ -43,8 +43,15 @@ namespace MooGet.Specs.CLI {
 			dir.Files().Select(f => f.Name()).ToList().ShouldEqual(new List<string>{ "MarkdownSharp-1.13.0.0.nupkg", "NuGet.CommandLine-1.1.2120.136.nupkg" });
 		}
 
-		[Test][Description("moo fetch MyPackage -v 1.0.1 --source URL")][Ignore]
+		[Test][Description("moo fetch MyPackage -v 1.0.1 --source URL")]
 		public void can_specify_exact_version_of_package_to_fetch_from_source() {
+			cd(dir.Path);
+			dir.Files().Count.ShouldEqual(0);
+
+			moo("fetch NuGet.CommandLine -v 1.0.11220.26 -s {0}", remoteSource.Path).ShouldContain("Fetched NuGet.CommandLine-1.0.11220.26.nupkg");
+
+			dir.Files().Count.ShouldEqual(1);
+			dir.Files().First().Name().ShouldEqual("NuGet.CommandLine-1.0.11220.26.nupkg");
 		}
 
 		[Test][Description("moo fetch MyPackage")][Ignore]
