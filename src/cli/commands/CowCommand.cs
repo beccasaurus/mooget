@@ -2,6 +2,7 @@ using System;
 
 namespace MooGet.Commands {
 
+	/// <summary>moo cow</summary>
 	public class CowCommand {
 
 		[Command(Name = "cow", Description = "Moo.")]

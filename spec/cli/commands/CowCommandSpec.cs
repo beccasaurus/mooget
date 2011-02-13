@@ -2,17 +2,14 @@ using System;
 using MooGet;
 using NUnit.Framework;
 
-namespace MooGet.Specs {
+namespace MooGet.Specs.CLI {
 
 	[TestFixture]
 	public class SaySpec : MooGetSpec {
 
-		[TestFixture]
-		public class Integration : MooGetSpec {
-
-			[Test]
-			public void can_moo_1_line_of_text() {
-				var text = @"
+		[Test]
+		public void can_moo_1_line_of_text() {
+			var text = @"
  _____________
 < hello world >
  -------------
@@ -22,12 +19,12 @@ namespace MooGet.Specs {
                 ||----w |
                 ||     ||
 ";
-				moo("cow hello world").ShouldEqual(text.TrimStart('\n').TrimEnd('\n'));
-			}
-			
-			[Test]
-			public void can_moo_2_lines_of_text() {
-				var text = @"
+		moo("cow hello world").ShouldEqual(text.TrimStart('\n').TrimEnd('\n'));
+		}
+		
+		[Test]
+		public void can_moo_2_lines_of_text() {
+			var text = @"
  ____________________________________
 / hello world how goes it? i am long \
 \ enough to have 2 lines             /
@@ -38,12 +35,12 @@ namespace MooGet.Specs {
                 ||----w |
                 ||     ||
 ";
-				moo("cow hello world how goes it? i am long enough to have 2 lines").ShouldEqual(text.TrimStart('\n').TrimEnd('\n'));
-			}
-			
-			[Test]
-			public void can_moo_many_lines_of_text() {
-				var text = @"
+			moo("cow hello world how goes it? i am long enough to have 2 lines").ShouldEqual(text.TrimStart('\n').TrimEnd('\n'));
+		}
+		
+		[Test]
+		public void can_moo_many_lines_of_text() {
+			var text = @"
  _______________________________________
 / hello world how goes it? i was long   \
 | enough to have 2 lines but now I am   |
@@ -55,13 +52,7 @@ namespace MooGet.Specs {
                 ||----w |
                 ||     ||
 ";
-				moo("cow hello world how goes it? i was long enough to have 2 lines but now I am much longer and I should have 3 lines").ShouldEqual(text.TrimStart('\n').TrimEnd('\n'));
-			}
-
-			// moo say
-			
-			// moo cow <-- just a cow?
-
+			moo("cow hello world how goes it? i was long enough to have 2 lines but now I am much longer and I should have 3 lines").ShouldEqual(text.TrimStart('\n').TrimEnd('\n'));
 		}
 	}
 }

@@ -35,7 +35,7 @@ namespace MooGet {
 				if (_extensions == null) {
 					_extensions = new List<Assembly>();
 					foreach (MooDirPackage package in Moo.Dir.Packages)
-						foreach (var dll in package.Libraries.Where(dll => dll.StartsWith("MooGet.")))
+						foreach (var dll in package.Libraries.Where(dll => Path.GetFileName(dll).StartsWith("MooGet.")))
 							try {
 								_extensions.Add(Assembly.LoadFile(dll));
 							} catch (Exception ex) {

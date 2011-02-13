@@ -2,10 +2,10 @@ using System;
 using System.Linq;
 using System.Reflection;
 using MooGet;
-using MooGet.Options;
+using Mono.Options;
 using NUnit.Framework;
 
-namespace MooGet.Specs {
+namespace MooGet.Specs.CLI {
 
 	[TestFixture]
 	public class CommandFilterSpec : MooGetSpec {
@@ -25,8 +25,8 @@ namespace MooGet.Specs {
 			var filters = CommandFilter.GetFilters(Assembly.GetExecutingAssembly());
 			(filters.Count > 1).ShouldBeTrue();
 			
-			filters.Select(f => f.FullName).ShouldContain("MooGet.Specs.CommandFilterSpec.FindAndRunCommand");
-			filters.Select(f => f.FullName).ShouldContain("MooGet.Specs.CommandFilterSpec.HeaderAndFooterFilter");
+			filters.Select(f => f.FullName).ShouldContain("MooGet.Specs.CLI.CommandFilterSpec.FindAndRunCommand");
+			filters.Select(f => f.FullName).ShouldContain("MooGet.Specs.CLI.CommandFilterSpec.HeaderAndFooterFilter");
 			filters.Select(f => f.Name).ShouldContain("FindAndRunCommand");
 			filters.Select(f => f.Name).ShouldContain("HeaderAndFooterFilter");
 			filters.Select(f => f.Description).ShouldContain("I am the description ...");
