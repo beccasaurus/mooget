@@ -31,16 +31,41 @@ namespace MooGet.Commands {
 
 		/// <summary>moo source</summary>
 		public override object RunDefault() {
-			return string.Format("Running ... args passed: \n{0}", DebugArguments());
+			SetDefaults();
+
+			if (Args.Count > 0)
+				return ListQuery(Args.First());
+			else
+				return ListAll();
 		}
 
-		string DebugArguments() {
-			return string.Format(@"
-QueryLocal:  {0}
-QueryRemote: {1}
-Source:      {2}
-",
-QueryLocal, QueryRemote, Source).TrimStart();
+		void SetDefaults() {
+			if (QueryLocal == null && QueryRemote == null && Source == null)
+				QueryLocal = true;
+		}
+
+		public object ListQuery(string query) {
+			return "QUERYING NOT SUPPORTED YET";
+		}
+
+		public object ListAll() {
+			var packages = new List<IPackage>();
+			// if source ... else ...
+			if (QueryLocal == true) packages.AddRange(Moo.Dir.Packages);
+			// if ...
+			return ListPackages(packages);
+		}
+
+		public object ListPackages(List<IPackage> packages) {
+			if (packages.Count == 0)
+				return "No packages";
+
+			Output.Line("Found {0} packages", packages.Count);
+			var grouped = packages.GroupBy(pkg => pkg.Id);
+			foreach (var group in grouped)
+				foreach (var item in group)
+					Output.Line("group Key:{0} Value:{1}", group.Key, item);
+			return Output;
 		}
 	}
 }

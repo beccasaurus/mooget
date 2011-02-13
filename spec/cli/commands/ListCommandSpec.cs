@@ -19,11 +19,24 @@ namespace MooGet.Specs.CLI {
 		public void help() {
 			var help = moo("help list");
 			help.ShouldContain("Usage: moo list [STRING] [options]");
-			help.ShouldContain("  Defaults:\n    --local --no-details");
+			help.ShouldMatch(@"Defaults:\s+--local");
 		}
 
-		[Test][Description("moo list")][Ignore]
+		[Test][Description("moo list")]
 		public void lists_locally_installed_packaged_if_no_args_passed() {
+			OutputMooCommands = true;
+			mooDir.Packages.Count.ShouldEqual(0);
+
+			var output = moo("list");
+			output.ShouldEqual("No packages");
+			output.ShouldNotContain("MarkdownSharp");
+
+			mooDir.Install(new PackageDependency("MarkdownSharp"), source1);
+			mooDir.Packages.Count.ShouldEqual(1);
+
+			output = moo("list");
+			output.ShouldContain("MarkdownSharp");
+			output.ShouldContain("1.13.0.0"); // version
 		}
 
 		[Test][Description("moo list -s /path/, moo list --source /path/")][Ignore]

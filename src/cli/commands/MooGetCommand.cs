@@ -69,11 +69,12 @@ namespace MooGet {
 				return PrintHelpIfNoArguments ? Help : RunDefault();
 			else if (Args.First() == "--help")
 				return Help;
-			else {
+			else if (RunFirstArgumentAsCommand) {
 				var command = Args.First();
 				Args.RemoveAt(0);
 				return RunCommand(command);
-			}
+			} else
+				return RunDefault();
 		}
 
 		/// <summary>Runs Options (if not null) against the Args passed into this command</summary>

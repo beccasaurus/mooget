@@ -74,6 +74,9 @@ namespace MooGet {
 		}
 
 		public override IPackage Push(IPackageFile file){
+			// Make sure the MooDir has been initialized
+			Initialize();
+
 			// Install it to our cache
 			var cached = Cache.Push(file) as Nupkg;
 			
