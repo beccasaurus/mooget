@@ -163,10 +163,8 @@ namespace MooGet {
 			}
 		}
 
-		public static string TempDir {
-			get {
-				return Environment.GetEnvironmentVariable("TMP") ?? Path.GetTempPath();
-			}
+		public static string TempDirectory {
+			get { return Environment.GetEnvironmentVariable("TMP") ?? Path.GetTempPath(); }
 		}
 
 		public static XmlDocument GetXmlDocumentForFile(string filename) {

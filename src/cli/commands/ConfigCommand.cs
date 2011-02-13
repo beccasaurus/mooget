@@ -7,14 +7,22 @@ namespace MooGet.Commands {
 
 		[Command(Name = "config", Description = "Print configuration information")]
 		public static object Run(string[] args) {
+			if (args.Length == 1 && args[0] == "--help")
+				return Util.HelpForCommand("config");
+
 			return string.Format(@"
-mooDir: {0}
+MooDir: {0}
 Debug: {1}
 Verbose: {2}
+System HOME: {3}
+System TMP: {4}
 ",
-Moo.Dir,
+Moo.Dir.Path,
 Moo.Debug,
-Moo.Verbose).TrimStart('\n');
+Moo.Verbose,
+Util.HomeDirectory,
+Util.TempDirectory
+).TrimStart('\n');
 		}
 	}
 }
