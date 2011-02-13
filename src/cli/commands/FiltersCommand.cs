@@ -28,9 +28,10 @@ namespace MooGet.Commands {
 			}
 
 			if (builtinFilters.Any()) {
+				var spaces = builtinFilters.Select(f => f.Name.Length).Max() + 2;
 				response.AppendLine("Built-in:");
 				foreach (var filter in builtinFilters)
-					response.AppendFormat("  {0} \t {1}\n", filter.Name, filter.Description);
+					response.AppendFormat("  {0}{1}\n", filter.Name.WithSpaces(spaces), filter.Description);
 			}
 
 			if (filtersByAssembly.Any()) {
@@ -38,9 +39,10 @@ namespace MooGet.Commands {
 				foreach (var item in filtersByAssembly) {
 					var name    = item.Key;
 					var filters = item.Value;
+					var spaces  = filters.Select(f => f.Name.Length).Max() + 2;
 					response.AppendFormat("{0}:\n", name.Name);
 					foreach (var filter in filters)
-						response.AppendFormat("  {0} \t {1}\n", filter.Name, filter.Description);
+						response.AppendFormat("  {0}{1}\n", filter.Name.WithSpaces(spaces), filter.Description);
 					response.AppendLine();
 				}
 			}

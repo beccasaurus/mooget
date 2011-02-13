@@ -34,5 +34,19 @@ namespace MooGet {
 			var lowest = packages.LowestVersion();
 			return packages.FirstOrDefault(pkg => pkg.Version == lowest);
 		}
+
+		public static IDictionary<string, List<IPackage>> GroupById(this List<IPackage> packages) {
+			var grouped = new Dictionary<string, List<IPackage>>();
+			foreach (var group in packages.GroupBy(pkg => pkg.Id)) {
+				grouped[group.Key] = new List<IPackage>();
+				foreach (var package in group)
+					grouped[group.Key].Add(package);
+			}
+			return grouped;
+		}
+
+		public static List<PackageVersion> Versions(this List<IPackage> packages) {
+			return packages.Select(pkg => pkg.Version).ToList();
+		}
 	}
 }

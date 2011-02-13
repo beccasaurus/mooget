@@ -44,27 +44,45 @@ namespace MooGet.Commands {
 				QueryLocal = true;
 		}
 
-		public object ListQuery(string query) {
-			return "QUERYING NOT SUPPORTED YET";
-		}
-
 		public object ListAll() {
 			var packages = new List<IPackage>();
-			// if source ... else ...
-			if (QueryLocal == true) packages.AddRange(Moo.Dir.Packages);
-			// if ...
+			SourcesToQuery.ForEach(src => packages.AddRange(src.Packages));
 			return ListPackages(packages);
+		}
+
+		public object ListQuery(string query) {
+			var packages = new List<IPackage>();
+			SourcesToQuery.ForEach(src => packages.AddRange(src.GetPackagesWithIdStartingWith(query)));
+			return ListPackages(packages);
+		}
+
+		public List<ISource> SourcesToQuery {
+			get {
+				var sources = new List<ISource>();
+
+				// -s --source
+				if (Source != null) {
+					var src = MooGet.Source.GetSource(Source);
+					if (src == null)
+						throw new HandledException("Source not found: {0}", Source);
+					sources.Add(src);
+				}
+
+				// -l --local
+				if (QueryLocal == true)
+					sources.Add(Moo.Dir);
+
+				return sources;
+			}
 		}
 
 		public object ListPackages(List<IPackage> packages) {
 			if (packages.Count == 0)
 				return "No packages";
+			
+			foreach (var item in packages.GroupById())
+				Output.Line("{0} ({1})", item.Key, item.Value.Versions().ToStrings().Join(", "));
 
-			Output.Line("Found {0} packages", packages.Count);
-			var grouped = packages.GroupBy(pkg => pkg.Id);
-			foreach (var group in grouped)
-				foreach (var item in group)
-					Output.Line("group Key:{0} Value:{1}", group.Key, item);
 			return Output;
 		}
 	}

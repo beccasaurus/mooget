@@ -79,7 +79,8 @@ namespace MooGet {
 
 		/// <summary>Runs Options (if not null) against the Args passed into this command</summary>
 		public virtual void ParseOptions() {
-			Args = new List<string>(Options.Parse(Args.ToArray()));
+			if (Options != null)
+				Args = new List<string>(Options.Parse(Args.ToArray()));
 		}
 
 		/// <summary>Override this to have 'moo X foo' call RunCommand('foo') on your XCommand</summary>

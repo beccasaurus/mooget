@@ -28,21 +28,18 @@ namespace MooGet {
 
 			try {
 
+				if (Moo.Verbose)
+					Moo.Log.Debug("Invoking top-most filter: {0}", filters[0].Name);
+
 				// Invoke our full stack of filters and 
 				// write the final string response out 
 				// to the console.
 				Console.Write(filters[0].Invoke(args));
 
 			} catch (Exception ex) {
-
-				// Get the first exception that's not a TargetInvocationException (which we get because we Invoke() our commands)
-				Exception inner = ex;
-				while (inner.InnerException != null && inner is System.Reflection.TargetInvocationException)
-					inner = inner.InnerException;
-
-				// Use CowSay to display the error message
+				// Use CowSay to display the uncaught exception
 				Cow.Columns = 80;
-				Cow.Say("Moo. There was a problem:                                                   {0}", inner);
+				Cow.Say("Moo. There was a problem:                                                   {0}", ex.GetNonInvokationException());
 			}
 		}
 	}

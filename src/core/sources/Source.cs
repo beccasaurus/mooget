@@ -200,5 +200,12 @@ namespace MooGet {
 				return null;
 			}
 		}
+
+		public static ISource GetSource(string nameOrPath) {
+			var source = Moo.Dir.Sources.FirstOrDefault(src => src.Name == nameOrPath);
+			if (source == null)
+				source = Source.ForPath(nameOrPath);
+			return source;
+		}
 	}
 }

@@ -14,6 +14,20 @@ namespace MooGet {
 	/// </remarks>
 	public static class Filters {
 
+		[CommandFilter("Catches certain types of exceptions that were \"handled\" and prints them")]
+		public static object HandledExceptionFilter(string[] args, CommandFilter filter) {
+			if (Moo.Verbose) Moo.Log.Debug("HandledExceptionFilter({0})", string.Join(", ", args));
+			try {
+				return filter.Invoke(args);
+			} catch (Exception ex) {
+				var inner = ex.GetNonInvokationException();
+				if (inner is HandledException)
+					return inner.Message + "\n";
+				else
+					throw ex; // whoops, it's not a HandledException ... pass it along!
+			}
+		}
+
 		[CommandFilter("Prints the Moo splash screen if no arguments passed")]
 		public static object SplashScreenFilter(string[] args, CommandFilter filter) {
 			if (args.Length == 0)
@@ -44,6 +58,8 @@ namespace MooGet {
 
 		[CommandFilter("Finds and runs the appropriate [Command] passed to moo.exe")]
 		public static object CommandRunnerFilter(string[] args, CommandFilter filter) {
+			if (Moo.Verbose) Moo.Log.Debug("CommandRunnerFilter({0})", string.Join(", ", args));
+
 			// If, by the time we make it to this CommandRunnerFilter, all of the arguments 
 			// have been removed ... display the splash screen.  Else FindAndRunCommand.
 			if (args.Length == 0)
