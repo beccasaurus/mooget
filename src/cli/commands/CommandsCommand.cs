@@ -26,8 +26,9 @@ namespace MooGet.Commands {
 				if (! Moo.Debug)
 					commands = commands.Where(cmd => cmd.Debug == false).ToList();
 
+				var spaces = commands.Select(c => c.Name.Length).Max() + 4;
 				foreach (var command in commands)
-					response.AppendFormat("    {0}{1}{2}\n", command.Name, Util.Spaces(command.Name, 20), command.Description);
+					response.AppendFormat("    {0}{1}\n", command.Name.WithSpaces(spaces), command.Description);
 				return response;
 			}
 		}

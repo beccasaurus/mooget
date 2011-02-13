@@ -1,18 +1,17 @@
 MooGet is a sophisticated package manager for .NET.
 
   Usage:
-    moo -h/--help
+    moo help
     moo -v/--version
 
   Examples:
     moo install nunit
-    moo list --local
+    moo list
     moo build package.nuspec
     moo help install
 
   Further help:
     moo commands                 list all 'moo' commands
-    moo help examples            show some examples of usage
     moo help <COMMAND>           show help on COMMAND
                                    (e.g. 'moo help install')
 
