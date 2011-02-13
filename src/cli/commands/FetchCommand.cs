@@ -1,17 +1,18 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using Mono.Options;
 
 namespace MooGet.Commands {
 
-	///<summary>moo yank</summary>
-	public class YankCommand : MooGetCommand {
+	///<summary>moo fetch</summary>
+	public class FetchCommand : MooGetCommand {
 
-		[Command("yank", "Yank a package from a remote source")]
-		public static object Run(string[] args) { return new YankCommand(args).Run(); }
+		[Command("fetch", "Fetch a package from a remote source")]
+		public static object Run(string[] args) { return new FetchCommand(args).Run(); }
 
-		public YankCommand(string[] args) : base(args) {
+		public FetchCommand(string[] args) : base(args) {
 			PrintHelpIfNoArguments = true;
 			Options = new OptionSet() {
 				{ "s|source=",  v => Source  = v },
@@ -19,16 +20,15 @@ namespace MooGet.Commands {
 			};
 		}
 
-		/// <summary>A particular source to yank from</summary>
+		/// <summary>A particular source to fetch from</summary>
 		public string Source { get; set; }
 
-		/// <summary>The version of the given package to yank</summary>
+		/// <summary>The version of the given package to fetch (optional)</summary>
 		public string Version { get; set; }
 
-		/// <summary>moo yank</summary>
+		/// <summary>moo fetch</summary>
 		public override object RunDefault() {
 			if (Source == null)  return Help;
-			if (Version == null) return Help;
 			if (Args.Count != 1) return Help;
 
 			var source = MooGet.Source.GetSource(Source);
@@ -36,11 +36,12 @@ namespace MooGet.Commands {
 
 			var packageId  = Args.First();
 			var dependency = new PackageDependency(string.Format("{0} {1}", packageId, Version));
+			var fetched    = source.Fetch(dependency, Directory.GetCurrentDirectory());
 
-			if (source.Yank(dependency))
-				return string.Format("Yanked {0} from {1}", dependency, source.Path);
+			if (fetched != null)
+				return string.Format("Fetched {0}", fetched.Name());
 			else
-				return string.Format("{0} could not be yanked from {1}", dependency, source.Path);
+				return string.Format("{0} could not be fetched from {1}", dependency, source.Path);
 		}
 	}
 }

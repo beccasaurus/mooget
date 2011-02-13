@@ -27,9 +27,12 @@ namespace MooGet {
 
 		public override IPackageFile Fetch(PackageDependency dependency, string directory) {
 			var package = Get(dependency) as IPackageFile;
-			if (package != null)
-				package.Copy(directory);
-			return package;
+			var newPath = System.IO.Path.Combine(directory, package.IdAndVersion() + ".nupkg");
+			if (package != null) {
+				package.Copy(newPath);
+				return new Nupkg(newPath);
+			} else
+				return null;
 		}
 		
 		public override IPackage Push(IPackageFile file) {

@@ -24,7 +24,7 @@ namespace MooGet {
 
 		public PackageDependency() {}
 		public PackageDependency(string nameAndVersions) {
-			var parts = new List<string>(nameAndVersions.Split(' '));
+			var parts = new List<string>(nameAndVersions.Trim().Split(' '));
 
 			if (parts.Count > 0) {
 				PackageId = parts.First().Trim();
@@ -56,7 +56,7 @@ namespace MooGet {
 			if (package.Id != Id)
 				return false;
 			else
-				return Matches(package.Version);
+				return (Versions.Count > 0) ? Matches(package.Version) : true;
 		}
 
 		public bool Matches(string version) {
