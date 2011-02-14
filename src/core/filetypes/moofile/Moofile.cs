@@ -211,7 +211,7 @@ namespace MooGet {
 								Groups.Add(group);
 							}
 							foreach (var value in section.Value)
-								group.Dependencies.Add(new Dependency(value));
+								group.Dependencies.Add(new Dependency(value){ Moofile = this });
 						}
 						sections.Remove(section.Key); // we processed this into groups ourselves
 					}
@@ -255,7 +255,7 @@ namespace MooGet {
 						if (dependencyText.Contains(":"))
 							AddToConfigurationFromString(Configuration, dependencyText);
 						else
-							GlobalDependencies.Add(new Dependency(dependencyText));
+							GlobalDependencies.Add(new Dependency(dependencyText){ Moofile = this });
 					}
 				} else {
 					if (section.Key.Contains(":")) {
@@ -267,7 +267,7 @@ namespace MooGet {
 							Groups.Add(group);
 						}
 						foreach (var dependencyText in section.Value)
-							group.Dependencies.Add(new Dependency(dependencyText));
+							group.Dependencies.Add(new Dependency(dependencyText){ Moofile = this });
 					}
 				}
 			}
