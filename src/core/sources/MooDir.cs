@@ -121,9 +121,14 @@ namespace MooGet {
 			var name = System.IO.Path.GetFileNameWithoutExtension(exePath);
 			var path = System.IO.Path.Combine(binDirectory, name);
 
-			// #! /bin/bash
-			// "/home/user/.moo/packages/Foo-1.2-3/tools/MyTool.exe" "$@"
-			var script = string.Format("#! /bin/sh\n\"{0}\" \"$@\"", exePath.Replace(" ", "\\ "));
+			// Mono, itself, writes its bin scripts like this.  So we should respect that and do the same!
+			//
+			// This means that anyone making use of MONO_OPTIONS will see their options being used when running these scripts
+			// This is especially useful for things like running mono with "--debug" for better stacktraces.
+
+			// #! /bin/sh
+			// exec mono $MONO_OPTIONS "/home/remi/.moo/packages/just-a-tool-1.0.0.0/tools/tool.exe" "$@"
+			var script = string.Format("#! /bin/sh\nexec mono $MONO_OPTIONS \"{0}\" \"$@\"", exePath.Replace(" ", "\\ "));
 
 			using (var writer = new StreamWriter(path)) writer.Write(script);
 		}
