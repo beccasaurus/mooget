@@ -6,3 +6,4 @@ Debug
 Release
 TestResult.xml
 *.html
+spec/tmp
