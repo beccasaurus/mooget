@@ -3,6 +3,7 @@ using System.IO;
 
 namespace MooGet.Commands {
 
+	/// <summary>moo build</summary>
 	public class BuildCommand {
 
 		[Command(Name = "build", Description = "Compiles the current project (using Moofile)")]

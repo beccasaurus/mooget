@@ -100,7 +100,7 @@ namespace MooGet {
 				var localPackageReferences = new List<IPackage>();
 
 				foreach (var nupkg in nupkgReferences) {
-					var package = Moo.Dir.Install(nupkg) as LocalPackage;
+					var package = Moo.Dir.Push(nupkg) as IPackage;
 					response.Line("Installed {0}", package);
 					localPackageReferences.Add(package);
 				}
@@ -110,7 +110,7 @@ namespace MooGet {
 
 				// add -r references for LocalPackage libraries
 				foreach (var package in localPackageReferences)
-					foreach (var dll in package.Libraries)
+					foreach (var dll in (package as MooDirPackage).Libraries)
 						command += " -r:" + System.IO.Path.GetFullPath(dll);
 
 				response.Line(command);
@@ -123,7 +123,7 @@ namespace MooGet {
 					File.Copy(dll, copyTo);
 				});
 				foreach (var package in localPackageReferences)
-					foreach (var dll in package.Libraries) {
+					foreach (var dll in (package as MooDirPackage).Libraries) {
 						var dllPath = System.IO.Path.GetFullPath(dll);
 						var copyTo  = System.IO.Path.Combine(outputDir, System.IO.Path.GetFileName(dllPath));
 						response.Line("cp {0} {1}", dllPath, copyTo);
