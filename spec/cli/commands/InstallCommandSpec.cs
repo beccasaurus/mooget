@@ -65,6 +65,16 @@ namespace MooGet.Specs.CLI {
 			mooDir.Packages.First().IdAndVersion().ShouldEqual("NuGet.CommandLine-1.1.2120.136");
 		}
 
+		[Test][Description("moo install Foo.nupkg")]
+		public void can_install_package_from_IPackageFile() {
+			mooDir.Packages.Count.ShouldEqual(0);
+
+			moo("install {0}", PathToContent("more_packages", "NuGet.CommandLine-1.1.2120.136.nupkg")).ShouldContain("Installed NuGet.CommandLine-1.1.2120.136");
+
+			mooDir.Packages.Count.ShouldEqual(1);
+			mooDir.Packages.First().IdAndVersion().ShouldEqual("NuGet.CommandLine-1.1.2120.136");
+		}
+
 		[Test][Description("moo install MyPackage")][Ignore]
 		public void can_install_package_from_default_source() {
 		}

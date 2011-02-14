@@ -78,7 +78,7 @@ namespace MooGet.Commands {
 
 		public object ListPackages(List<IPackage> packages) {
 			if (packages.Count == 0)
-				return "No packages";
+				return "No packages\n";
 			
 			foreach (var item in packages.GroupById())
 				Output.Line("{0} ({1})", item.Key, item.Value.Versions().ToStrings().Join(", "));

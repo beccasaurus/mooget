@@ -30,6 +30,17 @@ namespace MooGet.Commands {
 		public override object RunDefault() {
 			// TODO we should attempt to install *every* arg that gets passed as a package dependency
 			if (Args.Count != 1) return Help;
+			var packageId  = Args.First();
+
+			// Install foo.nupkg
+			if (File.Exists(packageId)) {
+				var packageFile = NewPackage.FromFile(packageId);
+				var pushed      = Moo.Dir.Push(packageFile);
+				if (pushed == null)
+					return string.Format("{0} could not be installed", packageId);
+				else
+					return string.Format("Installed {0}", pushed.IdAndVersion());
+			}
 
 			List<ISource> sources = new List<ISource>();
 			if (Source != null) {
@@ -41,7 +52,6 @@ namespace MooGet.Commands {
 			} else
 				sources.AddRange(Moo.Dir.Sources);
 
-			var packageId  = Args.First();
 			var dependency = new PackageDependency(string.Format("{0} {1}", packageId, Version));
 
 			try {
