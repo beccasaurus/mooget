@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 namespace MooGet {
 
+	// TODO not only is this long, but lots of it is un-used now!  CLEAN UP!  delete as much as possible ...
+	//      a good way to clean this up would be to move some stuff into extension methods
+
 	// TODO this is really finally starting to get long!  we should split this up into mutliple files using a partial class.
 	//      later, if this gets even bigger, we could separate out into different classes;
 

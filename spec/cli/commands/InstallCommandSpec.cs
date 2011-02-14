@@ -78,5 +78,10 @@ namespace MooGet.Specs.CLI {
 		[Test][Description("moo install MyPackage")][Ignore]
 		public void can_install_package_from_default_source() {
 		}
+
+		[Test][Description("moo install PackageWithTools && run-tool")][Ignore]
+		public void can_run_any_tools_after_installing_package_with_tools() {
+			// ...
+		}
 	}
 }

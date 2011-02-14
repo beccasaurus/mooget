@@ -37,16 +37,16 @@ namespace MooGet.Commands {
 				var packageFile = NewPackage.FromFile(packageId);
 				var pushed      = Moo.Dir.Push(packageFile);
 				if (pushed == null)
-					return string.Format("{0} could not be installed", packageId);
+					return string.Format("{0} could not be installed\n", packageId);
 				else
-					return string.Format("Installed {0}", pushed.IdAndVersion());
+					return string.Format("Installed {0}\n", pushed.IdAndVersion());
 			}
 
 			List<ISource> sources = new List<ISource>();
 			if (Source != null) {
 				var source = MooGet.Source.GetSource(Source);
 				if (source == null)
-					return string.Format("Source not found: {0}", Source);
+					return string.Format("Source not found: {0}\n", Source);
 				else
 					sources.Add(source);
 			} else
@@ -57,9 +57,9 @@ namespace MooGet.Commands {
 			try {
 				var installed = Moo.Dir.Install(dependency, sources.ToArray());
 				if (installed != null)
-					return string.Format("Installed {0}", installed.IdAndVersion());
+					return string.Format("Installed {0}\n", installed.IdAndVersion());
 				else
-					return string.Format("{0} could not be installed", dependency);
+					return string.Format("{0} could not be installed\n", dependency);
 			} catch (MooGet.PackageNotFoundException ex) {
 				return ex.Message; // Package not found: X
 			}

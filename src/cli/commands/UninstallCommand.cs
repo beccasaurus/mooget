@@ -35,7 +35,7 @@ namespace MooGet.Commands {
 
 			var packages = Moo.Dir.GetPackagesWithId(packageId);
 			if (packages.Count == 0)
-				return string.Format("Could not uninstall {0}", packageId);
+				return string.Format("Could not uninstall {0}\n", packageId);
 			else
 				foreach (var package in packages)
 					Output.Line(Uninstall(package.Id));
@@ -47,9 +47,9 @@ namespace MooGet.Commands {
 			var package    = Moo.Dir.Get(dependency);
 
 			if (package != null && Moo.Dir.Uninstall(dependency, true)) // TODO add setting for uninstalling with/without dependencies
-				return string.Format("Uninstalled {0}", package);
+				return string.Format("Uninstalled {0}\n", package);
 			else
-				return string.Format("Could not uninstall {0}", dependency);
+				return string.Format("Could not uninstall {0}\n", dependency);
 		}
 	}
 }

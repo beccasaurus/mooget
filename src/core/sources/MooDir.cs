@@ -131,6 +131,13 @@ namespace MooGet {
 			var script = string.Format("#! /bin/sh\nexec mono $MONO_OPTIONS \"{0}\" \"$@\"", exePath.Replace(" ", "\\ "));
 
 			using (var writer = new StreamWriter(path)) writer.Write(script);
+
+			// If you're not on windows, chmod +x this script so we can run it
+			if (! Util.IsWindows) {
+				var command   = string.Format("chmod +x \"{0}\"", System.IO.Path.GetFileName(path));
+				var directory = System.IO.Path.GetDirectoryName(path);
+				Util.RunCommand(command, directory);
+			}
 		}
 
 		public virtual void SetupWindowsBatchScriptForTool(string exePath, string binDirectory) {
