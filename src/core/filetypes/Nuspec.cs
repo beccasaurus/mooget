@@ -117,7 +117,11 @@ namespace MooGet {
 		public virtual List<NuspecFileSource> FileSources {
 			get {
 				var fileSources = new List<NuspecFileSource>();
-				Doc.Nodes("file").ForEach(node => fileSources.Add(node.ToFileSource()));
+				Doc.Nodes("file").ForEach(node => {
+					var source = node.ToFileSource();
+					source.Nuspec = this;
+					fileSources.Add(source);
+				});
 				return fileSources;
 			}
 			set {}

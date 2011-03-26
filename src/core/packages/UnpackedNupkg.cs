@@ -82,14 +82,32 @@ namespace MooGet {
 		/// <summary>Returns the paths to all of this package's DLLs for the given framework name, eg. "Net20".  Does not include global DLLs.</summary>
 		public virtual List<string> JustLibrariesFor(string frameworkName) {
 			var dir = LibraryDirectoryFor(frameworkName);
-			return (dir == null) ? new List<string>() : dir.AsDir().Search("**.dll").Paths();
+			if (dir == null)
+				return new List<string>();
+			var dlls = dir.AsDir().Search("**.dll").Paths();
+			dlls.AddRange(dir.AsDir().Search("**.exe").Paths());
+			return dlls;
 		}
 
 		/// <summary>Returns just the DLLs in the root of the LibrariesDirectory (not categorized by framework version)</summary>
-		public virtual List<string> GlobalLibraries { get { return LibrariesDirectory.AsDir().Search("*.dll").Paths(); } }
+		public virtual List<string> GlobalLibraries {
+			get {
+				var dlls = LibrariesDirectory.AsDir().Search("*.dll").Paths();
+				dlls.AddRange(LibrariesDirectory.AsDir().Search("*.exe").Paths());
+				return dlls;
+			} 
+		}
 
 		/// <summary>Returns ALL DLLs for this package.  All DLLs in the LibrariesDirectory, regardless of framework version</summary>
-		public virtual List<string> Libraries { get { return (LibrariesDirectory == null) ? new List<string>() : LibrariesDirectory.AsDir().Search("**.dll").Paths(); } }
+		public virtual List<string> Libraries {
+			get {
+				if (LibrariesDirectory == null)
+					return new List<string>();
+				var dlls = LibrariesDirectory.AsDir().Search("**.dll").Paths();
+				dlls.AddRange(LibrariesDirectory.AsDir().Search("**.exe").Paths()); // both DLL and EXE files are valid libraries
+				return dlls;
+			} 
+		}
 
 		/// <summary>Returns ALL EXEs for this package founr in the tools directory.</summary>
 		public virtual List<string> Tools { get { return (ToolsDirectory == null) ? new List<string>() : ToolsDirectory.AsDir().Search("**.exe").Paths(); } }

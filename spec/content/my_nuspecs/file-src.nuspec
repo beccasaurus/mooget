@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>file-src</id>
+    <version>1.0</version>
+    <authors>remi</authors>
+    <description>This is my package</description>
+  </metadata>
+  <files>
+    <!-- the README should show up in the root of the package -->
+    <file src="README" />
+  </files>
+</package>

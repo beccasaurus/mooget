@@ -11,6 +11,8 @@ namespace MooGet.Specs {
 
 		[SetUp]
 		public void BeforeAll() {
+			MooGetSpec.ClearTempDirectory();
+
 			Environment.SetEnvironmentVariable("HOME", MooGetSpec.PathToTemp("home")); // fake 'home' directory
 			Environment.SetEnvironmentVariable("TMP",  MooGetSpec.PathToTemp("tmp"));  // fake 'tmp' directory
 			MooGetSpec.ResetTempDirectory();
@@ -18,7 +20,7 @@ namespace MooGet.Specs {
 
 		[TearDown]
 		public void AfterAll() {
-			MooGetSpec.ClearTempDirectory();
+			// ... nothing ...
 		}
 	}
 
