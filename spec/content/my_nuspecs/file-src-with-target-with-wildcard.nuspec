@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>file-src-with-target-with-wildcard</id>
+    <version>1.0</version>
+    <authors>remi</authors>
+    <description>This is my package</description>
+  </metadata>
+  <files>
+    <!-- this should put the README into a foo directory in the package -->
+    <file src="doc\**" target='foo' />
+  </files>
+</package>
