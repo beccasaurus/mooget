@@ -45,6 +45,8 @@ namespace MooGet.Commands {
 				foreach (var realFile in fileSource.GetFiles()) {
 					var filePath = Path.GetFullPath(realFile);
 					var relative = Path.GetFullPath(nuspec.DirName()).AsDir().Relative(filePath);
+					if (! string.IsNullOrEmpty(fileSource.Target))
+						relative = fileSource.Target + relative;
 					zip.AddExisting(relative, filePath);
 				}
 			}

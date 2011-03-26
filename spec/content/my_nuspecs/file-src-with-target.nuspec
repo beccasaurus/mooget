@@ -7,7 +7,7 @@
     <description>This is my package</description>
   </metadata>
   <files>
-    <!-- this should put the README into a doc directory in the package -->
-    <file src="README" target='doc' />
+    <!-- this should put the README into a foo directory in the package -->
+    <file src="README" target='foo' />
   </files>
 </package>

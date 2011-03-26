@@ -50,8 +50,16 @@ namespace MooGet.Specs.CLI {
 			});
 		}
 
-		[Test][Description(@"<file src='README' target='foo' />")][Ignore]
+		[Test][Description(@"<file src='README' target='foo' />")]
 		public void can_include_files_from_nuspec_with_target() {
+			var output = moo("pack my_nuspecs/file-src-with-target.nuspec");
+
+			var nupkg = new Nupkg(PathToTemp("working", "my_nuspecs", "file-src-with-target-1.0.nupkg"));
+			nupkg.Exists().Should(Be.True);
+			nupkg.Files.ShouldEqual(new List<string>{
+				"file-src-with-target.nuspec",
+				"foo/README"
+			});
 		}
 
 		[Test][Description(@"<file src='doc\*' target='foo' />")][Ignore]
