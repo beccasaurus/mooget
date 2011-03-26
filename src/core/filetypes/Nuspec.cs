@@ -44,7 +44,11 @@ namespace MooGet {
 		/// <remarks>When set, this Nuspec's XML is read from the file (if it exists).</remarks>
 		public virtual string Path {
 			get { return _path; }
-			set { _path = value; Xml = Util.ReadFile(value); }
+			set {
+				_path = value;
+				if (this.Exists())
+					Xml = Util.ReadFile(value);
+			}
 		}
 
 		public virtual  string Id            { get { return GetMeta("id");          } set { SetMeta("id",           value); } }
@@ -127,12 +131,20 @@ namespace MooGet {
 			set {}
 		}
 
+		public virtual void Save() {
+			this.Write(Xml);
+		}
+
 		#region Xml Stuff
 		public virtual string Xml {
 			get { return (Doc == null) ? null : Doc.ToXml(); }
 			set { Doc = Util.GetXmlDocumentForString(value); }
 		}
-		public virtual XmlDocument Doc { get; set; }
+
+		public virtual XmlDocument Doc {
+			get { return _doc ?? (_doc = new XmlDocument()); }
+			set { _doc = value; }
+		}
 
 		public virtual XmlNode MetaData { get { return Doc.Node("metadata"); } }
 		#endregion
