@@ -69,7 +69,9 @@ namespace MooGet.Specs.CLI {
 			var nupkg = new Nupkg(PathToTemp("working", "my_nuspecs", "file-src-with-target-with-wildcard-1.0.nupkg"));
 			nupkg.Exists().Should(Be.True);
 			nupkg.Files.ShouldEqual(new List<string>{
-				"file-src-with-target-with-wildcard.nuspec", "foo/doc/Doc.txt", "foo/doc/subdir/InSubdir"
+				"file-src-with-target-with-wildcard.nuspec",
+				"foo/Doc.txt",
+				"foo/InSubdir" // <--- when you use Target, everything gets flattened
 			});
 		}
 
