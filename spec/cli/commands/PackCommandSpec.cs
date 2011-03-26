@@ -37,8 +37,17 @@ namespace MooGet.Specs.CLI {
 			});
 		}
 
-		[Test][Description(@"<file src='doc\*' />")][Ignore]
+		[Test][Description(@"<file src='doc\**' />")]
 		public void can_include_files_from_nuspec_with_wildcards() {
+			var output = moo("pack my_nuspecs/file-src-with-wildcard.nuspec");
+
+			var nupkg = new Nupkg(PathToTemp("working", "my_nuspecs", "file-src-with-wildcard-1.0.nupkg"));
+			nupkg.Exists().Should(Be.True);
+			nupkg.Files.ShouldEqual(new List<string>{
+				"file-src-with-wildcard.nuspec",
+				"doc/Doc.txt",
+				"doc/subdir/InSubdir"
+			});
 		}
 
 		[Test][Description(@"<file src='README' target='foo' />")][Ignore]
