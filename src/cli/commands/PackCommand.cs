@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.IO.Packaging;
 using System.Collections.Generic;
 using Mono.Options;
 
@@ -29,6 +30,18 @@ namespace MooGet.Commands {
 				return "Nothing yet ... you need to pass in a nuspec to pack ...";
 		}
 
+		public virtual string RandomXsdId {
+			get {
+				var id    = "";
+				var chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+				while (id.Length < 16) {
+					id += chars[new Random((int) DateTime.Now.Ticks).Next(chars.Length)];
+				}
+				return "R" + id;
+			}
+		}
+
+		// TODO - this whole method (except for the writelines) should be available on the Nuspec or Nupkg classes
 		public virtual object PackNuspec(string nuspecPath) {
 			var response = new StringBuilder();
 
@@ -59,6 +72,28 @@ namespace MooGet.Commands {
 						relative = fileSource.Target + "/" + Path.GetFileName(relative);
 					response.AppendFormat("  {0}\n", relative.TrimStart(@"\/".ToCharArray()));
 					zip.AddExisting(relative, filePath);
+				}
+			}
+
+			// Ugh, need to do some ugly OpenXML bullshit ...
+
+			using (var package = ZipPackage.Open(zip.Path, FileMode.OpenOrCreate, FileAccess.ReadWrite)) {
+				// First, let's set some properties
+				package.PackageProperties.Creator     = nuspec.AuthorsText;
+				package.PackageProperties.Description = nuspec.Description;
+				package.PackageProperties.Identifier  = nuspec.Id;
+				package.PackageProperties.Version     = nuspec.VersionText;
+
+				// Now, let's create an internal 'Relationship' to the nuspec file (for some reason)
+				var nuspecUri           = new Uri("/" + nuspec.FileName(), UriKind.Relative);
+				var someCrappyNamespace = "http://schemas.microsoft.com/packaging/2010/07/manifest";
+				package.CreateRelationship(nuspecUri, TargetMode.Internal, someCrappyNamespace, RandomXsdId);
+
+				// If there's a relationship with an (invalid) ID of 0, delete it and create it with a unique ID
+				var invalid = package.GetRelationship("0");
+				if (invalid != null) {
+					package.DeleteRelationship("0");
+					package.CreateRelationship(invalid.TargetUri, invalid.TargetMode, invalid.RelationshipType, RandomXsdId);
 				}
 			}
 
