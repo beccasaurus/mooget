@@ -26,10 +26,107 @@ namespace MooGet.Specs.Core {
   <metadata xmlns=""http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"">
   </metadata>
 </package>".TrimStart('\n'));
+		}
 
-			nuspec.Id = "MyPackage";
+		[Test]
+		public void can_add_metadata_to_blank_nuspec() {
+			var nuspec = new Nuspec();
 
-			Console.WriteLine("XML: {0}", nuspec.Xml);
+			nuspec.Id          = "MyPackage";
+			nuspec.VersionText = "1.2.3";
+
+			nuspec.Xml.ShouldEqual(@"
+<?xml version=""1.0"" encoding=""utf-8""?>
+<package xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <metadata xmlns=""http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"">
+    <id>MyPackage</id>
+    <version>1.2.3</version>
+  </metadata>
+</package>".TrimStart('\n'));
+		}
+
+		[Test]
+		public void can_add_dependencies_to_blank_nuspec() {
+			var nuspec = new Nuspec { Id = "MyPackage", VersionText = "1.2.3" };
+
+			// This API isn't ideal ... but it works.  You can NOT manipulate Dependencies.  You must set the whole property.
+			nuspec.Dependencies = new List<PackageDependency> { new PackageDependency("CoolPackage >= 1.5") };
+
+			nuspec.Xml.ShouldEqual(@"
+<?xml version=""1.0"" encoding=""utf-8""?>
+<package xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <metadata xmlns=""http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"">
+    <id>MyPackage</id>
+    <version>1.2.3</version>
+    <dependencies>
+      <dependency id=""CoolPackage"" version=""&gt;= 1.5"" />
+    </dependencies>
+  </metadata>
+</package>".TrimStart('\n'));
+		}
+
+		[Test]
+		public void can_add_files_to_blank_nuspec() {
+			var nuspec = new Nuspec { Id = "MyPackage", VersionText = "1.2.3" };
+
+			nuspec.FileSources = new List<NuspecFileSource> {
+				new NuspecFileSource { Source = @"content\**" },
+				new NuspecFileSource { Source = @"bin\Release\*", Target = "lib" }
+			};
+
+			nuspec.Xml.ShouldEqual(@"
+<?xml version=""1.0"" encoding=""utf-8""?>
+<package xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <metadata xmlns=""http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"">
+    <id>MyPackage</id>
+    <version>1.2.3</version>
+    <files>
+      <file src=""content\**"" />
+      <file src=""bin\Release\*"" target=""lib"" />
+    </files>
+  </metadata>
+</package>".TrimStart('\n'));
+		}
+
+		[Test]
+		public void can_add_lot_of_stuff_to_blank_nuspec() {
+			var nuspec = new Nuspec {
+				Id          = "MyPackage",
+				VersionText = "1.2.3",
+				Description = "Cool package",
+				ProjectUrl  = "https://github.com/me/whatever"
+			};
+			nuspec.Tags    = new List<string> { "first", "second", "third" };
+			nuspec.Authors = new List<string> { "remi", "Lander", "Murdoch" };
+			nuspec.Dependencies = new List<PackageDependency> { new PackageDependency("CoolPackage") };
+			nuspec.FileSources = new List<NuspecFileSource> {
+				new NuspecFileSource { Source = @"README"                              },
+				new NuspecFileSource { Source = @"src\**"                              },
+				new NuspecFileSource { Source = @"bin\Release\*",     Target = "tools" },
+				new NuspecFileSource { Source = @"bin\Release\*.dll", Target = "lib"   }
+			};
+
+			nuspec.Xml.ShouldEqual(@"
+<?xml version=""1.0"" encoding=""utf-8""?>
+<package xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <metadata xmlns=""http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"">
+    <id>MyPackage</id>
+    <version>1.2.3</version>
+    <description>Cool package</description>
+    <projectUrl>https://github.com/me/whatever</projectUrl>
+    <tags>first second third</tags>
+    <authors>remi,Lander,Murdoch</authors>
+    <dependencies>
+      <dependency id=""CoolPackage"" />
+    </dependencies>
+    <files>
+      <file src=""README"" />
+      <file src=""src\**"" />
+      <file src=""bin\Release\*"" target=""tools"" />
+      <file src=""bin\Release\*.dll"" target=""lib"" />
+    </files>
+  </metadata>
+</package>".TrimStart('\n'));
 		}
 
 		[Test]

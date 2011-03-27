@@ -15,6 +15,9 @@ namespace MooGet {
 	/// List properties, eg. Dependencies or Authors.  Instead, you must *set* the whole property. 
 	/// Inotherwords, you cannot <c>nuspec.Authors.Add("foo")</c> but you can <c>nuspec.Authors = authorsList</c>.
 	/// Authors, Owners, and Tags all have helper *Text properties that you can modify freely, however, eg. AuthorsText.
+	/// 
+	/// We should fix these XML oddities ... they're annoying.  I'd like to map the properties to XML the way we do it in Clide.
+	///
 	/// </remarks>
 	public class Nuspec : PackageDetails, IPackage, IFile {
 
@@ -137,7 +140,23 @@ namespace MooGet {
 				});
 				return fileSources;
 			}
-			set {}
+			set {
+				// remove existing <files>
+				var existingNode = MetaData.Node("files");
+				if (existingNode != null)
+					existingNode.ParentNode.RemoveChild(existingNode);
+
+				if (value == null || value.Count == 0) return;
+
+				// add new <files> and new <dependency> nodes underneath it
+				var newNode = MetaData.NodeOrNew("files");
+				foreach (var file in value) {
+					var node = newNode.NewNode("file");
+					node.Attr("src", file.Source);
+					if (! string.IsNullOrEmpty(file.Target))
+						node.Attr("target", file.Target);
+				}
+			}
 		}
 
 		public virtual void Save() {
