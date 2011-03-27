@@ -17,7 +17,15 @@ namespace MooGet {
 	/// </remarks>
 	public class Nuspec : PackageDetails, IPackage, IFile {
 
-		public Nuspec() {}
+		/// <summary>The XML that every new Nuspec starts out with ... stubs out the main nodes for us</summary>
+		public static string BlankNuspecXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+			+ "<package xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
+				+ "<metadata xmlns=\"http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd\"></metadata>"
+			+ "</package>";
+
+		public Nuspec() {
+			Xml = BlankNuspecXml;
+		}
 		public Nuspec(string path) : this() {
 			Path = path;
 		}
@@ -51,15 +59,15 @@ namespace MooGet {
 			}
 		}
 
-		public virtual  string Id            { get { return GetMeta("id");          } set { SetMeta("id",           value); } }
+		public virtual  string Id          { get { return GetMeta("id");          } set { SetMeta("id",           value); } }
 		public virtual  string VersionText { get { return GetMeta("version");     } set { SetMeta("version",      value); } }
-		public override string Title         { get { return GetMeta("title");       } set { SetMeta("title",        value); } }
-		public override string Description   { get { return GetMeta("description"); } set { SetMeta("description",  value); } }
-		public override string Summary       { get { return GetMeta("summary");     } set { SetMeta("summary",      value); } }
-		public override string ProjectUrl    { get { return GetMeta("projectUrl");  } set { SetMeta("projectUrl",   value); } }
-		public override string LicenseUrl    { get { return GetMeta("licenseUrl");  } set { SetMeta("licenseUrl",   value); } }
-		public override string IconUrl       { get { return GetMeta("iconUrl");     } set { SetMeta("iconUrl",      value); } }
-		public override string Language      { get { return GetMeta("language");    } set { SetMeta("language",     value); } }
+		public override string Title       { get { return GetMeta("title");       } set { SetMeta("title",        value); } }
+		public override string Description { get { return GetMeta("description"); } set { SetMeta("description",  value); } }
+		public override string Summary     { get { return GetMeta("summary");     } set { SetMeta("summary",      value); } }
+		public override string ProjectUrl  { get { return GetMeta("projectUrl");  } set { SetMeta("projectUrl",   value); } }
+		public override string LicenseUrl  { get { return GetMeta("licenseUrl");  } set { SetMeta("licenseUrl",   value); } }
+		public override string IconUrl     { get { return GetMeta("iconUrl");     } set { SetMeta("iconUrl",      value); } }
+		public override string Language    { get { return GetMeta("language");    } set { SetMeta("language",     value); } }
 
 		public override List<string> Authors {
 			get { return TrimmedListForNodes("author") ?? GetMeta("authors").ToTrimmedList(','); }
@@ -137,7 +145,7 @@ namespace MooGet {
 
 		#region Xml Stuff
 		public virtual string Xml {
-			get { return (Doc == null) ? null : Doc.ToXml(); }
+			get { return Doc.ToXml(); }
 			set { Doc = Util.GetXmlDocumentForString(value); }
 		}
 

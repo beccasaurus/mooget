@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="**\*.cs" />
-    <Compile Include="..\lib\clide\lib\NDesk.Options\src\NDesk.Options\NDesk.Options\Options.cs" />
+    <Compile Include="..\lib\NDesk.Options.cs" />
     <EmbeddedResource Include="resources\**\*" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -18,6 +18,21 @@ namespace MooGet.Specs.Core {
 		}
 
 		[Test]
+		public void can_create_blank_nuspec() {
+			var nuspec = new Nuspec();
+			nuspec.Xml.ShouldEqual(@"
+<?xml version=""1.0"" encoding=""utf-8""?>
+<package xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <metadata xmlns=""http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"">
+  </metadata>
+</package>".TrimStart('\n'));
+
+			nuspec.Id = "MyPackage";
+
+			Console.WriteLine("XML: {0}", nuspec.Xml);
+		}
+
+		[Test]
 		public void Id() {
 			minimum.Id.ShouldEqual("Min.Id");
 			maximum.Id.ShouldEqual("Package-Id");
