@@ -1,0 +1,3 @@
+[submodule "lib/FluentXml"]
+	path = lib/FluentXml
+	url = git://github.com/remi/FluentXml.git

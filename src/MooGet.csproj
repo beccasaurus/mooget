@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="**\*.cs" />
     <Compile Include="..\lib\NDesk.Options.cs" />
+    <Compile Include="..\lib\FluentXml\src\FluentXml.cs" />
     <EmbeddedResource Include="resources\**\*" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

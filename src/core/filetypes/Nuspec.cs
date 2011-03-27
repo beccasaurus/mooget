@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 using System.Linq;
 using System.Collections.Generic;
+using FluentXml;
 
 namespace MooGet {
 
