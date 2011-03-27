@@ -15,12 +15,11 @@ namespace MooGet.Specs.CLI {
 			moo("help spec").ShouldContain("Usage: moo spec");
 		}
 
-		// For now, ALL this does is make a silly stub ...
-		[Test][Description("moo spec")][Ignore]
+		[Test][Description("moo spec")]
 		public void moo_spec_generates_stub_nuspec() {
 			File.Exists(PathToTemp("working", "working.nuspec")).Should(Be.False);
 
-			System.Console.WriteLine(moo("spec"));
+			moo("spec").ShouldContain("Generated working.nuspec");
 
 			var nuspec = new Nuspec(PathToTemp("working", "working.nuspec"));
 			nuspec.Exists().Should(Be.True);
@@ -37,9 +36,34 @@ namespace MooGet.Specs.CLI {
 			// There should be example <file> elements for each of the common package parts
 			var targets = nuspec.FileSources.Select(source => source.Target).ToArray();
 			targets.ShouldContain("lib");
-			targets.ShouldContain("content");
 			targets.ShouldContain("tools");
-			targets.ShouldContain("src");
+		}
+
+		[Test][Description("moo spec (existing)")]
+		public void moo_spec_prints_out_spec_info() {
+			moo("spec").ShouldContain("Generated working.nuspec");
+
+			// Call it again
+			var output = moo("spec");
+			output.ShouldNotContain("Generated working.nuspec");
+			//output.ShouldContain("Id: working");
+			//output.ShouldContain("Version: 1.0.0");
+		}
+
+		[Test][Description("moo spec ...")][Ignore]
+		public void moo_spec_can_print_out_1_property() {
+		}
+
+		[Test][Description("moo spec ...")][Ignore]
+		public void moo_spec_can_print_out_many_properties() {
+		}
+
+		[Test][Description("moo spec ...")][Ignore]
+		public void moo_spec_can_set_1_property() {
+		}
+
+		[Test][Description("moo spec ...")][Ignore]
+		public void moo_spec_can_set_many_properties() {
 		}
 	}
 }
