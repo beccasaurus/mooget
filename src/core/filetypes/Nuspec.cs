@@ -149,7 +149,7 @@ namespace MooGet {
 				if (value == null || value.Count == 0) return;
 
 				// add new <files> and new <dependency> nodes underneath it
-				var newNode = MetaData.NodeOrNew("files");
+				var newNode = Doc.Node("package").NodeOrNew("files");
 				foreach (var file in value) {
 					var node = newNode.NewNode("file");
 					node.Attr("src", file.Source);

@@ -47,7 +47,7 @@ namespace MooGet.Commands {
 
 			var nuspec = new Nuspec(Path.GetFullPath(nuspecPath));
 			if (! nuspec.Exists())
-				return string.Format("Nuspec not found: {0}", nuspecPath);
+				return string.Format("Nuspec not found: {0}\n", nuspecPath);
 
 			var filename = nuspec.IdAndVersion() + ".nupkg";
 
@@ -57,6 +57,8 @@ namespace MooGet.Commands {
 			response.AppendFormat("File:       {0}\n", filename);
 
 			var zip = new Zip(Path.Combine(nuspec.DirName(), filename));
+			if (zip.Exists())
+				return string.Format("Package already exists: {0}\n", zip.FileName());
 
 			// We always add the nuspec file to the nupkg
 			zip.AddExisting(nuspec.FileName(), nuspec.Path);
@@ -69,7 +71,7 @@ namespace MooGet.Commands {
 					var filePath = Path.GetFullPath(realFile);
 					var relative = Path.GetFullPath(nuspec.DirName()).AsDir().Relative(filePath);
 					if (! string.IsNullOrEmpty(fileSource.Target))
-						relative = fileSource.Target + "/" + Path.GetFileName(relative);
+						relative = fileSource.Target.Replace("\\", "/") + "/" + Path.GetFileName(relative);
 					response.AppendFormat("  {0}\n", relative.TrimStart(@"\/".ToCharArray()));
 					zip.AddExisting(relative, filePath);
 				}

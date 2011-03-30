@@ -80,11 +80,11 @@ namespace MooGet.Specs.Core {
   <metadata xmlns=""http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"">
     <id>MyPackage</id>
     <version>1.2.3</version>
-    <files>
-      <file src=""content\**"" />
-      <file src=""bin\Release\*"" target=""lib"" />
-    </files>
   </metadata>
+  <files>
+    <file src=""content\**"" />
+    <file src=""bin\Release\*"" target=""lib"" />
+  </files>
 </package>".TrimStart('\n'));
 		}
 
@@ -119,13 +119,13 @@ namespace MooGet.Specs.Core {
     <dependencies>
       <dependency id=""CoolPackage"" />
     </dependencies>
-    <files>
-      <file src=""README"" />
-      <file src=""src\**"" />
-      <file src=""bin\Release\*"" target=""tools"" />
-      <file src=""bin\Release\*.dll"" target=""lib"" />
-    </files>
   </metadata>
+  <files>
+    <file src=""README"" />
+    <file src=""src\**"" />
+    <file src=""bin\Release\*"" target=""tools"" />
+    <file src=""bin\Release\*.dll"" target=""lib"" />
+  </files>
 </package>".TrimStart('\n'));
 		}
 

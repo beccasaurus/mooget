@@ -25,6 +25,19 @@ namespace MooGet.Specs.CLI {
 			help.ShouldContain("Usage: moo pack");
 		}
 
+		[Test][Ignore]
+		public void adds_stupid_OpenXML_files() {
+			/*
+			var output = moo("pack my_nuspecs/file-src.nuspec");
+
+			var nupkg = new Nupkg(PathToTemp("working", "my_nuspecs", "file-src-1.0.nupkg"));
+			var paths = nupkg.Zip.GetPaths(ignoreMetaFiles: false);
+			paths.ShouldEqual(new List<string>{
+				// URHERE			
+			});
+			*/
+		}
+
 		[Test][Description("<file src='README' />")]
 		public void can_include_files_from_nuspec() {
 			var output = moo("pack my_nuspecs/file-src.nuspec");
