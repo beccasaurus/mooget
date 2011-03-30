@@ -189,12 +189,18 @@ namespace MooGet {
 		/// This asks ISource implementations whether or not this path is for them.
 		///
 		/// Well, eventually it will.  Right now it's pretty static.
+		///
+		/// Instead of asking if it's valid, we should maybe say Class.ForPath(path) and return the first one that's not null 
+		/// giving us the opportunity to do some logic inside of ForPath to instantiate the instance ... maybe?  meh.  
+		/// The most important thing will be making sure that you can add your own Source types via extensions.
 		/// </remarks>
 		public static ISource ForPath(string path) {
 			if (MooDir.IsValidPath(path))
 				return new MooDir(path);
 			else if (DirectoryOfNupkg.IsValidPath(path))
 				return new DirectoryOfNupkg(path);
+			else if (NuGetOData.IsValidPath(path))
+				return new NuGetOData(path);
 			else {
 				Moo.Log.Error("Don't know what kind of ISource to instantiate for path: " + path);
 				return null;

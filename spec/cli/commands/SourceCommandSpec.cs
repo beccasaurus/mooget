@@ -121,6 +121,15 @@ namespace MooGet.Specs.CLI {
 			mooDir.Sources.Count.ShouldEqual(defaultSourceCount);
 		}
 
+		[Test][Description("moo source add http://whatever")]
+		public void add_nuget_http_source() {
+			moo("source add http://whatever").ShouldContain("?");
+		}
+
+		[Test][Description("moo source add \"Official NuGet\" http://packages.nuget.org/v1/FeedService.svc")][Ignore]
+		public void add_nuget_http_source_with_name() {
+		}
+
 		// Once we have default sources, we need to make sure that they can be removed ...
 		[Test][Ignore]
 		public void removing_default_sources() {
