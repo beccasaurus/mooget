@@ -1,3 +1,9 @@
 [submodule "lib/FluentXml"]
 	path = lib/FluentXml
 	url = git://github.com/remi/FluentXml.git
+[submodule "lib/EasyOData"]
+	path = lib/EasyOData
+	url = git://github.com/remi/EasyOData.git
+[submodule "lib/Requestor"]
+	path = lib/Requestor
+	url = git://github.com/remi/Requestor.git
