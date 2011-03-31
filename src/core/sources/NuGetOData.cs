@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Net;
 using System.Linq;
 using System.Collections.Generic;
 using EasyOData;
@@ -78,8 +79,12 @@ namespace MooGet {
 		}
 
 		public virtual List<IPackage> GetPackagesMatchingDependencies(params PackageDependency[] dependencies) {
+			Console.WriteLine("NuGetOData.GetPackagesMatchingDependencies: {0}", string.Join(", ", dependencies.Select(d => d.ToString()).ToArray()));
+			Requestoring.Requestor.Global.Verbose = true;
 			var id       = dependencies.First().PackageId;
+			Console.WriteLine("\tID: {0}", id);
 			var packages = GetPackagesWithId(id);
+			Console.WriteLine("\tPackages with ID: {0}", string.Join(", ", packages.Select(p => p.IdAndVersion()).ToArray()));
 			return packages.Where(pkg => PackageDependency.MatchesAll(pkg, dependencies)).ToList();
 		}
 
@@ -97,7 +102,18 @@ namespace MooGet {
 		}
 
 		public override IPackageFile Fetch(PackageDependency dependency, string directory) {
-			return null;
+			var package = Get(dependency) as NuGetODataPackage;
+			if (package == null)
+				return null;
+
+			var path = System.IO.Path.Combine(directory, package.IdAndVersion() + ".nupkg");
+
+			// Download the actual application/zip
+			var client = new WebClient();
+			client.Headers.Add("user-agent", Moo.UserAgent);
+			client.DownloadFile(package.DownloadUrl, path);
+
+			return new Nupkg(path);
 		}
 
 		public override IPackage Push(IPackageFile file) {

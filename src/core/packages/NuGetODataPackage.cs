@@ -60,8 +60,6 @@ namespace MooGet {
 		}
 	}
 
-	// TODO move this class to its own file ...
-
 	/// <summary>PackageDetails that wraps a NuGetODataPackage and uses the OData (properties/xml) to get this package's details</summary>
 	public class NuGetODataPackageDetails : PackageDetails {
 		public NuGetODataPackageDetails() : base() {}
@@ -77,6 +75,7 @@ namespace MooGet {
 
 		/// <summary>Updates all of our properties using the provided Package (and its Entity)</summary>
 		public virtual void Update() {
+			Console.WriteLine("Update() ... Package: {0}, Package.Entity: {1}", Package, Package.Entity);
 			if (Package == null || Package.Entity == null) return;
 
 			Title        = Prop("Title");
@@ -87,7 +86,10 @@ namespace MooGet {
 			IconUrl      = Prop("IconUrl");
 			AuthorsText  = Prop("Authors");
 			TagsText     = Prop("Tags");
-			Dependencies = Prop("Dependencies").Split('|').Select(str => ToDependency(str)).ToList();
+
+			var dependencies = Prop("Dependencies");
+			if (! string.IsNullOrEmpty(dependencies))
+				Dependencies = dependencies.Split('|').Select(str => ToDependency(str)).ToList();
 		}
 
 		/// <summary>Parses the given string from the OData NuGet service and returns a PackageDependency</summary>

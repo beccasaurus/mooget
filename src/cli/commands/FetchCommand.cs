@@ -39,9 +39,9 @@ namespace MooGet.Commands {
 			var fetched    = source.Fetch(dependency, Directory.GetCurrentDirectory());
 
 			if (fetched != null)
-				return string.Format("Fetched {0}", fetched.Name());
+				return string.Format("Fetched {0}\n", fetched.Name());
 			else
-				return string.Format("{0} could not be fetched from {1}", dependency, source.Path);
+				return string.Format("{0} could not be fetched from {1}\n", dependency, source.Path);
 		}
 	}
 }
