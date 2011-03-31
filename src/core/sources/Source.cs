@@ -44,25 +44,17 @@ namespace MooGet {
 
 		/// <summary>Thanks to Push(), it makes sense to have a base implementation of Install()</summary>
 		public virtual IPackage Install(PackageDependency dependency, params ISource[] sourcesForDependencies) {
-			Console.WriteLine("Installing in source: {0}", this);
-			Console.WriteLine("{0}.Install({1}) from sources:{2}", this, dependency, string.Join(", ", sourcesForDependencies.Select(s => s.Path).ToArray()));
 
 			var latestPackage = sourcesForDependencies.GetLatest(dependency);
 			if (latestPackage == null) throw new PackageNotFoundException(dependency);
 
-			Console.WriteLine("Found latest package for dependency{0}: package:{1}", dependency, latestPackage.IdAndVersion());
 			var allPackages = latestPackage.FindDependencies(sourcesForDependencies);
-			Console.WriteLine("Found Dependencies: {0}", allPackages.Select(pkg => pkg.IdAndVersion()).ToList().Join(", "));
 
 			allPackages.Add(latestPackage);
 
-			Console.WriteLine("OK, found all packages to install ...");
 			foreach (var package in allPackages) {
-				Console.WriteLine("package: {0} {1}", package, package.IdAndVersion());
 				if (Get(package.ToPackageDependency()) != null) {
-					Console.WriteLine("Already installed: {0}", package.IdAndVersion());
 				} else {
-					Console.WriteLine("Pushing package {0}", package);
 					var packageFile = package as IPackageFile;
 
 					// This isn't already a file, so we need to Fetch() it to get a file
@@ -73,7 +65,6 @@ namespace MooGet {
 				}
 			}
 
-			Console.WriteLine("Finished with dependencies ... doing the latestPackage ...");
 			return Get(latestPackage.ToPackageDependency());
 		}
 
@@ -103,7 +94,6 @@ namespace MooGet {
 		}
 
 		public static List<IPackage> FindDependencies(IPackage package, params ISource[] sources) {
-			Console.WriteLine("Source.FindDependencies package:{0} sources:{1}", package, string.Join(", ", sources.Select(s => s.Path).ToArray()));
 			return FindDependencies(new IPackage[] { package }, sources);
 		}
 
@@ -118,7 +108,6 @@ namespace MooGet {
 				params ISource[] sources) {
 		
 			var disc = (discoveredDependencies == null) ? "null" : discoveredDependencies.Count.ToString();
-			// Console.WriteLine("Source.FindDependencies({0}, {1}, {2})", disc, new List<IPackage>(packages).Select(p => p.IdAndVersion()).ToList().Join(", "), sources);
 
 			var found           = new List<IPackage>();
 			var packageIds      = packages.Select(p => p.Id);
@@ -173,7 +162,6 @@ namespace MooGet {
 					if (dependencyPackage.Details.Dependencies.Any())
 						found.AddRange(Source.FindDependencies(discoveredDependencies, new IPackage[]{ dependencyPackage }, sources)); // <--- recurse!
 				} else {
-					// Console.WriteLine("Could not find dependency: {0}", dependencyId);
 				}
 			}
 

@@ -75,7 +75,6 @@ namespace MooGet {
 
 		/// <summary>Updates all of our properties using the provided Package (and its Entity)</summary>
 		public virtual void Update() {
-			Console.WriteLine("Update() ... Package: {0}, Package.Entity: {1}", Package, Package.Entity);
 			if (Package == null || Package.Entity == null) return;
 
 			Title        = Prop("Title");

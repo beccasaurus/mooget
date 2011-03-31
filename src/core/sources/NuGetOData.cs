@@ -34,7 +34,6 @@ namespace MooGet {
 							throw new Exception(string.Format("OData service {0} has no Packages collection.  Wrong path?", Path));
 						_packagesCollection = Service["Packages"];
 					} catch (Exception ex) {
-						Console.WriteLine("Could not get Packages collection from OData service: {0}", Path);
 						throw ex;
 					}
 				}
@@ -79,12 +78,9 @@ namespace MooGet {
 		}
 
 		public virtual List<IPackage> GetPackagesMatchingDependencies(params PackageDependency[] dependencies) {
-			Console.WriteLine("NuGetOData.GetPackagesMatchingDependencies: {0}", string.Join(", ", dependencies.Select(d => d.ToString()).ToArray()));
 			Requestoring.Requestor.Global.Verbose = true;
 			var id       = dependencies.First().PackageId;
-			Console.WriteLine("\tID: {0}", id);
 			var packages = GetPackagesWithId(id);
-			Console.WriteLine("\tPackages with ID: {0}", string.Join(", ", packages.Select(p => p.IdAndVersion()).ToArray()));
 			return packages.Where(pkg => PackageDependency.MatchesAll(pkg, dependencies)).ToList();
 		}
 
