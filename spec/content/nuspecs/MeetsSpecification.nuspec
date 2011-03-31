@@ -27,7 +27,7 @@ Note: at this time, there are NO NUGET PACKAGES (that I've seen out of dozens re
     <dependencies>
       <dependency id="NUnit" />
       <dependency id="NHibernate.Core" version="2.1.2.4000" />
-      <dependency id="FooBar" version=">= 1.0" />
+      <dependency id="FooBar" version="= 1.0" />
     </dependencies>
   </metadata>
   <files>

@@ -293,7 +293,7 @@ namespace MooGet.Specs.Core {
 		public void Details_Dependencies() {
 			minimum.Dependencies.Should(Be.Empty);
 			maximum.Dependencies.Count.ShouldEqual(3);
-			maximum.Dependencies.ToStrings().ShouldEqual(new List<string> { "NUnit", "NHibernate.Core = 2.1.2.4000", "FooBar >= 1.0" });
+			maximum.Dependencies.ToStrings().ShouldEqual(new List<string> { "NUnit", "NHibernate.Core >= 2.1.2.4000", "FooBar = 1.0" });
 
 			// Just like Authors, Owners, Tags, and everything else ... you CANNOT modify the Dependencies List object if you 
 			// want to change the xml.  Instead you need to assign the whole List via the set {}
@@ -307,7 +307,7 @@ namespace MooGet.Specs.Core {
 			minimum.Dependencies.ToStrings().ShouldEqual(new List<string> { "Foo", "Bar = 1.0", "Neat >= 1.0 < 9.9" });
 
 			// can override existing dependencies
-			maximum.Dependencies.ToStrings().ShouldEqual(new List<string> { "NUnit", "NHibernate.Core = 2.1.2.4000", "FooBar >= 1.0" });
+			maximum.Dependencies.ToStrings().ShouldEqual(new List<string> { "NUnit", "NHibernate.Core >= 2.1.2.4000", "FooBar = 1.0" });
 			maximum.Dependencies = dependencies;
 			maximum.Dependencies.ToStrings().ShouldEqual(new List<string> { "Foo", "Bar = 1.0", "Neat >= 1.0 < 9.9" });
 		}

@@ -177,7 +177,7 @@ namespace MooGet.Specs.Core {
 			});
 
 			// we find the package we're talking about, but we're missing one of the dependencies
-			Should.Throw<MissingDependencyException>("No packages were found that satisfy these dependencies: Iesi.Collections = 1.0.1, Castle.DynamicProxy = 2.1.0", () => {
+			Should.Throw<MissingDependencyException>("No packages were found that satisfy these dependencies: Iesi.Collections >= 1.0.1, Castle.DynamicProxy >= 2.1.0", () => {
 				mydir.Install(new PackageDependency("FluentNHibernate"), morePackages);
 			});
 
