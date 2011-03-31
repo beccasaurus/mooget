@@ -121,7 +121,7 @@ namespace MooGet.Specs.CLI {
 			mooDir.Sources.Count.ShouldEqual(defaultSourceCount);
 		}
 
-		[Test][Description("moo source add http://whatever")]
+		[Test][Description("moo source add http://whatever")][Ignore]
 		public void add_nuget_http_source() {
 			moo("source add http://whatever").ShouldContain("?");
 		}

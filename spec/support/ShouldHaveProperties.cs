@@ -28,6 +28,7 @@ namespace NUnit.Framework {
 				var property = type.GetProperty(propertyItem.Key);
 				var expected = propertyItem.Value;
 				var actual   = property.GetValue(o, new object[] {});
+				// Console.WriteLine("property: {0}", property.Name);
 				actual.ShouldEqual(expected);
 			}
 		}

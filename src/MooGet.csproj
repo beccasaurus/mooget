@@ -39,7 +39,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Web" />
+
+    <!-- why the hell did I require WindowsForms?  Just for testing, I think ... -->
+    <!-- <Reference Include="System.Windows.Forms" /> -->
+
+    <!-- hmm ... what is WindowsBase?  I forget ... -->
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>

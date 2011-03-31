@@ -23,7 +23,7 @@ namespace MooGet {
 		/// <summary>Split a string with a char separator and return the results as a List</summary>
 		public static List<string> ToList(this string self, char separator) {
 			if (self == null) return new List<string>();
-			return new List<string>(self.Split(separator));
+			return new List<string>(self.Trim().Split(separator));
 		}
 
 		/// <summary>Split a string with a char separator, trim each of the parts, and return the results as a List</summary>

@@ -23,7 +23,7 @@ namespace MooGet {
 
 		/// <summary>Returns all of the Nupkg provided by this service</summary>
 		public override List<IPackage> Packages {
-			get { return null; }
+			get { return new List<IPackage>(); }
 		}
 
 		// public override IPackage Get(PackageDependency dependency) {
