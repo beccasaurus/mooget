@@ -50,9 +50,12 @@ namespace MooGet {
 			return path.StartsWith("http");
 		}
 
-		/// <summary>Returns all of the Nupkg provided by this service</summary>
 		public override List<IPackage> Packages {
 			get { return EntitiesToPackages(OData.All); }
+		}
+
+		public override List<IPackage> LatestPackages {
+			get { return EntitiesToPackages(OData.Where("IsLatestVersion"._Equals(true))); }
 		}
 
 		public override List<IPackage> GetPackagesWithIdStartingWith(string query) {
@@ -74,14 +77,11 @@ namespace MooGet {
 				return GetPackagesWithId(dependency.PackageId).Where(pkg => dependency.Matches(pkg)).ToList().Latest();
 		}
 
-		// TODO add a test that calls source.FindDependencies, which calls this ... it needs to be optimized ... it currently uses Packages
-		// public virtual List<IPackage> GetPackagesMatchingDependencies(params PackageDependency[] dependencies) {
-		// 	return Packages.Where(pkg => PackageDependency.MatchesAll(pkg, dependencies)).ToList();
-		// }
-
-		// public override List<IPackage> LatestPackages {
-		// 	get { return Packages.Where(pkg => pkg.Version == this.HighestVersionAvailableOf(pkg.Id)).ToList(); }
-		// }
+		public virtual List<IPackage> GetPackagesMatchingDependencies(params PackageDependency[] dependencies) {
+			var id       = dependencies.First().PackageId;
+			var packages = GetPackagesWithId(id);
+			return packages.Where(pkg => PackageDependency.MatchesAll(pkg, dependencies)).ToList();
+		}
 
 		/// <summary>Given an enumerable of Entity (from the OData service), this returns a list of IPackage</summary>
 		public virtual List<IPackage> EntitiesToPackages(IEnumerable<Entity> entities) {

@@ -1,0 +1,772 @@
+HTTP/1.1 200 OK
+Cache-Control: no-cache
+Content-Length: 55279
+Content-Type: application/atom+xml;charset=utf-8
+Server: Microsoft-IIS/7.0
+DataServiceVersion: 2.0;
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Thu, 31 Mar 2011 05:41:14 GMT
+
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<feed xml:base="http://packages.nuget.org/v1/FeedService.svc/" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">Packages</title>
+  <id>http://packages.nuget.org/v1/FeedService.svc/Packages</id>
+  <updated>2011-03-31T05:41:15Z</updated>
+  <link rel="self" title="Packages" href="Packages" />
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='wpfthemes',Version='0.0.1')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='wpfthemes',Version='0.0.1')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='wpfthemes',Version='0.0.1')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='wpfthemes',Version='0.0.1')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/wpfthemes/0.0.1" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>wpfthemes</d:Id>
+      <d:Version>0.0.1</d:Version>
+      <d:Title>wpfthemes</d:Title>
+      <d:Authors>Rudi Grobler</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>WPF Themes is a collection of themes for WPF</d:Summary>
+      <d:Description>WPF Themes is a collection of themes for WPF</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>EOSigvyIDR4bBkqxbDm6EZol2nsUNxGSKro+653QYqsUTeRjYNUeq2lgi9lyDk+Eyxo2sraSLCFdDSSSLOKjhw==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">847253</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">79</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-03-14T10:08:27.337</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-03-14T10:08:47.197</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-03-14T10:08:55.697</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://wpfthemes.codeplex.com/</d:ProjectUrl>
+      <d:LicenseUrl>http://wpfthemes.codeplex.com/license</d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">79</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> WPF </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/wpfthemes/0.0.1</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/wpfthemes/0.0.1</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='XAMLtoMVC',Version='0.9.1')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='XAMLtoMVC',Version='0.9.1')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='XAMLtoMVC',Version='0.9.1')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='XAMLtoMVC',Version='0.9.1')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/XAMLtoMVC/0.9.1" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>XAMLtoMVC</d:Id>
+      <d:Version>0.9.1</d:Version>
+      <d:Title>XAMLtoMVC dynamic image generator</d:Title>
+      <d:Authors>Tocsi</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>XAMLtoMVC was created to ease tasks in web development when you have something to display that is impossible (or nearly impossible) with html. And especially with images you want to use, but you realize you can't because they are too static to reflect even the smallest changes.      The solution is based on MVC actions and Html helper methods creating images ondemand.</d:Summary>
+      <d:Description>XAMLtoMVC was created to ease tasks in web development when you have something to display that is impossible (or nearly impossible) with html. And especially with images you want to use, but you realize you can't because they are too static to reflect even the smallest changes.
+      The solution is based on MVC actions and Html helper methods creating images ondemand.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>aDdqHdotDwN1rA6Mn9B7rF3NhHzs1LLG2x53tZ8KMmObzQpkRN2UuBueiOxNIcOu3GMMxo8CJNGrAmtICu7PsQ==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">52297</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">27</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-03-02T10:55:09.373</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-03-07T21:40:11.693</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-03-07T21:40:20.427</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://xamltomvc.codeplex.com/</d:ProjectUrl>
+      <d:LicenseUrl>http://xamltomvc.codeplex.com/license</d:LicenseUrl>
+      <d:IconUrl>http://nuget.org/Media/Default/Packages/XAMLtoMVC/0.9/XamlToPngLogo.png</d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">41</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> MVC XAML Imaging ASP.Net png mvc3 NetAcademia </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/XAMLtoMVC/0.9.1</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/XAMLtoMVC/0.9.1</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='XHTMLr',Version='1.0.0')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='XHTMLr',Version='1.0.0')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='XHTMLr',Version='1.0.0')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='XHTMLr',Version='1.0.0')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/XHTMLr/1.0.0" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>XHTMLr</d:Id>
+      <d:Version>1.0.0</d:Version>
+      <d:Title>XHTMLr</d:Title>
+      <d:Authors>Andy Edinborough</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>Normalizes HTML into XML that can be parsed and manipulated.</d:Summary>
+      <d:Description>Normalizes HTML into XML that can be parsed and manipulated.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>RfXNgC4U7HYJUhpDXZ596z9SI/sokBmyJw4z8GjUKZ5QoQ7oy3Ow5+ITCYeimeRZePdwtalg76VwPJ0wppJLYg==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">31528</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">132</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-01-14T17:48:50.78</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-01-14T17:49:12.763</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-01-14T17:49:16.733</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://xhtmlr.codeplex.com/</d:ProjectUrl>
+      <d:LicenseUrl>http://xhtmlr.codeplex.com/license</d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">132</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> xml xhtml htmltidy html </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/XHTMLr/1.0.0</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/XHTMLr/1.0.0</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='xmlbuilder',Version='1.0.1')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='xmlbuilder',Version='1.0.1')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='xmlbuilder',Version='1.0.1')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='xmlbuilder',Version='1.0.1')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/xmlbuilder/1.0.1" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>xmlbuilder</d:Id>
+      <d:Version>1.0.1</d:Version>
+      <d:Title>xmlbuilder</d:Title>
+      <d:Authors>Rogerio Araujo</d:Authors>
+      <d:PackageType m:null="true"></d:PackageType>
+      <d:Summary>A DSL to help on XML authoring, with this library you can create xml content with few lines of code, there's no need to use System.Xml classes, the XMLBuilder hides all complexity behind xml generation.</d:Summary>
+      <d:Description>A DSL to help on XML authoring, with this library you can create xml content with few lines of code, there's no need to use System.Xml classes, the XMLBuilder hides all complexity behind xml generation.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>DXklobavMbukP1l7HOOhkRn8hz0ifqNzZpA1t1k6b0TKSRc2cgde53ws3Xes30glPMD9Ct+NDkgLAOortQRKmg==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">7463</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">135</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-01-07T08:03:42.543</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-01-07T08:03:42.543</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-01-07T08:03:43.027</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl m:null="true"></d:ProjectUrl>
+      <d:LicenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">135</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags m:null="true"></d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/xmlbuilder/1.0.1</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List//xmlbuilder/1.0.1</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='xmlrpcnet',Version='2.5.0')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='xmlrpcnet',Version='2.5.0')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='xmlrpcnet',Version='2.5.0')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='xmlrpcnet',Version='2.5.0')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/xmlrpcnet/2.5.0" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>xmlrpcnet</d:Id>
+      <d:Version>2.5.0</d:Version>
+      <d:Title>xmlrpcnet</d:Title>
+      <d:Authors>Charles Cook</d:Authors>
+      <d:PackageType m:null="true"></d:PackageType>
+      <d:Summary>A client and server XML-RPC library for .Net.</d:Summary>
+      <d:Description>A client and server XML-RPC library for .Net.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>Fey1UJ3sJOgzwFUy+0io/OkrW0R0rrJKhg3/xX4lF5KSnA3/r0amBBNLoBjAMrzLyYPCFtQGjlW9sIdU+vQv2g==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">60624</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">200</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-01-13T08:24:14.197</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-01-13T08:24:14.197</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-01-13T08:24:14.523</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://www.xml-rpc.net/</d:ProjectUrl>
+      <d:LicenseUrl>http://www.opensource.org/licenses/mit-license.php</d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">211</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> xml-rpc xml rpc .net20 .net35 .net40 </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/xmlrpcnet/2.5.0</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List//xmlrpcnet/2.5.0</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='XsdClassGen',Version='0.1')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='XsdClassGen',Version='0.1')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='XsdClassGen',Version='0.1')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='XsdClassGen',Version='0.1')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/XsdClassGen/0.1" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>XsdClassGen</d:Id>
+      <d:Version>0.1</d:Version>
+      <d:Title>XsdClassGen</d:Title>
+      <d:Authors>Rupert Benbrook</d:Authors>
+      <d:PackageType m:null="true"></d:PackageType>
+      <d:Summary>A T4 template to generate XmlSerializer classes that represent the XML Schemas (XSD) in the project.</d:Summary>
+      <d:Description>A T4 template to generate XmlSerializer classes that represent the XML Schemas (XSD) in the project.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>fY2t2gKBL4+1M5RqvoOhtTGFAAlKtljrQSDYXJmkSSlO/inBiM68xQu+ohy7qdA3K6AXcpEC7d7K7+Rkg0m9Pw==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">5854</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">41</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-02-19T01:42:35.97</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-02-19T01:42:35.97</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-02-19T01:43:48.437</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://phazed.com/</d:ProjectUrl>
+      <d:LicenseUrl m:null="true"></d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">41</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> XSD XML XmlSerializer T4 </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/XsdClassGen/0.1</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List//XsdClassGen/0.1</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='xtricate.build',Version='0.10.10322.1330')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='xtricate.build',Version='0.10.10322.1330')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='xtricate.build',Version='0.10.10322.1330')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='xtricate.build',Version='0.10.10322.1330')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/xtricate.build/0.10.10322.1330" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>xtricate.build</d:Id>
+      <d:Version>0.10.10322.1330</d:Version>
+      <d:Title>xtricate.build</d:Title>
+      <d:Authors>vip32</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>xtricate.build is a psake build and deployment extension</d:Summary>
+      <d:Description>xtricate.build is a psake build and deployment extension</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>RHQOUK5PuwdlMH+Jh3cglKZRa+lfbX4H9JnuPfqNeRFoSe+kX7nqS2nk3upaVgsp2yVZ3cEDWUMaIM8k2di3Kg==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">1478484</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">12</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-03-22T21:10:37.813</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-03-22T21:11:30.937</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-03-22T21:11:53.39</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>https://github.com/vip32/xtricate.build</d:ProjectUrl>
+      <d:LicenseUrl m:null="true"></d:LicenseUrl>
+      <d:IconUrl>/Media/Default/Packages/xtricate.build/0.10.10322.1330/xtricate.build.nuspec.png</d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">12</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> psake powershell build deploy configuration </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/xtricate.build/0.10.10322.1330</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/xtricate.build/0.10.10322.1330</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='xunit',Version='1.7.0.1540')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='xunit',Version='1.7.0.1540')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='xunit',Version='1.7.0.1540')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='xunit',Version='1.7.0.1540')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/xunit/1.7.0.1540" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>xunit</d:Id>
+      <d:Version>1.7.0.1540</d:Version>
+      <d:Title>xUnit.net</d:Title>
+      <d:Authors>James Newkirk,  Brad Wilson</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.</d:Summary>
+      <d:Description>xUnit.net is a developer testing framework, built to support Test Driven Development, with a design goal of extreme simplicity and alignment with framework features.</d:Description>
+      <d:Copyright>Copyright (C) 2011 Microsoft Corporation</d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>2RREz4k606mZMrJw42dLzpX+o9Qe/9iM4to7wYGS92Vr0uus0Nes3pVxIcUxUAcN1WfWAqozo6V0AgGt/aaFMA==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">53903</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">726</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-01-31T02:02:54.803</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-01-31T08:53:54.617</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-01-31T08:53:57.49</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://xunit.codeplex.com/</d:ProjectUrl>
+      <d:LicenseUrl>http://xunit.codeplex.com/license</d:LicenseUrl>
+      <d:IconUrl>https://hg01.codeplex.com/xunit/raw-file/default/xunit-nuget-logo.png</d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">841</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> xunit unit testing tdd </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/xunit/1.7.0.1540</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/xunit/1.7.0.1540</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='xunit.extensions',Version='1.7.0.1540')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='xunit.extensions',Version='1.7.0.1540')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='xunit.extensions',Version='1.7.0.1540')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='xunit.extensions',Version='1.7.0.1540')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/xunit.extensions/1.7.0.1540" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>xunit.extensions</d:Id>
+      <d:Version>1.7.0.1540</d:Version>
+      <d:Title>xUnit.net: Extensions</d:Title>
+      <d:Authors>James Newkirk,  Brad Wilson</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>Extensions for the xUnit.net framework, including data theories (data-driven tests) and several extension attributes.</d:Summary>
+      <d:Description>Extensions for the xUnit.net framework, including data theories (data-driven tests) and several extension attributes.</d:Description>
+      <d:Copyright>Copyright (C) 2011 Microsoft Corporation</d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>oW+KYpfSXNXdOBurj6p6ZEo124nhuLk+zO5sRjFv36haPiKM0fwUMnupqRQCtSen6NwkYJCRJwtspYadyCE1fg==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">22141</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">305</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-01-31T02:03:40.57</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-01-31T08:54:11.413</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-01-31T08:54:13.867</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://xunit.codeplex.com/</d:ProjectUrl>
+      <d:LicenseUrl>http://xunit.codeplex.com/license</d:LicenseUrl>
+      <d:IconUrl>https://hg01.codeplex.com/xunit/raw-file/default/xunit-nuget-logo.png</d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">353</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> xunit unit testing tdd </d:Tags>
+      <d:Dependencies>xunit:1.7.0.1540</d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/xunit.extensions/1.7.0.1540</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/xunit.extensions/1.7.0.1540</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='YABOV',Version='1.4')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='YABOV',Version='1.4')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='YABOV',Version='1.4')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='YABOV',Version='1.4')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/YABOV/1.4" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>YABOV</d:Id>
+      <d:Version>1.4</d:Version>
+      <d:Title>YABOV (Yet Another Business Object Validator)</d:Title>
+      <d:Authors>James Craig</d:Authors>
+      <d:PackageType m:null="true"></d:PackageType>
+      <d:Summary>YABOV is a simple attribute based business object validator.</d:Summary>
+      <d:Description>YABOV is a simple attribute based business object validator.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>xXd/X2fxwBWQraCXZOG1FTJ3ZKRR2SVpXS4QDCoaojMKMLw5xA+VIYQ8iarTlweoYH4EYxkmkF+3RwOn9gLGZA==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">9897</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">true</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">13</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-03-19T18:54:49.317</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-03-19T18:54:49.317</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-03-19T18:54:49.743</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://yabov.codeplex.com/</d:ProjectUrl>
+      <d:LicenseUrl>http://yabov.codeplex.com/license</d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">13</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> business object validator, validation </d:Tags>
+      <d:Dependencies>CraigsUtilityLibrary-Events:2.1|CraigsUtilityLibrary-DataTypes:2.1</d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/YABOV/1.4</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List//YABOV/1.4</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='YamlSerializer',Version='1.0')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='YamlSerializer',Version='1.0')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='YamlSerializer',Version='1.0')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='YamlSerializer',Version='1.0')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/YamlSerializer/1.0" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>YamlSerializer</d:Id>
+      <d:Version>1.0</d:Version>
+      <d:Title>YamlSerializer</d:Title>
+      <d:Authors>Anthony S. Kilhoffer</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>Serializer/Deserializer for the YAML format.</d:Summary>
+      <d:Description>YamlSerializer can serialize / deserialize most of native C# objects, i.e. primitive types (bool, char, int,...), enums, built-in non-primitive types (string, decimal), structures, classes and arrays of these types.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>6bMYw9FCqUx5d7XmRw+ykOp/G18lOrdzYXK0oQrWq0zeverO2ks+d1zs5pyJK0CDc6fhDPFSk9B8gNlCVMr79Q==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">165559</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">75</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-02-04T21:15:53.48</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-02-04T21:16:26.183</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-02-04T21:16:28.853</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://yamlserializer.codeplex.com/</d:ProjectUrl>
+      <d:LicenseUrl>http://yamlserializer.codeplex.com/license</d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">75</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags m:null="true"></d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/YamlSerializer/1.0</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/YamlSerializer/1.0</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='YouTrackSharp',Version='0.9')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='YouTrackSharp',Version='0.9')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='YouTrackSharp',Version='0.9')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='YouTrackSharp',Version='0.9')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/YouTrackSharp/0.9" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>YouTrackSharp</d:Id>
+      <d:Version>0.9</d:Version>
+      <d:Title>YouTrackSharp</d:Title>
+      <d:Authors>Hadi Hariri</d:Authors>
+      <d:PackageType m:null="true"></d:PackageType>
+      <d:Summary>A .NET Client for YouTrack</d:Summary>
+      <d:Description>A .NET Client for YouTrack</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>z0+YDS3QFIDErcYPsd2PE2DT9jPuzKDO3RkMduN4nxuDniCjSmq7+hTEErWp/V2rkZvbHYYS86JUcZ3SqrieTg==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">24217</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">true</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">22</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-03-05T22:58:09.063</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-03-05T22:58:09.063</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-03-05T22:58:10.223</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>https://github.com/hhariri/YouTrackSharp</d:ProjectUrl>
+      <d:LicenseUrl>https://github.com/hhariri/YouTrackSharp/blob/master/LICENSE.TXT</d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">22</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> YouTrack </d:Tags>
+      <d:Dependencies>EasyHttp:1.0</d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/YouTrackSharp/0.9</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List//YouTrackSharp/0.9</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='YUICompressor.NET',Version='1.5.0.0')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='YUICompressor.NET',Version='1.5.0.0')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='YUICompressor.NET',Version='1.5.0.0')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='YUICompressor.NET',Version='1.5.0.0')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/YUICompressor.NET/1.5.0.0" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>YUICompressor.NET</d:Id>
+      <d:Version>1.5.0.0</d:Version>
+      <d:Title>YUICompressor .NET</d:Title>
+      <d:Authors>Pure Krome,  Justin Etheredge,  Daniel Crenna</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>Minify and/or Combine JavaScript and/or Cascading Style Sheets.</d:Summary>
+      <d:Description>This library allow you to minify and/or combine any Javascript and/or Cascading Style Sheets. It includes an MSBuild task so TFS or Web Applications (MVC or WebForms) can automate this process, per build. 
+            
+This is a direct .NET port of the original Yahoo! UI Library: YUI Compressor.</d:Description>
+      <d:Copyright>2008-2011</d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>t5cRZH5Aum1Z+hjymThfo1bLFnZcpbamt6zS9gXXsVBLpvA2Ol66X4gAsfVoQtZY3m+FbzgEB/hfNj5lfQiHgw==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">511481</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">643</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-01-13T23:07:30.42</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-02-16T22:59:15.473</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-02-16T22:59:33.787</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://yuicompressor.codeplex.com/</d:ProjectUrl>
+      <d:LicenseUrl>http://yuicompressor.codeplex.com/license/</d:LicenseUrl>
+      <d:IconUrl>http://download.codeplex.com/Project/Download/FileDownload.aspx?ProjectName=YUICompressor&amp;DownloadId=36338&amp;Build=17450/</d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">653</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> compression minification obfuscation minify combine javascript js css cascading style sheets </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/YUICompressor.NET/1.5.0.0</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/YUICompressor.NET/1.5.0.0</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='Zetetic.Chain',Version='1.0.0.0')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='Zetetic.Chain',Version='1.0.0.0')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='Zetetic.Chain',Version='1.0.0.0')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Zetetic.Chain',Version='1.0.0.0')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/Zetetic.Chain/1.0.0.0" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>Zetetic.Chain</d:Id>
+      <d:Version>1.0.0.0</d:Version>
+      <d:Title>Zetetic.Chain</d:Title>
+      <d:Authors>Zetetic LLC</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>Chain of Responsibility API, similar to Apache Chain</d:Summary>
+      <d:Description>Chain of Responsibility API, similar to Apache Chain; includes Spring .NET core and Common.Logging (until Spring itself is added to NuGet)</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>19ufLb7kfQo+xVXKj6dIeqMNKZ6QVaU4Ovv7qEWEg+QiITMZ8lYLf+S46x7h6NWQk+OT2+CqaUfDRGmREG2Sww==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">363543</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">11</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-03-25T21:10:44.61</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-03-25T21:11:36.11</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-03-25T21:11:43.423</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://zetetic.net/code/zetetic-chain</d:ProjectUrl>
+      <d:LicenseUrl>https://github.com/skradel/Zetetic.Chain/blob/master/LICENSE</d:LicenseUrl>
+      <d:IconUrl>http://zetetic.net/images/zetetic-100x100.png</d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">11</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> chain responsibility spring zetetic </d:Tags>
+      <d:Dependencies>NLog:1.0.0.505</d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/Zetetic.Chain/1.0.0.0</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/Zetetic.Chain/1.0.0.0</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='Zetetic.Ldap',Version='1.0.0.0')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='Zetetic.Ldap',Version='1.0.0.0')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='Zetetic.Ldap',Version='1.0.0.0')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='Zetetic.Ldap',Version='1.0.0.0')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/Zetetic.Ldap/1.0.0.0" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>Zetetic.Ldap</d:Id>
+      <d:Version>1.0.0.0</d:Version>
+      <d:Title>Zetetic.Ldap</d:Title>
+      <d:Authors>Zetetic LLC</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>LDIF, LDAP schema, LDAP runtime, and LDAP Entry tools</d:Summary>
+      <d:Description>LDIF, LDAP schema, LDAP runtime, and LDAP Entry tools</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>mCNchYOFqMfmKywPhirAhxghJ+AqwTCfVlASuC1hChXzHlmIe+Zg/minxInogtwiT/YeYk9GMfFC1VQl2n8R9Q==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">32754</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">11</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-03-25T19:56:28.153</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-03-25T20:12:27.663</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-03-25T20:12:33.6</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://zetetic.net/code/zetetic-ldap</d:ProjectUrl>
+      <d:LicenseUrl>https://github.com/skradel/Zetetic.Ldap/blob/master/LICENSE</d:LicenseUrl>
+      <d:IconUrl>http://zetetic.net/images/zetetic-100x100.png</d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">11</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> ldap adsi active directory schema ldif s.ds.p zetetic </d:Tags>
+      <d:Dependencies>NLog:1.0.0.505</d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/Zetetic.Ldap/1.0.0.0</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/Zetetic.Ldap/1.0.0.0</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='zlib.net',Version='1.0.3.0')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T05:41:15Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='zlib.net',Version='1.0.3.0')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='zlib.net',Version='1.0.3.0')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='zlib.net',Version='1.0.3.0')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/zlib.net/1.0.3.0" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>zlib.net</d:Id>
+      <d:Version>1.0.3.0</d:Version>
+      <d:Title>zlib.net</d:Title>
+      <d:Authors>Jean-loup Gailly,  Mark Adler,  ComponentAce</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>Managed zlib-compatible library providing deflate and inflate compression algorithms.</d:Summary>
+      <d:Description>ZLIB.NET is a 100% managed version of ZLIB compression library which implements deflate and inflate compression algorithms (zlib format).</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>LvG2IMi1sSsVK+AE/f2yiYh17tEIYWL3dNLuXXUJycAeAr8lrzm5Iuna34kP+NaZXFBBn6etHc2rgH1xQCc6YQ==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">30930</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">97</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-02-18T17:56:18.523</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-02-18T17:56:28.65</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-02-18T17:56:31.633</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://www.componentace.com/zlib_.NET.htm</d:ProjectUrl>
+      <d:LicenseUrl>http://www.componentace.com/data/ZLIB_.NET/license.txt</d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">97</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> zip zlib deflate </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/zlib.net/1.0.3.0</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/zlib.net/1.0.3.0</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+</feed>
