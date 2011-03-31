@@ -12,12 +12,8 @@ namespace MooGet.Specs.Core {
 	[TestFixture]
 	public class NuGetODataPackageSpec : Spec {
 
-		string SavedResponseDir = "../../lib/EasyOData/spec/saved-responses/NuGet";
-		string NuGetServiceRoot = "http://packages.nuget.org/v1/FeedService.svc/";
-
 		Service service;
 
-		// Taken from EasyOData
 		[SetUp]
 		public void Before() {
 			base.BeforeEach();
@@ -33,24 +29,13 @@ namespace MooGet.Specs.Core {
 			FakeResponse(NuGetServiceRoot + "Packages?$skiptoken='MvcContrib.WatiN','2.0.96.0'", "Packages_page_4.xml");
 			FakeResponse(NuGetServiceRoot + "Packages?$skiptoken='postal','0.2.0'",              "Packages_page_5.xml");
 			FakeResponse(NuGetServiceRoot + "Packages?$skiptoken='StructureMap-MVC3','1.0.2'",   "Packages_page_6.xml");
+
 			service = new Service(NuGetServiceRoot);
-
-			Requestor.Global.AllowRealRequests = false;
-
-			// Requestor.Global.Verbose = true;
-		}
-
-		void FakeResponse(string getUrl, string savedResponse) {
-			var filePath = Path.Combine(SavedResponseDir, savedResponse);
-			if (! File.Exists(filePath))
-				throw new Exception(string.Format("Couldn't find saved response: {0}", filePath));
-			
-			Requestor.Global.FakeResponse("GET", getUrl, Response.FromHttpResponse(File.ReadAllText(filePath)));
 		}
 
 		[Test]
 		public void can_initialize_a_nuget_odata_package_with_an_entity() {
-			var entity  = service.Collections["Packages"].First;
+			var entity  = service["Packages"].First;
 			var package = new NuGetODataPackage(entity);
 
 			package.ShouldHaveProperties(new {
@@ -77,7 +62,7 @@ namespace MooGet.Specs.Core {
 
 		[Test]
 		public void parses_dependencies() {
-			var entity  = service.Collections["Packages"].All.FirstOrDefault(e => e["Id"].ToString() == "combres");
+			var entity  = service["Packages"].All.FirstOrDefault(e => e["Id"].ToString() == "combres");
 			var package = new NuGetODataPackage(entity);
 
 			package.Details.Dependencies.Count.ShouldEqual(4);
@@ -88,7 +73,7 @@ namespace MooGet.Specs.Core {
 
 		[Test]
 		public void parses_tags() {
-			var entity  = service.Collections["Packages"].All.FirstOrDefault(e => e["Id"].ToString() == "combres");
+			var entity  = service["Packages"].All.FirstOrDefault(e => e["Id"].ToString() == "combres");
 			var package = new NuGetODataPackage(entity);
 
 			package.Details.Tags.ToStrings().ShouldEqual(new List<string>{
@@ -98,7 +83,7 @@ namespace MooGet.Specs.Core {
 
 		[Test]
 		public void can_get_the_download_url() {
-			var entity  = service.Collections["Packages"].All.FirstOrDefault(e => e["Id"].ToString() == "combres");
+			var entity  = service["Packages"].All.FirstOrDefault(e => e["Id"].ToString() == "combres");
 			var package = new NuGetODataPackage(entity);
 
 			package.DownloadUrl.ShouldEqual("http://packages.nuget.org/v1/Package/Download/combres/2.2.1.2");
@@ -106,7 +91,7 @@ namespace MooGet.Specs.Core {
 
 		[Test]
 		public void can_get_arbitrary_metadata() {
-			var entity  = service.Collections["Packages"].All.FirstOrDefault(e => e["Id"].ToString() == "combres");
+			var entity  = service["Packages"].All.FirstOrDefault(e => e["Id"].ToString() == "combres");
 			var package = new NuGetODataPackage(entity);
 
 			package.Prop("PackageHash").ShouldEqual("37uLwItEgRY0uKNkziRcgydgLBJ8ubjke09KQWEZ2O7gtUj7PaRIIMwbywRsA+k/5jtjH9sLRkajO9vDW7XU6A==");

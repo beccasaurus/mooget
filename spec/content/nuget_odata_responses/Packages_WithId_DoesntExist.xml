@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Cache-Control: no-cache
+Content-Length: 545
+Content-Type: application/atom+xml;charset=utf-8
+Server: Microsoft-IIS/7.0
+DataServiceVersion: 2.0;
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Thu, 31 Mar 2011 04:45:36 GMT
+
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<feed xml:base="http://packages.nuget.org/v1/FeedService.svc/" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">Packages</title>
+  <id>http://packages.nuget.org/v1/FeedService.svc/Packages</id>
+  <updated>2011-03-31T04:45:37Z</updated>
+  <author>
+    <name />
+  </author>
+  <link rel="self" title="Packages" href="Packages" />
+</feed>

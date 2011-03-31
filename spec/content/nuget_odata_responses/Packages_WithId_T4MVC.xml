@@ -1,0 +1,393 @@
+HTTP/1.1 200 OK
+Cache-Control: no-cache
+Content-Length: 26292
+Content-Type: application/atom+xml;charset=utf-8
+Server: Microsoft-IIS/7.0
+DataServiceVersion: 2.0;
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Thu, 31 Mar 2011 04:34:50 GMT
+
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<feed xml:base="http://packages.nuget.org/v1/FeedService.svc/" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">Packages</title>
+  <id>http://packages.nuget.org/v1/FeedService.svc/Packages</id>
+  <updated>2011-03-31T04:34:51Z</updated>
+  <link rel="self" title="Packages" href="Packages" />
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='T4MVC',Version='2.6.30')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T04:34:51Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.30')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.30')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='T4MVC',Version='2.6.30')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/T4MVC/2.6.30" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>T4MVC</d:Id>
+      <d:Version>2.6.30</d:Version>
+      <d:Title>T4MVC</d:Title>
+      <d:Authors>David Ebbo</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Summary>
+      <d:Description>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>q4QKpe8eu/FKYhIpwCu2uZruBd19I1kQ7sK/9RGwC6MablfpxuLB3G7UgYvbRHq+lBNnky7lWRedWDkB5SOHug==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">20532</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">false</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">57</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-01-09T08:20:28.543</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-02-04T01:07:26.01</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-02-04T01:07:28.057</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://mvccontrib.codeplex.com/wikipage?title=T4MVC</d:ProjectUrl>
+      <d:LicenseUrl m:null="true"></d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">1526</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> t4 mvc </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/T4MVC/2.6.30</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/T4MVC/2.6.30</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='T4MVC',Version='2.6.31')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T04:34:51Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.31')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.31')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='T4MVC',Version='2.6.31')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/T4MVC/2.6.31" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>T4MVC</d:Id>
+      <d:Version>2.6.31</d:Version>
+      <d:Title>T4MVC</d:Title>
+      <d:Authors>David Ebbo</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Summary>
+      <d:Description>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>GlXXPVcgTHWw4OVDiu+bA65V3JkQxGXmib2SY9Kmc6rsZuvh6isJwcIbgwMuy8b/8VN5tjZBHFjlOtPWncgyaw==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">20662</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">false</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">34</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-01-07T09:05:34.793</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-01-07T09:05:38.197</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-01-07T09:05:40.027</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://mvccontrib.codeplex.com/wikipage?title=T4MVC</d:ProjectUrl>
+      <d:LicenseUrl m:null="true"></d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">1526</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> t4 mvc </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/T4MVC/2.6.31</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/T4MVC/2.6.31</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='T4MVC',Version='2.6.32')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T04:34:51Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.32')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.32')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='T4MVC',Version='2.6.32')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/T4MVC/2.6.32" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>T4MVC</d:Id>
+      <d:Version>2.6.32</d:Version>
+      <d:Title>T4MVC</d:Title>
+      <d:Authors>David Ebbo</d:Authors>
+      <d:PackageType m:null="true"></d:PackageType>
+      <d:Summary>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Summary>
+      <d:Description>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>JBaWN0j5gX69L6q0kmCpukYjWmaovjlMD1yNElMwoo+8/AxP8TLYmH19HwrTB+CqQ3Qlz1BbBCxiomS8Yer1lg==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">20685</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">false</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">34</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-01-07T08:02:32.887</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-01-07T08:02:32.887</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-01-07T08:02:33.387</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://mvccontrib.codeplex.com/wikipage?title=T4MVC</d:ProjectUrl>
+      <d:LicenseUrl m:null="true"></d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">1526</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> t4 mvc </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/T4MVC/2.6.32</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List//T4MVC/2.6.32</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='T4MVC',Version='2.6.40')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T04:34:51Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.40')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.40')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='T4MVC',Version='2.6.40')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/T4MVC/2.6.40" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>T4MVC</d:Id>
+      <d:Version>2.6.40</d:Version>
+      <d:Title>T4MVC</d:Title>
+      <d:Authors>David Ebbo</d:Authors>
+      <d:PackageType m:null="true"></d:PackageType>
+      <d:Summary>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Summary>
+      <d:Description>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>QV67h6/FmFBCcMCjL4YUsSLf213OAcJ1X8MYPKTxf5R0PNTnjCEwRv9kPGT3tGoX++9wKWwFFYuIFa7Kx3Fjvw==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">20774</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">false</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">143</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-01-07T08:02:34.323</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-01-07T08:02:34.323</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-01-07T08:02:34.807</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://mvccontrib.codeplex.com/wikipage?title=T4MVC</d:ProjectUrl>
+      <d:LicenseUrl m:null="true"></d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">1526</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> t4 mvc </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/T4MVC/2.6.40</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List//T4MVC/2.6.40</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='T4MVC',Version='2.6.41')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T04:34:51Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.41')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.41')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='T4MVC',Version='2.6.41')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/T4MVC/2.6.41" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>T4MVC</d:Id>
+      <d:Version>2.6.41</d:Version>
+      <d:Title>T4MVC</d:Title>
+      <d:Authors>David Ebbo</d:Authors>
+      <d:PackageType>Packages</d:PackageType>
+      <d:Summary>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Summary>
+      <d:Description>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>kF1cXXANFxXiADN5TMGWdGprVAuN6FjZsKxZU0K0WIerdAUS0D6+z6JjNi7Bn3kMyLRbZSSZUbI3rBK51ZKcBw==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">20833</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">false</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">236</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-01-18T02:20:16.637</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-01-18T02:20:21.06</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-01-18T02:20:23.747</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://mvccontrib.codeplex.com/wikipage?title=T4MVC</d:ProjectUrl>
+      <d:LicenseUrl m:null="true"></d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">1526</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> t4 mvc </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/T4MVC/2.6.41</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List/Packages/T4MVC/2.6.41</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='T4MVC',Version='2.6.42')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T04:34:51Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.42')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.42')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='T4MVC',Version='2.6.42')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/T4MVC/2.6.42" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>T4MVC</d:Id>
+      <d:Version>2.6.42</d:Version>
+      <d:Title>T4MVC</d:Title>
+      <d:Authors>David Ebbo</d:Authors>
+      <d:PackageType m:null="true"></d:PackageType>
+      <d:Summary>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Summary>
+      <d:Description>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>VsXHpLHaNM94Ukvqcay84hDnekb3XfI8l/9mEa69qTGpgCmqFUNZRRe/yLmUGJBTyqU092b6VH+IuC/LxPocuw==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">20955</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">false</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">431</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-02-02T02:32:30.827</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-02-02T02:32:30.827</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-02-02T02:32:31.623</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://mvccontrib.codeplex.com/wikipage?title=T4MVC</d:ProjectUrl>
+      <d:LicenseUrl m:null="true"></d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">1526</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> t4 mvc </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/T4MVC/2.6.42</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List//T4MVC/2.6.42</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='T4MVC',Version='2.6.43')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T04:34:51Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.43')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.43')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='T4MVC',Version='2.6.43')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/T4MVC/2.6.43" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>T4MVC</d:Id>
+      <d:Version>2.6.43</d:Version>
+      <d:Title>T4MVC</d:Title>
+      <d:Authors>David Ebbo</d:Authors>
+      <d:PackageType m:null="true"></d:PackageType>
+      <d:Summary>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Summary>
+      <d:Description>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>SjS1OnGoyhqR34o9pRvnaxv30zt20z02HB5mC2KtmdX6ngwIw6fhpBo7+AEwzjo8zQ1cA9n1BV3KAJCmPRmkUA==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">20965</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">false</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">226</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-02-25T01:55:06.09</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-02-25T01:55:06.09</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-02-25T01:55:06.62</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://mvccontrib.codeplex.com/wikipage?title=T4MVC</d:ProjectUrl>
+      <d:LicenseUrl m:null="true"></d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">1526</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> t4 mvc </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/T4MVC/2.6.43</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List//T4MVC/2.6.43</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+  <entry>
+    <id>http://packages.nuget.org/v1/FeedService.svc/Packages(Id='T4MVC',Version='2.6.44')</id>
+    <title type="text"></title>
+    <updated>2011-03-31T04:34:51Z</updated>
+    <author>
+      <name />
+    </author>
+    <link rel="edit-media" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.44')/$value" />
+    <link rel="edit" title="PublishedPackage" href="Packages(Id='T4MVC',Version='2.6.44')" />
+    <link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Screenshots" type="application/atom+xml;type=feed" title="Screenshots" href="Packages(Id='T4MVC',Version='2.6.44')/Screenshots" />
+    <category term="Gallery.Infrastructure.FeedModels.PublishedPackage" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
+    <content type="application/zip" src="http://packages.nuget.org/v1/Package/Download/T4MVC/2.6.44" />
+    <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+      <d:Id>T4MVC</d:Id>
+      <d:Version>2.6.44</d:Version>
+      <d:Title>T4MVC</d:Title>
+      <d:Authors>David Ebbo</d:Authors>
+      <d:PackageType m:null="true"></d:PackageType>
+      <d:Summary>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Summary>
+      <d:Description>T4MVC is a T4 template that generates strongly typed helpers for ASP.NET MVC.</d:Description>
+      <d:Copyright m:null="true"></d:Copyright>
+      <d:PackageHashAlgorithm>SHA512</d:PackageHashAlgorithm>
+      <d:PackageHash>2reWRHDoD7ZZawxPqFPPP7NOJ7ERbvu8S3W5z+hL0sCNSqX19P+CCOBVUT3nSKeXbqGSSipzOS/+UAwzQuwMDA==</d:PackageHash>
+      <d:PackageSize m:type="Edm.Int64">20988</d:PackageSize>
+      <d:Price m:type="Edm.Decimal">0</d:Price>
+      <d:RequireLicenseAcceptance m:type="Edm.Boolean">false</d:RequireLicenseAcceptance>
+      <d:IsLatestVersion m:type="Edm.Boolean">true</d:IsLatestVersion>
+      <d:VersionRating m:type="Edm.Double">0</d:VersionRating>
+      <d:VersionRatingsCount m:type="Edm.Int32">0</d:VersionRatingsCount>
+      <d:VersionDownloadCount m:type="Edm.Int32">356</d:VersionDownloadCount>
+      <d:Created m:type="Edm.DateTime">2011-03-10T21:35:27.55</d:Created>
+      <d:LastUpdated m:type="Edm.DateTime">2011-03-10T21:35:27.55</d:LastUpdated>
+      <d:Published m:type="Edm.DateTime">2011-03-10T21:35:28.097</d:Published>
+      <d:ExternalPackageUrl m:null="true"></d:ExternalPackageUrl>
+      <d:ProjectUrl>http://mvccontrib.codeplex.com/wikipage?title=T4MVC</d:ProjectUrl>
+      <d:LicenseUrl m:null="true"></d:LicenseUrl>
+      <d:IconUrl m:null="true"></d:IconUrl>
+      <d:Rating m:type="Edm.Double">0</d:Rating>
+      <d:RatingsCount m:type="Edm.Int32">0</d:RatingsCount>
+      <d:DownloadCount m:type="Edm.Int32">1526</d:DownloadCount>
+      <d:Categories m:null="true"></d:Categories>
+      <d:Tags xml:space="preserve"> t4 mvc </d:Tags>
+      <d:Dependencies></d:Dependencies>
+      <d:ReportAbuseUrl>http://nuget.org/Package/ReportAbuse/T4MVC/2.6.44</d:ReportAbuseUrl>
+      <d:GalleryDetailsUrl>http://nuget.org/List//T4MVC/2.6.44</d:GalleryDetailsUrl>
+    </m:properties>
+  </entry>
+</feed>

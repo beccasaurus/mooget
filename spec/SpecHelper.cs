@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Requestoring;
 
 namespace MooGet.Specs {
 
@@ -35,6 +36,9 @@ namespace MooGet.Specs {
 		public void BeforeEach() {
 			ResetTempDirectory();
 			ResetMooWorkingDirectory();
+			Requestor.Global.FakeResponses.Clear();
+			Requestor.Global.AllowRealRequests = false;
+			Requestor.Global.Verbose           = false;
 		}
 
 		[TearDown]
@@ -164,5 +168,16 @@ namespace MooGet.Specs {
 			return MooGet.Util.ReadFile(PathToTemp(filename));
 		}
 		#endregion
+
+		public string NuGetServiceRoot = "http://packages.nuget.org/v1/FeedService.svc/";
+
+		/// <summary>Tells Requestor to fake the given response (in spec/content/nuget_odata_responses)</summary>
+		public void FakeResponse(string getUrl, string savedResponse) {
+			var filePath = PathToContent("nuget_odata_responses", savedResponse);
+			if (! File.Exists(filePath))
+				throw new Exception(string.Format("Couldn't find saved response: {0}", filePath));
+			
+			Requestor.Global.FakeResponse("GET", getUrl, Response.FromHttpResponse(File.ReadAllText(filePath)));
+		}
 	}
 }
