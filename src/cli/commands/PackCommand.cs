@@ -92,11 +92,16 @@ namespace MooGet.Commands {
 				package.CreateRelationship(nuspecUri, TargetMode.Internal, someCrappyNamespace, RandomXsdId);
 
 				// If there's a relationship with an (invalid) ID of 0, delete it and create it with a unique ID
-				var invalid = package.GetRelationship("0");
-				if (invalid != null) {
-					package.DeleteRelationship("0");
-					package.CreateRelationship(invalid.TargetUri, invalid.TargetMode, invalid.RelationshipType, RandomXsdId);
-				}
+                try {
+				    var invalid = package.GetRelationship("0");
+				    if (invalid != null) {
+					    package.DeleteRelationship("0");
+					    package.CreateRelationship(invalid.TargetUri, invalid.TargetMode, invalid.RelationshipType, RandomXsdId);
+				    }
+                } catch (Exception ex) {
+                    if (! ex.Message.Contains("'0' ID is not a valid XSD ID")) // this is a safe exception to swallow
+                        throw ex;
+                }
 			}
 
 			return response;

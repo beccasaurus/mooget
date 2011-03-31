@@ -122,13 +122,18 @@ namespace MooGet {
 		public static List<IFile> Search(this IDirectory dir, string matcher, bool ignoreCase) {
 			// We have to initially substitude ** out for something besides a single * because then we replace single *'s.
 			matcher   = "^" + matcher.Replace("\\", "/").Replace(".", "\\.").Replace("**", ".REAL_REGEX_STAR").Replace("*", @"[^\/]+").Replace("REAL_REGEX_STAR", "*") + "$";
-			var regex = ignoreCase ? new Regex(matcher, RegexOptions.IgnoreCase) : new Regex(matcher);
+            var regex = ignoreCase ? new Regex(matcher, RegexOptions.IgnoreCase) : new Regex(matcher);
 			return dir.Search(regex);
 		}
 
 		public static List<IFile> Search(this IDirectory dir, Regex regex) {
 			return dir.Files().Where(file => {
 				var relative = file.Path.Replace(dir.Path, "").TrimStart('\\').TrimStart('/');
+
+                // Windows support
+                if (System.IO.Path.DirectorySeparatorChar == '\\')
+                    relative = relative.Replace("\\", "/");
+
 				return regex.IsMatch(relative);
 			}).ToList();
 		}

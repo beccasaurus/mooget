@@ -81,7 +81,7 @@ namespace MooGet {
 		/// <summary>Adds a new item to this zip file, given the provided content and mime type</summary>
 		public virtual void AddNew(string path, byte[] content, string mimeType) {
 			using (var package = ZipPackage.Open(Path, FileMode.OpenOrCreate, FileAccess.ReadWrite)) {
-				var uri  = new Uri("/" + path.TrimStart('/'), UriKind.Relative);
+				var uri  = new Uri("/" + path.TrimStart(@"\/".ToCharArray()), UriKind.Relative);
 				var part = package.CreatePart(uri, mimeType, CompressionOption.Maximum);
 				part.GetStream().Write(content, 0, content.Length);
 			}
