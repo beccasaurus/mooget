@@ -10,6 +10,12 @@
 MooGet
 ======
 
+*HERE BE DRAGONS*
+
+No documentation yet!  Please be patient.
+
+Please wait for my upcoming MooGet screencast ... I'll be adding lots of documentation!
+
 Installation
 ------------
 
