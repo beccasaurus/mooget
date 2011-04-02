@@ -10,7 +10,7 @@
 MooGet
 ======
 
-*HERE BE DRAGONS*
+**HERE BE DRAGONS**
 
 No documentation yet!  Please be patient.
 
