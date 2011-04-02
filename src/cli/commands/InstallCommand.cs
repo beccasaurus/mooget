@@ -61,7 +61,7 @@ namespace MooGet.Commands {
 				else
 					return string.Format("{0} could not be installed\n", dependency);
 			} catch (MooGet.PackageNotFoundException ex) {
-				return ex.Message; // Package not found: X
+				return ex.Message + "\n"; // Package not found: X
 			}
 		}
 	}
