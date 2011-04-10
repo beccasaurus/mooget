@@ -1,1 +1,10 @@
-Usage: moo show
+Usage: moo show [libraries] Package ['Package 1.0'] [AnotherPackage...]
+
+  Options:
+    -s, --source               Include packages from this source
+    -l, --local                Search locally installed packages (default)
+        --relative             When displaying paths, show them relative to source
+    -m, --moodir               When displaying paths, use $(MOO_DIR) [for MSbuild]
+    -e, --env [NAME]           When displaying paths, use $(NAME) [for MSbuild]
+    -f, --framework [NET20]    Show libraries for the given framework (and global)
+
