@@ -101,12 +101,13 @@ namespace MooGet.Specs {
 			if (OutputMooCommands)
 				Console.WriteLine("{0} {1}", process.StartInfo.FileName, process.StartInfo.Arguments);
 
-            process.StartInfo.UseShellExecute              = false;
-            process.StartInfo.RedirectStandardOutput       = true;
-            process.StartInfo.CreateNoWindow               = true;
-            process.StartInfo.WorkingDirectory             = MooWorkingDirectory;
-			process.StartInfo.EnvironmentVariables["HOME"] = PathToTemp("home"); // fake the home directory
-			process.StartInfo.EnvironmentVariables["TMP"]  = PathToTemp("tmp");  // fake the tmp directory
+            process.StartInfo.UseShellExecute                 = false;
+            process.StartInfo.RedirectStandardOutput          = true;
+            process.StartInfo.CreateNoWindow                  = true;
+            process.StartInfo.WorkingDirectory                = MooWorkingDirectory;
+			process.StartInfo.EnvironmentVariables["HOME"]    = PathToTemp("home"); // fake the home directory
+			process.StartInfo.EnvironmentVariables["TMP"]     = PathToTemp("tmp");  // fake the tmp directory
+			process.StartInfo.EnvironmentVariables["MOO_DIR"] = null;               // ignore out system's MOO_DIR!
             process.Start();
             string stdout = process.StandardOutput.ReadToEnd();
             process.WaitForExit();

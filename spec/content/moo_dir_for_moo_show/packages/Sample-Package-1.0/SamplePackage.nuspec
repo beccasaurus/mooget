@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>Sample-Package</id>
+    <version>1.0</version>
+    <authors>remi</authors>
+    <description>Just a sample</description>
+  </metadata>
+  <files>
+    <file src="README" />
+    <file src="src\**" target="src" />
+    <file src="bin\Debug\*.dll" target="lib" />
+    <file src="bin\Debug\*" target="tools" />
+    <file src="templates\**" target="content" />
+  </files>
+</package>

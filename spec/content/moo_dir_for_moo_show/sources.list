@@ -1,0 +1,10 @@
+# MooGet source list
+#
+# # example with name:
+# Name of Source	http://foobar.com
+#			
+# # example without name:
+# http://hi.there/
+#
+/home/remi/Desktop/packages
+nuget http://packages.nuget.org/v1/FeedService.svc/

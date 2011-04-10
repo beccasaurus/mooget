@@ -68,7 +68,7 @@ namespace MooGet {
 		}
 
 		public static string Relative(this IDirectory dir, string fullPath) {
-			return fullPath.Replace(dir.Path, "");
+			return fullPath.Replace(dir.Path, "").TrimStart(@"\/".ToCharArray());
 		}
 
 		public static IDirectory CopyToExactPath(this IDirectory dir, string exactPath) {

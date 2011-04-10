@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>obj/Release/Requestor</name>
+    </assembly>
+    <members>
+        <member name="T:Requestoring.HttpRequestor">
+            <summary>
+                <c>IRequestor</c> implementation that uses real HTTP via <c>System.Net.HttpWebRequest</c></summary>
+            <remarks>
+            Currently, this is the default (only) built-in <c>IRequestor</c> implementation
+            This is ideal for testing web APIs that you don't have access to the code for.
+            Currently, there's no easy way to do full-stack ASP.NET testing without going over
+            HTTP, so this is great for that.  Eventually, we hope to have a WSGI/Rack-like interface
+            created that ASP.NET can run on top off, and we can make an <c>IRequestor</c> using that.
+            </remarks>
+        </member>
+        <member name="T:Requestoring.IRequestor">
+            <summary> /// All Requestors must implement this simple, single method interface /// </summary>
+        </member>
+        <member name="T:Requestoring.IHaveCookies">
+            <summary>Any Requestor that supports Cookies needs to implement this.</summary>
+        </member>
+        <member name="T:Requestoring.Requestor">
+            <summary>
+                <c>Requestor</c> has the main API for making requests.  Uses a <c>IRequestor</c> implementation behind the scenes.
+            </summary>
+        </member>
+        <member name="M:Requestoring.Requestor.Request(System.String,System.String,Requestoring.Requestor.RequestInfo)">
+            <summary>This is THE Request methd that all other ones use.  It will process fake and real requests.</summary>
+        </member>
+        <member name="T:Requestoring.IResponse">
+            <summary>
+            Represents a simple HTTP response
+            </summary>
+            <remarks>
+            Nearly all of the <c>Requestor</c> and <c>IRequestor</c> methods return an <c>IResponse</c></remarks>
+        </member>
+        <member name="T:Requestoring.Response">
+            <summary>
+            Default, simple implementation of <c>IResponse</c></summary>
+            <remarks>
+            If you want to return an IResponse, this is likely what you want to use.
+            The reason we have IResponse is to allow you to do something like wrap a complex
+            Response object with your own IResponse implementation.  It's not always convenient
+            to return a dumb struct-like object, such as this.
+            This has sane defaults.
+            </remarks>
+        </member>
+        <member name="T:Requestoring.Vars">
+            <summary>
+            Short alias to ...
+            </summary>
+            <remarks>
+            Allows us to write <c>new Vars { {"Key","Value"}, {"Key2","Value2"} }</c>.
+            It's not pretty but it's WAY better than having to write ...
+            </remarks>
+        </member>
+    </members>
+</doc>

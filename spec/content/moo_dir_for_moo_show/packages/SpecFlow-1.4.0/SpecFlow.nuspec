@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>SpecFlow</id>
+    <version>1.4.0</version>
+    <authors>Gáspár Nagy,Attila Sztupák,Christoph Seufert,Christian Hassa,Jonas Bandi</authors>
+    <owners>Gáspár Nagy,Attila Sztupák,Christoph Seufert,Christian Hassa,Jonas Bandi</owners>
+    <licenseUrl>http://specflow.org/about/license.aspx</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>SpecFlow aims at bridging the communication gap between domain experts and developers by binding business readable behavior specifications to the underlying implementation. Our mission is to provide a pragmatic and frictionless approach to Acceptance Test Driven Development and Behavior Driven Development for .NET projects today.</description>
+    <summary>SpecFlow aims at bridging the communication gap between domain experts and developers by binding business readable behavior specifications to the underlying implementation. Our mission is to provide a pragmatic and frictionless approach to Acceptance Test Driven Development and Behavior Driven Development for .NET projects today.</summary>
+    <language>en-US</language>
+  </metadata>
+</package>

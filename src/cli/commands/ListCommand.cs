@@ -60,6 +60,11 @@ namespace MooGet.Commands {
 			get {
 				var sources = new List<ISource>();
 
+				// ADD THIS FIRST! we don't want to query remote sources if we don't have to ...
+				// -l --local
+				if (QueryLocal == true)
+					sources.Add(Moo.Dir);
+
 				// -s --source
 				if (Source != null) {
 					var src = MooGet.Source.GetSource(Source);
@@ -67,10 +72,6 @@ namespace MooGet.Commands {
 						throw new HandledException("Source not found: {0}", Source);
 					sources.Add(src);
 				}
-
-				// -l --local
-				if (QueryLocal == true)
-					sources.Add(Moo.Dir);
 
 				return sources;
 			}

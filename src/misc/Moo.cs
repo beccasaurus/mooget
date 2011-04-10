@@ -24,7 +24,11 @@ namespace MooGet {
 		/// <summary>Moo.Dir gets the MooDir instance where all packages are installed to</summary>
 		public static MooDir Dir {
 			get {
-				if (_dir == null) _dir = new MooDir(Path.Combine(Util.HomeDirectory, ".moo"));
+				if (_dir == null) {
+					// TODO add tests for this!
+					var path = Environment.GetEnvironmentVariable("MOO_DIR") ?? Path.Combine(Util.HomeDirectory, ".moo");
+					_dir = new MooDir(path);
+				}
 				return _dir;
 			}
 		}
