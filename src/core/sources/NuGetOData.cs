@@ -78,7 +78,7 @@ namespace MooGet {
 		}
 
 		public virtual List<IPackage> GetPackagesMatchingDependencies(params PackageDependency[] dependencies) {
-			Requestoring.Requestor.Global.Verbose = true;
+			// Requestoring.Requestor.Global.Verbose = true;
 			var id       = dependencies.First().PackageId;
 			var packages = GetPackagesWithId(id);
 			return packages.Where(pkg => PackageDependency.MatchesAll(pkg, dependencies)).ToList();
