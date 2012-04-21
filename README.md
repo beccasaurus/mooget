@@ -12,24 +12,13 @@ MooGet
 
 **HERE BE DRAGONS**
 
-No documentation yet!  Please be patient.
+This was a side-project I was playing around with to experiment with:
 
-Please wait for my upcoming MooGet screencast ... I'll be adding lots of documentation!
+ - Some crazy C# patterns
+ - Creating a package management system (and test-driving it)
+ - Assorted evil
 
-Installation
-------------
-
-Usage
------
-
-Hosting Repositories
---------------------
-
-Extending
----------
-
-Contibuting
------------
+One day, I *would* like to see an open-source, *truly* cross-platform implementation of NuGet with globally/locally installable packages and **NO IDE REQUIRED.**  I don't know if we'll ever see it but who knows?
 
 ### Directory Layout
 
